@@ -1,0 +1,8 @@
+# Book settings
+title: Flatland-RL
+author: Flatland-RL Contributors
+logo: logo.png
+
+latex:
+  latex_documents:
+    targetname: book.tex
