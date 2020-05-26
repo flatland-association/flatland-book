@@ -1,7 +1,7 @@
 # Book settings
 title: Flatland-RL
-author: Flatland-RL Contributors
-logo: logo.png
+author: The Flatland-RL Community
+logo: assets/images/flatland-logo.svg
 
 latex:
   latex_documents:
