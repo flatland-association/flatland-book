@@ -1,6 +1,28 @@
-file: intro
-sections:
-- file: syntax
-- file: content
-- file: notebooks
-- file: README
+- file: intro
+
+- header: Getting started
+- file: flatland-env
+  sections:
+      - file: env-doc/rail-env
+- file: flatland-rl
+  sections:
+      - file: rl-doc/single-agent
+      - file: rl-doc/multi-agent
+
+- header: Research
+- file: baselines
+  sections:
+      - file: baselines/single-agent
+      - file: baselines/imitation-learning
+- file: research-ideas
+
+- header: FAQ
+- file: faq-env
+- file: faq-competition
+- file: faq-research
+
+- header: Misc
+- file: api
+- file: contributing
+- file: credits
+- file: faq

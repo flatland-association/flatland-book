@@ -1,201 +1,100 @@
-Introduction
-============
+Welcome to Flatland
+===
 
-![Test Running](https://gitlab.aicrowd.com/flatland/flatland/badges/master/pipeline.svg)![Test Coverage](https://gitlab.aicrowd.com/flatland/flatland/badges/master/coverage.svg "asdff")
+Flatland is an open-source toolkit for developing and comparing Multi Agent Reinforcement Learning algorithms in little (or ridiculously large!) gridworlds.
 
+[![arxiv](http://img.shields.io/badge/cs.LG-arXiv%3A1809.00510-B31B1B.svg)](https://gitlab.aicrowd.com/flatland/flatland)
+[![repository](https://img.shields.io/static/v1?label=aicrowd.gitlab.com&message=flatland/flatland&color=%3CCOLOR%3E&logo=gitlab)](https://gitlab.aicrowd.com/flatland/flatland)
 
-![Flatland](https://i.imgur.com/0rnbSLY.gif)
-
-## About Flatland
-
-Flatland is a opensource toolkit for developing and comparing Multi Agent Reinforcement Learning algorithms in little (or ridiculously large !) gridworlds.
-
-The base environment is a two-dimensional grid in which many agents can be placed, and each agent must solve one or more navigational tasks in the grid world. More details about the environment and the problem statement can be found in the [official docs](http://flatland-rl-docs.s3-website.eu-central-1.amazonaws.com/).
-
-This library was developed by [SBB](<https://www.sbb.ch/en/>), [AIcrowd](https://www.aicrowd.com/) and numerous contributors and AIcrowd research fellows from the AIcrowd community. 
-
-This library was developed specifically for the [Flatland Challenge](https://www.aicrowd.com/challenges/flatland-challenge) in which we strongly encourage you to take part in. 
-
-**NOTE This document is best viewed in the official documentation site at** [Flatland-RL Docs](http://flatland-rl-docs.s3-website.eu-central-1.amazonaws.com/)
-
-
-## Installation
-### Installation Prerequistes
-
-* Install [Anaconda](https://www.anaconda.com/distribution/) by following the instructions [here](https://www.anaconda.com/distribution/).
-* Create a new conda environment:
-
-```console
-$ conda create python=3.6 --name flatland-rl
-$ conda activate flatland-rl
+```{admonition} Ongoing competition
+Join the [NeurIPS 2020 Flatland Competition](https://www.aicrowd.com/challenges/neurips-2020-flatland-challenge/) on AIcrowd!
 ```
 
-* Install the necessary dependencies
+![](https://i.imgur.com/9cNtWjs.gif)
 
-```console
-$ conda install -c conda-forge cairosvg pycairo
-$ conda install -c anaconda tk  
-```
 
-### Install Flatland
-#### Stable Release
+Getting started
+---
 
-To install flatland, run this command in your terminal:
+Using the environment is easy whether you’re a human or an AI:
 
 ```console
 $ pip install flatland-rl
+$ flatland-demo # human
+$ python <<EOF # random RL agent
+import gym
+env = RailEnv(width=16, height=16)
+obs = env.reset()
+while True:
+    obs, rew, done, info = env.step(env.action_space.sample())
+    env.render()
+    if done:
+        break
+EOF
 ```
 
-This is the preferred method to install flatland, as it will always install the most recent stable release.
-
-If you don't have `pip`_ installed, this `Python installation guide`_ can guide
-you through the process.
-
-.. _pip: https://pip.pypa.io
-.. _Python installation guide: http://docs.python-guide.org/en/latest/starting/installation/
+**[Make your first submission in minutes](intro)**
 
 
-#### From sources
+Design principles
+---
 
-The sources for flatland can be downloaded from [gitlab](https://gitlab.aicrowd.com/flatland/flatland)
+- **Real-word, high impact problem** 
 
-You can clone the public repository:
-```console
-$ git clone git@gitlab.aicrowd.com:flatland/flatland.git
-```
-
-Once you have a copy of the source, you can install it with:
-
-```console
-$ python setup.py install
-```
-
-### Test installation
-
-Test that the installation works
-
-```console
-$ flatland-demo
-```
+The Swiss Federal Railways (SBB) operate the densest mixed railway traffic in the world. SBB maintain and operate the biggest railway infrastructure in Switzerland. Today, there are more than 10,000 trains running each day, being routed over 13,000 switches and controlled by more than 32,000 signals. The “Flatland” Competition aims to address the vehicle rescheduling problem by providing a simplistic grid world environment and allowing for diverse solution approaches. The challenge is open to any methodological approach, e.g. from the domain of reinforcement learning or of operations research.
 
 
+- **Tunable difficulty** 
 
-### Jupyter Canvas Widget
-If you work with jupyter notebook you need to install the Jupyer Canvas Widget. To install the Jupyter Canvas Widget read also
-[https://github.com/Who8MyLunch/Jupyter_Canvas_Widget#installation]([https://github.com/Who8MyLunch/Jupyter_Canvas_Widget#installation)
+All environments support well-calibrated difficulty settings. While we report results using the hard difficulty setting, we make the easy difficulty setting available for those with limited access to compute power. Easy environments require approximately an eighth of the resources to train.
 
-## Basic Usage
+- **Environment diversity** 
 
-Basic usage of the RailEnv environment used by the Flatland Challenge (also see [Example](https://gitlab.aicrowd.com/flatland/flatland/blob/master/examples/introduction_flatland_2_1.py))
-
-
-```python
-from flatland.envs.observations import GlobalObsForRailEnv
-# First of all we import the Flatland rail environment
-from flatland.envs.rail_env import RailEnv
-from flatland.envs.rail_generators import sparse_rail_generator
-from flatland.envs.schedule_generators import sparse_schedule_generator
-# We also include a renderer because we want to visualize what is going on in the environment
-from flatland.utils.rendertools import RenderTool, AgentRenderVariant
-
-width = 100  # With of map
-height = 100  # Height of map
-nr_trains = 50  # Number of trains that have an assigned task in the env
-cities_in_map = 20  # Number of cities where agents can start or end
-seed = 14  # Random seed
-grid_distribution_of_cities = False  # Type of city distribution, if False cities are randomly placed
-max_rails_between_cities = 2  # Max number of tracks allowed between cities. This is number of entry point to a city
-max_rail_in_cities = 6  # Max number of parallel tracks within a city, representing a realistic trainstation
-
-rail_generator = sparse_rail_generator(max_num_cities=cities_in_map,
-                                       seed=seed,
-                                       grid_mode=grid_distribution_of_cities,
-                                       max_rails_between_cities=max_rails_between_cities,
-                                       max_rails_in_city=max_rail_in_cities,
-                                       )
-
-# The schedule generator can make very basic schedules with a start point, end point and a speed profile for each agent.
-# The speed profiles can be adjusted directly as well as shown later on. We start by introducing a statistical
-# distribution of speed profiles
-
-# Different agent types (trains) with different speeds.
-speed_ration_map = {1.: 0.25,  # Fast passenger train
-                    1. / 2.: 0.25,  # Fast freight train
-                    1. / 3.: 0.25,  # Slow commuter train
-                    1. / 4.: 0.25}  # Slow freight train
-
-# We can now initiate the schedule generator with the given speed profiles
-
-schedule_generator = sparse_schedule_generator(speed_ration_map)
-
-# We can furthermore pass stochastic data to the RailEnv constructor which will allow for stochastic malfunctions
-# during an episode.
-
-stochastic_data = {'prop_malfunction': 0.3,  # Percentage of defective agents
-                   'malfunction_rate': 30,  # Rate of malfunction occurence
-                   'min_duration': 3,  # Minimal duration of malfunction
-                   'max_duration': 20  # Max duration of malfunction
-                   }
-
-# Custom observation builder without predictor
-observation_builder = GlobalObsForRailEnv()
-
-# Custom observation builder with predictor, uncomment line below if you want to try this one
-# observation_builder = TreeObsForRailEnv(max_depth=2, predictor=ShortestPathPredictorForRailEnv())
-
-# Construct the enviornment with the given observation, generataors, predictors, and stochastic data
-env = RailEnv(width=width,
-              height=height,
-              rail_generator=rail_generator,
-              schedule_generator=schedule_generator,
-              number_of_agents=nr_trains,
-              malfunction_generator_and_process_data=malfunction_from_params(stochastic_data),
-              obs_builder_object=observation_builder,
-              remove_agents_at_target=True  # Removes agents at the end of their journey to make space for others
-              )
-
-# Initiate the renderer
-env_renderer = RenderTool(env, gl="PILSVG",
-                          agent_render_variant=AgentRenderVariant.AGENT_SHOWS_OPTIONS_AND_BOX,
-                          show_debug=False,
-                          screen_height=1080,  # Adjust these parameters to fit your resolution
-                          screen_width=1920)  # Adjust these parameters to fit your resolution
+In several environments, it has been observed that agents can overfit to remarkably large training sets. This evidence raises the possibility that overfitting pervades classic benchmarks like the Arcade Learning Environment, which has long served as a gold standard in reinforcement learning (RL). While the diversity between different games in the ALE is one of the benchmark’s greatest strengths, the low emphasis on generalization presents a significant drawback. In each game the question must be asked: are agents robustly learning a relevant skill, or are they approximately memorizing specific trajectories?
 
 
-def my_controller():
-    """
-    You are supposed to write this controller
-    """
-    _action = {}
-    for _idx in range(NUMBER_OF_AGENTS):
-        _action[_idx] = np.random.randint(0, 5)
-    return _action
+Experimental results
+---
 
-for step in range(100):
+We provide multiple baselines to get you started.
 
-    _action = my_controller()
-    obs, all_rewards, done, info = env.step(_action)
-    print("Rewards: {}, [done={}]".format( all_rewards, done))
-    env_renderer.render_env(show=True, frames=False, show_observations=False)
-    time.sleep(0.3)
-```
+![](assets/images/experiments.png)
 
-and **ideally** you should see something along the lines of
+- **Ape-X**: Use a distributed prioritized DQN approach 
 
-![Flatland](https://i.imgur.com/Pc9aH4P.gif)
+- **PPO**: Distributed Proximal Policy Optimisation
 
-Best of Luck !!
+- **Imitation Learning**: Learn from expert demonstrations
 
-## Communication
+
+Next steps
+---
+
+- [Use Flatland for your research](intro)
+
+- [Take part in the NeurIPS challenge](intro)
+
+- [Contribute to Flatland](intro)
+
+- [Sponsor the competition](intro)
+
+
+Communication
+---
+
 * [Official Documentation](http://flatland-rl-docs.s3-website.eu-central-1.amazonaws.com/)
 * [Discussion Forum](https://discourse.aicrowd.com/c/flatland-challenge)
 * [Issue Tracker](https://gitlab.aicrowd.com/flatland/flatland/issues/)
 
 
-## Contributions
+Contributions
+---
+
 Please follow the [Contribution Guidelines](http://flatland-rl-docs.s3-website.eu-central-1.amazonaws.com/contributing.html) for more details on how you can successfully contribute to the project. We enthusiastically look forward to your contributions.
 
-## Partners
+Partners
+---
+
 <a href="https://sbb.ch" target="_blank"><img src="https://i.imgur.com/OSCXtde.png" alt="SBB"/></a>
 <a href="https://www.aicrowd.com"  target="_blank"><img src="https://avatars1.githubusercontent.com/u/44522764?s=200&v=4" alt="AICROWD"/></a>
 
