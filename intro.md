@@ -1,16 +1,19 @@
 Welcome to Flatland
 ===
 
-Flatland is an open-source toolkit for developing and comparing Multi Agent Reinforcement Learning algorithms in little (or ridiculously large!) gridworlds.
-
-[![arxiv](http://img.shields.io/badge/cs.LG-arXiv%3A1809.00510-B31B1B.svg)](https://gitlab.aicrowd.com/flatland/flatland)
-[![repository](https://img.shields.io/static/v1?label=aicrowd.gitlab.com&message=flatland/flatland&color=%3CCOLOR%3E&logo=gitlab)](https://gitlab.aicrowd.com/flatland/flatland)
-
-```{admonition} Ongoing competition
-Join the [NeurIPS 2020 Flatland Competition](https://www.aicrowd.com/challenges/neurips-2020-flatland-challenge/) on AIcrowd!
+```{admonition} Ongoing Challenge
+Join the [NeurIPS 2020 Flatland Challenge](https://www.aicrowd.com/challenges/neurips-2020-flatland-challenge/) on AIcrowd!
 ```
 
+Flatland is an open-source toolkit for developing and comparing Multi Agent Reinforcement Learning algorithms in little (or ridiculously large!) gridworlds.
+
 ![](https://i.imgur.com/9cNtWjs.gif)
+
+[![arxiv](http://img.shields.io/badge/cs.LG-arXiv%3A1809.00510-B31B1B.svg)](https://gitlab.aicrowd.com/flatland/flatland) 
+[![repository](https://img.shields.io/static/v1?label=aicrowd.gitlab.com&message=flatland/flatland&color=%3CCOLOR%3E&logo=gitlab)](https://gitlab.aicrowd.com/flatland/flatland) 
+[![gitter](https://img.shields.io/gitter/room/badges/shields.svg)](https://gitter.im/AIcrowd-HQ/flatland-rl)
+
+
 
 
 Getting started
@@ -33,8 +36,9 @@ while True:
 EOF
 ```
 
-**[Make your first submission in minutes](intro)**
+**[Make your first Challenge submission in 5 minutes!](first-submission)**
 
+To learn about Flatland in more details, read about [how to interact with this environment](flatland-env), how to get started with [reinforcement learning methods](flatland-rl) or with [operations research methods](flatland-or). 
 
 Design principles
 ---

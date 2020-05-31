@@ -1,6 +1,7 @@
 - file: intro
 
 - header: Getting started
+- file: first-submission
 - file: flatland-env
   sections:
       - file: env-doc/rail-env
