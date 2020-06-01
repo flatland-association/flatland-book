@@ -9,7 +9,7 @@ latex:
 
 html:
   favicon: assets/images/favicon.ico
-  #google_analytics_id: UA-52617120-7
+  google_analytics_id: UA-132885496-4
   home_page_in_navbar: true
   use_edit_page_button: false # will need custom gitlab integration
 

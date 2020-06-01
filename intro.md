@@ -2,7 +2,7 @@ Welcome to Flatland
 ===
 
 ```{admonition} Ongoing Challenge
-Take part in the [NeurIPS 2020 Flatland Challenge](https://www.aicrowd.com/challenges/neurips-2020-flatland-challenge/) on AIcrowd!
+Take part in the **[NeurIPS 2020 Flatland Challenge](https://www.aicrowd.com/challenges/neurips-2020-flatland-challenge/)** on AIcrowd!
 ```
 
 Flatland is an open-source toolkit for developing and comparing Multi Agent Reinforcement Learning algorithms in little (or ridiculously large!) gridworlds.
@@ -63,7 +63,7 @@ All environments support well-calibrated difficulty settings. While we report re
 In several environments, it has been observed that agents can overfit to remarkably large training sets. This evidence raises the possibility that overfitting pervades classic benchmarks like the Arcade Learning Environment, which has long served as a gold standard in reinforcement learning (RL). While the diversity between different games in the ALE is one of the benchmark’s greatest strengths, the low emphasis on generalization presents a significant drawback. In each game the question must be asked: are agents robustly learning a relevant skill, or are they approximately memorizing specific trajectories?
 
 
-Experimental results
+Research baselines
 ---
 
 Flatland is a hard problem. We provide multiple research baselines to get you started.
@@ -80,13 +80,13 @@ Flatland is a hard problem. We provide multiple research baselines to get you st
 Next steps
 ---
 
-- [Use Flatland for your research](faq/research.md)
+- [Use Flatland for your research](faq/research)
 
 - [Take part in the NeurIPS challenge](first-submission)
 
 - [Contribute to Flatland](contributing)
 
-- [Sponsor the Challenge](mailto:)
+- [Sponsor the Challenge](mailto:hello@aicrowd.com)
 
 
 Communication
@@ -100,12 +100,12 @@ Communication
 Contributions
 ---
 
-Please follow the [Contribution Guidelines](http://flatland-rl-docs.s3-website.eu-central-1.amazonaws.com/contributing.html) for more details on how you can successfully contribute to the project. We enthusiastically look forward to your contributions.
+Read about the [Contribution Guidelines](contributing) for more details on how you can successfully contribute to the project. We enthusiastically look forward to your contributions.
 
 Partners
 ---
 
-<a href="https://sbb.ch" target="_blank"><img src="https://i.imgur.com/OSCXtde.png" alt="SBB"/></a>
+<a href="https://sbb.ch" target="_blank"><img src="https://i.imgur.com/OSCXtde.png" alt="SBB"/></a> 
 <a href="https://www.aicrowd.com"  target="_blank"><img src="https://avatars1.githubusercontent.com/u/44522764?s=200&v=4" alt="AICROWD"/></a>
 
 

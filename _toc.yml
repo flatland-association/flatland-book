@@ -24,6 +24,6 @@
 - file: faq/research
 
 - header: Misc
-- file: api
+#- file: api
 - file: contributing
 - file: credits
