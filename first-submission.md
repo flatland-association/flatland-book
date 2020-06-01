@@ -1,13 +1,13 @@
 
-Five Minutes Guide to Submission
+Submit in 5 Minutes
 ===
 
 All aboard! 🚂
 ---
 
-In five minutes, you will have submitted your first agent to this challenge and will see your name on the leaderboard. 
+In the next five minutes, you will submit your first agent to the [NeurIPS 2020 Flatland Challenge](https://www.aicrowd.com/challenges/neurips-2020-flatland-challenge/) and will see your name on the leaderboard.
 
-![](assets/images/you.png)
+![leaderboard](assets/images/you.png)
 
 Setup
 ---
@@ -53,24 +53,7 @@ Untar them in `./scratch/test-envs`. Your directory structure should be as follo
     ├── Test_3
     │   ├── Level_0.pkl
     │   └── Level_1.pkl
-    ├── Test_4
-    │   ├── Level_0.pkl
-    │   └── Level_1.pkl
-    ├── Test_5
-    │   ├── Level_0.pkl
-    │   └── Level_1.pkl
-    ├── Test_6
-    │   ├── Level_0.pkl
-    │   └── Level_1.pkl
-    ├── Test_7
-    │   ├── Level_0.pkl
-    │   └── Level_1.pkl
-    ├── Test_8
-    │   ├── Level_0.pkl
-    │   └── Level_1.pkl
-    └── Test_9
-        ├── Level_0.pkl
-        └── Level_1.pkl
+    ├── ...
 ``` 
 
 We will now replicate the setup used on AIcrowd locally to ensure that your submission will be evaluated without problem. This involves three components: your agent, the evaluator service, and a Redis server to let them communicate. 
@@ -120,7 +103,7 @@ Submitting!
 
 Let's first consider the big picture. When taking part in this challenge, you will first train an agent on your local machine, then submit it for evaluation. 
 
-The submission process uses git. The code for your agent will be hosted on [https://gitlab.aicrowd.com/](gitlab.aicrowd.com). When you want your agent to be evaluated, you will **push a tag** to this repository, which will trigger an evaluation. You are allowed to submit up to 5 submissions per day.
+The submission process uses git. The code for your agent will be hosted on [gitlab.aicrowd.com](https://gitlab.aicrowd.com/). When you want your agent to be evaluated, you will **push a tag** to this repository, which will trigger an evaluation. You are allowed to submit up to 5 submissions per day.
 
 #### Create your repository
 
@@ -132,13 +115,13 @@ If you do not have SSH Keys, you will first need to [generate one](https://docs.
 
 #### Push a tag
 
-You can then create a submission by making a **tag push** to your repository on [https://gitlab.aicrowd.com/](gitlab.aicrowd.com).
+You can then create a submission by making a **tag push** to your repository on [gitlab.aicrowd.com](https://gitlab.aicrowd.com/).
 
 **Any tag push (where the tag name begins with "submission-") to your private repository is considered as a submission**  
 
-First add the a git remote pointing to your repository on [https://gitlab.aicrowd.com/](gitlab.aicrowd.com)
+First add the a git remote pointing to your repository on [gitlab.aicrowd.com](https://gitlab.aicrowd.com/)
 
-```
+```bash
 cd flatland-challenge-starter-kit
 # Add AIcrowd git remote endpoint
 git remote add aicrowd git@gitlab.aicrowd.com:<YOUR_AICROWD_USER_NAME>/flatland-challenge-starter-kit.git

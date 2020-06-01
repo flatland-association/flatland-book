@@ -9,6 +9,7 @@
   sections:
       - file: rl-doc/single-agent
       - file: rl-doc/multi-agent
+- file: flatland-or
 
 - header: Research
 - file: baselines
@@ -18,12 +19,11 @@
 - file: research-ideas
 
 - header: FAQ
-- file: faq-env
-- file: faq-competition
-- file: faq-research
+- file: faq/env
+- file: faq/competition
+- file: faq/research
 
 - header: Misc
 - file: api
 - file: contributing
 - file: credits
-- file: faq

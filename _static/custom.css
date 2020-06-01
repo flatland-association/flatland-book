@@ -1,0 +1,17 @@
+h3 {
+    color: #DE4B46 !important;
+    font-size: .875rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: inherit;
+}
+
+.alert-info {
+    background-color: #d1ecf1;
+    padding: .875rem 1rem;
+    border-radius: 2px;
+    margin-bottom: 1.5em;
+    border: 0;
+    border-left: 4px solid rgba(12,84,96, 0.5);
+}

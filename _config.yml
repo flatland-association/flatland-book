@@ -1,8 +1,17 @@
 # Book settings
-title: Flatland
-author: The Flatland-RL Community
+title: ""
+author: The Flatland Community
 logo: assets/images/flatland-logo.svg
 
 latex:
   latex_documents:
     targetname: book.tex
+
+html:
+  favicon: assets/images/favicon.ico
+  #google_analytics_id: UA-52617120-7
+  home_page_in_navbar: true
+  use_edit_page_button: false # will need custom gitlab integration
+
+repository:
+  url: https://gitlab.aicrowd.com/flatland/flatland-notebook
