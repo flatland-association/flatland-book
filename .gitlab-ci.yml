@@ -1,0 +1,37 @@
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  image: docker
+  services:
+    - docker:dind
+  variables:
+    DOCKER_HOST: "tcp://localhost:2375"
+  before_script:
+    - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+  script:
+    - export IMAGE_TAG="${DOCKER_USERNAME}/flatland-docs:${CI_COMMIT_SHA:0:8}"
+    - docker build -t "$IMAGE_TAG" . -f deploy/Dockerfile
+    - docker push "$IMAGE_TAG"
+  only:
+    master
+
+deploy:
+  stage: deploy
+  image: alpine
+  before_script:
+    - curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+    - chmod +x kubectl && mv kubectl /bin/kubectl
+    - kubectl config set contexts.flatland.user "default"
+    - kubectl config set contexts.flatland.cluster "aicrowd-internal"
+    - kubectl config set clusters.aicrowd-internal.server "$KUBE_API_SERVER"
+    - kubectl config set clusters.aicrowd-internal.certificate-authority-data "$KUBE_CERT_AUTHORITY"
+    - kubectl config set users.default.token "$KUBE_TOKEN"
+    - kubectl config set current-context "flatland"
+  script:
+    - export IMAGE_TAG="${CI_COMMIT_SHA:0:8}"
+    - envsubst < deploy/kube-deploy.yaml | kubectl apply -f -
+  only:
+    master
