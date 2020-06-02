@@ -128,11 +128,10 @@ git remote add aicrowd git@gitlab.aicrowd.com:<YOUR_AICROWD_USER_NAME>/flatland-
 git push aicrowd master
 ```
 
-Finally submit by doing:
+Finally submit creating a tag for your submission and pushing it:
 
 ```bash
-# Create a tag for your submission and push
-git tag -am "submission-v0.1" submission-v0.1
+git tag submission-v0.1 # needs a new name tag for each submission!
 git push aicrowd master
 git push aicrowd submission-v0.1
 ```
