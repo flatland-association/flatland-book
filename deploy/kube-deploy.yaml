@@ -48,10 +48,6 @@ metadata:
   labels:
     app: flatland-docs
 spec:
-  tls:
-  - hosts:
-      - flatland-docs.internal.k8s.aicrowd.com
-    secretName: flatland-docs-tls-secret
   rules:
   - host: flatland-docs.internal.k8s.aicrowd.com
     http:
@@ -60,3 +56,10 @@ spec:
         backend:
           serviceName: flatland-docs
           servicePort: 80
+  - host: flatland.aicrowd.com
+    http:
+      paths:
+        - path: /
+          backend:
+            serviceName: flatland-docs
+            servicePort: 80
