@@ -16,7 +16,7 @@ build:
     - docker build -t "$IMAGE_TAG" . -f deploy/Dockerfile
     - docker push "$IMAGE_TAG"
   only:
-    master
+    - master
 
 deploy:
   stage: deploy
@@ -34,4 +34,4 @@ deploy:
     - export IMAGE_TAG="${CI_COMMIT_SHA:0:8}"
     - envsubst < deploy/kube-deploy.yaml | kubectl apply -f -
   only:
-    master
+    - master
