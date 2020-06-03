@@ -4,9 +4,9 @@ stages:
 
 build:
   stage: build
-  image: docker
+  image: docker:18
   services:
-    - docker:dind
+    - docker:18-dind
   variables:
     DOCKER_HOST: "tcp://localhost:2375"
   before_script:
