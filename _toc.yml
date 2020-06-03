@@ -17,6 +17,7 @@
       - file: baselines/single-agent
       - file: baselines/imitation-learning
 - file: research-ideas
+- file: previous-challenges
 
 - header: FAQ
 - file: faq/env

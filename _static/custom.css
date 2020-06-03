@@ -1,12 +1,13 @@
 h3 {
     color: #DE4B46 !important;
-    font-size: .875rem;
+    font-size: 1.0rem;
     font-weight: 900;
     text-transform: uppercase;
     letter-spacing: 1px;
     font-family: inherit;
 }
 
+/* OBSOLETE SELECTOR! TODO update it (style is good) */
 .alert-info {
     background-color: #d1ecf1;
     padding: .875rem 1rem;

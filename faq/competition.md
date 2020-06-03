@@ -24,11 +24,13 @@ The scores of your submission are computed as follows:
 
 1. Mean number of agents done, in other words how many agents reached their target in time.
 2. Mean reward is just the mean of the cumulated reward.
-3. If multiple participants have the same number of done agents we compute a "nomralized" reward as follows:
+3. If multiple participants have the same number of done agents we compute a "normalized" reward as follows:
 
 ```python
 normalized_reward = cumulative_reward / (self.env._max_episode_steps * self.env.get_num_agents())
 ```
+
+
 
 The mean number of agents done is the primary score value, only when it is tied to we use the "normalized" reward to determine the position on the leaderboard.
 
