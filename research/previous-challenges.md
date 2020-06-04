@@ -32,3 +32,9 @@ You can read the full [challenge retrospective](https://www.aicrowd.com/blogs/fl
 - Team: [JelDor](https://www.aicrowd.com/challenges/flatland-challenge/teams/JelDor)
 
 - Repository: [github.com/vetand/FlatlandChallenge2019](https://github.com/vetand/FlatlandChallenge2019)
+
+### Fourth place
+
+- Participant: [wwwjon](https://www.aicrowd.com/participants/wwwjon)
+
+- [Solution details](https://eprints.hsr.ch/855/) (a must-read!)
