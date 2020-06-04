@@ -4,8 +4,8 @@
 - header: Getting started
 - file: getting-started/first-submission
 - file: getting-started/env
-#  sections:
-#      - file: getting-started/env/The_Rail_Environment
+  sections:
+      - file: getting-started/env/The_Rail_Environment
 - file: getting-started/rl
   sections:
       - file: getting-started/rl/single-agent

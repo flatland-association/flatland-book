@@ -1,8 +1,11 @@
 Multiple Agents
 ===
 
-Quick introduction on how to train a simple DQN agent using Flatland and Pytorch. At the end of this Tutorial you should be able to train a single agent to navigate in Flatland.
-We use the `multi_agent_training.py` ([here](https://gitlab.aicrowd.com/flatland/baselines/blob/master/torch_training/multi_agent_training.py)) file to train multiple agents on the avoid conflicts task.
+```{admonition} Goal
+At the end of this Tutorial, you will be able to train a **multiple agents** to navigate in Flatland using DQN!
+```
+
+We use the [`multi_agent_training.py`](https://gitlab.aicrowd.com/flatland/baselines/blob/master/torch_training/multi_agent_training.py) file to train multiple agents on the avoid conflicts task.
 
 Setting up the environment
 ---

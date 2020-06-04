@@ -19,7 +19,7 @@ You can read the full [challenge retrospective](https://www.aicrowd.com/blogs/fl
 
 - Repository: [gitlab.aicrowd.com/mugurelionut/flatland-challenge-starter-kit](https://gitlab.aicrowd.com/mugurelionut/flatland-challenge-starter-kit)
 
-- [Interview with the winner](https://www.aicrowd.com/blogs/flatland-mugurel)
+- [Winner's Perspective: Interview with Mugurel](https://www.aicrowd.com/blogs/flatland-mugurel)
 
 ### Second place 🥈
 

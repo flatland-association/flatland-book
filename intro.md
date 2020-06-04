@@ -5,21 +5,15 @@ Welcome to Flatland
 Take part in the **[NeurIPS 2020 Flatland Challenge](https://www.aicrowd.com/challenges/neurips-2020-flatland-challenge/)** on AIcrowd!
 ```
 
-Flatland is an open-source toolkit for developing and comparing Multi Agent Reinforcement Learning algorithms in little (or ridiculously large!) gridworlds.
+Flatland is an open-source toolkit for developing and comparing Multi Agent Reinforcement Learning algorithms in little (or ridiculously large) gridworlds.
 
 ![Flatland](https://i.imgur.com/9cNtWjs.gif)
 
 <center><p>
 <!--<a class="reference external" href="https://gitlab.aicrowd.com/flatland/flatland"><img alt="arxiv" src="http://img.shields.io/badge/cs.LG-arXiv%3A1809.00510-B31B1B.svg"></a>-->
 <a class="reference external" href="https://gitlab.aicrowd.com/flatland/flatland"><img alt="repository" src="https://img.shields.io/static/v1?label=aicrowd.gitlab.com&amp;message=flatland/flatland&amp;color=%3CCOLOR%3E&amp;logo=gitlab"></a>
-<a class="reference external" href="https://gitter.im/AIcrowd-HQ/flatland-rl"><img alt="gitter" src="https://img.shields.io/gitter/room/badges/shields.svg"></a>
+<!--<a class="reference external" href="https://gitter.im/AIcrowd-HQ/flatland-rl"><img alt="gitter" src="https://img.shields.io/gitter/room/badges/shields.svg"></a>-->
 </p></center
-
-<!--
-[![arxiv](http://img.shields.io/badge/cs.LG-arXiv%3A1809.00510-B31B1B.svg)](https://gitlab.aicrowd.com/flatland/flatland) 
-[![repository](https://img.shields.io/static/v1?label=aicrowd.gitlab.com&message=flatland/flatland&color=%3CCOLOR%3E&logo=gitlab)](https://gitlab.aicrowd.com/flatland/flatland) 
-[![gitter](https://img.shields.io/gitter/room/badges/shields.svg)](https://gitter.im/AIcrowd-HQ/flatland-rl)
--->
 
 
 Getting started
@@ -44,7 +38,9 @@ EOF
 
 **[Make your first Challenge Submission in 5 minutes!](getting-started/first-submission)**
 
-To learn more about Flatland, you can read [how to interact with this environment](getting-started/env), how to get started with [reinforcement learning methods](getting-started/rl) or with [operations research methods](getting-started/or). 
+To learn more about Flatland, you can read how to [interact with this environment](getting-started/env), how to get started with [reinforcement learning methods](getting-started/rl) or with [operations research methods](getting-started/or).
+
+To go further, check out the research ongoing around this environment: [multiple baselines](research/baselines) are available, as well as a list of [unexplored research ideas](research/research-ideas). The [best solutions from previous Flatland challenges](research/previous-challenges) are also openly available.
 
 Design principles
 ---
@@ -62,29 +58,14 @@ All environments support well-calibrated difficulty settings. While we report re
 
 In several environments, it has been observed that agents can overfit to remarkably large training sets. This evidence raises the possibility that overfitting pervades classic benchmarks like the Arcade Learning Environment, which has long served as a gold standard in reinforcement learning (RL). While the diversity between different games in the ALE is one of the benchmark’s greatest strengths, the low emphasis on generalization presents a significant drawback. In each game the question must be asked: are agents robustly learning a relevant skill, or are they approximately memorizing specific trajectories?
 
-
-Research baselines
----
-
-Flatland is a hard problem. We provide multiple research baselines to get you started.
-
-![](assets/images/experiments.png)
-
-- **Ape-X**: Use a distributed prioritized DQN approach 
-
-- **PPO**: Distributed Proximal Policy Optimisation
-
-- **Imitation Learning**: Learn from expert demonstrations
-
-
 Next steps
 ---
 
-- [Use Flatland for your research](faq/research)
+- [Use Flatland for your research](research/baselines)
 
-- [Take part in the NeurIPS challenge](first-submission)
+- [Take part in the NeurIPS challenge](getting-started/first-submission)
 
-- [Contribute to Flatland](contributing)
+- [Contribute to Flatland](misc/contributing)
 
 - [Sponsor the Challenge](mailto:hello@aicrowd.com)
 
@@ -97,16 +78,12 @@ Communication
 * [Issue Tracker](https://gitlab.aicrowd.com/flatland/flatland/issues/)
 
 
-Contributions
----
-
-Read about the [Contribution Guidelines](contributing) for more details on how you can successfully contribute to the project. We enthusiastically look forward to your contributions.
-
 Partners
 ---
 
-<a href="https://sbb.ch" target="_blank"><img src="https://i.imgur.com/OSCXtde.png" alt="SBB"/></a> 
-<a href="https://www.aicrowd.com"  target="_blank"><img src="https://avatars1.githubusercontent.com/u/44522764?s=200&v=4" alt="AICROWD"/></a>
+<a href="https://sbb.ch" target="_blank" style="margin-right:25px"><img src="https://i.imgur.com/OSCXtde.png" alt="SBB" width="200"/></a> 
+<a href="https://www.deutschebahn.com/" target="_blank" style="margin-right:25px"><img src="https://i.imgur.com/pjTki15.png" alt="DB"  width="200"/></a>
+<a href="https://www.aicrowd.com" target="_blank"><img src="https://avatars1.githubusercontent.com/u/44522764?s=200&v=4" alt="AICROWD"  width="200"/></a>
 
 
 

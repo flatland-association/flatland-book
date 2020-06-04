@@ -1,6 +1,7 @@
 Reinforcement Learning
 ===
 
-Let's get started with the Flatland environment using some simple reinforcement learning methods.
+Let's get get our hands dirty with Flatland using some simple reinforcement learning methods!
 
-We will first go through a quick overview of the mains Flatland concepts: actions, observations and predictors. 
+- The [single agent](rl/single-agent) page will guide through a basic DQN implementation which controls a single train
+- The [multi agent](rl/multi-agent) shows how to train such a method using multiple agents at once 
