@@ -10,7 +10,7 @@ Flatland is an open-source toolkit for developing and comparing Multi Agent Rein
 ![Flatland](https://i.imgur.com/9cNtWjs.gif)
 
 <center><p>
-<a class="reference external" href="https://gitlab.aicrowd.com/flatland/flatland"><img alt="arxiv" src="http://img.shields.io/badge/cs.LG-arXiv%3A1809.00510-B31B1B.svg"></a>
+<!--<a class="reference external" href="https://gitlab.aicrowd.com/flatland/flatland"><img alt="arxiv" src="http://img.shields.io/badge/cs.LG-arXiv%3A1809.00510-B31B1B.svg"></a>-->
 <a class="reference external" href="https://gitlab.aicrowd.com/flatland/flatland"><img alt="repository" src="https://img.shields.io/static/v1?label=aicrowd.gitlab.com&amp;message=flatland/flatland&amp;color=%3CCOLOR%3E&amp;logo=gitlab"></a>
 <a class="reference external" href="https://gitter.im/AIcrowd-HQ/flatland-rl"><img alt="gitter" src="https://img.shields.io/gitter/room/badges/shields.svg"></a>
 </p></center
@@ -44,7 +44,7 @@ EOF
 
 **[Make your first Challenge Submission in 5 minutes!](first-submission)**
 
-To learn more about Flatland, read [how to interact with this environment](flatland-env), how to get started with [reinforcement learning methods](flatland-rl) or with [operations research methods](flatland-or). 
+To learn more about Flatland, you can read [how to interact with this environment](flatland-env), how to get started with [reinforcement learning methods](flatland-rl) or with [operations research methods](flatland-or). 
 
 Design principles
 ---
@@ -92,8 +92,8 @@ Next steps
 Communication
 ---
 
-* [Official Documentation](http://flatland-rl-docs.s3-website.eu-central-1.amazonaws.com/)
-* [Discussion Forum](https://discourse.aicrowd.com/c/flatland-challenge)
+* [Discord Channel](https://discord.com/invite/hCR3CZG)
+* [Discussion Forum](https://discourse.aicrowd.com/c/neurips-2020-flatland-challenge)
 * [Issue Tracker](https://gitlab.aicrowd.com/flatland/flatland/issues/)
 
 

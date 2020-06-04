@@ -11,11 +11,6 @@ pip install -U "jupyter-book>=0.7.0b"
 jupyter-book build .
 ```
 
-# Usage
-```
-TODO
-```
-
 # Author(s)
 * Sharada Mohanty
 * Florian Laurent

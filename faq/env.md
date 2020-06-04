@@ -1,5 +1,5 @@
 Flatland Environment
----
+===
 
 This section provides you with information about the most common questions around the Flatland environment itself. If your question is still not answered either reach out to the contacts listed on the repository directly or open an issue by following these [guidlines](http://flatland-rl-docs.s3-website.eu-central-1.amazonaws.com/06_contributing.html).
 

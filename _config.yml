@@ -15,3 +15,6 @@ html:
 
 repository:
   url: https://gitlab.aicrowd.com/flatland/flatland-notebook
+
+execute:
+  execute_notebooks: off

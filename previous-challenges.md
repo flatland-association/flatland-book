@@ -1,17 +1,17 @@
-Previous challenges
+Previous Challenges
 ===
 
 Multiple challenges have been organized around the Flatland environment:
 
-- [NeurIPS 2020 Edition](https://www.aicrowd.com/challenges/neurips-2020-flatland-challenge/) (ongoing!)
-- [2019 Edition](https://www.aicrowd.com/challenges/flatland-challenge)
+- [NeurIPS 2020 Flatland Challenge](https://www.aicrowd.com/challenges/neurips-2020-flatland-challenge/) (ongoing!)
+- [2019 Flatland Challenge](https://www.aicrowd.com/challenges/flatland-challenge)
 
 This page documents the existing top solutions submitted during these events.
 
 2019 Edition
 ---
 
-You can read the full [challenge retrospective](https://www.aicrowd.com/blogs/flatland-summary) on the AIcrowd blog, and watch the presentation from organizers and winners at the [AMLD 2019 conference](https://www.youtube.com/watch?v=rGzXsOC7qXg).
+You can read the full [challenge retrospective](https://www.aicrowd.com/blogs/flatland-summary) on the AIcrowd blog, and watch the presentation from the organizers and winners at the [AMLD 2019 conference](https://www.youtube.com/watch?v=rGzXsOC7qXg).
 
 ### First place 🥇
 

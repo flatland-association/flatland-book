@@ -5,6 +5,8 @@
 - file: flatland-env
   sections:
       - file: env-doc/rail-env
+      - file: env-doc/The_Rail_Environment
+      - file: env-doc/1_The_Rail_Environment
 - file: flatland-rl
   sections:
       - file: rl-doc/single-agent
@@ -13,15 +15,15 @@
 
 - header: Research
 - file: baselines
-  sections:
-      - file: baselines/single-agent
-      - file: baselines/imitation-learning
+#  sections:
+#      - file: baselines/single-agent
+#      - file: baselines/imitation-learning
 - file: research-ideas
 - file: previous-challenges
 
 - header: FAQ
 - file: faq/env
-- file: faq/competition
+- file: faq/challenge
 - file: faq/research
 
 - header: Misc
