@@ -1,23 +1,25 @@
 - file: intro
 
+# GETTING STARTED
 - header: Getting started
-- file: first-submission
-- file: flatland-env
+- file: getting-started/first-submission
+- file: getting-started/env
   sections:
-      - file: env-doc/The_Rail_Environment
-- file: flatland-rl
+      - file: getting-started/env/main-concepts
+      - file: getting-started/env/The_Rail_Environment
+- file: getting-started/rl
   sections:
-      - file: rl-doc/single-agent
-      - file: rl-doc/multi-agent
-- file: flatland-or
+      - file: getting-started/rl/single-agent
+      - file: getting-started/rl/multi-agent
+- file: getting-started/or
 
 - header: Research
-- file: baselines
+- file: research/baselines
 #  sections:
 #      - file: baselines/single-agent
 #      - file: baselines/imitation-learning
-- file: research-ideas
-- file: previous-challenges
+- file: research/research-ideas
+- file: research/previous-challenges
 
 - header: FAQ
 - file: faq/env
@@ -26,5 +28,5 @@
 
 - header: Misc
 #- file: api
-- file: contributing
-- file: credits
+- file: misc/contributing
+- file: misc/credits

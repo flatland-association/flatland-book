@@ -7,7 +7,7 @@ All aboard! 🚂
 
 In the next five minutes, you will submit your first agent to the [NeurIPS 2020 Flatland Challenge](https://www.aicrowd.com/challenges/neurips-2020-flatland-challenge/) and will see your name on the leaderboard.
 
-![leaderboard](assets/images/you.png)
+![leaderboard](../assets/images/you.png)
 
 
 Setup
@@ -171,7 +171,7 @@ https://gitlab.aicrowd.com/<YOUR_AICROWD_USER_NAME>/<YOUR_REPO_NAME>/issues
 
 At the address above above, you should start seeing something like this take shape. The whole evaluation can take a bit of time, you will have to be patient! 🕙
 
-![submission issue](assets/images/submission-issue.png)
+![submission issue](../assets/images/submission-issue.png)
 
 
 Code structure

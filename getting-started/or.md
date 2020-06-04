@@ -109,17 +109,17 @@ MIP constraints.
 
 ##### The MIP formulation of the rules can be found in the ``ProblemDescription`` class
 Rule 1: ``_implement_agent_resource``
-![min_travel_time_rule](./images/min_travel_time_rule.png)
+![min_travel_time_rule](or_images/min_travel_time_rule.png)
 Flatland supports multi-speed such that each agent can have it's own speed (``agent.speed_data['speed']``). The 
 ```ProblemDescription``` sets the ```minimal travel time=np.ceil(1/speed)```.
 
 Rule 2  and rule 3 ``_implement_agent_path_edge`` by connecting the right resource chain only one equation is required 
 to satisfy the rule 2 and 3.
-![resource_chain_rule](./images/resource_chain_rule.png)
+![resource_chain_rule](or_images/resource_chain_rule.png)
 
 
 Rule 4: ``_implement_agents_ordering_selection``
-![agent_ordering_rule](./images/agent_ordering_rule.png)
+![agent_ordering_rule](or_images/agent_ordering_rule.png)
 One time step is required because Flatland updates all agents at same time step. 
 
 The variables ``V a < b`` controls the ordering of  ``Agent a`` and   ``Agent b`` at resource ``Rx``.  
@@ -139,10 +139,10 @@ simulation step. Otherwise one agent tries to enter the conflicting resource to 
 issue where the solution is no longer a Flatland solution.    
 
 Rule 5: ``_implement_agent_earliest_start_time`` 
-![first_resource.png](./images/first_resource.png)
+![first_resource.png](or_images/first_resource.png)
 
 Rule 6: ``_implement_agent_latest_arrival_time``
-![target_resource](./images/target_resource.png)
+![target_resource](or_images/target_resource.png)
 
 ##### Special case 
 If multiple agents start at the same position. The ```ProblemDescription``` assume that the agent have to be ordered along 
@@ -243,7 +243,7 @@ To implement you own solver you just need to make the ```AbstractSolver``` concr
 interface methods.
 
 #### Results: Flatland Challenge - Round 1 results
-[solve_envs_challenge_01_baseline.csv](./images/solve_envs_challenge_01_baseline.csv)
+[solve_envs_challenge_01_baseline.csv](or_images/solve_envs_challenge_01_baseline.csv)
 
 | Measure                 | Value      |
 | :---------------------- | ---------: |
@@ -273,7 +273,7 @@ the expected calculation time very well by using the formula ```calc_time ~ x **
 exponential increase. 
 
 
-![Number of Agents versus Calculation Time](./images/results_MIP_challenge_01.png)
+![Number of Agents versus Calculation Time](or_images/results_MIP_challenge_01.png)
 
 
 The whole program can be found in ````solve_test.py````

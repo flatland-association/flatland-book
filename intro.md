@@ -42,9 +42,9 @@ while True:
 EOF
 ```
 
-**[Make your first Challenge Submission in 5 minutes!](first-submission)**
+**[Make your first Challenge Submission in 5 minutes!](getting-started/first-submission)**
 
-To learn more about Flatland, you can read [how to interact with this environment](flatland-env), how to get started with [reinforcement learning methods](flatland-rl) or with [operations research methods](flatland-or). 
+To learn more about Flatland, you can read [how to interact with this environment](getting-started/env), how to get started with [reinforcement learning methods](getting-started/rl) or with [operations research methods](getting-started/or). 
 
 Design principles
 ---
