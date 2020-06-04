@@ -177,17 +177,14 @@ At the address above above, you should start seeing something like this take sha
 Code structure
 ---
 
-Follow the structure documented in the included [run.py](https://gitlab.aicrowd.com/flatland/neurips2020-flatland-starter-kit/blob/master/run.py) to adapt your already existing code to the required structure for this round.
-
 ### Repository Structure
 
-- `aicrowd.json`
-  Each repository should have a `aicrowd.json` with the following content :
+Each repository must have an `aicrowd.json` file with the following content :
 
 ```json
 {
-  "challenge_id": "aicrowd_flatland_challenge_2019",
-  "grader_id": "aicrowd_flatland_challenge_2019",
+  "challenge_id": "neurips-2020-flatland-challenge",
+  "grader_id": "aicrowd_flatland_challenge_2020",
   "authors": ["your-aicrowd-username"],
   "description": "sample description about your awesome agent",
   "license": "MIT",
@@ -195,21 +192,24 @@ Follow the structure documented in the included [run.py](https://gitlab.aicrowd.
 }
 ```
 
-This is used to map your submission to the said challenge, so please remember to use the correct `challenge_id` and `grader_id` as specified above.
+This is used to map your submission to the proper challenge, so please remember to use the correct `challenge_id` and `grader_id` as specified above.
 
-If you set `debug` to `true`, then the evaluation will run on a separate set of 20 environments, and the logs from your submitted code (if it fails), will be made available to you to help you debug.
-**NOTE** : **IMPORTANT** : By default we have set `debug:false`, so when you have done the basic integration testing of your code, and are ready to make a final submission, please do make sure to set `debug` to `true` in `aicrowd.json`.
+If you set `debug` to `true`, then the evaluation will run on a separate set of 28 environments, and the logs from your submitted code (if it fails), will be made available to you to help you debug.
+
+```{warning}
+By default we have set `debug:false`, so when you have done the basic integration testing of your code, and are ready to make a final submission, please do make sure to set `debug` to `true` in `aicrowd.json`.
+```
 
 ### Code Entrypoint
 
-The evaluator will use `/home/aicrowd/run.sh` as the entrypoint, so please remember to have a `run.sh` at the root, which can instantitate any necessary environment variables, and also start executing your actual code. This repository includes a sample `run.sh` file.
-If you are using a Dockerfile to specify your software environment, please remember to create a `aicrowd` user, and place the entrypoint code at `run.sh`.
-If you are unsure what this is all about, you can let `run.sh` be as is, and instead focus on the `run.py` which is being called from within `run.sh`.
+The evaluator will use `/home/aicrowd/run.sh` as the entrypoint, so please remember to have a `run.sh` at the root, which can instantiate any necessary environment variables, and also start executing your actual code. This repository includes a sample `run.sh` file.
+
+If you are using a Dockerfile to specify your software environment, please remember to create an `aicrowd` user, and place the entrypoint code at `run.sh`. If you are unsure what this is all about, you can let `run.sh` be as is, and instead focus on the `run.py` which is being called from within `run.sh`!
 
 
 Next steps
 ---
 
-Take a look at the [agent provided in the starter kit](https://gitlab.aicrowd.com/flatland/neurips2020-flatland-starter-kit/blob/master/run.py#L21). It simply takes random actions at every timestep.
+Take a look at the [agent provided in the starter kit](https://gitlab.aicrowd.com/flatland/neurips2020-flatland-starter-kit/blob/master/run.py#L21). It simply takes random actions at every timestep. Surely you can do better 😉
 
-You can now start improving the agent! head over to the [reinforcement learning in Flatland introduction](flatland-rl) to get started with simple RL methods such as DQN. If you want to go further, you can explore the [research baselines](baselines) which use RLlib to train using advanced algorithms such as Ape-X, PPO or imitation learning methods such as MARWIL!
+You can now start improving the agent! head over to the [reinforcement learning in Flatland introduction](flatland-rl) to get started with simple RL methods such as DQN. If you want to go further, you can explore the [research baselines](baselines) which use RLlib to train using advanced algorithms such as Ape-X, PPO or imitation learning methods such as MARWIL.
