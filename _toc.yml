@@ -4,9 +4,7 @@
 - file: first-submission
 - file: flatland-env
   sections:
-      - file: env-doc/rail-env
       - file: env-doc/The_Rail_Environment
-      - file: env-doc/1_The_Rail_Environment
 - file: flatland-rl
   sections:
       - file: rl-doc/single-agent
