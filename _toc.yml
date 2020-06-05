@@ -2,6 +2,7 @@
 
 # GETTING STARTED
 - header: Getting started
+- file: getting-started/why-flatland
 - file: getting-started/first-submission
 - file: getting-started/env
   sections:
@@ -13,6 +14,7 @@
 - file: getting-started/or
 
 - header: Research
+- file: research/philosophy
 - file: research/baselines
 #  sections:
 #      - file: baselines/single-agent

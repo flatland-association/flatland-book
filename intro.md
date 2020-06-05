@@ -1,25 +1,32 @@
 Welcome to Flatland
 ===
 
+
 ```{admonition} Ongoing Challenge
 Take part in the **[NeurIPS 2020 Flatland Challenge](https://www.aicrowd.com/challenges/neurips-2020-flatland-challenge/)** on AIcrowd!
 ```
 
-Flatland is an open-source toolkit for developing and comparing Multi Agent Reinforcement Learning algorithms in little (or ridiculously large) gridworlds.
-
 ![Flatland](https://i.imgur.com/9cNtWjs.gif)
+
+Flatland tackles a major problem in the transportation world: 
+
+> **How can we schedule trains as efficiently as possible?**
+
+This is a hard question! Driving a single train from point A to point B is easy. But how to make sure the trains won't block each others at intersections? How to handle trains that randomly break down? 
+
+Flatland is an open-source toolkit to develop and compare solutions for this problem.
 
 <center><p>
 <!--<a class="reference external" href="https://gitlab.aicrowd.com/flatland/flatland"><img alt="arxiv" src="http://img.shields.io/badge/cs.LG-arXiv%3A1809.00510-B31B1B.svg"></a>-->
 <a class="reference external" href="https://gitlab.aicrowd.com/flatland/flatland"><img alt="repository" src="https://img.shields.io/static/v1?label=aicrowd.gitlab.com&amp;message=flatland/flatland&amp;color=%3CCOLOR%3E&amp;logo=gitlab"></a>
-<!--<a class="reference external" href="https://gitter.im/AIcrowd-HQ/flatland-rl"><img alt="gitter" src="https://img.shields.io/gitter/room/badges/shields.svg"></a>-->
+<a class="reference external" href="https://discord.com/invite/hCR3CZG"><img alt="discord" src="https://img.shields.io/static/v1?label=discord&message=neurips2020-flatland-challenge&color=%3CCOLOR%3E&logo=discord"></a>
 </p></center
 
 
-Getting started
+Quick start
 ---
 
-Using the environment is easy for both humans and AIs:
+Flatland is easy to use whether you’re a human or an AI:
 
 ```console
 $ pip install flatland-rl
@@ -36,11 +43,7 @@ while True:
 EOF
 ```
 
-**[Make your first Challenge Submission in 5 minutes!](getting-started/first-submission)**
-
-To learn more about Flatland, you can read how to [interact with this environment](getting-started/env), how to get started with [reinforcement learning methods](getting-started/rl) or with [operations research methods](getting-started/or).
-
-To go further, check out the research ongoing around this environment: [multiple baselines](research/baselines) are available, as well as a list of [unexplored research ideas](research/research-ideas). The [best solutions from previous Flatland challenges](research/previous-challenges) are also openly available.
+Want to dive straight in? **[Make your first submission to the NeurIPS 2020 Challenge in 5 minutes!](getting-started/first-submission)**
 
 Design principles
 ---
@@ -61,21 +64,23 @@ In several environments, it has been observed that agents can overfit to remarka
 Next steps
 ---
 
-- [Use Flatland for your research](research/baselines)
-
+- [Step by step introduction to Flatland](getting-started/env)
 - [Take part in the NeurIPS challenge](getting-started/first-submission)
-
+- [Use Flatland for your research](research/philosophy)
 - [Contribute to Flatland](misc/contributing)
-
 - [Sponsor the Challenge](mailto:hello@aicrowd.com)
-
 
 Communication
 ---
 
-* [Discord Channel](https://discord.com/invite/hCR3CZG)
-* [Discussion Forum](https://discourse.aicrowd.com/c/neurips-2020-flatland-challenge)
-* [Issue Tracker](https://gitlab.aicrowd.com/flatland/flatland/issues/)
+Join the Discord channel to exchange with other participants:
+
+- [Discord Channel](https://discord.com/invite/hCR3CZG)
+
+Use these channels if you have a problem or a question for the organizers:
+
+- [Discussion Forum](https://discourse.aicrowd.com/c/neurips-2020-flatland-challenge)
+- [Issue Tracker](https://gitlab.aicrowd.com/flatland/flatland/issues/)
 
 
 Partners
