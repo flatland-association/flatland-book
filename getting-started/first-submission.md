@@ -2,7 +2,7 @@
 Submit in 5 Minutes
 ===
 
-All aboard! 🚂
+🚂 All aboard!
 ---
 
 In the next five minutes, you will submit your first agent to the [NeurIPS 2020 Flatland Challenge](https://www.aicrowd.com/challenges/neurips-2020-flatland-challenge/) and will see your name on the leaderboard.
@@ -10,7 +10,7 @@ In the next five minutes, you will submit your first agent to the [NeurIPS 2020 
 ![leaderboard](../assets/images/you.png)
 
 
-Setup
+📦 Setup
 ---
 
 Start by cloning the starter kit: 
@@ -31,7 +31,7 @@ conda env create -f environment.yml # creates the flatland-rl environment
 conda activate flatland-rl # activates it
 ```
 
-Setup on Windows
+📦 Setup on Windows
 ---
 
 These steps are for Windows users only!
@@ -65,7 +65,7 @@ chmod +x Anaconda3-2019.07-Linux-x86_64.sh
 You may have to restart Ubuntu for all changes to take effect.
 
 
-Test your local setup
+✅ Test your local setup
 ---
 
 We will now run the agent locally to check that everything works as expected.
@@ -134,7 +134,7 @@ That's it! the agent should now start interacting with the evaluator, and you sh
 This client/server architecture is used to fully isolate submissions from the evaluation infrastructure.
 ```
 
-Code structure
+🗂️ Code structure
 ---
 
 Here's how to organize your code to ensure the evalution will work successfully.
@@ -167,7 +167,7 @@ The evaluator will use `/home/aicrowd/run.sh` as the entrypoint, so please remem
 
 If you are using a Dockerfile to specify your software environment, please remember to create an `aicrowd` user, and place the entrypoint code at `run.sh`. If you are unsure what this is all about, you can let `run.sh` be as is, and instead focus on the `run.py` which is being called from within `run.sh`!
 
-Submitting!
+📤 Submitting!
 ---
 
 Let's first consider the big picture. To submit to the challenge, you'll need to ensure you've set up an appropriate repository structure, create a private git repository at [gitlab.aicrowd.com](https://gitlab.aicrowd.com/) with the contents of your submission, and push a git tag corresponding to the version of your repository you'd like to submit. You are allowed to submit up to 5 submissions per day.
@@ -213,7 +213,7 @@ At the address above above, you should start seeing something like this take sha
 
 ![submission issue](../assets/images/submission-issue.png)
 
-Next steps
+🚉 Next steps
 ---
 
 Take a look at the [agent provided in the starter kit](https://gitlab.aicrowd.com/flatland/neurips2020-flatland-starter-kit/blob/master/run.py#L21). It simply takes random actions at every timestep. Surely you can do better 😉
