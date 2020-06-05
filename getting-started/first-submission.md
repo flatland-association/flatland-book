@@ -215,6 +215,6 @@ At the address above above, you should start seeing something like this take sha
 🚉 Next steps
 ---
 
-Take a look at the [agent provided in the starter kit](https://gitlab.aicrowd.com/flatland/neurips2020-flatland-starter-kit/blob/master/run.py#L21). It simply takes random actions at every timestep. Surely you can do better 😉
+Take a look at the [agent provided in the starter kit](https://gitlab.aicrowd.com/flatland/neurips2020-flatland-starter-kit/blob/master/run.py#L21). It simply takes random actions at every timestep. Surely you can do better 💪
 
-You can now start improving the agent! head over to the [reinforcement learning in Flatland introduction](flatland-rl) to get started with simple RL methods such as DQN. If you want to go further, you can explore the [research baselines](baselines) which use RLlib to train using advanced algorithms such as Ape-X, PPO or imitation learning methods such as MARWIL.
+It is now time to start improving the agent! Head over to the [reinforcement learning in Flatland introduction](rl) to get started with simple RL methods such as DQN. To go further, explore the [research baselines](../research/baselines) which use RLlib to train using advanced algorithms such as Ape-X, PPO or imitation learning methods such as MARWIL.
