@@ -17,9 +17,9 @@ In the next five minutes, you will submit your first agent to the [NeurIPS 2020 
 
 Start by cloning the starter kit: 
 
-```bash
-git clone https://gitlab.aicrowd.com/flatland/neurips2020-flatland-starter-kit.git/
-cd flatland-challenge-starter-kit
+```console
+$ git clone https://gitlab.aicrowd.com/flatland/neurips2020-flatland-starter-kit.git/
+$ cd flatland-challenge-starter-kit
 ```
 
 The starter kit comes with a sample agent which performs random actions. We will see how it works in more details in the last section.
@@ -43,15 +43,15 @@ First download **Anaconda**  by running this in the **Ubuntu Shell**:
 You need the **Linux** version and not Windows version!
 ```
 
-```
-wget https://repo.anaconda.com/archive/Anaconda3-2019.07-Linux-x86_64.sh 
+```console
+$ wget https://repo.anaconda.com/archive/Anaconda3-2019.07-Linux-x86_64.sh 
 ```
 
 Install **Anaconda** for Ubuntu:
 
-```
-chmod +x Anaconda3-2019.07-Linux-x86_64.sh 
- ./Anaconda3-2019.07-Linux-x86_64.sh 
+```console
+$ chmod +x Anaconda3-2019.07-Linux-x86_64.sh 
+$ ./Anaconda3-2019.07-Linux-x86_64.sh 
 ```
 
 You may have to restart Ubuntu for all changes to take effect.
@@ -60,9 +60,9 @@ You may have to restart Ubuntu for all changes to take effect.
 
 You can now run the following:
 
-```bash
-conda env create -f environment.yml # creates the flatland-rl environment
-conda activate flatland-rl # activates it
+```console
+$ conda env create -f environment.yml # creates the flatland-rl environment
+$ conda activate flatland-rl # activates it
 ```
 
 
@@ -102,9 +102,9 @@ The communication between your agent and the evaluator is done through a Redis s
 
 You can check that things are ready by running:
 
-```bash
-redis-cli ping
-> PONG
+```console
+$ redis-cli ping
+PONG
 ```
 
 #### Evaluator service
@@ -112,7 +112,7 @@ redis-cli ping
 Let's start the evaluator service. You should use different terminals for the evaluator and the agent as they will need to run at the same time.
 
 ```bash
-flatland-evaluator --tests ./scratch/test-envs/
+$ flatland-evaluator --tests ./scratch/test-envs/
 ```
 
 #### The agent
@@ -120,13 +120,11 @@ flatland-evaluator --tests ./scratch/test-envs/
 You can now start the agent:
 
 ```bash
-# on Linux
-export AICROWD_TESTS_FOLDER=<path_to_your_tests_directory>
-
-# or on Windows :
-#  SET AICROWD_TESTS_FOLDER=<path_to_your_tests_directory>
-
-python run.py
+$ # on Linux
+$ export AICROWD_TESTS_FOLDER=<path_to_your_tests_directory>
+$ # or on Windows :
+$ #  SET AICROWD_TESTS_FOLDER=<path_to_your_tests_directory>
+$ python run.py
 ```
 
 That's it! the agent should now start interacting with the evaluator, and you should see the results coming in.
@@ -185,18 +183,18 @@ You can then create a submission by making a **tag push** to your repository on 
 
 First add a git remote pointing to your repository on [gitlab.aicrowd.com](https://gitlab.aicrowd.com/):
 
-```bash
-# change the line below to use your AIcrowd username and repository name:
-git remote add aicrowd git@gitlab.aicrowd.com:<YOUR_AICROWD_USER_NAME>/<YOUR_REPO_NAME>.git
-git push aicrowd master
+```console
+$ # change the line below to use your AIcrowd username and repository name:
+$ git remote add aicrowd git@gitlab.aicrowd.com:<YOUR_AICROWD_USER_NAME>/<YOUR_REPO_NAME>.git
+$ git push aicrowd master
 ```
 
 Finally submit your solution by creating a tag for your submission and pushing it:
 
-```bash
-git tag submission-v0.1 # needs a new name tag for each submission!
-git push aicrowd master
-git push aicrowd submission-v0.1
+```console
+$ git tag submission-v0.1 # needs a new name tag for each submission!
+$ git push aicrowd master
+$ git push aicrowd submission-v0.1
 ```
 
 ```{admonition} Submission tags
