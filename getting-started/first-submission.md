@@ -121,13 +121,30 @@ You can now start the agent:
 
 ```bash
 $ # on Linux
-$ export AICROWD_TESTS_FOLDER=<path_to_your_tests_directory>
+$ export AICROWD_TESTS_FOLDER=./scratch/test-envs/
 $ # or on Windows :
-$ #  SET AICROWD_TESTS_FOLDER=<path_to_your_tests_directory>
+$ #  SET AICROWD_TESTS_FOLDER=./scratch/test-envs/
 $ python run.py
 ```
 
 That's it! the agent should now start interacting with the evaluator, and you should see the results coming in.
+
+```console
+$ flatland-evaluator --tests ./scratch/test-envs/
+['Test_12/Level_0.pkl', 'Test_1/Level_1.pkl', 'Test_10/Level_1.pkl', 'Test_11/Level_0.pkl', 'Test_8/Level_0.pkl', 'Test_4/Level_1.pkl', 'Test_2/Level_1.pkl', 'Test_5/Level_0.pkl', 'Test_7/Level_0.pkl', 'Test_6/Level_1.pkl', 'Test_3/Level_1.pkl', 'Test_7/Level_1.pkl', 'Test_9/Level_1.pkl', 'Test_10/Level_0.pkl', 'Test_6/Level_0.pkl', 'Test_2/Level_0.pkl', 'Test_11/Level_1.pkl', 'Test_0/Level_1.pkl', 'Test_0/Level_0.pkl', 'Test_9/Level_0.pkl', 'Test_4/Level_0.pkl', 'Test_13/Level_0.pkl', 'Test_12/Level_1.pkl', 'Test_8/Level_1.pkl', 'Test_3/Level_0.pkl', 'Test_5/Level_1.pkl', 'Test_13/Level_1.pkl', 'Test_1/Level_0.pkl']
+Listening at :  flatland-rl::FLATLAND_RL_SERVICE_ID::commands
+Evaluating : Test_12/Level_0.pkl
+Evaluating : Test_1/Level_1.pkl
+Evaluating : Test_10/Level_1.pkl
+Evaluating : Test_11/Level_0.pkl
+Evaluating : Test_8/Level_0.pkl
+Evaluating : Test_4/Level_1.pkl
+...
+```
+
+You don't have to let the evaluation run until the end, since right now it is just using a random agent. The goal is simply to check that everything works as expected. 
+
+When you will start implementing your own agents, this will allow you to check that your solutions are fully working. Note that submissions that don't work still count against your daily limit! 😱
 
 ```{admonition} Why so complicated?
 This client/server architecture is used to fully isolate submissions from the evaluation infrastructure.
