@@ -212,9 +212,33 @@ At the address above above, you should start seeing something like this take sha
 
 ![submission issue](../assets/images/submission-issue.png)
 
-🚉 Next steps
+🚉 Next stops
 ---
 
 Take a look at the [agent provided in the starter kit](https://gitlab.aicrowd.com/flatland/neurips2020-flatland-starter-kit/blob/master/run.py#L21). It simply takes random actions at every timestep. Surely you can do better 💪
 
 It is now time to start improving the agent! Head over to the [reinforcement learning in Flatland introduction](rl) to get started with simple RL methods such as DQN. To go further, explore the [research baselines](../research/baselines) which use RLlib to train using advanced algorithms such as Ape-X, PPO or imitation learning methods such as MARWIL.
+
+🐛 Troubleshooting
+---
+
+### "unknown locale: UTF-8"
+
+This happens on macOS. Append this to your `~/.bash_profile`:
+
+```console
+$ export LC_ALL=en_US.UTF-8
+$ export LANG=en_US.UTF-8
+```
+
+And then run:
+
+```console
+$ source ~/.bash_profile
+```
+
+[More details](https://stackoverflow.com/a/38917471/318557)
+
+### "activate is not a conda command"
+
+This error can have various causes. Most commonly, this means that your conda installation is either too old, or misconfigured in some way. The easiest fix is to update conda to the latest version and re-install it if it keeps failing.
