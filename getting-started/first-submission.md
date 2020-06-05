@@ -13,6 +13,8 @@ In the next five minutes, you will submit your first agent to the [NeurIPS 2020 
 📦 Setup
 ---
 
+### Starter Kit
+
 Start by cloning the starter kit: 
 
 ```bash
@@ -22,28 +24,18 @@ cd flatland-challenge-starter-kit
 
 The starter kit comes with a sample agent which performs random actions. We will see how it works in more details in the last section.
 
-Flatland uses the conda package manager. [Install it](https://www.anaconda.com/products/individual) first if needed.
+### Setup conda
 
-Create a conda environment for Flatland. This is straightforward is you are using Linux or macOS. If you use Windows, follow the steps from the next section instead.
+Flatland uses the conda package manager. If you use macOS or Linux, you can simply [install conda](https://www.anaconda.com/products/individual) if needed. The next steps show how to set it up with Windows.
 
-```bash
-conda env create -f environment.yml # creates the flatland-rl environment
-conda activate flatland-rl # activates it
-```
+### Extra steps on Windows
 
-📦 Setup on Windows
----
-
-These steps are for Windows users only!
-
-### Installing WSL
+This is for Windows users only!
 
 1. Enable [WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10) on Windows.
 2. Get [Ubuntu](https://www.microsoft.com/en-us/p/ubuntu/9nblggh4msv6?SilentAuth=1&wa=wsignin1.0&activetab=pivot:overviewtab) for Windows.
 3. Run your **Ubuntu** system on your computer
 4. Now let us install the **Dependencies**. From within the **Ubuntu-Shell** run:
-
-### Dependencies
 
 First download **Anaconda**  by running this in the **Ubuntu Shell**:
 
@@ -63,6 +55,15 @@ chmod +x Anaconda3-2019.07-Linux-x86_64.sh
 ```
 
 You may have to restart Ubuntu for all changes to take effect.
+
+### Create the conda environment
+
+You can now run the following:
+
+```bash
+conda env create -f environment.yml # creates the flatland-rl environment
+conda activate flatland-rl # activates it
+```
 
 
 ✅ Test your local setup

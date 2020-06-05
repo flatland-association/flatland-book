@@ -1,6 +1,11 @@
 Research Ideas
 ===
 
+🧪 Coming soon!
+--- 
+
+<!--
+
 Q-Learning in enormous action spaces via amortized approximate maximization
 ---
 
@@ -109,3 +114,5 @@ Baselines and Observation Ideas for Flatland
 Summary document used for the proposal baselines
 
 https://docs.google.com/document/d/1Lwc-0CuAULrBATNjHr91Gh_SGben6bLD90IiJjhjqsE/edit
+
+-->

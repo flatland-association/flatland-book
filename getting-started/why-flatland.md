@@ -1,7 +1,9 @@
 Why Flatland?
 ===
 
-The Flatland environment was created to solve a real world problem: how can we schedule trains as efficiently as possible?
+The Flatland environment was created to solve a real world problem:
+
+> **How to efficiently manage dense traffic on complex railway networks?**
 
 🚂 Background
 ---
