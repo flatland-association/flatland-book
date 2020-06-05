@@ -10,7 +10,7 @@ Take part in the **[NeurIPS 2020 Flatland Challenge](https://www.aicrowd.com/cha
 
 Flatland tackles a major problem in the transportation world: 
 
-> **How can we schedule trains as efficiently as possible?**
+> **How to efficiently manage dense traffic on complex railway networks?**
 
 This is a hard question! Driving a single train from point A to point B is easy. But how to make sure the trains won't block each others at intersections? How to handle trains that randomly break down? 
 

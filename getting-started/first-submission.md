@@ -22,14 +22,16 @@ cd flatland-challenge-starter-kit
 
 The starter kit comes with a sample agent which performs random actions. We will see how it works in more details in the last section.
 
-Create a conda environment for Flatland, [install conda](https://www.anaconda.com/products/individual) first if needed. This is straightforward is you are using Linux or macOS. If you use Windows, follow the steps from the next section instead.
+Flatland uses the conda package manager. [Install it](https://www.anaconda.com/products/individual) first if needed.
+
+Create a conda environment for Flatland. This is straightforward is you are using Linux or macOS. If you use Windows, follow the steps from the next section instead.
 
 ```bash
 conda env create -f environment.yml # creates the flatland-rl environment
 conda activate flatland-rl # activates it
 ```
 
-Setup on Windows (optional)
+Setup on Windows
 ---
 
 These steps are for Windows users only!
@@ -43,7 +45,11 @@ These steps are for Windows users only!
 
 ### Dependencies
 
-First download **Anaconda**  by running this in the **Ubuntu Shell** if you are on a 64bit machine, otherwise update link.( **ATTENTION:** You need the **Linux** version and not Windows version!!!)
+First download **Anaconda**  by running this in the **Ubuntu Shell**:
+
+```{warning}
+You need the **Linux** version and not Windows version!
+```
 
 ```
 wget https://repo.anaconda.com/archive/Anaconda3-2019.07-Linux-x86_64.sh 
@@ -56,7 +62,7 @@ chmod +x Anaconda3-2019.07-Linux-x86_64.sh
  ./Anaconda3-2019.07-Linux-x86_64.sh 
 ```
 
-For all changes to take affect usually you will have to restart Ubuntu, just close the terminal and run Ubuntu again.
+You may have to restart Ubuntu for all changes to take effect.
 
 
 Test your local setup
@@ -86,13 +92,14 @@ Your directory structure should be as follow:
     ├── ...
 ``` 
 
-We will now replicate the setup used on AIcrowd locally to ensure that your submission will be evaluated without problem. This involves three components: your agent, the evaluator service, and a Redis server to let them communicate. 
+We will now replicate the setup used on AIcrowd locally to ensure that your submission will be evaluated without problem when you submit it. 
+This involves three components: your agent, the evaluator service, and a Redis server to let them communicate. 
 
 #### Redis
 
-The communication between your agent and the evaluator is done through a Redis server. You should ensure that a redis server is running unprotected on localhost. Follow [these instructions](https://redis.io/topics/quickstart) to set it up.
+The communication between your agent and the evaluator is done through a Redis server. You should ensure that a redis server is running on localhost. Follow [these instructions](https://redis.io/topics/quickstart) to set it up.
 
-You can check that things are fine by running:
+You can check that things are ready by running:
 
 ```bash
 redis-cli ping
@@ -124,20 +131,52 @@ python run.py
 That's it! the agent should now start interacting with the evaluator, and you should see the results coming in.
 
 ```{admonition} Why so complicated?
-This client/server architecture is used to fully isolate your solution from the evaluation infrastructure.
+This client/server architecture is used to fully isolate submissions from the evaluation infrastructure.
 ```
 
+Code structure
+---
+
+Here's how to organize your code to ensure the evalution will work successfully.
+
+### Repository Structure
+
+Each repository must have an `aicrowd.json` file with the following content :
+
+```json
+{
+  "challenge_id": "neurips-2020-flatland-challenge",
+  "grader_id": "aicrowd_flatland_challenge_2020",
+  "description": "sample description about your agent",
+  "license": "MIT",
+  "debug": true
+}
+```
+
+This is used to map your submission to the proper challenge, so please remember to use the correct `challenge_id` and `grader_id` as specified above.
+
+If you set `debug` to `true`, then the evaluation will run on a separate set of 28 environments, and the logs from your submitted code (if it fails), will be made available to you to help you debug.
+
+```{warning}
+By default we have set `debug: true`, so when you have done the basic integration testing of your code, and are ready to make a final submission, please make sure to set `debug: false` in `aicrowd.json`.
+```
+
+### Code Entrypoint
+
+The evaluator will use `/home/aicrowd/run.sh` as the entrypoint, so please remember to have a `run.sh` at the root, which can instantiate any necessary environment variables, and also start executing your actual code. This repository includes a sample `run.sh` file.
+
+If you are using a Dockerfile to specify your software environment, please remember to create an `aicrowd` user, and place the entrypoint code at `run.sh`. If you are unsure what this is all about, you can let `run.sh` be as is, and instead focus on the `run.py` which is being called from within `run.sh`!
 
 Submitting!
 ---
 
-Let's first consider the big picture. To submit to the challenge you'll need to ensure you've set up an appropriate repository structure, create a private git repository at [gitlab.aicrowd.com](https://gitlab.aicrowd.com/) with the contents of your submission, and push a git tag corresponding to the version of your repository you'd like to submit. You are allowed to submit up to 5 submissions per day.
+Let's first consider the big picture. To submit to the challenge, you'll need to ensure you've set up an appropriate repository structure, create a private git repository at [gitlab.aicrowd.com](https://gitlab.aicrowd.com/) with the contents of your submission, and push a git tag corresponding to the version of your repository you'd like to submit. You are allowed to submit up to 5 submissions per day.
 
 #### Create your repository
 
-Head to [gitlab.aicrowd.com/](https://gitlab.aicrowd.com) to create your private repository. You can use any name you want for it.
+Head to [gitlab.aicrowd.com](https://gitlab.aicrowd.com) to create your private repository. You can use any name you want for it.
 
-Add your SSH Keys to your GitLab account by following [these instructions](https://docs.gitlab.com/ee/gitlab-basics/create-your-ssh-keys.html). If you do not have SSH Keys, you will first need to [generate one](https://docs.gitlab.com/ee/ssh/README.html#generating-a-new-ssh-key-pair).
+Add your SSH Keys to your GitLab account by following [these instructions](https://docs.gitlab.com/ee/gitlab-basics/create-your-ssh-keys.html). If you do not have SSH Keys, you will first need to [generate a pair](https://docs.gitlab.com/ee/ssh/README.html#generating-a-new-ssh-key-pair).
 
 #### Push a tag
 
@@ -161,51 +200,18 @@ git push aicrowd submission-v0.1
 
 ```{admonition} Submission tags
 Any tag push where the tag name begins with "submission-" to your private repository is considered as a submission!
+Remember that you are allowed up to 5 submissions per day.
 ```
 
-Note that if the contents of your repository (latest commit hash) does not change, then pushing a new tag will **not** trigger a new evaluation.
+Note that if the content of your repository (latest commit hash) does not change, then pushing a new tag will **not** trigger a new evaluation.
 
 You now should be able to see the details of your submission at:
 
-https://gitlab.aicrowd.com/<YOUR_AICROWD_USER_NAME>/<YOUR_REPO_NAME>/issues
+[https://gitlab.aicrowd.com/<YOUR_AICROWD_USER_NAME>/<YOUR_REPO_NAME>/issues](#)
 
 At the address above above, you should start seeing something like this take shape. The whole evaluation can take a bit of time, you will have to be patient! 🕙
 
 ![submission issue](../assets/images/submission-issue.png)
-
-
-Code structure
----
-
-### Repository Structure
-
-Each repository must have an `aicrowd.json` file with the following content :
-
-```json
-{
-  "challenge_id": "neurips-2020-flatland-challenge",
-  "grader_id": "aicrowd_flatland_challenge_2020",
-  "authors": ["your-aicrowd-username"],
-  "description": "sample description about your awesome agent",
-  "license": "MIT",
-  "debug": false
-}
-```
-
-This is used to map your submission to the proper challenge, so please remember to use the correct `challenge_id` and `grader_id` as specified above.
-
-If you set `debug` to `true`, then the evaluation will run on a separate set of 28 environments, and the logs from your submitted code (if it fails), will be made available to you to help you debug.
-
-```{warning}
-By default we have set `debug:false`, so when you have done the basic integration testing of your code, and are ready to make a final submission, please do make sure to set `debug` to `true` in `aicrowd.json`.
-```
-
-### Code Entrypoint
-
-The evaluator will use `/home/aicrowd/run.sh` as the entrypoint, so please remember to have a `run.sh` at the root, which can instantiate any necessary environment variables, and also start executing your actual code. This repository includes a sample `run.sh` file.
-
-If you are using a Dockerfile to specify your software environment, please remember to create an `aicrowd` user, and place the entrypoint code at `run.sh`. If you are unsure what this is all about, you can let `run.sh` be as is, and instead focus on the `run.py` which is being called from within `run.sh`!
-
 
 Next steps
 ---

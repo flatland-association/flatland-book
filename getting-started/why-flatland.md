@@ -1,7 +1,7 @@
 Why Flatland?
 ===
 
-The Flatland challenge was designed to solve a real world problem problem: how can we schedule trains to make them run more efficiently?
+The Flatland environment was created to solve a real world problem: how can we schedule trains as efficiently as possible?
 
 🚂 Background
 ---
@@ -16,7 +16,7 @@ A promising solution to this dilemma is a complete railway simulation that effic
 
  ![Flatland](https://s3.eu-central-1.amazonaws.com/aicrowd-static/SBB/images/Flatland_Preview.svg)
  
-***Flatland**: This image illustrates an early draft of the environment visualization. The core task of this challenge is to manage and maintain railway traffic on complex scenarios in complex networks.*
+*This image illustrates an early draft of the environment visualization. The core task of this challenge is to manage and maintain railway traffic on complex scenarios in complex networks.*
 
 🔀 The Vehicle Re-scheduling Problem
 ---
@@ -25,6 +25,4 @@ At the core of this challenge lies the general vehicle re-scheduling problem (VR
 
 > The vehicle rescheduling problem (VRSP) arises when a previously assigned trip is disrupted. A traffic accident, a medical emergency, or a breakdown of a vehicle are examples of possible disruptions that demand the rescheduling of vehicle trips. The VRSP can be approached as a dynamic version of the classical vehicle scheduling problem (VSP) where assignments are generated dynamically.
 
-The “Flatland” Competition aims to address the vehicle rescheduling problem by providing a simplistic grid world environment and allowing for diverse solution approaches. The challenge is open to any methodological approach, e.g. from the domain of reinforcement learning or of operations research.
-
-The problems are formulated as a 2D grid environment with restricted transitions between neighboring cells to represent railway networks. On the 2D grid, multiple agents with different objectives must collaborate to maximize global reward. There is a range of tasks with increasing difficulty that need to be solved as explained in the coming sections.
+The Flatland Challenge aims to address the vehicle rescheduling problem by providing a simplistic grid world environment and allowing for diverse solution approaches. The problems are formulated as a 2D grid environment with restricted transitions between neighboring cells to represent railway networks. On the 2D grid, multiple agents with different objectives must collaborate to maximize global reward.
