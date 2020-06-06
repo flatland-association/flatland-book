@@ -1,19 +1,25 @@
 The Flatland Environment
 ===
 
-Let's go through the mains Flatland concepts: actions, observations and predictors.
+Out goal is to manage traffic in railway networks. Consider the following example:
+
+![Flatland](https://i.imgur.com/Pc9aH4P.gif)
+
+In the railway network above, each agent strives to go from its starting point to its assigned station.
+ 
+
 
 Actions in Flatland
 ---
 
-Flatland is a railway simulation. Thus the actions of an agent are strongly limited to the railway network. This means that in many cases not all actions are valid.
+The trains in Flatland have strongly limited movements, as you would expect from a railway simulation. This means that in most cases only a few actions are valid.
 
 The possible actions of an agent are
-- 0 *Do Nothing*:  If the agent is moving it continues moving, if it is stopped it stays stopped
-- 1 *Deviate Left*: This action is only valid at cells where the agent can change direction towards left. If action is chosen, the left transition and a rotation of the agent orientation to the left is executed. If the agent is stopped at any position, this action will cause it to start moving in any cell where forward or left is allowed!
-- 2 *Go Forward*: This action will start the agent when stopped. At switches this will chose the forward direction.
-- 3 *Deviate Right*: Exactly the same as deviate left but for right turns.
-- 4 *Stop*: This action causes the agent to stop, this is necessary to avoid conflicts in multi agent setups (Not needed for navigation).
+- **Do Nothing**:  If the agent is moving it continues moving, if it is stopped it stays stopped
+- **Deviate Left**: This action is only valid at cells where the agent can change direction towards the left. If chosen, the left transition and a rotation of the agent orientation to the left is executed. If the agent is stopped at any position, this action will cause it to start moving in any cell where forward or left is allowed!
+- **Go Forward**: This action will start the agent when stopped. At switches, this will chose the forward direction.
+- **Deviate Right**: The same as deviate left but for right turns.
+- **Stop**: This action causes the agent to stop, which is sometimes necessary to avoid conflicts in multi agent setups.
 
 Shortest path predictor
 ---

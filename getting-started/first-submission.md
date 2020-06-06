@@ -224,21 +224,35 @@ You now should be able to see the details of your submission at:
 
 [https://gitlab.aicrowd.com/<YOUR_AICROWD_USER_NAME>/<YOUR_REPO_NAME>/issues](#)
 
-At the address above above, you should start seeing something like this take shape. The whole evaluation can take a bit of time, you will have to be patient! 🕙
+You should start seeing something like this take shape at the address above: 
 
 ![submission issue](../assets/images/submission-issue.png)
+
+The evaluation will take some time, you will have to be patient! 🕙
 
 🚉 Next stops
 ---
 
-Take a look at the [agent provided in the starter kit](https://gitlab.aicrowd.com/flatland/neurips2020-flatland-starter-kit/blob/master/run.py#L21). It simply takes random actions at every timestep. Surely you can do better 💪
+Take a look at the [agent provided in the starter kit](https://gitlab.aicrowd.com/flatland/neurips2020-flatland-starter-kit/blob/master/run.py#L21). It simply takes random actions for each agent at every timestep: 
 
-It is now time to start improving the agent! Head over to the [reinforcement learning in Flatland introduction](rl) to get started with simple RL methods such as DQN. To go further, explore the [research baselines](../research/baselines) which use RLlib to train using advanced algorithms such as Ape-X, PPO or imitation learning methods such as MARWIL.
+```python
+def my_controller(obs, number_of_agents):
+    _action = {}
+    for _idx in range(number_of_agents):
+        _action[_idx] = np.random.randint(0, 5)
+    return _action
+```
+
+Surely you can do better! 💪
+
+Head over to the [reinforcement learning in Flatland introduction](rl) to get started with simple RL methods such as Double DQN. 
+
+To go further, explore the [research baselines](../research/baselines) which use RLlib to train using advanced algorithms such as Ape-X, PPO or imitation learning methods such as MARWIL.
 
 🐛 Troubleshooting
 ---
 
-### "unknown locale: UTF-8"
+### "`unknown locale: UTF-8`"
 
 This happens on macOS. Append this to your `~/.bash_profile`:
 
@@ -255,6 +269,6 @@ $ source ~/.bash_profile
 
 [More details](https://stackoverflow.com/a/38917471/318557)
 
-### "activate is not a conda command"
+### "`activate is not a conda command`"
 
 This error can have various causes. Most commonly, this means that your conda installation is either too old, or misconfigured in some way. The easiest fix is to update conda to the latest version and re-install it if it keeps failing.
