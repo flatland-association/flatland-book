@@ -162,16 +162,15 @@ Each repository must have an `aicrowd.json` file with the following content :
 ```json
 {
   "challenge_id": "neurips-2020-flatland-challenge",
-  "grader_id": "aicrowd_flatland_challenge_2020",
-  "description": "sample description about your agent",
-  "license": "MIT",
+  "grader_id": "neurips-2020-flatland-challenge",
+  "description": "Optional description of your agent",
   "debug": true
 }
 ```
 
 This is used to map your submission to the proper challenge, so please remember to use the correct `challenge_id` and `grader_id` as specified above.
 
-If you set `debug` to `true`, then the evaluation will run on a separate set of 28 environments, and the logs from your submitted code (if it fails), will be made available to you to help you debug.
+If you set `debug` to `true`, then the evaluation will run on a separate set of 28 environments, and the logs from your submitted code (if it fails), will be made available to you to help you debug. These test submissions won't count against your daily limit and won't appear on the leaderboard.
 
 ```{warning}
 By default we have set `debug: true`, so when you have done the basic integration testing of your code, and are ready to make a final submission, please make sure to set `debug: false` in `aicrowd.json`.
