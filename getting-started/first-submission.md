@@ -9,6 +9,7 @@ In the next five minutes, you will submit your first agent to the [NeurIPS 2020 
 
 ![leaderboard](../assets/images/you.png)
 
+If you have any problem along the way, take a look at the [troubleshooting tips](#troubleshooting) at the end of this page. If things still don't go your way, don't hesitate to [ask about it in the forum](https://discourse.aicrowd.com/c/neurips-2020-flatland-challenge).
 
 📦 Setup
 ---
@@ -146,16 +147,12 @@ You don't have to let the evaluation run until the end, since right now it is ju
 
 When you will start implementing your own agents, this will allow you to check that your solutions are fully working. Note that submissions that don't work still count against your daily limit! 😱
 
-```{admonition} Why so complicated?
-This client/server architecture is used to fully isolate submissions from the evaluation infrastructure.
-```
-
 🗂️ Code structure
 ---
 
-Here's how to organize your code to ensure the evalution will work successfully.
+There are two files that need to be present in your repository for the evaluation to work as intended: `aicrowd.json` to indicate which challenge you are taking part in, and `run.sh` which serves as the entrypoint of your solution.
 
-### Repository Structure
+### aicrowd.json
 
 Each repository must have an `aicrowd.json` file with the following content :
 
@@ -170,15 +167,15 @@ Each repository must have an `aicrowd.json` file with the following content :
 
 This is used to map your submission to the proper challenge, so please remember to use the correct `challenge_id` and `grader_id` as specified above.
 
-If you set `debug` to `true`, then the evaluation will run on a separate set of 28 environments, and the logs from your submitted code (if it fails), will be made available to you to help you debug. These test submissions won't count against your daily limit and won't appear on the leaderboard.
+If you set `debug` to `true`, then the evaluation will run on a separate set of 28 environments, and the logs from your submitted code (if it fails), will be made available to help you debug. These test submissions won't count against your daily limit and won't appear on the leaderboard.
 
 ```{warning}
-By default we have set `debug: true`, so when you have done the basic integration testing of your code, and are ready to make a final submission, please make sure to set `debug: false` in `aicrowd.json`.
+By default we have set `debug: true`, so when you have done the basic integration testing of your code, and are ready to make a final submission, please make sure to set `debug: false`.
 ```
 
-### Code Entrypoint
+### run.sh
 
-The evaluator will use `/home/aicrowd/run.sh` as the entrypoint, so please remember to have a `run.sh` at the root, which can instantiate any necessary environment variables, and also start executing your actual code. This repository includes a sample `run.sh` file.
+The evaluator will use `/home/aicrowd/run.sh` as the entrypoint, so please remember to have a `run.sh` at the root, which will instantiate any necessary environment variables and start executing your actual code. Th starter kit repository includes a sample `run.sh` file.
 
 If you are using a Dockerfile to specify your software environment, please remember to create an `aicrowd` user, and place the entrypoint code at `run.sh`. If you are unsure what this is all about, you can let `run.sh` be as is, and instead focus on the `run.py` which is being called from within `run.sh`!
 
