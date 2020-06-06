@@ -51,6 +51,11 @@ metadata:
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
 spec:
+  tls:
+    - hosts:
+        - flatland-docs.internal.k8s.aicrowd.com
+        - flatland.aicrowd.com
+      secretName: flatland-docs-tls-secret
   rules:
   - host: flatland-docs.internal.k8s.aicrowd.com
     http:
