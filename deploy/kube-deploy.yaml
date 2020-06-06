@@ -47,6 +47,9 @@ metadata:
   namespace: flatland
   labels:
     app: flatland-docs
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
 spec:
   rules:
   - host: flatland-docs.internal.k8s.aicrowd.com
