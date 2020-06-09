@@ -14,15 +14,12 @@ Development
 * Jeremy Watson <jeremy@aicrowd.com>
 * Christian Scheller <christian.scheller@fhnw.ch>
 * Nilabha Bhattacharya <nilabha2007@gmail.com>
-* Guillaume Sartoretti <guillaume.sartoretti@nus.edu.sg>
 * Irene Sturm <irene.sturm@deutschebahn.com>
 * Sven Koenig <skoenig@usc.edu>
 
 Acknowledgements
 ----------------
-* Vaibhav Agrawal <theinfamouswayne@gmail.com>
-* Anurag Ghosh
-
+* Guillaume Sartoretti <guillaume.sartoretti@nus.edu.sg>
 
 Contributors
 ------------
