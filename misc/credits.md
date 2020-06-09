@@ -1,7 +1,7 @@
 Credits
 ===
 
-Development
+Core Team and Organizers
 -----------
 
 * Sharada Mohanty <mohanty@aicrowd.com>
