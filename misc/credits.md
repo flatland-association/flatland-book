@@ -7,9 +7,9 @@ Development
 * Sharada Mohanty <mohanty@aicrowd.com>
 * Erik Nygren <erik.nygren@sbb.ch>
 * Florian Laurent <florian@aicrowd.com>
+* Adrian Egli <adrian.egli@sbb.ch>
 * Christian Eichenberger <christian.markus.eichenberger@sbb.ch>
 * Christian Baumberger <christian.baumberger@sbb.ch>
-* Adrian Egli <adrian.egli@sbb.ch>
 * Giacomo Spigler <giacomo.spigler@gmail.com>
 * Jeremy Watson <jeremy@aicrowd.com>
 * Christian Scheller <christian.scheller@fhnw.ch>
