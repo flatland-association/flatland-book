@@ -20,7 +20,7 @@ Flatland is an open-source toolkit to develop and compare solutions for this pro
 <!--<a class="reference external" href="https://gitlab.aicrowd.com/flatland/flatland"><img alt="arxiv" src="http://img.shields.io/badge/cs.LG-arXiv%3A1809.00510-B31B1B.svg"></a>-->
 <a class="reference external" href="https://gitlab.aicrowd.com/flatland/flatland"><img alt="repository" src="https://img.shields.io/static/v1?label=aicrowd.gitlab.com&amp;message=flatland/flatland&amp;color=%3CCOLOR%3E&amp;logo=gitlab"></a>
 <a class="reference external" href="https://discord.com/invite/hCR3CZG"><img alt="discord" src="https://img.shields.io/static/v1?label=discord&message=neurips2020-flatland-challenge&color=%3CCOLOR%3E&logo=discord"></a>
-</p></center
+</p></center>
 
 
 Quick start
@@ -43,7 +43,7 @@ while True:
 EOF
 ```
 
-Want to dive straight in? **[Make your first submission to the NeurIPS 2020 Challenge in 5 minutes!](getting-started/first-submission)**
+Want to dive straight in? **[Make your first submission to the NeurIPS 2020 challenge in 5 minutes!](getting-started/first-submission)**
 
 Design principles
 ---
@@ -86,9 +86,9 @@ Use these channels if you have a problem or a question for the organizers:
 Partners
 ---
 
-<a href="https://sbb.ch" target="_blank" style="margin-right:25px"><img src="https://i.imgur.com/OSCXtde.png" alt="SBB" width="200"/></a> 
-<a href="https://www.deutschebahn.com/" target="_blank" style="margin-right:25px"><img src="https://i.imgur.com/pjTki15.png" alt="DB"  width="200"/></a>
-<a href="https://www.aicrowd.com" target="_blank"><img src="https://avatars1.githubusercontent.com/u/44522764?s=200&v=4" alt="AICROWD"  width="200"/></a>
+<a href="https://sbb.ch" target="_blank" style="margin-right:30px"><img src="https://i.imgur.com/OSCXtde.png" alt="SBB" width="250"/></a> 
+<a href="https://www.deutschebahn.com/" target="_blank" style="margin-right:30px"><img src="https://i.imgur.com/pjTki15.png" alt="DB"  width="150"/></a>
+<a href="https://www.aicrowd.com" target="_blank"><img src="https://i.imgur.com/kBZQGI9.png" alt="AIcrowd"  width="150"/></a>
 
 
 
