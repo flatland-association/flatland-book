@@ -1,4 +1,4 @@
-Previous Challenges
+Top Challenge Solutions
 ===
 
 Multiple challenges have been organized around the Flatland environment:

@@ -1,79 +1,81 @@
 The Flatland Environment
 ===
 
-Out goal is to manage traffic in railway networks. Consider the following example:
+```{admonition} TL;DR
+This document introduces the main concepts you'll need to get started with Flatland.
+```
 
-![Flatland](https://i.imgur.com/Pc9aH4P.gif)
+Our goal is to manage traffic in railway networks. Let's consider a concrete example, which shows the solution from the 2019 winner [mugurelionut](https://www.aicrowd.com/participants/mugurelionut):
 
-In the railway network above, each agent strives to go from its starting point to its assigned station.
- 
+<video controls="controls" muted="muted" autoplay="autoplay" loop="loop" class="media" width="600" height="600" src="https://aicrowd-production.s3.eu-central-1.amazonaws.com/misc/flatland-rl-Media/e2fbaf24-53de-4802-9995-3985dec3c971.mp4"></video>
 
+In the animation above, you can see multiple agents (the trains) moving from their initial positions to their targets. The trains can, obviously, only move on the rails. They can only move forward, turn left or right at intersections, and turn around at dead-ends.
 
-Actions in Flatland
+Looking carefully, you can see that some of the trains sometimes "malfunction": they suffer a breakdown of some sort. As a result, they are immobilised for a random duration. Malfunctions are shown in the animation with black crosses **X**.
+
+The goal in Flatland is simple:
+
+> **We seek to minimize the time it takes to bring all the agents to their respective target.** 
+
+We will now introduce the main concepts underlying this environment:
+
+- **Actions:** what can the agents do?
+- **Observations:** what can each agent "see"?
+- **Rewards:** what is the metric used to evaluate the agents?
+- **Malfunctions:** when and for how long do trains fail?
+
+↔️ Actions
 ---
 
 The trains in Flatland have strongly limited movements, as you would expect from a railway simulation. This means that in most cases only a few actions are valid.
 
-The possible actions of an agent are
-- **Do Nothing**:  If the agent is moving it continues moving, if it is stopped it stays stopped
-- **Deviate Left**: This action is only valid at cells where the agent can change direction towards the left. If chosen, the left transition and a rotation of the agent orientation to the left is executed. If the agent is stopped at any position, this action will cause it to start moving in any cell where forward or left is allowed!
+Hare are the possible actions:
+- **Do Nothing**:  If the agent is already moving, it continues moving. If it is stopped, it stays stopped. Special case: if the agent is at a dead-end, this action will result in the train turning around.
+- **Deviate Left**: This action is only valid at cells where the agent can change direction towards the left. If chosen, the left transition and a rotation of the agent orientation to the left is executed. If the agent is stopped, this action will cause it to start moving in any cell where forward or left is allowed!
 - **Go Forward**: This action will start the agent when stopped. At switches, this will chose the forward direction.
 - **Deviate Right**: The same as deviate left but for right turns.
-- **Stop**: This action causes the agent to stop, which is sometimes necessary to avoid conflicts in multi agent setups.
+- **Stop**: This action causes the agent to stop.
 
-Shortest path predictor
----
-
-With multiple agents a lot of conflicts will arise on the railway network. These conflicts arise because different agents want to occupy the same cells at the same time. Due to the nature of the railway network and the dynamic of the railway agents (they can't turn around!), the conflicts have to be detected in advance in order to avoid them. If agents are facing each other and don't have any options to deviate from their path it is called a *deadlock* ❌.
-
-Therefore we introduce a simple prediction function that predicts the most likely (here shortest) path of all the agents. Furthermore, the prediction is withdrawn if an agent stops and replaced by a prediction that the agent will stay put. The predictions allow the agents to detect possible conflicts before they happen and thus perform counter-measures.
-
-```{info}
-This is a very basic implementation of a predictor. It will not solve all the problems because it always predicts shortest paths and not alternative routes. It is up to you to come up with much more clever predictors to avoid conflicts!
+```{admonition} Code reference
+The actions are defined as an `IntEnum`: [envs/rail_env.py#L45](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/envs/rail_env.py#L45)
+You can refer to the directions in your code using eg `RailEnvActions.MOVE_FORWARD`, `RailEnvActions.MOVE_RIGHT`...
 ```
 
-Tree Observation
+👀 Observations
 ---
 
-Flatland offers three basic observations out of the box. We encourage you to develop your own observations that are better suited for this specific task.
+In Flatland, you have full control over the observations that your agents will work with. Three observations are provided as starting point. However, you are encouraged to implement your own.
 
-For the navigation training we start with the Tree Observation as agents will learn the task very quickly using this observation.
-The tree observation exploits the fact that a railway network is a graph and thus the observation is only built along allowed transitions in the graph.
+The three provided observations are:
+- Global observation
+- Local grid observation
+- Local tree observation
 
-Here is a small example of a railway network with an agent in the top left corner. The tree observation is build by following the allowed transitions for that agent.
+![stock observations](https://i.imgur.com/oo8EIYv.png)
 
-![Small_Network](https://i.imgur.com/utqMx08.png)
+*A visual summary of the three provided observations.*
 
-As we move along the allowed transitions we build up a tree where a new node is created at every cell where the agent has different possibilities (Switch), dead-end or the target is reached.
-It is important to note that the tree observation is always build according to the orientation of the agent at a given node. This means that each node always has 4 branches coming from it in the directions *Left, Forward, Right and Backward*. These are illustrated with different colors in the figure below. The tree is build form the example rail above. Nodes where there are no possibilities are filled with `-inf` and are not all shown here for simplicity. The tree however, always has the same number of nodes for a given tree depth.
+**[🔗 Provided observations](observations)**
 
-![Tree_Observation](https://i.imgur.com/VsUQOQz.png)
+Each of these provided observations has its strengths and weaknesses. It is unlikely that you will be able to solve the problem by using any one of them directly, instead, you will need to design your own observation yourself, which can be a combination of the existing ones or which could be radically different.
 
-Node Information
+**[🔗 Create your own observations](observations)**
+
+```{admonition} Code reference
+The observations are defined in [envs/observations.py](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/envs/observations.py)
+```
+
+🌟 Rewards
 ---
 
-Each node is filled with information gathered along the path to the node. Currently each node contains 9 features:
+Each agent receives combined reward consisting of a local and a global reward signal. 
 
-- 1: if own target lies on the explored branch the current distance from the agent in number of cells is stored.
+Locally, the agent receives $r_l = −1$ for each time step it is moving, and $r_l = 0$ for each time step after it has reached its target location. The global reward signal $r_g = 0$ only returns a non-zero value when all agents have reached their targets, in which case it is owrth $r_g = 1$. 
 
-- 2: if another agents target is detected the distance in number of cells from current agent position is stored.
+Thus, every agent $i$ receives a reward:
 
-- 3: if another agent is detected the distance in number of cells from current agent position is stored.
+$$r_i(t) = α r_l(t) + β r_g(t) + r_i(t)$$
 
-- 4: possible conflict detected (This only works when we use a predictor and will not be important in this tutorial)
+where α and β are factors for tuning collaborative behavior. 
 
-- 5: if an not usable switch (for agent) is detected we store the distance. An unusable switch is a switch where the agent does not have any choice of path, but other agents coming from different directions might. 
-
-- 6: This feature stores the distance (in number of cells) to the next node (e.g. switch or target or dead-end)
-
-- 7: minimum remaining travel distance from node to the agent's target given the direction of the agent if this path is chosen
-
-- 8: agent in the same direction found on path to node
-    - n = number of agents present same direction (possible future use: number of other agents in the same direction in this branch)
-    - 0 = no agent present same direction
-
-- 9: agent in the opposite direction on path to node
-    - n = number of agents present other direction than myself
-    - 0 = no agent present other direction than myself
-
-For training purposes the tree is flattened into a single array.
+This reward creates an objective of finishing the episode as quickly as possible in a collaborative way. 
