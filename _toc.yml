@@ -4,14 +4,15 @@
 - header: Getting started
 - file: getting-started/first-submission
 - file: getting-started/env
-#  sections:
+  sections:
+      - file: getting-started/env/observations
 #      - file: getting-started/env/The_Rail_Environment
-- file: getting-started/observations
+- file: getting-started/neurips-challenge
 - file: getting-started/rl
   sections:
       - file: getting-started/rl/single-agent
       - file: getting-started/rl/multi-agent
-- file: getting-started/or
+#- file: getting-started/or
 - file: getting-started/why-flatland
 
 - header: Research

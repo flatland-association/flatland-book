@@ -179,9 +179,7 @@ By default we have set `debug` to `true`, so when you are ready to make a compet
 
 ### run.sh
 
-The evaluator uses `/home/aicrowd/run.sh` as the entrypoint of your solution. The starter kit repository includes a sample `run.sh` file so by default you don't need to change it.
-
-The default `run.sh` file call the `run.py` file, which is where you would usually implement your solution. 
+The starter kit repository includes a sample `run.sh` file so by default you don't need to change it. The default `run.sh` file call the `run.py` file, which is where you would usually implement your solution. 
 
 📤 Submitting!
 ---
@@ -211,7 +209,7 @@ $ git push aicrowd master
 Finally submit your solution by creating a tag for your submission and pushing it:
 
 ```console
-$ git tag submission-v0.1 # needs a new name tag for each submission!
+$ git tag submission-v0.1 # needs a new tag name for each submission!
 $ git push aicrowd master
 $ git push aicrowd submission-v0.1
 ```
@@ -231,7 +229,7 @@ You should start seeing something like this take shape at the address above:
 
 ![submission issue](../assets/images/submission-issue.png)
 
-The evaluation will take some time! 🕙
+Be patient, the evaluation will take some time! 🕙
 
 🚉 Next stops
 ---

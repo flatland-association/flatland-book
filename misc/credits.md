@@ -6,7 +6,7 @@ Core Team and Organizers
 
 * Sharada Mohanty <mohanty@aicrowd.com>
 * Erik Nygren <erik.nygren@sbb.ch>
-* Florian Laurent <florian@aicrowd.com>
+* Florian "MasterScrat" Laurent <florian@aicrowd.com>
 * Adrian Egli <adrian.egli@sbb.ch>
 * Christian Eichenberger <christian.markus.eichenberger@sbb.ch>
 * Christian Baumberger <christian.baumberger@sbb.ch>

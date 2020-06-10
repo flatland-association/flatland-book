@@ -22,7 +22,6 @@ We will now introduce the main concepts underlying this environment:
 - **Actions:** what can the agents do?
 - **Observations:** what can each agent "see"?
 - **Rewards:** what is the metric used to evaluate the agents?
-- **Malfunctions:** when and for how long do trains fail?
 
 ↔️ Actions
 ---
@@ -55,11 +54,11 @@ The three provided observations are:
 
 *A visual summary of the three provided observations.*
 
-**[🔗 Provided observations](observations)**
+**[🔗 Provided observations](env/observations)**
 
 Each of these provided observations has its strengths and weaknesses. It is unlikely that you will be able to solve the problem by using any one of them directly, instead, you will need to design your own observation yourself, which can be a combination of the existing ones or which could be radically different.
 
-**[🔗 Create your own observations](observations)**
+**[🔗 Create your own observations](env/observations)**
 
 ```{admonition} Code reference
 The observations are defined in [envs/observations.py](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/envs/observations.py)
