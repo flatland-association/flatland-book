@@ -9,3 +9,4 @@ RUN jupyter-book build .
 FROM nginx:alpine
 
 COPY --from=builder /app/_build/html /usr/share/nginx/html
+COPY ./deploy/nginx.conf /etc/nginx/conf.d/default.conf
