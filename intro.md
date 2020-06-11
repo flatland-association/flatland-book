@@ -23,7 +23,7 @@ Flatland is an open-source toolkit to develop and compare solutions for this pro
 </p></center>
 
 
-Quick start
+⚡ Quick start
 ---
 
 Flatland is easy to use whether you’re a human or an AI:
@@ -46,9 +46,7 @@ EOF
 Want to dive straight in? **[Make your first submission to the NeurIPS 2020 challenge in 5 minutes!](getting-started/first-submission)**
 
 
-<!--
-
-Design principles
+🔖 Design principles
 ---
 
 ### Real-word, high impact problem
@@ -64,18 +62,16 @@ All environments support well-calibrated difficulty settings. While we report re
 
 In several environments, it has been observed that agents can overfit to remarkably large training sets. This evidence raises the possibility that overfitting pervades classic benchmarks like the Arcade Learning Environment, which has long served as a gold standard in reinforcement learning (RL). While the diversity between different games in the ALE is one of the benchmark’s greatest strengths, the low emphasis on generalization presents a significant drawback. In each game the question must be asked: are agents robustly learning a relevant skill, or are they approximately memorizing specific trajectories?
 
--->
-
-Next steps
+🚉 Next stops
 ---
 
 - [Step by step introduction to Flatland](getting-started/env)
 - [Take part in the NeurIPS challenge](getting-started/first-submission)
 - [Use Flatland for your research](research/philosophy)
 - [Contribute to Flatland](misc/contributing)
-- [Sponsor the Challenge](mailto:hello@aicrowd.com)
+- [Sponsor the NeurIPS 2020 Challenge](mailto:hello@aicrowd.com)
 
-Communication
+📱 Communication
 ---
 
 Join the Discord channel to exchange with other participants:
@@ -88,7 +84,7 @@ Use these channels if you have a problem or a question for the organizers:
 - [Issue Tracker](https://gitlab.aicrowd.com/flatland/flatland/issues/)
 
 
-Partners
+🤝 Partners
 ---
 
 <a href="https://sbb.ch" target="_blank" style="margin-right:30px"><img src="https://i.imgur.com/OSCXtde.png" alt="SBB" width="250"/></a> 
