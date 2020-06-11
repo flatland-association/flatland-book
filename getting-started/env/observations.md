@@ -4,9 +4,9 @@ Provided Observations
 In Flatland, you have full control over the observations that your agents will work with. Three observations are provided as starting point. However, you are encouraged to implement your own.
 
 The three provided observations are:
-- Global grid observation
-- Local grid observation
-- Tree observation
+- [Global observation](#global-observation)
+- [Local observation](#local-grid-observation)
+- [Tree observation](#tree-observation)
 
 ![stock observations](https://i.imgur.com/oo8EIYv.png)
 
@@ -15,15 +15,24 @@ The three provided observations are:
 Global observation
 ---
 
-The global observation is the simplest one. In this case, every agent is provided a global view of the full flatland environment. This can be compared to the full, raw-pixel data used in Atari games. The size of the observation space is `h × w × c`, where `h` is the height of the environment, `w` is the width of the environment and `c` is the number of channels of the environment. These channels can be modified by the participants but in the initial configuration, we include the following 5 `h × w` channels:
+The global observation is the simplest one. In this case, every agent is provided a global view of the full Flatland environment. This can be compared to the full, raw-pixel data used in Atari games. The size of the observation space is `h × w × c`, where `h` is the height of the environment, `w` is the width of the environment and `c` is the number of channels of the environment. These channels can be modified by the participants but in the initial configuration, we include the following `h × w` channels:
 
-- **Transition maps:** provides a unique value for each type of transition map and its orientation. This gives the agent an overview of the current map.
-- **Agent position:** a one-hot representation of the agent’s position in the map.
-- **Agent target:** a one-hot representation of the agent’s target in the map.
-- **Other agents:** a one-hot representation of all other agents’ positions in the map.
-- **Other targets:** a one-hot representation of all the other agents’ targets in the map.
+- **Transition maps:** provides a unique value for each type of transition map and its orientation. Its dimensions is `h × w × 16` assuming 16 bits encoding of transitions. Transition maps represent the allowed movements on a cell, [read more about them here](custom_observations.html#transitions-maps). 
+
+- **Agent states:** A 3D array `h × w × 5` containing:
+    - **Channel 0:** one-hot representation of the agents position and direction
+    - **Channel 1:** other agents' positions and direction
+    - **Channel 2:** self and other agents' malfunctions
+    - **Channel 3:** self and other agents' fractional speeds
+    - **Channel 4:** number of other agents ready to depart from that position
+
+- **Agent targets:** A 3D arrays `h × w × 2` containing respectively the position of the current agent target, and the positions of the other agents targets. The position of the targets of the other agents is a simple `0`/`1` flag, therefore this observation doesn't indicate where each agent is heading to.
 
 This observation space is well suited for single-agent navigation but does not provide enough information to solve the multi-agent navigation task, thus participants must improve on this observation space to solve the challenge.
+
+```{admonition} Code reference
+The tree observation is defined in [flatland.envs.observations.GlobalObsForRailEnv](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/envs/observations.py#L530)
+```
 
 Local grid observation
 ---
@@ -84,7 +93,7 @@ Special cases:
 The tree observation is defined in [flatland.envs.observations.TreeObsForRailEnv](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/envs/observations.py#L18)
 ```
 
-Notice how feature 4 indicates if a possible conflict is detected. In order to predict conflicts, the tree observation relies on a predictor, which as its name indicate anticipates where agents will be in the future. We provide a stock predictor that assumes each agent just travels along its shortest path.
+Notice how feature 4 indicates if a possible conflict is detected. In order to predict conflicts, the tree observation relies on a predictor, which as its name indicate anticipates where agents will be in the future. We provide a stock predictor that assumes each agent just travels along its shortest path. We will talk in more details about predictors when introducing custom observations. 
 
 
 
