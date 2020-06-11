@@ -1,11 +1,15 @@
 - file: intro
 
-# GETTING STARTED
-- header: Getting started
+# DOCUMENTATION
+- header: Documentation
 - file: getting-started/first-submission
 - file: getting-started/env
   sections:
       - file: getting-started/env/observations
+      - file: getting-started/env/custom_observations
+      - file: getting-started/env/level_generation
+      - file: getting-started/env/stochasticity
+      - file: getting-started/env/speed_profiles
 #      - file: getting-started/env/The_Rail_Environment
 - file: getting-started/neurips-challenge
 - file: getting-started/rl
@@ -15,6 +19,7 @@
 #- file: getting-started/or
 - file: getting-started/why-flatland
 
+# RESEARCH
 - header: Research
 - file: research/philosophy
 - file: research/baselines
@@ -24,11 +29,13 @@
 - file: research/research-ideas
 - file: research/top-challenge-solutions
 
+# FAQ
 - header: FAQ
 - file: faq/env
 - file: faq/challenge
 - file: faq/research
 
+# MISC
 - header: Misc
 #- file: api
 - file: misc/contributing
