@@ -7,6 +7,7 @@
   sections:
       - file: getting-started/env/observations
       - file: getting-started/env/custom_observations
+      - file: getting-started/env/environment_information
       - file: getting-started/env/level_generation
       - file: getting-started/env/stochasticity
       - file: getting-started/env/speed_profiles

@@ -5,7 +5,7 @@ In Flatland, you have full control over the observations that your agents will w
 
 The three provided observations are:
 - [Global observation](#global-observation)
-- [Local observation](#local-grid-observation)
+- [Local grid observation](#local-grid-observation)
 - [Tree observation](#tree-observation)
 
 ![stock observations](https://i.imgur.com/oo8EIYv.png)

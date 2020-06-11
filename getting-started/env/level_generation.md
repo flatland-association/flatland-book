@@ -1,18 +1,20 @@
 Level Generation
 ================
 
-Let's have a look at the `sparse_rail_generator`.
+Flatland provides multiple ways to create random environments. The most important one the the `sparse_rail_generator`, which generates realistic-looking railway networks.
 
 ## Sparse Rail Generator
+
 ![Example_Sparse](https://i.imgur.com/DP8sIyx.png)
 
 The idea behind the sparse rail generator is to mimic classic railway structures where dense nodes (cities) are sparsely connected to each other and where you have to manage traffic flow between the nodes efficiently.
 The cities in this level generator are much simplified in comparison to real city networks but it mimics parts of the problems faced in daily operations of any railway company.
 
 There are a few parameters you can tune to build your own map and test different complexity levels of the levels.
+
 **Warning** some combinations of parameters do not go well together and will lead to infeasible level generation.
+
 In the worst case, the level generator currently issues a warning when it cannot build the environment according to the parameters provided.
-This will lead to a crash of the whole env.
 We are currently working on improvements here and are **happy for any suggestions from your side**.
 
 To build an environment you instantiate a `RailEnv` as follows:
