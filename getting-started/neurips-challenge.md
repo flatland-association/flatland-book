@@ -9,7 +9,19 @@ In this edition, we are encouraging participants to develop innovative solutions
 ⚖ Evaluation metrics
 ---
 
-In this edition, the primary metrics is the **normalized average return** from your agent.
+In this edition, the primary metrics is the **mean normalized return** from your agents - the higher the better.
+
+What is the **mean normalized return**?
+
+- The **return** is the sum of rewards your agents accumulate during each episode.
+- These returns are then **averaged** across all the evaluation episodes that take place for each submission.
+- To **normalize** this mean return, we scale it so that it stays in the range [-1.0, 0.0]. This makes it possible to compare results between environments of different dimensions. 
+
+The **minimum possible value** (ie worst possible) is -1.0, which occurs if none of the agents reach their goal during the episode.
+
+The **maximum possible value** (ie best possible) is 0.0, which would occur if all the agents would reach their targets in one time step, which is generally not achievable.
+
+You can read more about the [reward structure](env) in the environment documentation.
 
 
 🏆 Prizes
