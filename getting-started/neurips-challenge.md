@@ -34,7 +34,7 @@ You can read more about the [reward structure](env) in the environment documenta
 
 The approach used for each submission needs to be specified in the `aicrowd.json` file as described in the [submission guide](../getting-started/first-submission). 
 
-The winning submissions will be controlled manually by the organizers to ensure the method used matches what has been declared in the `aicrowd.json` file. The organizers have the final word when judging the validity of each submission.
+The winning submissions will be verified manually by the organizers to ensure the method used matches what has been declared in the `aicrowd.json` file. The organizers have the final word when judging the validity of each submission.
 
 ```{note}
 In the case where the overall first place team would use a reinforcement learning approach, then this team will be awarded two travel grants.
