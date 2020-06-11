@@ -165,11 +165,22 @@ Each repository must have an `aicrowd.json` file with the following content:
 {
   "challenge_id": "neurips-2020-flatland-challenge",
   "grader_id": "neurips-2020-flatland-challenge",
+  "tags": ["RL"],
   "debug": true
 }
 ```
 
 This is used to map your submission to the proper challenge. The starter kit repository includes a sample `aicrowd.json` with the correct values.
+
+You need to ensure that you set the proper **`tags`** with each submission. The tags indicate the methods you used in that submission, and can be one (or a combination of): 
+
+- `"RL"` if you used reinforcement learning,
+- `"OR"` if you used operations research,
+- `"other"` if you used another method.
+
+```{warning}
+[Different prizes](neurips-challenge) are available depending on the method you use! Therefore it's important to fill this tag correctly. Winning solutions will be verified by the organizers to ensure the method was properly declared.
+```
 
 If you set `debug` to `true`, then the evaluation will run on a smaller set of 28 environments, and the logs from your submitted code (if it fails) will be made available to you to help you debug. These test submissions won't count against your daily limit and won't appear on the leaderboard.
 
@@ -179,7 +190,7 @@ By default we have set `debug` to `true`, so when you are ready to make a compet
 
 ### run.sh
 
-The starter kit repository includes a sample `run.sh` file so by default you don't need to change it. The default `run.sh` file call the `run.py` file, which is where you would usually implement your solution. 
+The starter kit repository includes a sample `run.sh` file that you don't need to change. The default `run.sh` file calls the `run.py` file, which is where you would usually implement your solution. 
 
 📤 Submitting!
 ---
