@@ -4,13 +4,21 @@ Custom observations
 Overview
 --------
 
-One of the main objectives of the [Flatland Challenge](https://gitlab.aicrowd.com/flatland/neurips2020-flatland-baselines) is to find a suitable observation (relevant features for the problem at hand) to solve the task. Therefore Flatland was built with as much flexibility as possible when it comes to building your custom observations: observations in Flatland environments are fully customizable. Whenever an environment needs to compute new observations for each agent, it queries an object derived from the `ObservationBuilder` base class, which takes the current state of the environment and returns the desired observation.
+One of the main objectives of the [Flatland challenge](https://gitlab.aicrowd.com/flatland/neurips2020-flatland-baselines) is to find a suitable observation to solve the problems. Three observations are [provided with Flatland out of the box](observations), however it is unlikely that they will be sufficient for this challenge. 
 
-Example 1 : Simple (but useless) observation
---------------------------------------------
+Flatland was built with as much flexibility as possible when it comes to building your custom observations. Whenever an environment needs to compute new observations for each agent, it queries an object derived from the [`ObservationBuilder` base class](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/core/env_observation_builder.py#L18), which takes the current state of the environment and returns the desired observation.
 
-In this first example we implement all the functions necessary for the observation builder to be valid and work with Flatland. Custom
-observation builder objects need to derive from the `flatland.core.env\_observation\_builder.ObservationBuilder\_ base class` and must implement two methods, `reset(self)` and `get(self, handle)`.
+We will go through 3 examples to explain how to build custom observations:
+- [Simple (but useless) observation](#simple-but-useless-observation)
+- [Single-agent navigation](#single-agent-navigation)
+- [Using predictors and rendering observations](#using-predictors-and-rendering-observations)
+
+Simple (but useless) observation
+--------------------------------
+
+In this first example we implement all the functions necessary for the observation builder to be valid and work with Flatland. 
+
+Custom observation builder objects need to derive from the `flatland.core.env_observation_builder.ObservationBuilder` base class and must implement two methods, `reset(self)` and `get(self, handle)`.
 
 Below is a simple example that returns observation vectors of size 5 featuring only the ID (handle) of the agent whose observation vector is
 being computed:
@@ -30,27 +38,29 @@ class SimpleObs(ObservationBuilder):
         return observation
 ```
 
-We can pass an instance of our custom observation builder `SimpleObs` to the `RailEnv creator as follows:
+We can pass an instance of our custom observation builder `SimpleObs` to the `RailEnv` creator as follows:
 
 ```python
-env = RailEnv(width=7,
-              height=7,
+env = RailEnv(width=7, height=7,
               rail_generator=random_rail_generator(),
               number_of_agents=3,
               obs_builder_object=SimpleObs())
 env.reset()
 ```
 
-Anytime `env.reset()` or `env.step()` is called, the observation builder will return the custom observation of all agents initialized in the env.
-In the next example we highlight how to derive from existing observation builders and how to access internal variables of Flatland.
+Anytime `env.reset()` or `env.step()` is called, the observation builder will return the custom observation of all agents initialized in the env. Not very useful, but it is a start! 
 
-Example 2 : Single-agent navigation
------------------------------------
+The code sample above appears in the file [`custom_observation_example_01_SimpleObs.py`](https://gitlab.aicrowd.com/flatland/flatland/blob/master/examples/custom_observation_example_01_SimpleObs.py). 
 
-Observation builder objects can of course derive from existing concrete subclasses of `ObservationBuilder`. For example, it may be useful to extend the [`TreeObsForRailEnv`](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/envs/observations.py#L14) observation builder. A feature of this class is that on `reset()`, it pre-computes the lengths of the shortest paths from all cells and orientations to the target of each agent, i.e. a distance map for each agent.
+In the next example, we highlight how to inherit from existing observation builders and how to access internal variables of Flatland.
+
+Single-agent navigation
+-----------------------
+
+Observation builders can inherit from existing concrete subclasses of `ObservationBuilder`. For example, it may be useful to extend the [`TreeObsForRailEnv`](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/envs/observations.py#L14) observation builder. A feature of this class is that on `reset()`, it pre-computes the lengths of the shortest paths from all cells and orientations to the target of each agent, i.e. a distance map for each agent.
 
 In this example we exploit these distance maps by implementing an observation builder that shows the current shortest path for each agent
-as a one-hot observation vector of length 3, whose components represent the possible directions an agent can take (`LEFT`, `FORWARD`, `RIGHT`). All values of the observation vector are set to 0 except for the shortest direction where it is set to 1.
+as a one-hot observation vector of length 3, whose components represent the possible directions an agent can take (`LEFT`, `FORWARD`, `RIGHT`). All values of the observation vector are set to `0` except for the shortest direction where it is set to `1`.
 
 Using this observation with highly engineered features indicating the agent's shortest path, an agent can then learn to take the corresponding
 action at each time-step; or we could even hardcode the optimal policy. Note that this simple strategy fails when multiple agents are present,
@@ -106,8 +116,7 @@ class SingleAgentNavigationObs(TreeObsForRailEnv):
 
         return observation
 
-env = RailEnv(width=7,
-              height=7,
+env = RailEnv(width=7, height=7,
               rail_generator=complex_rail_generator(nr_start_goal=10, nr_extra=1, \
                 min_dist=8, max_dist=99999, seed=1),
               number_of_agents=2,
@@ -122,8 +131,7 @@ for i in range(env.get_num_agents()):
 Finally, the following is an example of hard-coded navigation for single agents that achieves optimal single-agent navigation to target, and shows the path taken as an animation.
 
 ```python
-env = RailEnv(width=50,
-              height=50,
+env = RailEnv(width=50, height=50,
               rail_generator=random_rail_generator(),
               number_of_agents=1,
               obs_builder_object=SingleAgentNavigationObs())
@@ -131,7 +139,7 @@ env.reset()
 
 obs, all_rewards, done, _ = env.step({0: 0})
 
-env_renderer = RenderTool(env, gl="PILSVG")
+env_renderer = RenderTool(env)
 env_renderer.render_env(show=True, frames=True, show_observations=False)
 
 for step in range(100):
@@ -143,21 +151,22 @@ for step in range(100):
     time.sleep(0.1)
 ```
 
-The code examples above appear in the example file [`custom\_observation\_example.py`](https://gitlab.aicrowd.com/flatland/flatland/blob/master/examples/custom_observation_example.py). You can run it using `python examples/custom\_observation\_example.py` from the root folder of the flatland repo. The two examples are run one after the other.
+The code sample above appears in the file [`custom_observation_example_02_SingleAgentNavigationObs.py`](https://gitlab.aicrowd.com/flatland/flatland/blob/master/examples/custom_observation_example_02_SingleAgentNavigationObs.py).
 
-Example 3 : Using custom predictors and rendering observation
--------------------------------------------------------------
+Using predictors and rendering observations
+-------------------------------------------
 
-Because the re-scheduling task of the [Flatland challenge](https://www.aicrowd.com/challenges/neurips-2020-flatland-challenge/) requires some short time planning we allow the possibility to use custom predictors that help predict upcoming conflicts and help agent solve them in a timely manner. In the **Flatland Environment** we included an initial predictor [`ShortestPathPredictorForRailEnv`](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/envs/predictions.py#L81) to give you an idea what you can do with these predictors.
+Because the re-scheduling task of the [Flatland challenge](https://www.aicrowd.com/challenges/neurips-2020-flatland-challenge/) requires some short term planning, we allow the possibility to use custom predictors that help predict upcoming conflicts and help agent solve them in a timely manner. 
 
-Any custom predictor can be passed to the observation builder and then be used to build the observation. In this [example](https://gitlab.aicrowd.com/flatland/flatland/blob/master/examples/custom_observation_example.py#L110) we illustrate how an observation builder can be used to detect conflicts using a predictor.
+The Flatland environment comes with a built-in predictor called [`ShortestPathPredictorForRailEnv`](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/envs/predictions.py#L81), to give you an idea what you can do with these predictors.
 
-The observation is incomplete as it only contains information about potential conflicts and has no feature about the agent objectives.
+Any custom predictor can be passed to the observation builder and will then be used to build the observation. In this example we will illustrate how an observation builder can be used to detect conflicts using a predictor.
 
-In addition to using your custom predictor you can also make your custom observation ready for rendering. (This can be done in a similar way for
-your predictor). All you need to do in order to render your custom observation is to populate `self.env.dev\_obs\_dict[handle]` for every agent (all handles). (For the predictor use `self.env.dev\_pred\_dict[handle]`).
+Note that the observation is incomplete as it only contains information about potential conflicts and has no feature about the agents' objectives.
 
-In contrast to the previous examples we also implement the `def get\_many(self, handles=None)` function for this custom observation builder. The reasoning here is that we want to call the predictor only once per env.step(). The base implementation of `def get\_many(self, handles=None)` will call the `get(handle)` function for all handles, which mean that it normally does not need to be reimplemented, except for cases as the one below.
+You can also render your custom observation or predictor information as an overlay on the environment. All you need to do in order to render your custom observation is to populate `self.env.dev_obs_dict[handle]` for every agent (all handles). For the predictor use `self.env.dev_pred_dict[handle]`.
+
+In contrast to the previous examples, we also implement the `def get_many(self, handles=None)` function for this custom observation builder. The reasoning here is that we want to call the predictor only once per `env.step()`. The base implementation of `def get_many(self, handles=None)` will call the `get(handle)` function for all handles, which mean that it normally does not need to be reimplemented, except for cases as the one below.
 
 ```python
 class ObservePredictions(TreeObsForRailEnv):
@@ -242,8 +251,7 @@ class ObservePredictions(TreeObsForRailEnv):
         return observation
 ```
 
-We can then use this new observation builder and the renderer to
-visualize the observation of each agent.
+We can then use this new observation builder and the renderer to visualize the observation of each agent.
 
 ```python
 # Initiate the Predictor
@@ -276,6 +284,8 @@ for step in range(100):
     env_renderer.render_env(show=True, frames=True, show_observations=True, show_predictions=False)
     time.sleep(0.5)
 ```
+
+The code sample above appears in the file [`custom_observation_example_03_ObservePredictions.py`](https://gitlab.aicrowd.com/flatland/flatland/blob/master/examples/custom_observation_example_03_ObservePredictions.py).
 
 How to access environment and agent data for observation builders
 -----------------------------------------------------------------
