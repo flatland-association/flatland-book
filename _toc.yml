@@ -40,4 +40,7 @@
 - header: Misc
 #- file: api
 - file: misc/contributing
+  sections:
+      -   file: misc/contributing-code
+      -   file: misc/contributing-doc
 - file: misc/credits
