@@ -162,11 +162,11 @@ The Flatland environment comes with a built-in predictor called [`ShortestPathPr
 
 Any custom predictor can be passed to the observation builder and will then be used to build the observation. In this example we will illustrate how an observation builder can be used to detect conflicts using a predictor.
 
-Note that the observation is incomplete as it only contains information about potential conflicts and has no feature about the agents' objectives.
+Note that the toy `ObservePredictions` observation we will create only contains information about potential conflicts and has no feature about the agents' objectives, so it wouldn't be sufficient to solve real tasks!
 
 You can also render your custom observation or predictor information as an overlay on the environment. All you need to do in order to render your custom observation is to populate `self.env.dev_obs_dict[handle]` for every agent (all handles). For the predictor use `self.env.dev_pred_dict[handle]`.
 
-In contrast to the previous examples, we also implement the `def get_many(self, handles=None)` function for this custom observation builder. The reasoning here is that we want to call the predictor only once per `env.step()`. The base implementation of `def get_many(self, handles=None)` will call the `get(handle)` function for all handles, which mean that it normally does not need to be reimplemented, except for cases as the one below.
+In contrast to the previous examples, we also implement the `def get_many(self, handles=None)` function for this custom observation builder. The reasoning here is that we want to call the predictor only once per `env.step()`. The base implementation of `def get_many(self, handles=None)` will call the `get(handle)` function for all handles, which mean that it normally does not need to be reimplemented, except for cases such as this one.
 
 ```python
 class ObservePredictions(TreeObsForRailEnv):
