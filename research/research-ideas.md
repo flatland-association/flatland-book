@@ -1,7 +1,7 @@
-Research Ideas
+⏳ Research Ideas
 ===
 
-🧪 Coming soon!
+Coming soon!
 --- 
 
 <!--
