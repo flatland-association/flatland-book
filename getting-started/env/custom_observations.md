@@ -192,7 +192,7 @@ class ObservePredictions(TreeObsForRailEnv):
     def get_many(self, handles=None):
         '''
         Because we do not want to call the predictor seperately for every agent we implement the get_many function
-        Here we can call the predictor just ones for all the agents and use the predictions to generate our observations
+        Here we can call the predictor just once for all the agents and use the predictions to generate our observations
         :param handles:
         :return:
         '''
@@ -204,7 +204,7 @@ class ObservePredictions(TreeObsForRailEnv):
             pos_list = []
             for a in handles:
                 pos_list.append(self.predictions[a][t][1:3])
-            # We transform (x,y) coodrinates to a single integer number for simpler comparison
+            # We transform (x,y) coordinates to a single integer number for simpler comparison
             self.predicted_pos.update({t: coordinate_to_position(self.env.width, pos_list)})
         observations = {}
 
@@ -219,21 +219,20 @@ class ObservePredictions(TreeObsForRailEnv):
         overlaps with other predicted paths at any time. This is useless for the task of navigation but might
         help when looking for conflicts. A more complex implementation can be found in the TreeObsForRailEnv class
 
-        Each agent recieves an observation of length 10, where each element represents a prediction step and its value
+        Each agent receives an observation of length 10, where each element represents a prediction step and its value
         is:
          - 0 if no overlap is happening
-         - 1 where n i the number of other paths crossing the predicted cell
+         - 1 if any other paths is crossing the predicted cell
 
-        :param handle: handeled as an index of an agent
+        :param handle: handled as an index of an agent
         :return: Observation of handle
         '''
 
         observation = np.zeros(10)
 
-        # We are going to track what cells where considered while building the obervation and make them accesible
-        # For rendering
-
+        # We track what cells where considered while building the observation and make them accessible for rendering
         visited = set()
+        
         for _idx in range(10):
             # Check if any of the other prediction overlap with agents own predictions
             x_coord = self.predictions[handle][_idx][1]
@@ -254,24 +253,23 @@ class ObservePredictions(TreeObsForRailEnv):
 We can then use this new observation builder and the renderer to visualize the observation of each agent.
 
 ```python
-# Initiate the Predictor
+# Create the Predictor
 CustomPredictor = ShortestPathPredictorForRailEnv(10)
 
 # Pass the Predictor to the observation builder
 CustomObsBuilder = ObservePredictions(CustomPredictor)
 
 # Initiate Environment
-env = RailEnv(width=10,
-              height=10,
+env = RailEnv(width=10, height=10,
               rail_generator=complex_rail_generator(nr_start_goal=5, nr_extra=1, min_dist=8, max_dist=99999, seed=1),
               number_of_agents=3,
               obs_builder_object=CustomObsBuilder)
 env.reset()
 
 obs, info = env.reset()
-env_renderer = RenderTool(env, gl="PILSVG")
+env_renderer = RenderTool(env)
 
-# We render the initial step and show the obsered cells as colored boxes
+# We render the initial step and show the obsereved cells as colored boxes
 env_renderer.render_env(show=True, frames=True, show_observations=True, show_predictions=False)
 
 action_dict = {}
