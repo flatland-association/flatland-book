@@ -71,6 +71,4 @@ env.reset()
 
 You will quickly realize that this will lead to unforeseen difficulties which means that **your controller** needs to observe the environment at all times to be able to react to the stochastic events.
 
-## Example code
-
 To see all the changes in action you can just run the `flatland_example_2_0.py` file in the examples folder. The file can be found [here](https://gitlab.aicrowd.com/flatland/flatland/blob/master/examples/flatland_2_0_example.py).

@@ -62,7 +62,7 @@ The three provided observations are:
 The provided observations are defined in [envs/observations.py](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/envs/observations.py)
 ```
 
-Each of the provided observations has its strengths and weaknesses. However, it is unlikely that you will be able to solve the problem by using any one single of them directly. Instead you will need to design your own observation yourself, which can be a combination of the existing ones or which could be radically different.
+Each of the provided observations has its strengths and weaknesses. However, it is unlikely that you will be able to solve the problem by using any single of them directly. Instead you will need to design your own observation yourself, which can be a combination of the existing ones or which could be radically different.
 
 **[🔗 Create your own observations](env/custom_observations)**
 
