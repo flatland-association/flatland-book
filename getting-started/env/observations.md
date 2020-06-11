@@ -37,7 +37,7 @@ The tree observation is defined in [flatland.envs.observations.GlobalObsForRailE
 Local grid observation
 ---
 
-The local grid observation is very similar to the global observation, where we only replace $h$ and $w$ by agent specific dimensions. Each agent with index $i$ has an observation grid of uneven width $w_i$ and arbitrary height $h_i$ which is spanned from its current position. The agent is always situated at the position `(0, (width + 1)/2)` within the observation grid, and the observation grid is rotated according to the agent’s direction such that the full height $h_i$ of the observation grid is in front of the agent.
+The local grid observation is very similar to the global observation, where we only replace `h` and `w` by agent specific dimensions. The agent is always situated at the position `(0, (w + 1)/2)` within the observation grid, and the observation grid is rotated according to the agent’s direction such that the full height `h` of the observation grid is in front of the agent.
 
 The initial local grid view provides the same channels as the initial global view introduced above. This observation space offers benefits over the global view, mostly by reducing the amount of irrelevant information in the observation space. Global navigation with this local observation would be impossible if no general information about the target location were given (especially when the target is outside of view). We therefore compute a distance map for every agent-target and provide this distance map as an additional channel:
 
@@ -64,36 +64,33 @@ It is important to note that the tree observation is always build according to t
 
 Each node is filled with information gathered along the path to the node. Currently each node contains 12 features:
 
-- 1: if own target lies on the explored branch the current distance from the agent in number of cells is stored.
-- 2: if another agents target is detected the distance in number of cells from current agent position is stored.
-- 3: if another agent is detected the distance in number of cells from current agent position is stored.
-- 4: possible conflict detected - this relies on a **predictor** that we will introduce afterward
+- **Channel 0:** if own target lies on the explored branch the current distance from the agent in number of cells is stored.
+- **Channel 1:** if another agents target is detected the distance in number of cells from current agent position is stored.
+- **Channel 2:** if another agent is detected the distance in number of cells from current agent position is stored.
+- **Channel 3:** possible conflict detected - this relies on a **predictor** that we will introduce afterward
     - tot_dist = Other agent predicts to pass along this cell at the same time as the agent, we store the distance in number of cells from current agent position
     - 0 = No other agent reserve the same cell at similar time
-- 5: if an not usable switch (for agent) is detected we store the distance. An unusable switch is a switch where the agent does not have any choice of path (ie the agent is blocked), but other agents coming from different directions might. 
-- 6: This feature stores the distance (in number of cells) to the next node (e.g. switch or target or dead-end)
-- 7: minimum remaining travel distance from node to the agent's target given the direction of the agent if this path is chosen
-- 8: number of agents going in the same direction found on path to node
-- 9: number of agents going in the opposite direction found on path to node
-- 10: malfunctioning/blocking agents, returns the number of time steps the observed agent will remain blocked
-- 11: slowest observed speed of an agent in same direction
+- **Channel 4:** if an not usable switch (for agent) is detected we store the distance. An unusable switch is a switch where the agent does not have any choice of path (ie the agent is blocked), but other agents coming from different directions might. 
+- **Channel 5:** This feature stores the distance (in number of cells) to the next node (e.g. switch or target or dead-end)
+- **Channel 6:** minimum remaining travel distance from node to the agent's target given the direction of the agent if this path is chosen
+- **Channel 7:** number of agents going in the same direction found on path to node
+- **Channel 8:** number of agents going in the opposite direction found on path to node
+- **Channel 9:** malfunctioning/blocking agents, returns the number of time steps the observed agent will remain blocked
+- **Channel 10:** slowest observed speed of an agent in same direction
     - 1 if no agent is observed
     - min_fractional speed otherwise
-- 12: number of agents ready to depart but no yet active
+- **Channel 11:** number of agents ready to depart but no yet active
 
-Missing values:
-- Missing/padding nodes are filled in with -inf.
-- Missing values in present node are filled in with +inf.
+Missing values are handled as follow:
+- Missing/padding nodes are filled in with `-inf`.
+- Missing values in present node are filled in with `+inf`.
 
 Special cases:
-- In case of the root node, the values are [0, 0, 0, 0, distance from agent to target, own malfunction, own speed]
-- In case the target node is reached, the values are [0, 0, 0, 0, 0].
+- In case of the root node, the values are `[0, 0, 0, 0, distance from agent to target, own malfunction, own speed]
+- In case the target node is reached, the values are `[0, 0, 0, 0, 0]`.
     
 ```{admonition} Code reference
 The tree observation is defined in [flatland.envs.observations.TreeObsForRailEnv](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/envs/observations.py#L18)
 ```
 
-Notice how feature 4 indicates if a possible conflict is detected. In order to predict conflicts, the tree observation relies on a predictor, which as its name indicate anticipates where agents will be in the future. We provide a stock predictor that assumes each agent just travels along its shortest path. We will talk in more details about predictors when introducing custom observations. 
-
-
-
+Notice how **channel 4** indicates if a possible conflict is detected. In order to predict conflicts, the tree observation relies on a predictor, which anticipates where agents will be in the future. We provide a stock predictor that assumes each agent just travels along its shortest path. We will [talk in more details about predictors](custom_observations) when introducing custom observations. 
