@@ -236,8 +236,6 @@ class Replay(object):
 
 We use the [abc class decorator](https://pymotw.com/3/abc/) and a way to declaratively define the attributes on that class:
 
-# abc_base.py
-
 ```python
 import abc
 
