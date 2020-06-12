@@ -1,6 +1,10 @@
 Multiple Agents
 ===
 
+```{warning}
+This page is outdated and will be reviewed shortly.
+```
+
 ```{admonition} Goal
 At the end of this Tutorial, you will be able to train a **multiple agents** to navigate in Flatland using DQN!
 ```
