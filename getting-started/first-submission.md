@@ -1,10 +1,6 @@
 Making a Submission
 ===================
 
-```{admonition} TL;DR
-This document will show you how to submit a test submission in 5 minutes.
-```
-
 🚂 All aboard!
 ---
 
