@@ -63,7 +63,7 @@ The three provided observations are:
 The provided observations are defined in [envs/observations.py](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/envs/observations.py)
 ```
 
-Each of the provided observations has its strengths and weaknesses. However, it is unlikely that you will be able to solve the problem by using any single of them directly. Instead you will need to design your own observation yourself, which can be a combination of the existing ones or which could be radically different.
+Each of the provided observation has its strengths and weaknesses. However, it is unlikely that you will be able to solve the problem by using any single one of them directly. Instead you will need to design your own observation, which can be a combination of the existing ones or which could be radically different.
 
 **[🔗 Create your own observations](env/custom_observations)**
 
@@ -71,17 +71,17 @@ Each of the provided observations has its strengths and weaknesses. However, it 
 🌟 Rewards
 ----------
 
-Each agent receives combined reward consisting of a local and a global reward signal. 
+At each time step, each agent receives a combined reward which consists of a local and a global reward signal. 
 
-Locally, the agent receives $r_l = −1$ for each time step it is moving, and $r_l = 0$ for each time step after it has reached its target location. The global reward signal $r_g = 0$ only returns a non-zero value when all agents have reached their targets, in which case it is worth $r_g = 1$. 
+Locally, the agent receives $r_l = −1$ for each time step, and $r_l = 0$ for each time step after it has reached its target location. The global reward signal $r_g = 0$ only returns a non-zero value when all agents have reached their targets, in which case it is worth $r_g = 1$. 
 
-Thus, every agent $i$ receives a reward:
+Every agent $i$ receives a reward:
 
-$$r_i(t) = α r_l(t) + β r_g(t) + r_i(t)$$
+$$r_i(t) = \alpha r_l(t) + \beta r_g(t)$$
 
-where α and β are factors for tuning collaborative behavior. 
+$\alpha$ and β are factors for tuning collaborative behavior. This reward creates an objective of finishing the episode as quickly as possible in a collaborative way.
 
-This reward creates an objective of finishing the episode as quickly as possible in a collaborative way.
+In the [NeurIPS 2020 challenge](https://www.aicrowd.com/challenges/neurips-2020-flatland-challenge#background), the values used are: $\alpha = 1.0$ and $\beta = 1.0$.
 
 ```{admonition} Code reference
 The reward is calculated in [envs/rail_env.py](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/envs/rail_env.py)
@@ -106,6 +106,8 @@ An important aspect of these levels will be their **stochasticity**, which means
 
 Finally, trains in real railway networks don't all move at the same speed. A freight train will for example be slower than a passenger train. This is an important consideration, as you want to avoid scheduling a fast train behind a slow train!
 
-Note that speed profiles won't be used during the first round of the [NeurIPS 2020 challenge](https://www.aicrowd.com/challenges/neurips-2020-flatland-challenge/).
+```{note}
+Speed profiles are not used in the first round of the [NeurIPS 2020 challenge](https://www.aicrowd.com/challenges/neurips-2020-flatland-challenge/).
+```
 
 **[🔗 Tune speed profiles](env/speed_profiles)**

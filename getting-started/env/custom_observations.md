@@ -16,9 +16,9 @@ We will go through 3 examples to explain how to build custom observations:
 Simple (but useless) observation
 --------------------------------
 
-In this first example we implement all the functions necessary for the observation builder to be valid and work with Flatland. 
+In this first example we implement all the methods necessary for an observation builder to be valid and work with Flatland. This observation builder will simply return a vector of size 5 filled with the ID of the agent. This is a toy example and wouldn't help an actual agent to learn anything. 
 
-Custom observation builder objects need to derive from the `flatland.core.env_observation_builder.ObservationBuilder` base class and must implement two methods, `reset(self)` and `get(self, handle)`.
+Custom observation builders need to derive from the [`flatland.core.env_observation_builder.ObservationBuilder`](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/core/env_observation_builder.py#L18) base class and must implement at least two methods, `reset(self)` and `get(self, handle)`.
 
 Below is a simple example that returns observation vectors of size 5 featuring only the ID (handle) of the agent whose observation vector is
 being computed:
@@ -50,14 +50,14 @@ env.reset()
 
 Anytime `env.reset()` or `env.step()` is called, the observation builder will return the custom observation of all agents initialized in the env. Not very useful, but it is a start! 
 
-The code sample above appears in the file [`custom_observation_example_01_SimpleObs.py`](https://gitlab.aicrowd.com/flatland/flatland/blob/master/examples/custom_observation_example_01_SimpleObs.py). 
+The code sample above is available in [`custom_observation_example_01_SimpleObs.py`](https://gitlab.aicrowd.com/flatland/flatland/blob/master/examples/custom_observation_example_01_SimpleObs.py). 
 
 In the next example, we highlight how to inherit from existing observation builders and how to access internal variables of Flatland.
 
 Single-agent navigation
 -----------------------
 
-Observation builders can inherit from existing concrete subclasses of `ObservationBuilder`. For example, it may be useful to extend the [`TreeObsForRailEnv`](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/envs/observations.py#L14) observation builder. A feature of this class is that on `reset()`, it pre-computes the lengths of the shortest paths from all cells and orientations to the target of each agent, i.e. a distance map for each agent.
+Observation builders can inherit from existing concrete subclasses of [`ObservationBuilder`](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/core/env_observation_builder.py#L18). For example, it may be useful to extend the [`TreeObsForRailEnv`](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/envs/observations.py#L18) observation builder. A feature of this class is that on `reset()`, it pre-computes the lengths of the shortest paths from all cells and orientations to the target of each agent, i.e. a distance map for each agent.
 
 In this example we exploit these distance maps by implementing an observation builder that shows the current shortest path for each agent
 as a one-hot observation vector of length 3, whose components represent the possible directions an agent can take (`LEFT`, `FORWARD`, `RIGHT`). All values of the observation vector are set to `0` except for the shortest direction where it is set to `1`.
@@ -151,20 +151,20 @@ for step in range(100):
     time.sleep(0.1)
 ```
 
-The code sample above appears in the file [`custom_observation_example_02_SingleAgentNavigationObs.py`](https://gitlab.aicrowd.com/flatland/flatland/blob/master/examples/custom_observation_example_02_SingleAgentNavigationObs.py).
+The code sample above is available in [`custom_observation_example_02_SingleAgentNavigationObs.py`](https://gitlab.aicrowd.com/flatland/flatland/blob/master/examples/custom_observation_example_02_SingleAgentNavigationObs.py).
 
 Using predictors and rendering observations
 -------------------------------------------
 
 Because the re-scheduling task of the [Flatland challenge](https://www.aicrowd.com/challenges/neurips-2020-flatland-challenge/) requires some short term planning, we allow the possibility to use custom predictors that help predict upcoming conflicts and help agent solve them in a timely manner. 
 
-The Flatland environment comes with a built-in predictor called [`ShortestPathPredictorForRailEnv`](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/envs/predictions.py#L81), to give you an idea what you can do with these predictors.
+The Flatland environment comes with a built-in predictor called [`ShortestPathPredictorForRailEnv`](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/envs/predictions.py#L85), to give you an idea what you can do with these predictors.
 
 Any custom predictor can be passed to the observation builder and will then be used to build the observation. In this example we will illustrate how an observation builder can be used to detect conflicts using a predictor.
 
 Note that the toy `ObservePredictions` observation we will create only contains information about potential conflicts and has no feature about the agents' objectives, so it wouldn't be sufficient to solve real tasks!
 
-You can also render your custom observation or predictor information as an overlay on the environment. All you need to do in order to render your custom observation is to populate `self.env.dev_obs_dict[handle]` for every agent (all handles). For the predictor use `self.env.dev_pred_dict[handle]`.
+You can also render your custom observation or predictor information as an overlay on the environment. All you need to do in order to render your custom observation is to populate `self.env.dev_obs_dict[handle]` for every agent (all handles). For the predictor, you can similarly use `self.env.dev_pred_dict[handle]`.
 
 In contrast to the previous examples, we also implement the `def get_many(self, handles=None)` function for this custom observation builder. The reasoning here is that we want to call the predictor only once per `env.step()`. The base implementation of `def get_many(self, handles=None)` will call the `get(handle)` function for all handles, which mean that it normally does not need to be reimplemented, except for cases such as this one.
 
@@ -283,7 +283,7 @@ for step in range(100):
     time.sleep(0.5)
 ```
 
-The code sample above appears in the file [`custom_observation_example_03_ObservePredictions.py`](https://gitlab.aicrowd.com/flatland/flatland/blob/master/examples/custom_observation_example_03_ObservePredictions.py).
+The code sample above is available in [`custom_observation_example_03_ObservePredictions.py`](https://gitlab.aicrowd.com/flatland/flatland/blob/master/examples/custom_observation_example_03_ObservePredictions.py).
 
 Going further
 ---

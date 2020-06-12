@@ -17,21 +17,21 @@ Global observation
 
 The global observation is the simplest one. In this case, every agent is provided a global view of the full Flatland environment. This can be compared to the full, raw-pixel data used in Atari games. The size of the observation space is `h × w × c`, where `h` is the height of the environment, `w` is the width of the environment and `c` is the number of channels of the environment. These channels can be modified by the participants but in the initial configuration, we include the following `h × w` channels:
 
-- **Transition maps:** provides a unique value for each type of transition map and its orientation. Its dimensions is `h × w × 16` assuming 16 bits encoding of transitions. Transition maps represent the allowed movements on a cell, [read more about them here](custom_observations.html#transitions-maps). 
+- **Transition maps:** provides a unique value for each type of transition map and its orientation. Its dimensions is `h × w × 16` assuming 16 bits encoding of transitions. Transition maps represent the movements allowed on a cell, [read more about them here](custom_observations.html#transitions-maps). 
 
 - **Agent states:** A 3D array `h × w × 5` containing:
-    - **Channel 0:** one-hot representation of the agents position and direction
+    - **Channel 0:** one-hot representation of the self agent position and direction
     - **Channel 1:** other agents' positions and direction
     - **Channel 2:** self and other agents' malfunctions
     - **Channel 3:** self and other agents' fractional speeds
     - **Channel 4:** number of other agents ready to depart from that position
 
-- **Agent targets:** A 3D arrays `h × w × 2` containing respectively the position of the current agent target, and the positions of the other agents targets. The position of the targets of the other agents is a simple `0`/`1` flag, therefore this observation doesn't indicate where each agent is heading to.
+- **Agent targets:** A 3D arrays `h × w × 2` containing respectively the position of the current agent target, and the positions of the other agents' targets. The positions of the targets of the other agents is a simple `0`/`1` flag, therefore this observation doesn't indicate where each other agent is heading to.
 
 This observation space is well suited for single-agent navigation but does not provide enough information to solve the multi-agent navigation task, thus participants must improve on this observation space to solve the challenge.
 
 ```{admonition} Code reference
-The tree observation is defined in [flatland.envs.observations.GlobalObsForRailEnv](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/envs/observations.py#L530)
+The tree observation is defined in [flatland.envs.observations.GlobalObsForRailEnv](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/envs/observations.py#L525)
 ```
 
 Local grid observation
@@ -46,6 +46,14 @@ The initial local grid view provides the same channels as the initial global vie
 <img width="500" src="https://drive.google.com/uc?export=view&id=1kZzinMOs7hlPaSJJeIiaQ7lAz2erXuHx">
 
 ***An abstract visualization of the local field of view of an agent.** The green boxes represent visible cells in the agents field of view. This field of view is turned as the agent’s direction changes.*
+
+```{warning}
+The local grid observation has shown limited experimental results and is considered deprecated. We keep it for historical purpose, and because it may be useful when combined with other observations. Be aware that its implementation is not currently supported.  
+```
+
+```{admonition} Code reference
+The tree observation is defined in [flatland.envs.observations.LocalObsForRailEnv](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/envs/observations.py#L604)
+```
 
 Tree observation
 ---

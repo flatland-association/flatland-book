@@ -1,6 +1,10 @@
 Making a Submission
 ===================
 
+```{admonition} TL;DR
+This document will show you how to submit a test submission in 10 minutes.
+```
+
 🚂 All aboard!
 ---
 
@@ -57,7 +61,7 @@ You may have to restart Ubuntu for all changes to take effect.
 
 ### Create the conda environment
 
-Flatland uses the conda package manager. [Install it](https://www.anaconda.com/products/individual) if it is not setup on your machine.
+The start kit uses the conda package manager. [Install it](https://www.anaconda.com/products/individual) if it is not setup on your machine.
 
 You can now run the following:
 
@@ -66,6 +70,9 @@ $ conda env create -f environment.yml # creates the flatland-rl environment
 $ conda activate flatland-rl # activates it
 ```
 
+```{note}
+Flatland is tested with Python 3.6 and 3.7 on modern versions of macOS, Linux and Windows. You may encounter problems with graphical rendering if you use WSL. Your [contribution is welcome](../misc/contributing) if you can help with this!  
+```
 
 ✅ Test your local setup
 ---

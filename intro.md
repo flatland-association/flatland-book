@@ -12,7 +12,7 @@ Flatland tackles a major problem in the transportation world:
 
 > **How to efficiently manage dense traffic on complex railway networks?**
 
-This is a hard question! Driving a single train from point A to point B is easy. But how to make sure the trains won't block each others at intersections? How to handle trains that randomly break down? 
+This is a hard question! Driving a single train from point A to point B is easy. But how to ensure trains won't block each others at intersections? How to handle trains that randomly break down? 
 
 Flatland is an open-source toolkit to develop and compare solutions for this problem.
 
@@ -43,7 +43,7 @@ while True:
 EOF
 ```
 
-Want to dive straight in? **[Make your first submission to the NeurIPS 2020 challenge in 5 minutes!](getting-started/first-submission)**
+Want to dive straight in? **[Make your first submission to the NeurIPS 2020 challenge in 10 minutes!](getting-started/first-submission)**
 
 
 🔖 Design principles

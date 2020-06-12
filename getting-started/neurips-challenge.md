@@ -5,4 +5,5 @@ The **[NeurIPS 2020 challenge](https://www.aicrowd.com/challenges/neurips-2020-f
 
 ![Flatland](../assets/images/flatland_wide.png)
 
-Follow the guide to make your [first submission](first-submission), and read about the [evaluations metrics and prizes](prize-and-metrics) of this edition.
+- Follow the guide to make your **[first submission](first-submission)**
+- Read about the **[evaluations metrics and prizes](prize-and-metrics)** of this edition.
