@@ -1,8 +1,7 @@
 - file: intro
 
-# DOCUMENTATION
-- header: Documentation
-- file: getting-started/first-submission
+# GETTING STARTED
+- header: Getting started
 - file: getting-started/env
   sections:
       - file: getting-started/env/observations
@@ -13,6 +12,9 @@
       - file: getting-started/env/speed_profiles
 #      - file: getting-started/env/The_Rail_Environment
 - file: getting-started/neurips-challenge
+  sections:
+      - file: getting-started/first-submission
+      - file: getting-started/prize-and-metrics
 - file: getting-started/rl
   sections:
       - file: getting-started/rl/single-agent

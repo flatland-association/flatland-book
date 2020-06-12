@@ -1,13 +1,14 @@
-The Flatland Environment
-===
+Flatland Environment
+====================
 
 ```{admonition} TL;DR
 This document introduces the main concepts you'll need to get started with Flatland.
 ```
 
-Our goal is to manage traffic in railway networks. Let's consider a concrete example, which shows the solution from the 2019 winner [mugurelionut](https://www.aicrowd.com/participants/mugurelionut):
+Our goal is to manage traffic in railway networks. Let's consider a concrete example:
 
 <video controls="controls" muted="muted" autoplay="autoplay" loop="loop" class="media" width="600" height="600" src="https://aicrowd-production.s3.eu-central-1.amazonaws.com/misc/flatland-rl-Media/e2fbaf24-53de-4802-9995-3985dec3c971.mp4"></video>
+*Solution from 2019 winner [mugurelionut](https://www.aicrowd.com/participants/mugurelionut)*
 
 In the animation above, you can see multiple agents (the trains) moving from their initial positions to their targets. The movements of the trains are limited by the rails: they are only allowed to move forward, can turn left or right at intersections, and can turn around at dead-ends.
 
@@ -68,7 +69,7 @@ Each of the provided observations has its strengths and weaknesses. However, it 
 
 
 🌟 Rewards
----
+----------
 
 Each agent receives combined reward consisting of a local and a global reward signal. 
 
@@ -85,3 +86,26 @@ This reward creates an objective of finishing the episode as quickly as possible
 ```{admonition} Code reference
 The reward is calculated in [envs/rail_env.py](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/envs/rail_env.py)
 ```
+
+🚉 Other concepts
+-----------------
+
+### Custom levels
+
+Going further, you will want to run experiment using a variety of environments. You can create custom levels either using multiple random generators, or design them by hands.
+
+**[🔗 Generate custom levels](env/level_generation)**
+
+### Stochasticity
+
+An important aspect of these levels will be their **stochasticity**, which means how often and for how long trains will malfunction. Malfunctions force the agents the reconsider their plans which can be costly. 
+
+**[🔗 Adjust stochasticity](env/stochasticity)**
+
+### Speed profiles
+
+Finally, trains in real railway networks don't all move at the same speed. A freight train will for example be slower than a passenger train. This is an important consideration, as you want to avoid scheduling a fast train behind a slow train!
+
+Note that speed profiles won't be used during the first round of the [NeurIPS 2020 challenge](https://www.aicrowd.com/challenges/neurips-2020-flatland-challenge/).
+
+**[🔗 Tune speed profiles](env/speed_profiles)**

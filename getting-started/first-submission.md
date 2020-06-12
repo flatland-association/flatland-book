@@ -1,6 +1,5 @@
-
-Submit in 5 Minutes
-===
+Making a Submission
+===================
 
 ```{admonition} TL;DR
 This document will show you how to submit a test submission in 5 minutes.
@@ -9,7 +8,7 @@ This document will show you how to submit a test submission in 5 minutes.
 🚂 All aboard!
 ---
 
-In the next five minutes, you will submit your first agent to the [NeurIPS 2020 Flatland Challenge](https://www.aicrowd.com/challenges/neurips-2020-flatland-challenge/) and will see your name on the leaderboard.
+In the next ten minutes, you will submit your first agent to the [NeurIPS 2020 Flatland Challenge](https://www.aicrowd.com/challenges/neurips-2020-flatland-challenge/) and will see your name on the leaderboard.
 
 ![leaderboard](../assets/images/you.png)
 

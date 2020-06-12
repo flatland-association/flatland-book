@@ -1,27 +1,39 @@
 Flatland Environment
-===
+====================
 
-This section provides you with information about the most common questions around the Flatland environment itself. If your question is still not answered either reach out to the contacts listed on the repository directly or open an issue by following these [guidlines](http://flatland-rl-docs.s3-website.eu-central-1.amazonaws.com/06_contributing.html).
+This section provides you with information about the most common questions about the Flatland environment itself. If your question is still not answered either reach out to the contacts listed on the repository directly or open an issue by following these [guidelines](../misc/contributing.md).
 
-### How can I get started with Flatland?
+How can I get started with Flatland?
+---
+
 Install Flatland by running `pip install -U flatland-rl` or directly from source by cloning the flatland repository and running `python setup.py --install` in the repository directory.
 
-These [Tutorials](http://flatland-rl-docs.s3-website.eu-central-1.amazonaws.com/03_tutorials.html) help you get a basic understanding of the flatland environment.
+The [README](https://gitlab.aicrowd.com/flatland/flatland/blob/master/README.md#-setup) file in the Flatland repository provides more details
 
-### How do I train agents on Flatland?
-Once you have installed Flatland, head over to the [baselines repository](https://gitlab.aicrowd.com/flatland/baselines) to see how you can train your own reinforcement learning agent on Flatland.
+How do I train agents on Flatland?
+---
 
-Check out this [tutorial](https://gitlab.aicrowd.com/flatland/baselines/blob/master/torch_training/Getting_Started_Training.md?_ga=2.193077805.1627822449.1571622829-1432296534.1549103074) to get a sense of how it works.
+Once you have installed Flatland, head over to the [examples repository](https://gitlab.aicrowd.com/flatland/flatland-examples) to see how you can train your own reinforcement learning agent on Flatland.
 
-### What is a observation builder and which should I use?
-Observation builders give you the possibility to generate custom observations for your controller (reinfocement learning agent, optimization algorithm,...). The observation builder has access to all environment data and can perform any operations on them as long as they are not changed.
-This [tutorial](http://flatland-rl-docs.s3-website.eu-central-1.amazonaws.com/03_tutorials.html#custom-observations-and-custom-predictors-tutorial) will give you a sense on how to use them.
+Check out this [tutorial](../getting-started/rl) to get a sense of how it works.
 
-### What is a predictor and which one should I use?
+What is an observation builder?
+---
+
+Observation builders give you the possibility to generate custom observations for your controller (reinforcement learning agent, optimization algorithms, ...). The observation builder has access to all environment data and can perform any operations on them as long as they don't change the environment's state.
+
+This [tutorial](../getting-started/env/custom_observations) will give you a sense on how to use them.
+
+What is a predictor?
+---
+
 Because railway traffic is limited to rails, many decisions that you have to take need to consider future situations and detect upcoming conflicts ahead of time. Therefore, flatland provides the possibility of predictors that predict where agents will be in the future. We provide a stock predictor that assumes each agent just travels along its shortest path.
-You can build more elaborate predictors and use them as part of your observation builder. You find more information [here](http://flatland-rl-docs.s3-website.eu-central-1.amazonaws.com/03_tutorials.html#custom-observations-and-custom-predictors-tutorial).
 
-### What information is available about each agent?
+You can build more elaborate predictors and use them as part of your observation builder. You find [more information here](../getting-started/env/custom_observations).
+
+What information is available about agents?
+---
+
 Each agent is an object and contains the following information:
 
 - `initial_position = attrib(type=Tuple[int, int])`: The initial position of an agent. This is where the agent will enter the environment. It is the start of the agent journey.
@@ -44,21 +56,33 @@ Each agent is an object and contains the following information:
     - `DONE` in grid (position is not None), but done
     - `DONE_REMOVED` removed from grid (position is None)
 
-### Can I use my own reward function?
+Can I use my own reward function?
+---
+
 Yes you can do reward shaping as you please. All information can be accessed directly in the env.
 
-### What are rail and schedule generators?
+What are rail and schedule generators?
+---
+
 To generate environments for Flatland you need to provide a railway infrastructure (rail) and a set of tasks for each agent to complete (schedule).
 
-### What is the max number of timesteps per episode?
-The maximum number of timesteps is `max_time_steps = 4 * 2 * (env.width + env.height + 20)`
+What is the max number of timesteps per episode?
+---
 
-### What are malfunctions and what can i do to resolve them?
+The maximum number of timesteps is defined as `max_time_steps = 4 * 2 * (env.width + env.height + n_agents/n_cities)`.
+
+What are malfunctions and what can i do to resolve them?
+---
+
 Malfunctions occur according to a Poisson process. The hinder an agent from performing its actions and update its position. While an agent is malfunctioning it is blocking the paths for other agents. There is nothing you can do to fix an agent, it will get fixed automatically as soon as `agent.malfunction_data['malfunction'] == 0` .
 You can however adjust the other agent actions to avoid delay propagation within the railway network and keeping traffic as smooth as possible.
 
-### Can agents communication with each other?
+Can agents communication with each other?
+---
+
 There is no communication layer built into Flatland directly. You can however build a communication layer outside of the Flatland environment if necessary.
 
-### Why are my trains drawn outside of the rails?
+Why are my trains drawn outside of the rails?
+---
+
 If you render your environment and the agents appear to be off the rail it is usually due to changes in the railway infrastructure. Make sure that you reset your renderer anytime the infrastructure changes by calling `env_renderer.reset()`.
