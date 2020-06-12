@@ -37,6 +37,10 @@ The tree observation is defined in [flatland.envs.observations.GlobalObsForRailE
 Local grid observation
 ---
 
+```{warning}
+The local grid observation has shown limited experimental results and is considered deprecated. We keep it for historical purpose, and because it may be useful when combined with other observations. Be aware that its implementation is not currently supported.  
+```
+
 The local grid observation is very similar to the global observation, where we only replace `h` and `w` by agent specific dimensions. The agent is always situated at the position `(0, (w + 1)/2)` within the observation grid, and the observation grid is rotated according to the agent’s direction such that the full height `h` of the observation grid is in front of the agent.
 
 The initial local grid view provides the same channels as the initial global view introduced above. This observation space offers benefits over the global view, mostly by reducing the amount of irrelevant information in the observation space. Global navigation with this local observation would be impossible if no general information about the target location were given (especially when the target is outside of view). We therefore compute a distance map for every agent-target and provide this distance map as an additional channel:
@@ -46,10 +50,6 @@ The initial local grid view provides the same channels as the initial global vie
 <img width="500" src="https://drive.google.com/uc?export=view&id=1kZzinMOs7hlPaSJJeIiaQ7lAz2erXuHx">
 
 ***An abstract visualization of the local field of view of an agent.** The green boxes represent visible cells in the agents field of view. This field of view is turned as the agent’s direction changes.*
-
-```{warning}
-The local grid observation has shown limited experimental results and is considered deprecated. We keep it for historical purpose, and because it may be useful when combined with other observations. Be aware that its implementation is not currently supported.  
-```
 
 ```{admonition} Code reference
 The tree observation is defined in [flatland.envs.observations.LocalObsForRailEnv](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/envs/observations.py#L604)
