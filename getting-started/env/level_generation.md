@@ -3,7 +3,8 @@ Level Generation
 
 Flatland provides multiple ways to create random environments. The most important one the the `sparse_rail_generator`, which generates realistic-looking railway networks.
 
-## Sparse Rail Generator
+Sparse rail generator
+---------------------
 
 ![Example_Sparse](https://i.imgur.com/DP8sIyx.png)
 
@@ -71,3 +72,36 @@ and here with `grid_mode=True`
 ![sparse_ordered](https://i.imgur.com/jyA7Pt4.png)
 
 To see all the changes in action you can just run the `flatland_example_2_0.py` file in the examples folder. The file can be found [here](https://gitlab.aicrowd.com/flatland/flatland/blob/master/examples/flatland_2_0_example.py).
+
+Manually specified railway
+--------------------------
+
+It is possible to manually design railway networks using [`rail_from_manual_specifications_generator`](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/envs/rail_generators.py#L182).
+
+It accepts a list of lists whose each element is a 2-tuple, whose entries represent the `cell_type` (see `core.transitions.RailEnvTransitions`) and the desired clockwise rotation of the cell contents (0, 90, 180 or 270 degrees):
+
+```python
+specs = [[(0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0)],
+         [(0, 0), (0, 0), (0, 0), (0, 0), (7, 0), (0, 0)],
+         [(7, 270), (1, 90), (1, 90), (1, 90), (2, 90), (7, 90)],
+         [(0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0)]]
+
+env = RailEnv(width=6, height=4,
+              rail_generator=rail_from_manual_specifications_generator(specs),
+              number_of_agents=1
+env.reset()
+```
+
+![rail_from_manual_specifications](../../assets/images/fixed_rail.png)
+
+Other rail generators
+---------------------
+
+```{note}
+Only the `sparse_rail_generator` will be used for evaluations in the context of the [NeurIPS 2020 challenge](https://www.aicrowd.com/challenges/neurips-2020-flatland-challenge/).
+```
+
+Other rail generators are available and can be used for example if you want more diversity in your training set:
+
+- [`complex_rail_generator`](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/envs/rail_generators.py#L42)
+- [`random_rail_generator`](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/envs/rail_generators.py#L282)
