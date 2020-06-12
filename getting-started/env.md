@@ -1,28 +1,15 @@
 Flatland Environment
 ====================
 
-```{admonition} TL;DR
-This document introduces the main concepts you'll need to get started with Flatland.
-```
-
-Our goal is to manage traffic in railway networks. Let's consider a concrete example:
-
-<video controls="controls" muted="muted" autoplay="autoplay" loop="loop" class="media" width="600" height="600" src="https://aicrowd-production.s3.eu-central-1.amazonaws.com/misc/flatland-rl-Media/e2fbaf24-53de-4802-9995-3985dec3c971.mp4"></video>
-*Solution from 2019 winner [mugurelionut](https://www.aicrowd.com/participants/mugurelionut)*
-
-In the animation above, you can see multiple agents (the trains) moving from their initial positions to their targets. The movements of the trains are limited by the rails: they are only allowed to move forward, can turn left or right at intersections, and can turn around at dead-ends.
-
-Looking carefully, you can see that some of the trains sometimes "malfunction": they suffer a breakdown of some sort. As a result, they are immobilised for a random duration. Malfunctions are shown in the animation with black crosses **X**.
-
 The goal in Flatland is simple:
 
 > **We seek to minimize the time it takes to bring all the agents to their respective target.** 
 
 This raises a number of questions:
 
-- **Actions:** what can the agents do?
-- **Observations:** what can each agent "see"?
-- **Rewards:** what is the metric used to evaluate the agents?
+- [**Actions:**](#actions) what can the agents do?
+- [**Observations:**](#observations) what can each agent "see"?
+- [**Rewards:**](#rewards) what is the metric used to evaluate the agents?
 
 ↔️ Actions
 ---
