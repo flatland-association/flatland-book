@@ -1,6 +1,10 @@
 Stochasticity
 =============
 
+```{warning}
+This page is outdated and will be reviewed shortly.
+```
+
 Another area where we improved **Flat**land 2.0 are stochastic events added during the episodes.
 This is very common for railway networks where the initial plan usually needs to be rescheduled during operations as minor events such as delayed departure from trainstations, malfunctions on trains or infrastructure or just the weather lead to delayed trains.
 

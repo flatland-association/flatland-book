@@ -1,6 +1,10 @@
 Speed profiles
 ==============
 
+```{warning}
+This page is outdated and will be reviewed shortly.
+```
+
 ```{note}
 Speed profiles are not used in the first round of the [NeurIPS 2020 challenge](https://www.aicrowd.com/challenges/neurips-2020-flatland-challenge/).
 ```
