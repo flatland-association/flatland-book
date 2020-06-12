@@ -23,7 +23,7 @@ Start by cloning the starter kit:
 
 ```console
 $ git clone https://gitlab.aicrowd.com/flatland/neurips2020-flatland-starter-kit.git/
-$ cd flatland-challenge-starter-kit
+$ cd neurips2020-flatland-starter-kit
 ```
 
 The starter kit comes with a sample agent which performs random actions. We will see how it works in more details in the last section.
@@ -86,6 +86,7 @@ Your directory structure should be as follow:
 ```
 ./scratch
 └── test-envs
+    ├── metadata.csv
     ├── Test_0
     │   ├── Level_0.pkl
     │   └── Level_1.pkl
