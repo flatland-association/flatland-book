@@ -29,6 +29,20 @@ The **maximum possible value** (ie best possible) is 0.0, which would occur if a
 
 You can read more about the [reward structure](env) in the environment documentation.
 
+⏱ Time limits
+---
+
+The agents have to act within **strict time limits**:
+ 
+- You are allowed up to 5 minutes of initial planning time before any agent moves.
+- Beyond that point, the agents have 5 seconds per time step to indicate their next actions, no matter the number of agents.
+
+```{warning}
+If at any time the agents fail to act in time, the whole submission will fail!
+```
+
+The agents will be evaluated in a container with access to 4 CPU cores. It is also possible to get access to a GPU, contact the organizers if your approach could take advantage of one. 
+
 
 🏆 Prizes
 ---
