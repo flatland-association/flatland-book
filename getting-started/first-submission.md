@@ -287,3 +287,18 @@ $ source ~/.bash_profile
 ### "`activate is not a conda command`"
 
 This error can have various causes. Most commonly, this means that your conda installation is either too old, or misconfigured in some way. The easiest fix is to update conda to the latest version and re-install it if it keeps failing.
+
+### "`env_client.step() called before env_client.env_create() call`"
+
+This occurs if a previous local evaluation was interrupted. The client communicates with the evaluator service through Redis, and sometimes data in Redis can be left in an intermediate state that prevents a new evaluation from starting.
+
+```{warning}
+The commands that follow will delete all the data in your Redis database. Don't run them if you use this Redis database for other purposes!
+```
+
+To solve this problem, run the following commands:
+
+```console
+$ redis-cli 
+127.0.0.1:6379> FLUSHALL
+```
