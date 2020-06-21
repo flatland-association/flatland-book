@@ -74,6 +74,8 @@ In the [NeurIPS 2020 challenge](https://www.aicrowd.com/challenges/neurips-2020-
 The reward is calculated in [envs/rail_env.py](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/envs/rail_env.py)
 ```
 
+The episodes finish when all the trains have reached their target, or when the maximum number of time steps is reached. 
+
 🚉 Other concepts
 -----------------
 

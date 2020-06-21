@@ -23,9 +23,11 @@ In code:
 normalized_reward = cumulative_reward / (self.env._max_episode_steps * self.env.get_num_agents())
 ```
 
-The **minimum possible value** (ie worst possible) is -1.0, which occurs if none of the agents reach their goal during the episode.
+The episodes finish when all the trains have reached their target, or when the maximum number of time steps is reached. Therefore:
 
-The **maximum possible value** (ie best possible) is 0.0, which would occur if all the agents would reach their targets in one time step, which is generally not achievable.
+- The **minimum possible value** (ie worst possible) is -1.0, which occurs if none of the agents reach their goal during the episode.
+
+- The **maximum possible value** (ie best possible) is 0.0, which would occur if all the agents would reach their targets in one time step, which is generally not achievable.
 
 You can read more about the [reward structure](env) in the environment documentation.
 
