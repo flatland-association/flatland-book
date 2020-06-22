@@ -27,7 +27,7 @@ The environments vary in size and number of agents as well as malfunction parame
 For Round 1 of the NeurIPS 2020 challenge, the upper limit of these variables for submissions are:
 - `(x_dim, y_dim) <= (150, 150)`
 - `n_agents <= 400`
-- `malfunction_interval >= 50`
+- `malfunction_rate <= 1/50`
 
 These parameters are subject to change during the challenge.
 
