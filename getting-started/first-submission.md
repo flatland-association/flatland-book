@@ -302,3 +302,9 @@ To solve this problem, run the following commands:
 $ redis-cli 
 127.0.0.1:6379> FLUSHALL
 ```
+
+If you often interrupt submissions, you can systematically cleanup the Redis database before starting the evaluator:
+
+```console
+redis-cli -c "flushall"; flatland-evaluator --tests ./scratch/test-envs/
+```
