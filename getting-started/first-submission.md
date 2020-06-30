@@ -71,7 +71,7 @@ $ conda activate flatland-rl # activates it
 ```
 
 ```{note}
-Flatland is tested with Python 3.6 and 3.7 on modern versions of macOS, Linux and Windows. You may encounter problems with graphical rendering if you use WSL. Your [contribution is welcome](../misc/contributing) if you can help with this!  
+Flatland is tested with Python 3.6 and 3.7 on modern versions of macOS and Linux. We are unable to support Windows at this time. WSL is known to work but you may encounter problems with graphical rendering. Your [contribution is welcome](../misc/contributing) if you can help with this!
 ```
 
 ✅ Test your local setup
