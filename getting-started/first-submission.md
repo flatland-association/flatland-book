@@ -102,7 +102,7 @@ Your directory structure should be as follow:
     ├── ...
 ``` 
 
-We will now replicate the setup used on AIcrowd locally to ensure that your submission will be evaluated without problem when you submit it. 
+We will now replicate the setup used on AIcrowd on your local machine to ensure that your submission will be evaluated without problem when you submit it. 
 This involves three components: your agent, the evaluator service, and a Redis server to let them communicate. 
 
 #### Redis
@@ -136,7 +136,7 @@ $ #  SET AICROWD_TESTS_FOLDER=./scratch/test-envs/
 $ python run.py
 ```
 
-That's it! the agent should now start interacting with the evaluator, and you should see the results coming in.
+The agent should now start interacting with the evaluator, and you should see the results coming in:
 
 ```console
 $ flatland-evaluator --tests ./scratch/test-envs/
@@ -173,22 +173,22 @@ Each repository must have an `aicrowd.json` file with the following content:
 }
 ```
 
-This is used to map your submission to the proper challenge. The starter kit repository includes a sample `aicrowd.json` with the correct values.
+This is used to map your submission to the proper challenge. The starter kit repository includes a sample [`aicrowd.json`](https://gitlab.aicrowd.com/flatland/neurips2020-flatland-starter-kit/blob/master/aicrowd.json) file with the correct values.
 
-You need to ensure that you set the proper **`tags`** with each submission. The tags indicate the methods you used in that submission, and can be one (or a combination of): 
+You need to ensure that you set the proper **`tags`** with each submission. The tags indicate the methods you use in that submission, and need to be at least one of: 
 
 - `"RL"` if you used reinforcement learning,
 - `"OR"` if you used operations research,
 - `"other"` if you used another method.
 
 ```{warning}
-[Different prizes](neurips-challenge) are available depending on the method you use! Therefore it's important to fill this tag correctly. Winning solutions will be verified by the organizers to ensure the method was properly declared.
+[Different prizes](neurips-challenge) are available depending on the method you use! Therefore it is important to fill this tag correctly. Winning solutions will be verified by the organizers to ensure the method was properly declared.
 ```
 
-If you set `debug` to `true`, then the evaluation will run on a smaller set of 28 environments, and the logs from your submitted code (if it fails) will be made available to you to help you debug. These test submissions won't count against your daily limit and won't appear on the leaderboard.
+If you set `debug` to `true`, then the evaluation will run on a smaller set of 28 environments, and the logs from your submitted code (if it fails) will be made available to you to help you debug. These test submissions won't count against your daily limit and will appear at the bottom of the leaderboard (score of `-1.0`).
 
 ```{warning}
-By default we have set `debug` to `true`, so when you are ready to make a competitive submission, make sure to set `debug` to `false`!
+By default `debug` is set to `true`, so when you are ready to make a competitive submission, make sure to set `debug` to `false`!
 ```
 
 ### run.sh
@@ -230,7 +230,7 @@ $ git push aicrowd submission-v0.1
 
 ```{admonition} Submission tags
 Any tag push where the tag name begins with "submission-" to your private repository is considered as a submission!
-You are allowed up to 5 submissions per day.
+You are allowed up to 5 submissions per day (submissions in debug mode don't count).  
 ```
 
 Note that if the content of your repository does not change, then pushing a new tag will **not** trigger a new evaluation.
@@ -239,7 +239,7 @@ You should now be able to see the details of your submission at:
 
 [https://gitlab.aicrowd.com/<YOUR_AICROWD_USER_NAME>/<YOUR_REPO_NAME>/issues](#)
 
-You should start seeing something like this take shape at the address above: 
+You should start seeing something like this at the address above: 
 
 ![submission issue](../assets/images/submission-issue.png)
 
@@ -262,31 +262,10 @@ Surely you can do better! 💪
 
 Head over to the [reinforcement learning in Flatland introduction](rl) to get started with simple RL methods such as Double DQN. 
 
-To go further, explore the [research baselines](../research/baselines) which use RLlib to train using advanced algorithms such as Ape-X, PPO or imitation learning methods such as MARWIL.
+To go further, explore the [research baselines](../research/baselines) which use RLlib to train using advanced algorithms such as Ape-X, PPO or imitation learning methods such as DQfD.
 
 🐛 Troubleshooting
 ---
-
-### "`unknown locale: UTF-8`"
-
-This happens on macOS. Append this to your `~/.bash_profile`:
-
-```console
-$ export LC_ALL=en_US.UTF-8
-$ export LANG=en_US.UTF-8
-```
-
-And then run:
-
-```console
-$ source ~/.bash_profile
-```
-
-[More details](https://stackoverflow.com/a/38917471/318557)
-
-### "`activate is not a conda command`"
-
-This error can have various causes. Most commonly, this means that your conda installation is either too old, or misconfigured in some way. The easiest fix is to update conda to the latest version and re-install it if it keeps failing.
 
 ### "`env_client.step() called before env_client.env_create() call`"
 
@@ -308,3 +287,24 @@ If you often interrupt submissions, you can systematically cleanup the Redis dat
 ```console
 redis-cli -c "flushall"; flatland-evaluator --tests ./scratch/test-envs/
 ```
+
+### "`unknown locale: UTF-8`"
+
+This happens on macOS. Append this to your `~/.bash_profile`:
+
+```console
+$ export LC_ALL=en_US.UTF-8
+$ export LANG=en_US.UTF-8
+```
+
+And then run:
+
+```console
+$ source ~/.bash_profile
+```
+
+[More details](https://stackoverflow.com/a/38917471/318557)
+
+### "`activate is not a conda command`"
+
+This error can have various causes. Most commonly, this means that your conda installation is either too old, or misconfigured in some way. The easiest fix is to update conda to the latest version and re-install it if it keeps failing.
