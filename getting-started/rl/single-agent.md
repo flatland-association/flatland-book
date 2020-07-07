@@ -2,7 +2,7 @@ Single agent
 ===
 
 ```{admonition} Goal
-At the end of this tutorial, you will be able to train a single agent to navigate in Flatland using DQN!
+By the end of this tutorial, you will be able to train a single agent to navigate in Flatland using DQN!
 ```
 
 We use the [`single_agent_training.py`](https://gitlab.aicrowd.com/flatland/flatland-examples/blob/master/reinforcement_learning/single_agent_training.py) file to train a simple agent with the tree observation to solve the navigation task. This tutorial walks you through this file step by step.

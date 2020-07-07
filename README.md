@@ -11,6 +11,13 @@ pip install -U "jupyter-book>=0.7.0b"
 jupyter-book build .
 ```
 
+Changes to the ToC will require full re-build:
+
+```
+jupyter-book clear; jupyter-book build .
+```
+
+
 # Author(s)
 * Sharada Mohanty
 * Florian Laurent
