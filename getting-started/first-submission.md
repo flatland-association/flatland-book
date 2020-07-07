@@ -185,7 +185,7 @@ You need to ensure that you set the proper **`tags`** with each submission. The 
 [Different prizes](neurips-challenge) are available depending on the method you use! Therefore it is important to fill this tag correctly. Winning solutions will be verified by the organizers to ensure the method was properly declared.
 ```
 
-If you set `debug` to `true`, then the evaluation will run on a smaller set of 28 environments, and the logs from your submitted code (if it fails) will be made available to you to help you debug. These test submissions won't count against your daily limit and will appear at the bottom of the leaderboard (score of `-1.0`).
+If you set `debug` to `true`, then the evaluation will run on a smaller set of 28 environments, and the logs from your submitted code (if it fails) will be made available to you to help you debug. These test submissions will appear at the bottom of the leaderboard (score of `-1.0`).
 
 ```{warning}
 By default `debug` is set to `true`, so when you are ready to make a competitive submission, make sure to set `debug` to `false`!
@@ -230,7 +230,7 @@ $ git push aicrowd submission-v0.1
 
 ```{admonition} Submission tags
 Any tag push where the tag name begins with "submission-" to your private repository is considered as a submission!
-You are allowed up to 5 submissions per day (submissions in debug mode don't count).  
+You are allowed up to 5 submissions per day.  
 ```
 
 Note that if the content of your repository does not change, then pushing a new tag will **not** trigger a new evaluation.
