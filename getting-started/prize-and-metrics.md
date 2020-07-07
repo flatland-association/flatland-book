@@ -43,8 +43,7 @@ The agents have to act within **strict time limits**:
 If at any time the agents fail to act in time, the whole submission will fail!
 ```
 
-The agents will be evaluated in a container with access to 4 CPU cores. It is also possible to get access to a GPU, contact the organizers if your approach could take advantage of one. 
-
+The agents will be evaluated in a container with access to 4 CPU cores (4 hyper-threads of an Intel Xeon E5 v3 at 2.3 GHz base, 3.8 GHz single core max turbo) and 15 GB of main memory. It is also possible to get access to a GPU, contact the organizers if your approach could take advantage of one.
 
 🏆 Prizes
 ---
