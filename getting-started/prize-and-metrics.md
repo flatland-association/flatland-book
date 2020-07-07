@@ -38,6 +38,7 @@ The agents have to act within **strict time limits**:
  
 - You are allowed up to 5 minutes of initial planning time before any agent moves.
 - Beyond that point, the agents have 5 seconds per time step to indicate their next actions, no matter the number of agents.
+- The full evaluation should finish within 8 hours.
 
 ```{warning}
 If at any time the agents fail to act in time, the whole submission will fail!
