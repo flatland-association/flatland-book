@@ -6,12 +6,8 @@ Baselines
 Additions to the documentation and to the baselines themselves [are welcome](../../misc/contributing)!
 ```
 
-
-
 ### RL Methods
 
-- Ape-X
-- PPO
 - [CCPPO](baselines/centralized_critic)
 - Pure Imitation Learning: MARWIL
 - Mixed IL/RL: DQfD 
