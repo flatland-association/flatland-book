@@ -8,7 +8,7 @@ How can I get started with Flatland?
 
 Install Flatland by running `pip install -U flatland-rl` or directly from source by cloning the flatland repository and running `python setup.py --install` in the repository directory.
 
-The [README](https://gitlab.aicrowd.com/flatland/flatland/blob/master/README.md#-setup) file in the Flatland repository provides more details
+The [README](https://gitlab.aicrowd.com/flatland/flatland/blob/master/README.md#-setup) file in the Flatland repository provides more details. [Read the this guide](../getting-started/first-submission) to learn how to make your first submission.
 
 How do I train agents on Flatland?
 ---
@@ -29,7 +29,7 @@ What is a predictor?
 
 Because railway traffic is limited to rails, many decisions that you have to take need to consider future situations and detect upcoming conflicts ahead of time. Therefore, flatland provides the possibility of predictors that predict where agents will be in the future. We provide a stock predictor that assumes each agent just travels along its shortest path.
 
-You can build more elaborate predictors and use them as part of your observation builder. You find [more information here](../getting-started/env/custom_observations).
+You can build more elaborate predictors and use them as part of your observation builder. You can find [more information here](../getting-started/env/custom_observations).
 
 What information is available about agents?
 ---
@@ -59,7 +59,7 @@ Each agent is an object and contains the following information:
 Can I use my own reward function?
 ---
 
-Yes you can do reward shaping as you please. All information can be accessed directly in the env.
+Yes you can do reward shaping as you please. Any information can be accessed directly from the env. Of course during the evaluation the [official rewards](../getting-started/prize-and-metrics) will be use to calculate scores! 
 
 What are rail and schedule generators?
 ---
@@ -74,7 +74,8 @@ The maximum number of timesteps is defined as `max_time_steps = 4 * 2 * (env.wid
 What are malfunctions and what can i do to resolve them?
 ---
 
-Malfunctions occur according to a Poisson process. The hinder an agent from performing its actions and update its position. While an agent is malfunctioning it is blocking the paths for other agents. There is nothing you can do to fix an agent, it will get fixed automatically as soon as `agent.malfunction_data['malfunction'] == 0` .
+Malfunctions are random events that occur according to a Poisson process. They hinder an agent from performing any action. While an agent is malfunctioning, it is blocking the paths for other agents. There is nothing you can do to fix an agent, it will get fixed automatically as soon as `agent.malfunction_data['malfunction'] == 0`.
+
 You can however adjust the other agent actions to avoid delay propagation within the railway network and keeping traffic as smooth as possible.
 
 Can agents communication with each other?
