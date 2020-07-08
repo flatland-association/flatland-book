@@ -23,7 +23,7 @@ The observation can be configured with the following parameters:
 
 #### 🚂 Training
 
-Example config: [`neurips2020-flatland-baselines/baselines/global_density_obs/sparse_small_apex_expdecay_maxt1000.yaml`](https://gitlab.aicrowd.com/flatland/neurips2020-flatland-baselines/blob/master/baselines/global_density_obs/sparse_small_apex_expdecay_maxt1000.yaml) 
+Example configuration: [`neurips2020-flatland-baselines/baselines/global_density_obs/sparse_small_apex_expdecay_maxt1000.yaml`](https://gitlab.aicrowd.com/flatland/neurips2020-flatland-baselines/blob/master/baselines/global_density_obs/sparse_small_apex_expdecay_maxt1000.yaml).
 
 Run it with:
 
@@ -57,9 +57,9 @@ We created a custom model (`GlobalDensObsModel`) for this observation that uses 
 
 We trained the agents with the different encoding options and different values for `max_t` using [Ape-X](#links). However, we didn't search systematically or exhaustively for the best settings.
 
-The best runs achieved around *45% mean completion** on the sparse, small flatand environment (`small_v0`) with `max_t = 1000` and `encoding = exp_decay`. The mean completion rate is considerably lower than the tree observation but shows that learning is possible from global observations and can inform approaches to combine local, tree and global observations.
+The best runs achieved around **45% mean completion** on the sparse, small flatand environment (`small_v0`) with `max_t = 1000` and `encoding = exp_decay`. The mean completion rate is considerably lower than the tree observation but shows that learning is possible from global observations and can inform approaches to combine local, tree and global observations.
 
-More information on the runs can be found in the *Weights & Biases* report:
+[Full metrics of the training runs can be found in the *Weights & Biases* report](https://app.wandb.ai/masterscrat/flatland/reports/Density-Obs-|-sparse-small_v0--VmlldzoxMTYxMDE)
 
 [![w&b report](images/global_density_obs_wb.png)](https://app.wandb.ai/masterscrat/flatland/reports/Density-Obs-|-sparse-small_v0--VmlldzoxMTYxMDE)
 
@@ -68,9 +68,7 @@ More information on the runs can be found in the *Weights & Biases* report:
 
 * [IMPALA Paper – IMPALA: Scalable Distributed Deep-RL with Importance Weighted Actor-Learner Architectures (Espeholt et al.)](https://arxiv.org/abs/1802.01561)
 * [Ape-X Paper – Distributed Prioritized Experience Replay (Horgan et al.)](https://arxiv.org/abs/1803.00933)
-* [W&B report for training runs](https://app.wandb.ai/masterscrat/flatland/reports/Density-Obs-|-sparse-small_v0--VmlldzoxMTYxMDE)
-
 
 ### 🌟 Credits
 
-Manuel Schneider
+- [🐦 Manuel Schneider](https://twitter.com/m_c_schneider)
