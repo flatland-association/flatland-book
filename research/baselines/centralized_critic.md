@@ -60,7 +60,7 @@ The trainer registration is done outside of classes or functions at the end of t
 
 The described approach was developed and evaluated in a project of [Deutsche Bahn](https://www.digitale-schiene-deutschland.de/index_en.html) in cooperation with [InstaDeep](http://www.instadeep.com/). In the context of the project CCPPO was validated and directly compared to standard PPO on a previous version of Flatland. This original implementation that used a custom version of a sparse reward and a custom observation similar to Flatland's tree observation outperformed standard PPO. For the current baselines the CCPPO model was run using the new Flatland version together with its standard observation and reward. The graph below shows the results for these runs with and without the transformer. For comparison, a run of the current best method in the baseline (Ape-X) with comparable sizes and parameters is shown. The full configuration can be found in the corresponding CCPPO config files. The results show that CCPPO is able to learn in this setup, but with a lower performance than Ape-X. We provide an example setup for experiments with CCPPO and encourage participants to further refine and develop this approach.
 
-![](images/ccppo_example.png)
+[![w&b report](images/ccppo_example.png)](https://app.wandb.ai/masterscrat/flatland/reports/Flatland-small_v0-CCPPO--VmlldzoxNTIwMzM)
 
 ### 🔗 Links
 
