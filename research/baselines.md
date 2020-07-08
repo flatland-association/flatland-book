@@ -6,7 +6,7 @@ Baselines
 Additions to the documentation and to the baselines themselves [are welcome](../../misc/contributing)!
 ```
 
-### RL Methods
+### RL methods
 
 - [CCPPO](baselines/centralized_critic)
 - Pure Imitation Learning: MARWIL
@@ -19,6 +19,6 @@ Additions to the documentation and to the baselines themselves [are welcome](../
 
 ### Tricks
 
+- [Combining observations](baselines/combined_tree_local_conflict_obs)
 - [Frame skipping](baselines/action_masking_and_skipping)
 - [Action masking](baselines/action_masking_and_skipping)
-- [Combining observations](baselines/combined_tree_local_conflict_obs)

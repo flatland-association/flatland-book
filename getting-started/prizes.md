@@ -16,3 +16,4 @@ The winning submissions will be verified manually by the organizers to ensure th
 
 ```{note}
 In the case where the overall first place team would use a reinforcement learning approach, then this team will be awarded two travel grants.
+```

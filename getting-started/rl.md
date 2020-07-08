@@ -1,6 +1,10 @@
 Reinforcement Learning
 ===
 
+```{note}
+Looking for industrial-strength RL baselines? Head over to the [RLlib baselines](../research/baselines) to find full implementations of methods such as Ape-X, PPO and imitation learning algorithms.
+```
+
 Let's get our hands dirty with some simple reinforcement learning methods! We will solve tasks such as this one:
 
 ![Conflict_Avoidance](https://i.imgur.com/AvBHKaD.gif)

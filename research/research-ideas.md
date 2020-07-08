@@ -13,7 +13,7 @@ Comparison of path planning methods for a multi-robot team. Very similar to flat
 > This master thesis discusses the topic of multi-agent pathplanning. For this reason several algorithms were picked and described in the first part of this thesis. All algorithms were implemented in C++ and from experience from working with these algorithms several modifications and improvements were proposed and implemented. The second part of the thesis elaborates on the results of experiments performed on the basic versions of the algorithms as well as the improvements and discusses their effect. This part discusses the potential applications the algorithms as well. All algorithms were tested on the map of robotic warehouse as well as grid maps from pc games.
 
 - **[🔗 Paper](https://core.ac.uk/download/pdf/84833259.pdf)**
-- **🌟 Idea from: Jeremy**
+- **🌟 Found by: Jeremy**
 
 ### Chip Placement with Deep Reinforcement Learning (Mirhoseini et al.)
 
@@ -23,15 +23,11 @@ This work from Google AI uses reinforcement learning to place chips on a PCB. Th
 
 - **[🔗 arXiv](https://arxiv.org/pdf/2004.10746.pdf)**
 - **[🔗 Google AI blog post](https://ai.googleblog.com/2020/04/chip-design-with-deep-reinforcement.html)**
-- **🌟 Idea from: Florian** 
+- **🌟 Found by: Florian** 
 
 <!--
 
-### Q-Learning in enormous action spaces via amortized approximate maximization
 
-https://arxiv.org/abs/2001.08116 (from Florian)
-
-Action space could be forward/left/right/pause x nb agents?
 
 ### Neural Combinatorial Optimization with Reinforcement Learning
 
@@ -67,27 +63,10 @@ https://www.researchgate.net/publication/221063712_Conflict-free_route_planning_
 
 > Motion  planning  for  multiple  robots  is  tractable in  case  we  can  assume  a  roadmap  on  which  all  the  robotstravel, which is often the case in many automated guided vehicledomains,  such  as  factory  floors  or  container  terminals.  Wepresent  anO(nvlog(nv) +n2v)(nthe  number  of  nodes,vthe  number  of  vehicles)  route  planning  algorithm  for  a  singlerobot,  which  can  find  the  minimum-time  route  given  a  set  ofexisting  route  plans  that  it  may  not  interfere  with.In  addition,  we  present  an  algorithm  that  can  propagatedelay  through  the  plans  of  the  robots  in  case  one  or  morerobots are delayed. This delay-propagation algorithm allows usto implement a Pareto-optimal plan repair scheme, in which onerobot can improve its route plan without adversely affecting theother robots. We compare this approach to several plan repairschemes  from  the  literature,  which  are  based  on  the  idea  ofgiving  a  higher  priority  to  non-delayed  agents
 
+### Q-Learning in enormous action spaces via amortized approximate maximization
 
-### Chip Placement with Deep Reinforcement Learning
+https://arxiv.org/abs/2001.08116 (from Florian)
 
-https://arxiv.org/pdf/2004.10746.pdf (from Florian)
-
-> In this work, we present a learning-based approach to chip placement, one of the most complex and time-consuming stages of the chip design process. Unlike prior methods, our approach
-  has the ability to learn from past experience and
-  improve over time. In particular, as we train
-  over a greater number of chip blocks, our method
-  becomes better at rapidly generating optimized
-  placements for previously unseen chip blocks.
-  To achieve these results, we pose placement as a
-  Reinforcement Learning (RL) problem and train
-  an agent to place the nodes of a chip netlist onto
-  a chip canvas. To enable our RL policy to generalize to unseen blocks, we ground representation learning in the supervised task of predicting
-  placement quality. By designing a neural architecture that can accurately predict reward across
-  a wide variety of netlists and their placements,
-  we are able to generate rich feature embeddings
-  of the input netlists. We then use this architecture as the encoder of our policy and value networks to enable transfer learning. Our objective is to minimize PPA (power, performance,
-  and area), and we show that, in under 6 hours,
-  our method can generate placements that are superhuman or comparable on modern accelerator
-  netlists, whereas existing baselines require human experts in the loop and take several weeks.
+Action space could be forward/left/right/pause x nb agents?
 
 -->

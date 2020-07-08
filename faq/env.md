@@ -59,7 +59,7 @@ Each agent is an object and contains the following information:
 Can I use my own reward function?
 ---
 
-Yes you can do reward shaping as you please. Any information can be accessed directly from the env. Of course during the evaluation the [official rewards](../getting-started/prize-and-metrics) will be use to calculate scores! 
+Yes you can do reward shaping as you please. Any information can be accessed directly from the env. Of course during the evaluation the [official rewards](../getting-started/env) will be use to calculate scores! 
 
 What are rail and schedule generators?
 ---

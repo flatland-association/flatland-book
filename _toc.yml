@@ -28,8 +28,8 @@
 - header: Research
 - file: research/baselines
   sections:
-      - file: research/baselines/global_density_obs
       - file: research/baselines/centralized_critic
+      - file: research/baselines/global_density_obs
       - file: research/baselines/combined_tree_local_conflict_obs
       - file: research/baselines/action_masking_and_skipping
 - file: research/research-ideas
