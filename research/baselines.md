@@ -23,6 +23,6 @@ Additions to the documentation and to the baselines themselves [are welcome](../
 
 ### Tricks
 
-- Action skipping
-- Action masking
+- [Frame skipping](baselines/action_masking_and_skipping)
+- [Action masking](baselines/action_masking_and_skipping)
 - [Combining observations](baselines/combined_tree_local_conflict_obs)
