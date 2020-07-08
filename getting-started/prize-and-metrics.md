@@ -1,4 +1,4 @@
-Metrics and Prizes
+Evaluation Metrics
 ==================
 
 The **[NeurIPS 2020 challenge](https://www.aicrowd.com/challenges/neurips-2020-flatland-challenge/)** is the newest competition around the Flatland environment.
@@ -38,26 +38,10 @@ The agents have to act within **strict time limits**:
  
 - You are allowed up to 5 minutes of initial planning time before any agent moves.
 - Beyond that point, the agents have 5 seconds per time step to indicate their next actions, no matter the number of agents.
-- The full evaluation should finish within 8 hours.
+- The full evaluation has 8 hours to finish.
 
 ```{warning}
 If at any time the agents fail to act in time, the whole submission will fail!
 ```
 
-The agents will be evaluated in a container with access to 4 CPU cores (4 hyper-threads of an Intel Xeon E5 v3 at 2.3 GHz base, 3.8 GHz single core max turbo) and 15 GB of main memory. It is also possible to get access to a GPU, contact the organizers if your approach could take advantage of one.
-
-🏆 Prizes
----
-
-**The prizes are four travel grants to the [NeurIPS 2020 conference](http://neurips.cc/Conferences/2020/) ✈️**
-
-- The **first place team** in the final round will be awarded one travel grant, no matter what approach they used.
-- The **top three teams** in the final round which used a **reinforcement learning approach** for their winning submission will be awarded one travel grant each.
-
-The approach used for each submission needs to be specified in the `aicrowd.json` file as described in the [submission guide](../getting-started/first-submission). 
-
-The winning submissions will be verified manually by the organizers to ensure the method used matches what has been declared in the `aicrowd.json` file. The organizers have the final word when judging the validity of each submission.
-
-```{note}
-In the case where the overall first place team would use a reinforcement learning approach, then this team will be awarded two travel grants.
-```
+The agents are evaluated in a container with access to 4 CPU cores (4 hyper-threads of an Intel Xeon E5 v3 at 2.3 GHz base, 3.8 GHz single core max turbo) and 15 GB of main memory. It is also possible to get access to a GPU, contact the organizers if your approach could take advantage of one.

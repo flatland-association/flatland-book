@@ -1,5 +1,5 @@
-Prizes
-======
+Challenge Prizes
+================
 
 ```{warning}
 It has recently been announced that the NeurIPS 2020 conference will [take place fully online](https://medium.com/@NeurIPSConf/neural-information-processing-systems-2020-is-going-virtual-6b8e5661f240). Accordingly, the prizes will soon be updated.
