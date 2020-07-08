@@ -26,9 +26,10 @@
 - header: Research
 - file: research/philosophy
 - file: research/baselines
-#  sections:
-#      - file: baselines/single-agent
-#      - file: baselines/imitation-learning
+  sections:
+      - file: research/baselines/global_density_obs
+      - file: research/baselines/centralized_critic
+      - file: research/baselines/combined_tree_local_conflict_obs
 - file: research/research-ideas
 - file: research/top-challenge-solutions
 
