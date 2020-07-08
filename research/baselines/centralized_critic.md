@@ -62,8 +62,6 @@ The described approach was developed and evaluated in a project of [Deutsche Bah
 
 ![](images/ccppo_example.png)
 
-
-
 ### 🔗 Links
 
 * [Single agent approach from InstaDeep](https://github.com/instadeepai/gtc-course-2020)
