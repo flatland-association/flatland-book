@@ -10,7 +10,7 @@ Provide a simple way to combine multiple observations.
 
 ### 🗂️ Files and usage
 
-The observation is defined in [`https://gitlab.aicrowd.com/flatland/neurips2020-flatland-baselines/blob/master/envs/flatland/observations/combined_obs.py`].
+The observation is defined in [`neurips2020-flatland-baselines/blob/master/envs/flatland/observations/combined_obs.py`](https://gitlab.aicrowd.com/flatland/neurips2020-flatland-baselines/blob/master/envs/flatland/observations/combined_obs.py).
 
 To combine multiple observations, instead of directly putting the observation settings under `observation_config`, use the names of the observations you want to combine as keys to provide the corresponding observation configs (see example).
 

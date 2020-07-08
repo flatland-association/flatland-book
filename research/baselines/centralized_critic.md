@@ -58,9 +58,11 @@ The trainer registration is done outside of classes or functions at the end of t
 
 ### 📈 Results
 
-The described approached was developed and evaluated in a project of [Deutsche Bahn](https://www.digitale-schiene-deutschland.de/index_en.html) in cooperation with [InstaDeep](http://www.instadeep.com/). In the context of the project CCPPO was validated and directly compared to standard PPO on a previous version of Flatland. The results shown below were trained/tested on problem instances generated with the `complex_rail_generator`, a custom version of a sparse reward and a custom observation that is similar to Flatland's tree observation. Both, the PPO model and the CCPPO model were trained with the same configuration on 20x20 maps with 15 agents that were regenerated on every reset of the environment. The trained models were rolled out on (unseen) problem instances in 10 different configurations, as specified on the x-axis. The performance of CCPPO (percentage of trains reaching their destination, y-axis) is substantially better for CCPPO than for normal PPO.
+The described approach was developed and evaluated in a project of [Deutsche Bahn](https://www.digitale-schiene-deutschland.de/index_en.html) in cooperation with [InstaDeep](http://www.instadeep.com/). In the context of the project CCPPO was validated and directly compared to standard PPO on a previous version of Flatland. The results shown below were trained/tested on problem instances generated with the `complex_rail_generator`, a custom version of a sparse reward and a custom observation that is similar to Flatland's tree observation. Both, the PPO model and the CCPPO model were trained with the same configuration on 20x20 maps with 15 agents that were regenerated on every reset of the environment. The trained models were rolled out on (unseen) problem instances in 10 different configurations, as specified on the x-axis. The performance of CCPPO (percentage of trains reaching their destination, y-axis) is substantially better for CCPPO than for normal PPO.
 
 ![](images/ccppo_example.png)
+
+
 
 ### 🔗 Links
 
