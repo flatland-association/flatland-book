@@ -1,6 +1,6 @@
 Research Philosophy
 ===
 
-Coming soon!
+⏳ Coming soon!
 --- 
 

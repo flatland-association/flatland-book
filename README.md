@@ -14,7 +14,7 @@ jupyter-book build .
 Changes to the ToC will require full re-build:
 
 ```
-jupyter-book clear; jupyter-book build .
+clear; jupyter-book clean .; jupyter-book build .
 ```
 
 

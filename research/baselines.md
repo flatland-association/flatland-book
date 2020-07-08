@@ -1,8 +1,12 @@
-⏳ Baselines
+Baselines
 ===
 
-Under construction!
---- 
+```{note}
+**This documentation is under construction!** We are currently writing content for remaining methods and adding more details.
+Additions to the documentation and to the baselines themselves [are welcome](../../misc/contributing)!
+```
+
+
 
 ### RL Methods
 
@@ -21,7 +25,4 @@ Under construction!
 
 - Action skipping
 - Action masking
-
-### Other ideas
-
-- [Combining tree and local conflict observations](baselines/combined_tree_local_conflict_obs)
+- [Combining observations](baselines/combined_tree_local_conflict_obs)

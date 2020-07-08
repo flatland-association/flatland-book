@@ -6,7 +6,7 @@ This page lists publications, blogs posts and other resources that could be inte
 Publications
 ---
 
-### Comparison of path planning methods for a multi-robot team (Hvězda et al.)
+### Comparison of path planning methods for a multi-robot team (Hvězda)
 
 Comparison of path planning methods for a multi-robot team. Very similar to flatland environment, apart from the junction constraints, same speed, no failures...? (AFAICT). The algorithm assumes that the resource graph is constructed such that resources are of two types: intersection resources with capacity 1 and lane resources with capacity 1 or greater. Another assumption is also that if multiple agents are present on the same resource then they are all traveling in the same direction and their order does not change, meaning they cannot overtake each other. The idea is that the lanes are not wide enough for two agents to drive in parallel but long enough so that agents can drive behind each other.
 
