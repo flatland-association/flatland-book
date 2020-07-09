@@ -29,7 +29,7 @@ For the Warm-up Round and Round 1 of the NeurIPS 2020 challenge, the upper limit
 - `n_agents <= 400`
 - `malfunction_rate <= 1/50`
 
-These parameters are subject to change during the challenge.
+In Round 1, these parameters [are fully revealed](../getting-started/environment-configurations)!
 
 How do I submit to the Flatland challenge?
 ---
@@ -44,20 +44,12 @@ Four travel grants to the NeurIPS 2020 conference will be awarded to the top par
 What are the deadlines for the Flatland challenge?
 ---
 
-To be announced!
-
-<!--
-- The beta round starts on the 1st of July 2019 and ends on the 30th of July 2019
-- Round 1 closed on Sunday, 13th of October 2019, 12 PM. UTC +1
-- Round 2 closes on Sunday, 5th of January 2020, 12 PM. UTC +1
--->
+Check out the deadlines on the challenge Overview page: https://www.aicrowd.com/challenges/neurips-2020-flatland-challenge/#timeline
 
 How is the score of a submission computed?
 ---
 
 [Read about the evaluation metrics here](../getting-started/prize-and-metrics).
-
-The scores of your submission are computed as follows:
 
 Can my agent access environment variables?
 ---
