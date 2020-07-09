@@ -28,6 +28,7 @@
 - header: Research
 - file: research/baselines
   sections:
+      - file: research/baselines/getting-started
       - file: research/baselines/centralized_critic
       - file: research/baselines/imitation_learning
       - file: research/baselines/global_density_obs

@@ -37,7 +37,7 @@ Example configuration: [`neurips2020-flatland-baselines/baselines/imitation_lear
 Run it with:
 
 ```console
-$ python ./train.py -f baselines/imitation_learning_tree_obs/marwil_tree_obs_all_beta.yaml`  
+$ python ./train.py -f baselines/imitation_learning_tree_obs/marwil_tree_obs_all_beta.yaml
 ```
 
 #### APE-X Imitation Learning (IL)
@@ -47,7 +47,7 @@ Example configuration: [`neurips2020-flatland-baselines/baselines/imitation_lear
 Run it with:
 
 ```console
-$ python ./train.py -f baselines/imitation_learning_tree_obs/apex_il_tree_obs_all.yaml`  
+$ python ./train.py -f baselines/imitation_learning_tree_obs/apex_il_tree_obs_all.yaml
 ```
 
 #### 🧠 Model
