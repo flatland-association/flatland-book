@@ -6,6 +6,18 @@ This page lists publications, blogs posts and other resources that could be inte
 Publications
 ---
 
+### Strong Generalization and Efficiency in Neural Programs (Li et al.)
+
+This paper from DeepMind train a neural program - a program "learned" using machine learning to solve various tasks: sorting lists, solving knapsack problems... In some settings, the resulting algorithms perform better than the original ones.
+
+Could we use this for Flatland: instead of writing a planning solution ourselves, and instead of training an RL agent that learns to take decisions, what about we train a full program that would learn to plan itself? 
+
+> We study the problem of learning efficient algorithms that strongly generalize in the framework of neural program induction. By carefully designing the input / output interfaces of the neural model and through imitation, we are able to learn models that produce correct results for arbitrary input sizes, achieving strong generalization. Moreover, by using reinforcement learning, we optimize for program efficiency metrics, and discover new algorithms that surpass the teacher used in imitation. With this, our approach can learn to outperform custom-written solutions for a variety of problems, as we tested it on sorting, searching in ordered lists and the NP-complete 0/1 knapsack problem, which sets a notable milestone in the field of Neural Program Induction. As highlights, our learned model can perform sorting perfectly on any input data size we tested on, with O(nlogn) complexity, whilst outperforming hand-coded algorithms, including quick sort, in number of operations even for list sizes far beyond those seen during training.
+
+- **[🔗 arXiv](https://arxiv.org/abs/2007.03629)**
+- **[🔗 HN discussion](https://news.ycombinator.com/item?id=23788298)**
+- **🌟 Found by: Florian**
+
 ### Comparison of path planning methods for a multi-robot team (Hvězda)
 
 Comparison of path planning methods for a multi-robot team. Very similar to flatland environment, apart from the junction constraints, same speed, no failures...? (AFAICT). The algorithm assumes that the resource graph is constructed such that resources are of two types: intersection resources with capacity 1 and lane resources with capacity 1 or greater. Another assumption is also that if multiple agents are present on the same resource then they are all traveling in the same direction and their order does not change, meaning they cannot overtake each other. The idea is that the lanes are not wide enough for two agents to drive in parallel but long enough so that agents can drive behind each other.
