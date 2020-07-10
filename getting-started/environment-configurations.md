@@ -1,4 +1,4 @@
-Environment configurations
+Environment Configurations
 ==========================
 
 In Round 1, the configuration of all of the evaluation environments is disclosed! The only parameter kept secret is the seed to ensure that the submissions solve the problems in a generalisable way. 

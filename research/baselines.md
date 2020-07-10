@@ -9,9 +9,9 @@ The following baselines provide a starting point to develop advanced reinforceme
 
 **🔗 [RLlib Baseline Repository](https://gitlab.aicrowd.com/flatland/neurips2020-flatland-baselines)**
 
-Follow the [getting started guide](baselines/getting-started) to setup and start training using the baselines.
+Follow the [getting started guide](baselines/getting-started) to setup and start training using the RLlib baselines.
 
-The [RLlib documentation](https://docs.ray.io/en/latest/rllib-algorithms.html) provides ample information about the standard methods such as Ape-X and PPO. The documentation below gives more details about the methods, observations and other approaches that have been developed specifically for Flatland.
+The [RLlib documentation](https://docs.ray.io/en/latest/rllib-algorithms.html) provides ample information about the standard methods such as Ape-X and PPO. The documentation below gives more details about the methods, custom observations and other approaches that have been developed specifically for Flatland.
 
 ### RL methods
 
