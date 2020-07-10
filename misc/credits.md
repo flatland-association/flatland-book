@@ -14,6 +14,7 @@ Core Team and Organizers
 * Jeremy Watson <jeremy@aicrowd.com>
 * Christian Scheller <christian.scheller@fhnw.ch>
 * Nilabha Bhattacharya <nilabha2007@gmail.com>
+* Manuel Schneider <manuel.schneider@hest.ethz.ch>
 * Irene Sturm <irene.sturm@deutschebahn.com>
 * Sven Koenig <skoenig@usc.edu>
 
