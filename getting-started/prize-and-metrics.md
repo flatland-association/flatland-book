@@ -38,10 +38,12 @@ The agents have to act within **strict time limits**:
  
 - You are allowed up to 5 minutes of initial planning time before any agent moves.
 - Beyond that point, the agents have 5 seconds per time step to indicate their next actions, no matter the number of agents.
-- The full evaluation has 8 hours to finish.
+- The full evaluation must finish in 8 hours.
 
-```{warning}
-If at any time the agents fail to act in time, the whole submission will fail!
-```
+If the agents fail to act in time during either the initial planning or during any time step, the current episode will receive a score of -1.0. The evaluation will then continue from the following episode. Your submission should catch the `StopAsyncIteration` exception when performing a step (`env_step()`) in case a timeout error occurs. If a timeout occurs, you should reset the environment (`env_create()`) before continuing further.
+
+If a submission doesn't complete in 8 hours, it will be considered as failed and won't receive a score.
+
+A good way to test if your submission is fast enough is to submit it in [debug mode](first-submission). It will then have 28 episodes to complete with an overall time limit of 48 minutes. If your submission is fast enough to finish in time in debug mode, it is likely that it will also finish in time when evaluated on the full test set.
 
 The agents are evaluated in a container with access to 4 CPU cores (4 hyper-threads of an Intel Xeon E5 v3 at 2.3 GHz base, 3.8 GHz single core max turbo) and 15 GB of main memory. It is also possible to get access to a GPU, contact the organizers if your approach could take advantage of one.
