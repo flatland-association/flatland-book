@@ -5,13 +5,15 @@ In Round 1, the configuration of all of the evaluation environments is disclosed
 
 `n_envs_run` indicates the number of environments ran for each test. A mean score is calculated for each of the 14 tests. The final score is the mean of these means.
 
+The malfunction interval differs from environment to environment, but it is never smaller than `min_malfunction_interval`. In each test, some environments have no malfunctions at all.
+
 All the environment use the following parameters in Round 1:
 - `malfunction_duration = [20,50]`
 - `max_rails_between_cities = 2`
 - `speed_ratios = {1.0: 1.0}`
 - `grid_mode = False`
 
-| test    | n_agents | x_dim | y_dim | n_cities | max_rails_in_city | malfunction_interval | n_envs_run |
+| test    | n_agents | x_dim | y_dim | n_cities | max_rails_in_city | min_malfunction_interval | n_envs_run |
 |---------|----------|-------|-------|----------|-------------------|----------------------|------------|
 | Test_0  |        5 |    25 |    25 |        2 |                 3 |                   50 |         50 |
 | Test_1  |       10 |    30 |    30 |        2 |                 3 |                  100 |         50 |
