@@ -129,10 +129,7 @@ $ flatland-evaluator --tests ./scratch/test-envs/
 You can now start the agent:
 
 ```bash
-$ # on Linux
 $ export AICROWD_TESTS_FOLDER=./scratch/test-envs/
-$ # or on Windows :
-$ #  SET AICROWD_TESTS_FOLDER=./scratch/test-envs/
 $ python run.py
 ```
 
