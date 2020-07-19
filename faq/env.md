@@ -69,7 +69,9 @@ To generate environments for Flatland you need to provide a railway infrastructu
 What is the max number of timesteps per episode?
 ---
 
-The maximum number of timesteps is defined as `max_time_steps = 4 * 2 * (env.width + env.height + n_agents/n_cities)`.
+Since we only use sparse schedule generators for this challenge, the maximum number of timesteps is defined as `max_time_steps = int(4 * 2 * (env.width + env.height + num_agents / num_cities))`.
+
+See the implementation in [envs/schedule_generators.py](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/envs/schedule_generators.py#L172).
 
 What are malfunctions and what can i do to resolve them?
 ---
