@@ -205,7 +205,7 @@ Head to [gitlab.aicrowd.com/projects/new](https://gitlab.aicrowd.com/projects/ne
 
 #### Push a tag
 
-You first need to add an SSH key to your GitLab account by following [these instructions](https://docs.gitlab.com/ee/ssh/README.html#adding-an-ssh-key-to-your-gitlab-account). If you do not have SSH Keys, you will first need to [generate a pair](https://docs.gitlab.com/ee/ssh/README.html#generating-a-new-ssh-key-pair).
+You first need to add an SSH key to your GitLab account by following [these instructions](https://docs.gitlab.com/ee/ssh/README.html#adding-an-ssh-key-to-your-gitlab-account) (replacing references of `gitlab.com` with `gitlab.aicrowd.com`). If you do not have SSH Keys, you will first need to [generate a pair](https://docs.gitlab.com/ee/ssh/README.html#generating-a-new-ssh-key-pair).
 
 You can then create a submission by **pushing a tag** to your repository.
 
