@@ -15,8 +15,8 @@ build:
     - export IMAGE_TAG="${DOCKER_USERNAME}/flatland-docs:${CI_COMMIT_SHA:0:8}"
     - docker build -t "$IMAGE_TAG" . -f deploy/Dockerfile
     - docker push "$IMAGE_TAG"
-  only:
-    - master
+      #  only:
+      #    - master
 
 deploy:
   stage: deploy
