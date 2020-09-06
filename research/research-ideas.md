@@ -81,4 +81,8 @@ https://arxiv.org/abs/2001.08116 (from Florian)
 
 Action space could be forward/left/right/pause x nb agents?
 
+### An efficient train scheduling algorithm on a single-track railway system
+
+https://link.springer.com/article/10.1007/s10951-018-0558-0
+
 -->
