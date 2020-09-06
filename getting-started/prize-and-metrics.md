@@ -15,13 +15,15 @@ What is the **mean normalized return**?
 
 - The **return** is the sum of rewards your agents accumulate during each episode.
 - These returns are then **averaged** across all the evaluation episodes that take place for each submission.
-- To **normalize** this mean return, we scale it so that it stays in the range [-1.0, 0.0]. This makes it possible to compare results between environments of different dimensions. 
+- To **normalize** this mean return, we scale it so that it stays in the range $[-1.0, 0.0]$. This makes it possible to compare results between environments of different dimensions. 
 
 In code:
 
 ```python
 normalized_reward = cumulative_reward / (self.env._max_episode_steps * self.env.get_num_agents())
 ```
+
+- In Round 2, we add `+1.0` to the normalized reward to make it positive. It is then in the range [0.0, 1.0].
 
 The episodes finish when all the trains have reached their target, or when the maximum number of time steps is reached. Therefore:
 
