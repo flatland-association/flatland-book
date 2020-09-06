@@ -33,8 +33,9 @@ All the environment use the following parameters in Round 2:
 **Remember that the goal is no longer to solve all the tests - this list is infinite!** The goal is to solve as many as possible, with the best score possible, within the 8h overall time limit.
 
 The environment parameters are calculated as follow:
-- $n\_agents_{n+1} = n\_agents_{n}+ceiling(10^{LEN(n\_agents_{n})}-1)*0.75$
-- $x\_dim_{n+1} = ceiling(sqrt((2*(ceiling(max\_rails\_in\_city/2) + 3))^2*(1.5*n\_cities)))+7$
+- $n\_agents_{n+1} = n\_agents_{n}+ceiling(10^{len(n\_agents_{n})}-1)*0.75$
+- $n\_cities_{n} = (n\_agents_{n} // 10) + 2$
+- $x\_dim_{n} = ceiling(sqrt((2*(ceiling(max\_rails\_in\_city/2) + 3))^2*(1.5*n\_cities_{n})))+7$
 - $y\_dim_{n} = x\_dim_{n}$
 
 
