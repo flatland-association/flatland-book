@@ -85,4 +85,8 @@ Action space could be forward/left/right/pause x nb agents?
 
 https://link.springer.com/article/10.1007/s10951-018-0558-0
 
+### Traffic prediction with advanced Graph Neural Networks
+
+https://deepmind.com/blog/article/traffic-prediction-with-advanced-graph-neural-networks
+
 -->
