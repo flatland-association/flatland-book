@@ -10,6 +10,6 @@ Let's get our hands dirty with some simple reinforcement learning methods! We wi
 ![Conflict_Avoidance](https://i.imgur.com/AvBHKaD.gif)
 
 - The [single agent](rl/single-agent) tutorial will guide through a basic Dueling Double DQN implementation which controls a single train
-- The [multi agent](rl/multi-agent) tutorial shows how to extend this method in to the multi-agent setting
+- The [multi agent](rl/multi-agent) tutorial shows how to extend this method to the multi-agent setting. You will then be able to submit this agent to the NeurIPS 2020 Flatland challenge!
 
-The code for these examples can be found in [the flatland-examples repository](https://gitlab.aicrowd.com/flatland/flatland-examples).
+The code for these examples can be found in [the starter kit repository](https://gitlab.aicrowd.com/flatland/neurips2020-flatland-starter-kit).

@@ -38,6 +38,7 @@ The environment parameters are calculated as follow:
 - $x\_dim_{n} = ceiling(sqrt((2*(ceiling(max\_rails\_in\_city/2) + 3))^2*(1.5*n\_cities_{n})))+7$
 - $y\_dim_{n} = x\_dim_{n}$
 
+You can check out [this Google Spreadsheet](https://docs.google.com/spreadsheets/d/1KKftZGLEKo3c2hgNLhGnePFmC3tIqgXLlsSVBJ22s-E/edit) to calculate the parameters for any environments.
 
 | test     | n_agents      | x_dim   | y_dim   | n_cities     |
 |----------|---------------|---------|---------|--------------|

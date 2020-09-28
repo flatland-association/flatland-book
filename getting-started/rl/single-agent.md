@@ -2,18 +2,18 @@ Single agent
 ===
 
 ```{admonition} Goal
-By the end of this tutorial, you will be able to train a single agent to navigate in Flatland using DQN!
+In this tutorial, you will train a single agent to navigate in Flatland environments using DQN.
 ```
 
-We use the [`single_agent_training.py`](https://gitlab.aicrowd.com/flatland/flatland-examples/blob/master/reinforcement_learning/single_agent_training.py) file to train a simple agent with the tree observation to solve the navigation task. This tutorial walks you through this file step by step.
+We use the [`single_agent_training.py`](https://gitlab.aicrowd.com/flatland/flatland-examples/blob/master/reinforcement_learning/single_agent_training.py) file to train a simple agent using tree observations. This tutorial walks you through this file step by step.
 
 Setting up the environment
 ---
 
-Before you get started with the training, you will need to have [PyTorch](https://pytorch.org/get-started/locally/) installed. You can install everything you need using the `requirements.txt` file:
+Before you get started with the training, you will need to have [PyTorch](https://pytorch.org/get-started/locally/) installed. You can install everything you need with conda using the `environment.yml` file:
 
 ```console
-$ pip install -r requirements.txt
+$ conda env create environment.yml
 ```
 
 We start by importing the necessary flatland modules:
@@ -30,12 +30,16 @@ For this simple example we want to train on randomly generated levels using the 
 
 ```python
 # Parameters for the Environment
-x_dim = 35
-y_dim = 35
 n_agents = 1
+x_dim = 25
+y_dim = 25
+n_cities = 4
+max_rails_between_cities = 2
+max_rails_in_city = 3
+seed = 42
 ```
 
-It is possible to use multiple speed profiles, which simulate different kinds of trains. In the NeurIPS 2020 challenge, we only consider trains with a speed of `1.0`, so we setup the speed profiles accordingly below: 
+It is possible to train "speed profiles", which simulate different kinds of trains with different speeds. In the NeurIPS 2020 challenge, we only consider trains with a speed of `1.0`, so we setup the speed profiles accordingly: 
 
 ```python
 # Different agent types (trains) with different speeds.
@@ -51,52 +55,62 @@ For this experiment we will use the tree observation:
 
 ```python
 # We are training an Agent using the Tree Observation with depth 2
-observation_builder = TreeObsForRailEnv(max_depth=2)
+observation_tree_depth = 2
+
+observation_builder = TreeObsForRailEnv(max_depth=observation_tree_depth)
 ```
 
 We then pass it as an argument to the environment constructor:
 
 ```python
 env = RailEnv(
-        width=x_dim,
-        height=y_dim,
-        rail_generator=sparse_rail_generator(
-            max_num_cities=3,  # Number of cities in map (where train stations are)
-            seed=1,  # Random seed
-            grid_mode=False,
-            max_rails_between_cities=2,
-            max_rails_in_city=3
-        ),
-        schedule_generator=sparse_schedule_generator(speed_ration_map),
-        number_of_agents=n_agents,
-        malfunction_generator_and_process_data=malfunction_from_params(stochastic_data),
-        obs_builder_object=tree_observation
-    )
+    width=x_dim,
+    height=y_dim,
+    rail_generator=sparse_rail_generator(
+        max_num_cities=n_cities,
+        seed=seed,
+        grid_mode=False,
+        max_rails_between_cities=max_rails_between_cities,
+        max_rails_in_city=max_rails_in_city
+    ),
+    schedule_generator=sparse_schedule_generator(),
+    number_of_agents=n_agents,
+    obs_builder_object=tree_observation
+)
 ```
 
 We have now successfully set up the environment for training!
 
-Setting up the agent
+Setting up the policy
 ---
 
 To set up an appropriate agent we need the state and action space sizes. We calculate this based on the tree depth and its number of features:
 
 ```python
-# Given the depth of the tree observation and the number of features per node we get the following state_size
-features_per_node = 9
-tree_depth = 2
-nr_nodes = 0
-for i in range(tree_depth + 1):
-    nr_nodes += np.power(4, i)
-state_size = features_per_node * nr_nodes
+# Calculate the state size given the depth of the tree observation and the number of features
+n_features_per_node = env.obs_builder.observation_dim
+n_nodes = 0
+for i in range(observation_tree_depth + 1):
+    n_nodes += np.power(4, i)
+state_size = n_features_per_node * n_nodes
 
 # The action space of flatland is 5 discrete actions
 action_size = 5
 ```
 
-In the `training_navigation.py` file you will find further bookkeeping variable that we initiate in order to keep track of the training progress. We omit them here for brevity. 
+We train the agent with a Double Duelling DQN policy. Here are the relevant publications for this method:
+- [DQN method](https://arxiv.org/abs/1312.5602)
+- [Double DQN method](https://arxiv.org/abs/1509.06461)
+- [Duelling DQN method](https://arxiv.org/abs/1511.06581)
 
-It is important to note that we reshape and normalize the tree observation provided by the environment to facilitate training. To do so, we use the utility functions `normalize_observation(observation: TreeObsForRailEnv.Node, tree_depth: int, observation_radius=0)` defined [in the utils folder](https://gitlab.aicrowd.com/flatland/flatland-examples/blob/master/utils/observation_utils.py).
+```python
+# Double Dueling DQN policy
+policy = DDDQNPolicy(state_size, action_size, Namespace(**training_parameters))
+```
+
+In the `single_agent_training.py` file you will find further bookkeeping variable that we initiate in order to keep track of the training progress. We omit them here for brevity. 
+
+We reshape and normalize each tree observation provided by the environment to facilitate training. To do so, we use the utility functions `normalize_observation(observation: TreeObsForRailEnv.Node, tree_depth: int, observation_radius=0)` defined [in the utils folder](https://gitlab.aicrowd.com/flatland/flatland-examples/blob/master/utils/observation_utils.py).
 
 ```python
 # Build agent specific observations
@@ -164,10 +178,12 @@ for episode_idx in range(1, n_episodes + 1):
 Results
 ---
 
-Running the `training_navigation.py` file trains a simple agent to navigate to any random target within the railway network. After running you should see a learning curve similar to this one:
+Running the `single_agent_training.py` file trains a simple agent to navigate to any random target within the railway network. After running you should see a learning curve similar to this one:
 
 ![Learning_curve](https://i.imgur.com/yVGXpUy.png)
 
 and the agent behavior should look like this:
 
 ![Single_Agent_Navigation](https://i.imgur.com/t5ULr4L.gif)
+
+This is a good start! In the next page, we will see how to train a policy that can handle multiple agents in a more robust way. You will then be able to **submit it to the NeurIPS 2020 Flatland challenge!**
