@@ -16,7 +16,7 @@
   sections:
       - file: getting-started/prize-and-metrics
       - file: getting-started/environment-configurations
-      - file: getting-started/prizes
+#      - file: getting-started/prizes
       - file: getting-started/first-submission
 - file: getting-started/rl
   sections:
