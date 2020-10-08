@@ -31,7 +31,7 @@ The global observation is the simplest one. In this case, every agent is provide
 This observation space is well suited for single-agent navigation but does not provide enough information to solve the multi-agent navigation task, thus participants must improve on this observation space to solve the challenge.
 
 ```{admonition} Code reference
-The tree observation is defined in [flatland.envs.observations.GlobalObsForRailEnv](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/envs/observations.py#L525)
+This observation is defined in [flatland.envs.observations.GlobalObsForRailEnv](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/envs/observations.py#L525)
 ```
 
 Local grid observation
@@ -52,7 +52,7 @@ The initial local grid view provides the same channels as the initial global vie
 ***An abstract visualization of the local field of view of an agent.** The green boxes represent visible cells in the agents field of view. This field of view is turned as the agent’s direction changes.*
 
 ```{admonition} Code reference
-The tree observation is defined in [flatland.envs.observations.LocalObsForRailEnv](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/envs/observations.py#L604)
+This observation is defined in [flatland.envs.observations.LocalObsForRailEnv](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/envs/observations.py#L604)
 ```
 
 Tree observation
@@ -98,7 +98,7 @@ Special cases:
 - In case the target node is reached, the values are `[0, 0, 0, 0, 0]`.
     
 ```{admonition} Code reference
-The tree observation is defined in [flatland.envs.observations.TreeObsForRailEnv](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/envs/observations.py#L18)
+This observation is defined in [flatland.envs.observations.TreeObsForRailEnv](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/envs/observations.py#L18)
 ```
 
 Notice how **channel 4** indicates if a possible conflict is detected. In order to predict conflicts, the tree observation relies on a predictor, which anticipates where agents will be in the future. We provide a stock predictor that assumes each agent just travels along its shortest path. We will [talk in more details about predictors](custom_observations) when introducing custom observations. 
