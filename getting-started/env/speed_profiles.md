@@ -1,12 +1,12 @@
 Speed profiles
 ==============
 
-```{warning}
-This page is outdated and will be reviewed shortly.
+```{note}
+Speed profiles are not used in the [NeurIPS 2020 challenge](https://www.aicrowd.com/challenges/neurips-2020-flatland-challenge/).
 ```
 
-```{note}
-Speed profiles are not used in the first round of the [NeurIPS 2020 challenge](https://www.aicrowd.com/challenges/neurips-2020-flatland-challenge/).
+```{warning}
+This page is outdated and needs to be reviewed, handle with care.
 ```
 
 One of the main contributions to the complexity of railway network operations stems from the fact that all trains travel at different speeds while sharing a very limited railway network.

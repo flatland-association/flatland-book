@@ -6,7 +6,7 @@ We tested how skipping states, where agents do not need to choose an action, and
 
 ### 💡 The idea
 
-In these experiments we looked at two modifications with to goal of easing the learning for RL agents:
+In these experiments we looked at two modifications with the goal of easing the learning for RL agents:
 
 - **Skipping "no-choice" cells**: Between intersections, agents can only move forward or stop. Since trains stop automatically when blocked by another train until the path is free, manual stopping only makes sense right before intersection, where agents might need to let other trains pass first in order to prevent deadlocks. To capitalize on this, we skip all cells, where the agent is not on or next to an intersection cell. This should help agents in the sense that they no longer need to learn to keep going forward between intersections. Also skipping steps shortens the preserved episode length.
 
