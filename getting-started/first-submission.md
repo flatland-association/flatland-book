@@ -121,7 +121,7 @@ PONG
 Let's start the evaluator service. You should use different terminals for the evaluator and the agent as they will need to run at the same time.
 
 ```bash
-$ flatland-evaluator --tests ./scratch/test-envs/
+$ flatland-evaluator --tests ./scratch/test-envs/ --shuffle False
 ```
 
 #### The agent
@@ -136,7 +136,7 @@ $ python run.py
 The agent should now start interacting with the evaluator, and you should see the results coming in:
 
 ```console
-$ flatland-evaluator --tests ./scratch/test-envs/
+$ flatland-evaluator --tests ./scratch/test-envs/ --shuffle False
 ['Test_12/Level_0.pkl', 'Test_1/Level_1.pkl', 'Test_10/Level_1.pkl', 'Test_11/Level_0.pkl', 'Test_8/Level_0.pkl', 'Test_4/Level_1.pkl', 'Test_2/Level_1.pkl', 'Test_5/Level_0.pkl', 'Test_7/Level_0.pkl', 'Test_6/Level_1.pkl', 'Test_3/Level_1.pkl', 'Test_7/Level_1.pkl', 'Test_9/Level_1.pkl', 'Test_10/Level_0.pkl', 'Test_6/Level_0.pkl', 'Test_2/Level_0.pkl', 'Test_11/Level_1.pkl', 'Test_0/Level_1.pkl', 'Test_0/Level_0.pkl', 'Test_9/Level_0.pkl', 'Test_4/Level_0.pkl', 'Test_13/Level_0.pkl', 'Test_12/Level_1.pkl', 'Test_8/Level_1.pkl', 'Test_3/Level_0.pkl', 'Test_5/Level_1.pkl', 'Test_13/Level_1.pkl', 'Test_1/Level_0.pkl']
 Listening at :  flatland-rl::FLATLAND_RL_SERVICE_ID::commands
 Evaluating : Test_12/Level_0.pkl
@@ -282,7 +282,7 @@ $ redis-cli
 If you often interrupt submissions, you can systematically cleanup the Redis database before starting the evaluator:
 
 ```console
-redis-cli -c "flushall"; flatland-evaluator --tests ./scratch/test-envs/
+redis-cli -c "flushall"; flatland-evaluator --tests ./scratch/test-envs/ --shuffle False
 ```
 
 ### "`unknown locale: UTF-8`"

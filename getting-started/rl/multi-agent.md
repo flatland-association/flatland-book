@@ -90,8 +90,47 @@ optional arguments:
   --render RENDER       render 1 episode in 100
 ```
 
-TODO
+Hyperparameter Sweeps
 ---
+
+Evaluating the performance of reinforcement learning approaches is [famously difficult](https://arxiv.org/abs/1709.06560), due to the variance in the results and hyperpamater sensibility.
+
+A good approach to test how robust a method is and to optimize its hyperparameter is to run "hyperparameter sweeps", ie to run many training sessions with slightly different parameters to get a better idea of how well it performs.
+
+For this purpose, we will use the [Weight & Biases Sweep](https://docs.wandb.com/sweeps) tools. We include a [sweep.yml](https://gitlab.aicrowd.com/flatland/neurips2020-flatland-starter-kit/blob/master/sweep.yaml) file which describes a possible search space for the hyperparameters:
+
+```yaml
+program: reinforcement_learning/multi_agent_training.py
+method: bayes
+metric:
+    name: evaluation/smoothed_score
+    goal: maximize
+parameters:
+    n_episodes:
+        values: [2000]
+    hidden_size:
+        values: [128, 256, 512]
+    buffer_size:
+        values: [50000, 100000, 500000, 1000000]
+    batch_size:
+        values: [16, 32, 64, 128]
+    training_env_config:
+        values: [0, 1, 2]
+```
+
+You can use this file to initialize a sweep:
+
+```console
+$ wandb sweep sweep.yaml
+wandb: Creating sweep from: sweep.yaml
+wandb: Created sweep with ID: tli6g4vw
+wandb: View sweep at: https://app.wandb.ai/masterscrat/neurips2020-flatland-starter-kit-reinforcement_learning/sweeps/tli6g4vw
+wandb: Run sweep agent with: wandb agent masterscrat/neurips2020-flatland-starter-kit-reinforcement_learning/tli6g4vw
+```
+
+You can now run one or multiple instances of the suggested command to start training sessions. The DQN baseline provided in the starter kit runs on a single core, so you can scale up the hyperparameter search by starting as many training sessions as you have cores on your machine.
+
+The results will start pouring in. A nice way to visualize them is to clone [one of the provided W&B report](https://wandb.ai/masterscrat/flatland-examples-reinforcement_learning/reports/Flatland-Starter-Kit-Training-in-environments-of-various-sizes--VmlldzoxNjgxMTk), and to add a new run set containing the metrics from your runs. This makes it easy to compare performance with existing results. 
 
 ```{admonition}
 More to come...
