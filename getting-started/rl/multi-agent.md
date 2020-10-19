@@ -14,7 +14,7 @@ We consider that you have already gone through the previous section and won't re
 Command line arguments
 ---
 
-We use the `[argparse](https://pypi.org/project/argparse/)` module to parse command line arguments. These arguments have two purposes: they allow us to tweak the training parameters without having to change the code, and they will also allow us to run simple hyper-parameter sweeps using W&B tools.
+We use the [`argparse`](https://pypi.org/project/argparse/) module to parse command line arguments. These arguments have two purposes: they allow us to tweak the training parameters without having to change the code, and they will also allow us to run simple hyper-parameter sweeps using W&B tools.
 
 We define all the arguments we need with each time their name, a short description, their type, and their default value:
 

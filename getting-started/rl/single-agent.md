@@ -5,7 +5,7 @@ Single agent
 In this tutorial, you will train a single agent to navigate in Flatland environments using DQN.
 ```
 
-We use the [`single_agent_training.py`](https://gitlab.aicrowd.com/flatland/flatland-examples/blob/master/reinforcement_learning/single_agent_training.py) file to train a simple agent using tree observations. This tutorial walks you through this file step by step.
+We use the [`single_agent_training.py`](https://gitlab.aicrowd.com/flatland/neurips2020-flatland-starter-kit/blob/master/reinforcement_learning/single_agent_training.py) file to train a simple agent using tree observations. This tutorial walks you through this file step by step.
 
 Setting up the environment
 ---
