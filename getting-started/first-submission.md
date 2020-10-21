@@ -24,9 +24,11 @@ Start by cloning the starter kit:
 ```console
 $ git clone https://gitlab.aicrowd.com/flatland/neurips2020-flatland-starter-kit.git/
 $ cd neurips2020-flatland-starter-kit
+$ pip install -U flatland-rl
 ```
 
-The starter kit comes with a sample agent which performs random actions. We will see how it works in more details in the last section.
+The starter kit is a full baseline you can directly submit to the competition! We will talk more about it in the last section: how it works, how to train it, and how you could extend it. 
+
 For now we'll just submit it as is to see how the process works.
 
 <!--
@@ -148,9 +150,9 @@ Evaluating : Test_4/Level_1.pkl
 ...
 ```
 
-You don't need to let the evaluation run until the end, since right now it is just using a random agent. The goal is simply to check that everything works as expected. 
+You don't need to let the evaluation run until the end. The goal is simply to check that everything works as expected. 
 
-When you will start implementing your own agents, this will allow you to check that your solutions are fully working.
+After extending this baseline, this process will allow you to check that your solution is fully working.
 
 🗂️ Code structure
 ---
@@ -178,11 +180,13 @@ You need to ensure that you set the proper **`tags`** with each submission. The 
 - `"OR"` if you used operations research,
 - `"other"` if you used another method.
 
+Careful, these tags are case sensitive! You can combine multiple tags, for example if you combine an OR method for long-term planning with an RL method to handle short-term rescheduling, you should indicate: `"tags": ["RL", "OR"]`. 
+
 ```{warning}
 [Different prizes](neurips-challenge) are available depending on the method you use! Therefore it is important to fill this tag correctly. Winning solutions will be verified by the organizers to ensure the method was properly declared.
 ```
 
-If you set `debug` to `true`, then the evaluation will run on a smaller set of 28 environments, and the logs from your submitted code (if it fails) will be made available to you to help you debug. These test submissions will appear at the bottom of the leaderboard (score of `-1.0`).
+If you set `debug` to `true`, then the evaluation will run for a shorter time, and the logs from your submitted code will be made available to you to help you debug. These test submissions will appear at the bottom of the leaderboard (score of `-1.0`).
 
 ```{warning}
 By default `debug` is set to `true`, so when you are ready to make a competitive submission, make sure to set `debug` to `false`!
@@ -195,7 +199,7 @@ The starter kit repository includes a sample `run.sh` file that you don't need t
 📤 Submitting!
 ---
 
-To submit to the challenge, you will use [git tags](https://git-scm.com/book/en/v2/Git-Basics-Tagging). You are allowed to submit up to 5 submissions per day.
+To submit to the challenge, you will use [git tags](https://git-scm.com/book/en/v2/Git-Basics-Tagging). You are allowed to submit up to 10 debug submissions and 5 non-debug submissions per day (rolling window of 24h).
 
 #### Create your repository
 
@@ -245,19 +249,7 @@ Be patient, the evaluation will take some time! 🕙
 🚉 Next stops
 ---
 
-Take a look at the [agent provided in the starter kit](https://gitlab.aicrowd.com/flatland/neurips2020-flatland-starter-kit/blob/master/run.py#L21). It simply takes random actions for each agent at every timestep: 
-
-```python
-def my_controller(obs, number_of_agents):
-    _action = {}
-    for _idx in range(number_of_agents):
-        _action[_idx] = np.random.randint(0, 5)
-    return _action
-```
-
-Surely you can do better! 💪
-
-Head over to the [reinforcement learning in Flatland introduction](rl) to get started with simple RL methods such as Double DQN. 
+Head over to the [reinforcement learning in Flatland introduction](rl) to learn more about the baseline provided in the starter kit. You will see which methods it uses, how you can train it, and how you can extend it.
 
 To go further, explore the [research baselines](../research/baselines) which use RLlib to train using advanced algorithms such as Ape-X, PPO or imitation learning methods such as DQfD.
 
