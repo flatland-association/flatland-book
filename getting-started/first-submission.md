@@ -249,7 +249,17 @@ Be patient, the evaluation will take some time! 🕙
 🚉 Next stops
 ---
 
-Head over to the [reinforcement learning in Flatland introduction](rl) to learn more about the baseline provided in the starter kit. You will see which methods it uses, how you can train it, and how you can extend it.
+The starter kit contains 2 example policies to get started with this challenge: 
+- a simple single-agent DQN method
+- a more robust multi-agent DQN method that you can submit out of the box to the challenge 🚀
+
+**🔗 [Train the single-agent DQN policy](https://flatland.aicrowd.com/getting-started/rl/single-agent.html)**
+
+**🔗 [Train the multi-agent DQN policy](https://flatland.aicrowd.com/getting-started/rl/multi-agent.html)**
+
+The single-agent example is meant as a minimal example of how to use DQN. The multi-agent is a better starting point to create your own solution.
+
+You can fully train the multi-agent policy in Colab for free! [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1GbPwZNQU7KJIJtilcGBTtpOAD3EabAzJ?usp=sharing)
 
 To go further, explore the [research baselines](../research/baselines) which use RLlib to train using advanced algorithms such as Ape-X, PPO or imitation learning methods such as DQfD.
 
