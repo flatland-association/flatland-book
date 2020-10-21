@@ -19,7 +19,7 @@ If you have any problem along the way, take a look at the [troubleshooting tips]
 
 ### Starter Kit
 
-Start by cloning the starter kit: 
+Start by cloning the [starter kit](https://gitlab.aicrowd.com/flatland/neurips2020-flatland-starter-kit): 
 
 ```console
 $ git clone https://gitlab.aicrowd.com/flatland/neurips2020-flatland-starter-kit.git/
