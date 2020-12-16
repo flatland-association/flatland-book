@@ -46,6 +46,23 @@ EOF
 Want to dive straight in? **[Make your first submission to the NeurIPS 2020 challenge in 10 minutes!](getting-started/first-submission)**
 
 
+📑 Flatland Paper
+---
+
+You can find the Flatland competition paper on arXiv: [https://arxiv.org/abs/2012.05893](https://arxiv.org/abs/2012.05893)
+
+```
+@misc{mohanty2020flatlandrl,
+      title={Flatland-RL : Multi-Agent Reinforcement Learning on Trains}, 
+      author={Sharada Mohanty and Erik Nygren and Florian Laurent and Manuel Schneider and Christian Scheller and Nilabha Bhattacharya and Jeremy Watson and Adrian Egli and Christian Eichenberger and Christian Baumberger and Gereon Vienken and Irene Sturm and Guillaume Sartoretti and Giacomo Spigler},
+      year={2020},
+      eprint={2012.05893},
+      archivePrefix={arXiv},
+      primaryClass={cs.AI}
+}
+```
+
+
 🔖 Design principles
 ---
 
