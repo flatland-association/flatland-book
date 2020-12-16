@@ -1,3 +1,4 @@
 jupyter-book==0.7.1
 matplotlib
 numpy
+sphinxcontrib-bibtex<2.0.0
