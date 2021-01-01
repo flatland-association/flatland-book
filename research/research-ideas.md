@@ -54,7 +54,7 @@ for the TUSP capable of dealing with uncertainty and delivering
 significantly more consistent solutions compared to approaches
 currently being developed by NS.
 
-- **[ https://pure.tue.nl/ws/portalfiles/portal/111663028/Peer2018shunting.pdf ]**
+- **[PDF Link - TUE](https://pure.tue.nl/ws/portalfiles/portal/111663028/Peer2018shunting.pdf)**
 - **Peer, E., Menkovski, V., Zhang, Y., & Lee, W-J. (2018). Shunting trains with deep reinforcement learning. In 2018 IEEE International Conference on Systems, Man, and Cybernetics (SMC) (pp. 3063-3068). [8616516] IEEE-SMC. https://doi.org/10.1109/SMC.2018.00520**
 - **Found by: Adrian**
 
