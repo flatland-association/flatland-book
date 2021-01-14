@@ -24,42 +24,11 @@ Start by cloning the [starter kit](https://gitlab.aicrowd.com/flatland/flatland-
 ```console
 $ git clone https://gitlab.aicrowd.com/flatland/flatland-starter-kit.git/
 $ cd flatland-starter-kit
-$ pip install -U flatland-rl
 ```
 
 The starter kit is a full baseline you can directly submit to the competition! We will talk more about it in the last section: how it works, how to train it, and how you could extend it. 
 
 For now we'll just submit it as is to see how the process works.
-
-<!--
-### Extra steps on Windows
-
-This is for Windows users only!
-
-1. Enable [WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10) on Windows.
-2. Get [Ubuntu](https://www.microsoft.com/en-us/p/ubuntu/9nblggh4msv6?SilentAuth=1&wa=wsignin1.0&activetab=pivot:overviewtab) for Windows.
-3. Run your **Ubuntu** system on your computer
-4. Now let us install the **Dependencies**. From within the **Ubuntu-Shell** run:
-
-First download **Anaconda**  by running this in the **Ubuntu Shell**:
-
-```{warning}
-You need the **Linux** version and not Windows version!
-```
-
-```console
-$ wget https://repo.anaconda.com/archive/Anaconda3-2019.07-Linux-x86_64.sh 
-```
-
-Install **Anaconda** for Ubuntu:
-
-```console
-$ chmod +x Anaconda3-2019.07-Linux-x86_64.sh 
-$ ./Anaconda3-2019.07-Linux-x86_64.sh 
-```
-
-You may have to restart Ubuntu for all changes to take effect.
--->
 
 ### Create the conda environment
 
@@ -70,6 +39,7 @@ You can now run the following:
 ```console
 $ conda env create -f environment.yml # creates the flatland-rl environment
 $ conda activate flatland-rl # activates it
+$ pip install -U flatland-rl
 ```
 
 ```{note}
@@ -81,7 +51,7 @@ Flatland is tested with Python 3.6 and 3.7 on modern versions of macOS and Linux
 
 We will now run the agent locally to check that it works as expected.
 
-Let's download the test environments. Head to the [challenge resources](https://www.aicrowd.com/challenges/neurips-2020-flatland-challenge/dataset_files) and download the provided test set. Untar them in `./scratch/test-envs`. 
+Let's download the test environments. Head to the [challenge resources](https://www.aicrowd.com/challenges/flatland-challenge/dataset_files) and download the provided test set. Untar them in `./scratch/test-envs`. 
 
 Your directory structure should be as follow:
 
@@ -128,9 +98,10 @@ $ flatland-evaluator --tests ./scratch/test-envs/ --shuffle False
 
 #### The agent
 
-You can now start the agent:
+You can now start the agent in a new terminal:
 
 ```bash
+$ conda activate flatland-rl # environment needs to be activated in each new tab
 $ export AICROWD_TESTS_FOLDER=./scratch/test-envs/
 $ python run.py
 ```
@@ -218,7 +189,6 @@ First add a git remote pointing to your newly created repository:
 ```console
 $ # change the line below to use your AIcrowd username and repository name:
 $ git remote add aicrowd git@gitlab.aicrowd.com:<YOUR_AICROWD_USER_NAME>/<YOUR_REPO_NAME>.git
-$ git push aicrowd master
 ```
 
 Finally submit your solution by creating a tag for your submission and pushing it:
