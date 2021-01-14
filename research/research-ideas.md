@@ -37,6 +37,27 @@ This work from Google AI uses reinforcement learning to place chips on a PCB. Th
 - **[🔗 Google AI blog post](https://ai.googleblog.com/2020/04/chip-design-with-deep-reinforcement.html)**
 - **🌟 Found by: Florian** 
 
+
+### Shunting Trains with Deep Reinforcement Learning  (Peer, E., Menkovski, V., Zhang, Y., & Lee, W-J. (2018))
+
+> The Train Unit Shunting Problem (TUSP) is a
+difficult sequential decision making problem faced by Dutch
+Railways (NS). Current heuristic solutions under study at NS fall
+short in accounting for uncertainty during plan execution and
+do not efficiently support replanning. Furthermore, the resulting
+plans lack consistency. We approach the TUSP by formulating
+it as a Markov Decision Process and develop an image-like
+state space representation that allows us to develop a Deep
+Reinforcement Learning (DRL) solution. The Deep Q-Network
+efficiently reduces the state space and develops an on-line strategy
+for the TUSP capable of dealing with uncertainty and delivering
+significantly more consistent solutions compared to approaches
+currently being developed by NS.
+
+- **[PDF Link - TUE](https://pure.tue.nl/ws/portalfiles/portal/111663028/Peer2018shunting.pdf)**
+- **Peer, E., Menkovski, V., Zhang, Y., & Lee, W-J. (2018). Shunting trains with deep reinforcement learning. In 2018 IEEE International Conference on Systems, Man, and Cybernetics (SMC) (pp. 3063-3068). [8616516] IEEE-SMC. https://doi.org/10.1109/SMC.2018.00520**
+- **Found by: Adrian**
+
 <!--
 
 
