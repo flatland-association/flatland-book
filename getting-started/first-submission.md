@@ -8,7 +8,7 @@ This document will show you how to submit a test submission in 10 minutes.
 🚂 All aboard!
 ---
 
-In the next ten minutes, you will submit your first agent to the [NeurIPS 2020 Flatland Challenge](https://www.aicrowd.com/challenges/neurips-2020-flatland-challenge/) and will see your name on the leaderboard.
+In the next ten minutes, you will submit your first agent to the [AMLD 2021 Flatland Challenge](https://www.aicrowd.com/challenges/neurips-2020-flatland-challenge/) and will see your name on the leaderboard.
 
 ![leaderboard](../assets/images/you.png)
 
@@ -19,11 +19,11 @@ If you have any problem along the way, take a look at the [troubleshooting tips]
 
 ### Starter Kit
 
-Start by cloning the [starter kit](https://gitlab.aicrowd.com/flatland/neurips2020-flatland-starter-kit): 
+Start by cloning the [starter kit](https://gitlab.aicrowd.com/flatland/flatland-starter-kit): 
 
 ```console
-$ git clone https://gitlab.aicrowd.com/flatland/neurips2020-flatland-starter-kit.git/
-$ cd neurips2020-flatland-starter-kit
+$ git clone https://gitlab.aicrowd.com/flatland/flatland-starter-kit.git/
+$ cd flatland-starter-kit
 $ pip install -U flatland-rl
 ```
 
@@ -172,7 +172,7 @@ Each repository must have an `aicrowd.json` file with the following content:
 }
 ```
 
-This is used to map your submission to the proper challenge. The starter kit repository includes a sample [`aicrowd.json`](https://gitlab.aicrowd.com/flatland/neurips2020-flatland-starter-kit/blob/master/aicrowd.json) file with the correct values.
+This is used to map your submission to the proper challenge. The starter kit repository includes a sample [`aicrowd.json`](https://gitlab.aicrowd.com/flatland/flatland-starter-kit/blob/master/aicrowd.json) file with the correct values.
 
 You need to ensure that you set the proper **`tags`** with each submission. The tags indicate the methods you use in that submission, and need to be at least one of: 
 

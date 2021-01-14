@@ -3,7 +3,15 @@ Environment Configurations
 
 In this challenge, the configuration of all of the evaluation environments is disclosed! The only parameter kept secret is the seed to ensure that the submissions solve the problems in a generale way. 
 
-## Round 2
+## AMLD 2019
+
+### Warm-Up Round
+
+In the Warm-Up Round, the environment configuration is the same as in Round 2 of the NeurIPS 2020 edition. The only difference is that the environments were generated using different seeds.
+
+## NeurIPS 2020
+
+### Round 2
 
 **In Round 2, your submission has to solve as many environments as possible in 8 hours.** The number of environments is such that it is not possible to solve them all in 8 hours (if anyone manages to reach the end, we'll just generate more 😉).
 
@@ -86,7 +94,7 @@ You can check out [this Google Spreadsheet](https://docs.google.com/spreadsheets
 | ...      |        ...    |    ...  |    ...  |        ...   |
 
 
-## Round 1
+### Round 1
 
 `n_envs_run` indicates the number of environments ran for each test. A mean score is calculated for each of the 14 tests. The final score is the mean of these means.
 

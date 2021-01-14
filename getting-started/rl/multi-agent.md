@@ -2,7 +2,7 @@ Multiple Agents
 ===
 
 ```{admonition} Goal
-In this tutorial, you will train a multi-agent policy that you can submit to the NeurIPS 2020 Flatland Challenge.
+In this tutorial, you will train a multi-agent policy that you can submit to the AMLD 2021 Flatland Challenge.
 ```
 
 We will use the [`multi_agent_training.py`](https://gitlab.aicrowd.com/flatland/baselines/blob/master/torch_training/multi_agent_training.py) file to train multiple agents.

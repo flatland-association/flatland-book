@@ -1,7 +1,7 @@
-NeurIPS 2020 Challenge
-======================
+AIcrowd Challenges
+==================
 
-The **[NeurIPS 2020 challenge](https://www.aicrowd.com/challenges/neurips-2020-flatland-challenge/)** is the newest competition around the Flatland environment.
+The **[AMLD 2021 challenge](https://www.aicrowd.com/challenges/flatland)** is the newest competition around the Flatland environment.
 
 ![Flatland](../assets/images/flatland_wide.png)
 

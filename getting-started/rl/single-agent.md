@@ -186,4 +186,4 @@ and the agent behavior should look like this:
 
 ![Single_Agent_Navigation](https://i.imgur.com/t5ULr4L.gif)
 
-This is a good start! In the next page, we will see how to train a policy that can handle multiple agents in a more robust way. You will then be able to **submit it to the NeurIPS 2020 Flatland challenge!**
+This is a good start! In the next page, we will see how to train a policy that can handle multiple agents in a more robust way. You will then be able to **submit it to the AMLD 2021 Flatland challenge!**

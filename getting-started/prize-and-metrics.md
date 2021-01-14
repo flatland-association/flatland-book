@@ -1,7 +1,7 @@
 Evaluation Metrics
 ==================
 
-The **[NeurIPS 2020 challenge](https://www.aicrowd.com/challenges/neurips-2020-flatland-challenge/)** is the newest competition around the Flatland environment.
+The **[AMLD 2021 challenge](https://www.aicrowd.com/challenges/flatland)** is the newest competition around the Flatland environment.
 
 In this edition, we are encouraging participants to develop innovative solutions that leverage **reinforcement learning**. The evaluation metrics and prize distribution are designed accordingly.
 

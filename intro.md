@@ -3,7 +3,7 @@ Welcome to Flatland
 
 
 ```{admonition} Ongoing Challenge
-Take part in the **[NeurIPS 2020 Flatland Challenge](https://www.aicrowd.com/challenges/neurips-2020-flatland-challenge/)** on AIcrowd!
+Take part in the **[AMLD 2021 Flatland Challenge](https://www.aicrowd.com/challenges/flatland)** on AIcrowd!
 ```
 
 ![Flatland](https://i.imgur.com/9cNtWjs.gif)
