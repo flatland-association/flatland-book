@@ -8,7 +8,7 @@ This document will show you how to submit a test submission in 10 minutes.
 🚂 All aboard!
 ---
 
-In the next ten minutes, you will submit your first agent to the [AMLD 2021 Flatland Challenge](https://www.aicrowd.com/challenges/neurips-2020-flatland-challenge/) and will see your name on the leaderboard.
+In the next ten minutes, you will submit your first agent to the [AMLD 2021 Flatland Challenge](https://www.aicrowd.com/challenges/flatland) and will see your name on the leaderboard.
 
 ![leaderboard](../assets/images/you.png)
 
@@ -51,7 +51,7 @@ Flatland is tested with Python 3.6 and 3.7 on modern versions of macOS and Linux
 
 We will now run the agent locally to check that it works as expected.
 
-Let's download the test environments. Head to the [challenge resources](https://www.aicrowd.com/challenges/flatland-challenge/dataset_files) and download the provided test set. Untar them in `./scratch/test-envs`. 
+Let's download the test environments. Head to the [challenge resources](https://www.aicrowd.com/challenges/flatland/dataset_files) and download the provided test set. Untar them in `./scratch/test-envs`. 
 
 Your directory structure should be as follow:
 
