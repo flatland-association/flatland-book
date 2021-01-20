@@ -3,10 +3,18 @@ Challenge Solutions
 
 Multiple challenges have been organized around the Flatland environment:
 
-- [NeurIPS 2020 Flatland Challenge](https://www.aicrowd.com/challenges/neurips-2020-flatland-challenge/) (ongoing!)
+- [AMLD 2021 Flatland Challenge](https://www.aicrowd.com/challenges/flatland) (ongoing!)
+- [NeurIPS 2020 Flatland Challenge](https://www.aicrowd.com/challenges/flatland/leaderboards?challenge_round_id=588)
 - [2019 Flatland Challenge](https://www.aicrowd.com/challenges/flatland-challenge)
 
 This page documents the existing top solutions submitted during these events.
+
+NeurIPS 2020 Edition
+---
+
+[Winners of the Challenge and Community Prize](https://discourse.aicrowd.com/t/neurips-2020-flatland-winners/4010?u=masterscrat)
+
+A paper summarizing the top solutions from this challenge is currently being written. More info coming soon!
 
 2019 Edition
 ---
