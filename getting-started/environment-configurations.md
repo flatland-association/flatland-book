@@ -3,7 +3,7 @@ Environment Configurations
 
 In this challenge, the configuration of all of the evaluation environments is disclosed! The only parameter kept secret is the seed to ensure that the submissions solve the problems in a generale way. 
 
-## AMLD 2019
+## AMLD 2021
 
 ### Warm-Up Round
 
