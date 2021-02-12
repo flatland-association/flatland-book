@@ -60,7 +60,24 @@ currently being developed by NS.
 
 <!--
 
+https://arxiv.org/abs/1802.08757
 
+https://www.reddit.com/r/MachineLearning/comments/lbogsa/r_learning_improvement_heuristics_for_vehicle/
+
+https://github.com/Wadaboa/flatland-challenge/raw/master/report/report.pdf
+
+https://research.tue.nl/en/publications/combining-deep-reinforcement-learning-with-search-heuristics-for-
+
+https://arxiv.org/abs/2010.04740
+
+Jonas Walter: https://www.witpress.com/elibrary/tdi/4/4/2733
+
+https://dspace.cvut.cz/bitstream/handle/10467/87776/F3-BP-2020-Ryzner-Filip-BP_FILIP_RYZNER_2020.pdf
+
+https://maro.readthedocs.io/en/v0.1/index.html
+
+https://github.com/giulic3/flatland-challenge-marl
+https://amslaurea.unibo.it/20412/1/thesis_giulia_cantini.pdf
 
 ### Neural Combinatorial Optimization with Reinforcement Learning
 
