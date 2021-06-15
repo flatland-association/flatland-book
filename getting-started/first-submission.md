@@ -16,6 +16,9 @@ If you have any problem along the way, take a look at the [troubleshooting tips]
 
 📦 Setup
 ---
+### Register 
+
+Sign up on AIcrowd and Click on `Participate` on the challenge page at : [https://www.aicrowd.com/challenges/flatland](https://www.aicrowd.com/challenges/flatland)
 
 ### Starter Kit
 
