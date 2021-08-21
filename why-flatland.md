@@ -1,4 +1,4 @@
-Background
+Why Flatland?
 ===
 
 The Flatland environment was created to solve a real world problem:
@@ -23,7 +23,7 @@ A promising solution to this dilemma is a complete railway simulation that effic
 🔀 The Vehicle Re-scheduling Problem
 ---
 
-At the core of this challenge lies the general vehicle re-scheduling problem (VRSP) proposed by Li, Mirchandani and Borenstein in 2007:
+At the core of this challenge lies the general vehicle re-scheduling problem (VRSP) proposed by [Li, Mirchandani and Borenstein](https://onlinelibrary.wiley.com/doi/abs/10.1002/net.20199) in 2007:
 
 > The vehicle rescheduling problem (VRSP) arises when a previously assigned trip is disrupted. A traffic accident, a medical emergency, or a breakdown of a vehicle are examples of possible disruptions that demand the rescheduling of vehicle trips. The VRSP can be approached as a dynamic version of the classical vehicle scheduling problem (VSP) where assignments are generated dynamically.
 

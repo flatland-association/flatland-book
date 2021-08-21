@@ -62,6 +62,14 @@ You can find the Flatland competition paper on arXiv: [https://arxiv.org/abs/201
 }
 ```
 
+🔀 The Vehicle Re-scheduling Problem
+---
+
+At the core of this challenge lies the general vehicle re-scheduling problem (VRSP) proposed by [Li, Mirchandani and Borenstein](https://onlinelibrary.wiley.com/doi/abs/10.1002/net.20199) in 2007:
+
+> The vehicle rescheduling problem (VRSP) arises when a previously assigned trip is disrupted. A traffic accident, a medical emergency, or a breakdown of a vehicle are examples of possible disruptions that demand the rescheduling of vehicle trips. The VRSP can be approached as a dynamic version of the classical vehicle scheduling problem (VSP) where assignments are generated dynamically.
+
+The Flatland environment aims to address the vehicle rescheduling problem by providing a simplistic grid world environment and allowing for diverse solution approaches. The problems are formulated as a 2D grid environment with restricted transitions between neighboring cells to represent railway networks. On the 2D grid, multiple agents with different objectives must collaborate to maximize global reward.
 
 🔖 Design principles
 ---
@@ -77,7 +85,7 @@ All environments support well-calibrated difficulty settings. While we report re
 
 ### Environment diversity 
 
-In several environments, it has been observed that agents can overfit to remarkably large training sets. This evidence raises the possibility that overfitting pervades classic benchmarks like the Arcade Learning Environment, which has long served as a gold standard in reinforcement learning (RL). While the diversity between different games in the ALE is one of the benchmark’s greatest strengths, the low emphasis on generalization presents a significant drawback. In each game the question must be asked: are agents robustly learning a relevant skill, or are they approximately memorizing specific trajectories?
+In several environments, it has been observed that agents can overfit to remarkably large training sets. This evidence raises the possibility that overfitting pervades classic benchmarks like the Arcade Learning Environment, which has long served as a gold standard in reinforcement learning (RL). While the diversity between different games in an ALE is one of the benchmark’s greatest strengths, the low emphasis on generalization presents a significant drawback. In each game the question must be asked: are agents robustly learning a relevant skill, or are they approximately memorizing specific trajectories? <!-- To enable one to answer this question we provide configurable [world generators](env/level_generation). -->
 
 🚉 Next stops
 ---
@@ -86,7 +94,7 @@ In several environments, it has been observed that agents can overfit to remarka
 - [Take part in the NeurIPS challenge](getting-started/first-submission)
 - [Use Flatland for your research](research/philosophy)
 - [Contribute to Flatland](misc/contributing)
-- [Sponsor the NeurIPS 2020 Challenge](mailto:hello@aicrowd.com)
+- [Sponsor a Challenge](mailto:hello@aicrowd.com)
 
 📱 Communication
 ---

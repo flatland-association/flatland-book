@@ -1,6 +1,67 @@
 Level Generation
 ================
 
+## Rail Generators and Schedule Generators
+The separation between rail generator and schedule generator reflects the organisational separation in the railway domain
+- Infrastructure Manager (IM): is responsible for the layout and maintenance of tracks simulated by `rail_generator`.
+- Railway Undertaking (RU): operates trains on the infrastructure
+Usually, there is a third organisation, which ensures discrimination-free access to the infrastructure for concurrent requests for the infrastructure in a **schedule planning phase** simulated by `schedule_generator`
+However, in the **Flat**land challenge, we focus on the re-scheduling problem during live operations. So, 
+
+Technically `rail_generator`s and `schedule_generator`s are implemented as follows 
+```python
+RailGeneratorProduct = Tuple[GridTransitionMap, Optional[Any]]
+RailGenerator = Callable[[int, int, int, int], RailGeneratorProduct]
+
+AgentPosition = Tuple[int, int]
+Schedule = collections.namedtuple('Schedule',   'agent_positions '
+                                                'agent_directions '
+                                                'agent_targets '
+                                                'agent_speeds '
+                                                'agent_malfunction_rates '
+                                                'max_episode_steps')
+ScheduleGenerator = Callable[[GridTransitionMap, int, Optional[Any], Optional[int]], Schedule]
+```
+
+We can then produce `RailGenerator`s by completing the following:
+```python
+def sparse_rail_generator(num_cities=5, num_intersections=4, num_trainstations=2, min_node_dist=20, node_radius=2,
+                          num_neighb=3, grid_mode=False, enhance_intersection=False, seed=1):
+
+    def generator(width, height, num_agents, num_resets=0):
+
+        # generate the grid and (optionally) some hints for the schedule_generator
+        ...
+
+        return grid_map, {'agents_hints': {
+            'num_agents': num_agents,
+            'agent_start_targets_nodes': agent_start_targets_nodes,
+            'train_stations': train_stations
+        }}
+
+    return generator
+```
+And, similarly, `ScheduleGenerator`s:
+```python
+def sparse_schedule_generator(speed_ratio_map: Mapping[float, float] = None) -> ScheduleGenerator:
+    def generator(rail: GridTransitionMap, num_agents: int, hints: Any = None):
+        # place agents:
+        # - initial position
+        # - initial direction
+        # - (initial) speed
+        # - malfunction
+        ...
+
+        return agents_position, agents_direction, agents_target, speeds, agents_malfunction
+
+    return generator
+```
+Notice that the `rail_generator` may pass `agents_hints` to the  `schedule_generator` which the latter may interpret.
+For instance, the way the `sparse_rail_generator` generates the grid, it already determines the agent's goal and target.
+Hence, `rail_generator` and `schedule_generator` have to match if `schedule_generator` presupposes some specific `agents_hints`.
+______________
+## Available Rail Generators
+
 Flatland provides multiple ways to create random environments. The most important one is the [`sparse_rail_generator`](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/envs/rail_generators.py#L563), which generates realistic-looking railway networks.
 
 Sparse rail generator
@@ -85,3 +146,4 @@ Other rail generators are available and can be used for example if you want more
 
 - [`complex_rail_generator`](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/envs/rail_generators.py#L42)
 - [`random_rail_generator`](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/envs/rail_generators.py#L282)
+

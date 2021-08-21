@@ -1,6 +1,6 @@
 # Imitation Learning Training
 
-```{admonition} IL;RL
+```{admonition} TL;DR
 We consider 2 broad Imitation Learning approaches as per below
 * Pure Imitation Learning
   * This step involves training in a purely offline process via stored experiences

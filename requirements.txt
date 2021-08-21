@@ -1,5 +1,5 @@
 myst-parser==0.13.1
-jupyter-book==0.7.1
+jupyter-book==0.11.2
 matplotlib
 numpy
 sphinxcontrib-bibtex<2.0.0

@@ -86,9 +86,9 @@ agent.malfunction_data with:
 
 ### Agent speed information
 
-```{note}
+<!-- ```{note}
 Speed profiles are not used in the first round of the NeurIPS 2020 challenge.
-```
+``` -->
 
 Beyond the basic agent information we can also access more details about
 the agents type by looking at speed data:

@@ -1,4 +1,4 @@
-NeurIPS Competition
+FAQs
 ===
 
 These are the most common questions regarding the [NeurIPS 2020 Flatland Challenge](https://www.aicrowd.com/challenges/neurips-2020-flatland-challenge/). If your questions are not answered please visit the [discussion forum](https://discourse.aicrowd.com/c/neurips-2020-flatland-challenge) and post your question there.

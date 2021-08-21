@@ -1,54 +1,86 @@
-- file: intro
+format: jb-book
+root: intro
+# - file: getting-started/why-flatland
 
-# GETTING STARTED
-- header: Getting started
-- file: getting-started/env
-  sections:
-      - file: getting-started/env/observations
-      - file: getting-started/env/custom_observations
-      - file: getting-started/env/environment_information
-      - file: getting-started/env/level_generation
-      - file: getting-started/env/stochasticity
-      - file: getting-started/env/speed_profiles
-#      - file: getting-started/env/The_Rail_Environment
-      - file: getting-started/Agent-Close-Following.ipynb
-- file: getting-started/neurips-challenge
-  sections:
-      - file: getting-started/prize-and-metrics
-      - file: getting-started/environment-configurations
-#      - file: getting-started/prizes
-      - file: getting-started/first-submission
-- file: getting-started/rl
-  sections:
-      - file: getting-started/rl/single-agent
-      - file: getting-started/rl/multi-agent
-#- file: getting-started/or
-- file: getting-started/why-flatland
+defaults:
+  numbered: false
 
-# RESEARCH
-- header: Research
-- file: research/baselines
-  sections:
+parts:
+
+## GETTING STARTED
+- caption: Getting started
+  chapters:
+  - file: getting-started/installation
+  - file: getting-started/env
+  - file: getting-started/The_Rail_Environment
+  - file: getting-started/sequential-agent
+
+## ENVIRONMENT
+- caption: Environment
+  chapters:
+  - file: environment/observations
+  - file: environment/level_generation
+  - file: environment/environment_information
+  - file: environment/custom_observations  
+  - file: environment/speed_profiles
+  - file: environment/updates
+    sections:
+      - file: environment/updates/Agent-Close-Following
+      - file: environment/updates/schedules
+
+## TUTORIALS
+- caption: Turorials
+  chapters:
+  - file: tutorials/or
+    sections:
+      - file: tutorials/or/or
+  - file: tutorials/rl
+    sections:
+      - file: tutorials/rl/single-agent      
+      - file: tutorials/rl/multi-agent
+      - file: tutorials/rl/sequential-agent
+
+## CHALLENGES
+- caption: Challenges
+  chapters:
+  - file: challenges/amld2021
+    sections:
+      - file: challenges/amld2021/first-submission
+      - file: challenges/amld2021/eval
+      - file: challenges/amld2021/envconfig
+  - file: challenges/neurips2020-challenge
+    sections:
+      - file: challenges/neurips2020/first-submission
+      - file: challenges/neurips2020/eval
+      - file: challenges/neurips2020/envconfig
+      - file: challenges/neurips2020/faq      
+  - file: challenges/top-challenge-solutions
+
+## RESEARCH
+- caption: Research
+  chapters:
+  - file: research/baselines
+    sections:
       - file: research/baselines/getting-started
       - file: research/baselines/centralized_critic
       - file: research/baselines/imitation_learning
       - file: research/baselines/global_density_obs
       - file: research/baselines/combined_tree_local_conflict_obs
       - file: research/baselines/action_masking_and_skipping
-- file: research/research-ideas
-- file: research/top-challenge-solutions
+  - file: research/research-ideas
 
-# FAQ
-- header: FAQ
-- file: faq/env
-- file: faq/challenge
-- file: faq/research
+## FAQ
+- caption: FAQ
+  chapters:
+  - file: faq/env
+  - file: faq/research
 
-# MISC
-- header: Misc
-#- file: api
-- file: misc/contributing
-  sections:
-      -   file: misc/contributing-code
-      -   file: misc/contributing-doc
-- file: misc/credits
+## MISC
+- caption: Misc
+  chapters:
+  - file: misc/external-resources
+  - file: misc/contributing
+    sections:
+        -   file: misc/contributing-code
+        -   file: misc/contributing-doc
+  - file: misc/credits

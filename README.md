@@ -4,9 +4,9 @@ This repository is an aggregation of all the documentation, exploratory research
 
 # Installation
 ```
-git clone git@gitlab.aicrowd.com:flatland/flatland-notebook.git
+git clone git@gitlab.aicrowd.com:flatland/flatland-book.git
 
-pip install -U "jupyter-book>=0.7.0b"
+pip install -U "jupyter-book>=0.11.2"
 
 jupyter-book build .
 ```
