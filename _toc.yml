@@ -12,33 +12,33 @@ parts:
   chapters:
   - file: getting-started/installation
   - file: getting-started/env
-  - file: getting-started/The_Rail_Environment
-  - file: getting-started/sequential-agent
+  # - file: getting-started/The_Rail_Environment
+  # - file: getting-started/sequential-agent
 
 ## ENVIRONMENT
 - caption: Environment
   chapters:
   - file: environment/observations
-  - file: environment/level_generation
-  - file: environment/environment_information
-  - file: environment/custom_observations  
+  # - file: environment/level_generation
+  # - file: environment/environment_information
+  # - file: environment/custom_observations  
   - file: environment/speed_profiles
   - file: environment/updates
     sections:
       - file: environment/updates/Agent-Close-Following
-      - file: environment/updates/schedules
+      # - file: environment/updates/schedules
 
 ## TUTORIALS
 - caption: Turorials
   chapters:
   - file: tutorials/or
-    sections:
-      - file: tutorials/or/or
+    # sections:
+    #   - file: tutorials/or/or
   - file: tutorials/rl
-    sections:
-      - file: tutorials/rl/single-agent      
-      - file: tutorials/rl/multi-agent
-      - file: tutorials/rl/sequential-agent
+    # sections:
+    #   - file: tutorials/rl/single-agent      
+    #   - file: tutorials/rl/multi-agent
+    #   - file: tutorials/rl/sequential-agent
 
 ## CHALLENGES
 - caption: Challenges
@@ -83,4 +83,4 @@ parts:
     sections:
         -   file: misc/contributing-code
         -   file: misc/contributing-doc
-  - file: misc/credits
+  # - file: misc/credits

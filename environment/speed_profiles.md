@@ -1,16 +1,16 @@
 Speed profiles
 ==============
 
-```{note}
+<!-- ```{note}
 Speed profiles are not used in the [NeurIPS 2020 challenge](https://www.aicrowd.com/challenges/neurips-2020-flatland-challenge/).
-```
+``` -->
 
-```{warning}
+<!-- ```{warning}
 This page is outdated and needs to be reviewed, handle with care.
-```
+``` -->
 
 One of the main contributions to the complexity of railway network operations stems from the fact that all trains travel at different speeds while sharing a very limited railway network.
-In **Flat**land 2.0 this feature will be enabled as well and will lead to much more complex configurations. Here we count on your support if you find bugs or improvements  :).
+In **Flat**land 3 this feature will be enabled as well and will lead to much more complex configurations. Here we count on your support if you find bugs or improvements  :).
 
 The different speed profiles can be generated using the `schedule_generator`, where you can actually chose as many different speeds as you like.
 Keep in mind that the *fastest speed* is 1 and all slower speeds must be between 1 and 0.
