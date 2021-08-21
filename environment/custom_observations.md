@@ -41,10 +41,14 @@ class SimpleObs(ObservationBuilder):
 We can pass an instance of our custom observation builder `SimpleObs` to the `RailEnv` creator as follows:
 
 ```python
-env = RailEnv(width=7, height=7,
-              rail_generator=random_rail_generator(),
+
+env = RailEnv(width=30,
+              height=30,
               number_of_agents=3,
+              rail_generator=sparse_rail_generator(),
+              line_generator=sparse_line_generator(),
               obs_builder_object=SimpleObs())
+
 env.reset()
 ```
 
@@ -116,11 +120,13 @@ class SingleAgentNavigationObs(TreeObsForRailEnv):
 
         return observation
 
-env = RailEnv(width=7, height=7,
-              rail_generator=complex_rail_generator(nr_start_goal=10, nr_extra=1, \
-                min_dist=8, max_dist=99999, seed=1),
+env = RailEnv(width=30,
+              height=30,
               number_of_agents=2,
+              rail_generator=sparse_rail_generator(),
+              line_generator=sparse_line_generator(),
               obs_builder_object=SingleAgentNavigationObs())
+
 env.reset()
 
 obs, all_rewards, done, _ = env.step({0: 0, 1: 1})
@@ -131,9 +137,11 @@ for i in range(env.get_num_agents()):
 Finally, the following is an example of hard-coded navigation for single agents that achieves optimal single-agent navigation to target, and shows the path taken as an animation.
 
 ```python
-env = RailEnv(width=50, height=50,
-              rail_generator=random_rail_generator(),
+env = RailEnv(width=30,
+              height=30,
               number_of_agents=1,
+              rail_generator=sparse_rail_generator(),
+              line_generator=sparse_line_generator(),
               obs_builder_object=SingleAgentNavigationObs())
 env.reset()
 
@@ -260,10 +268,13 @@ CustomPredictor = ShortestPathPredictorForRailEnv(10)
 CustomObsBuilder = ObservePredictions(CustomPredictor)
 
 # Initiate Environment
-env = RailEnv(width=10, height=10,
-              rail_generator=complex_rail_generator(nr_start_goal=5, nr_extra=1, min_dist=8, max_dist=99999, seed=1),
+env = RailEnv(width=30,
+              height=30,
               number_of_agents=3,
+              rail_generator=sparse_rail_generator(),
+              line_generator=sparse_line_generator(),
               obs_builder_object=CustomObsBuilder)
+
 env.reset()
 
 obs, info = env.reset()

@@ -1,6 +1,5 @@
 format: jb-book
 root: intro
-# - file: getting-started/why-flatland
 
 defaults:
   numbered: false
@@ -19,14 +18,15 @@ parts:
 - caption: Environment
   chapters:
   - file: environment/observations
-  # - file: environment/level_generation
-  # - file: environment/environment_information
-  # - file: environment/custom_observations  
+  - file: environment/level_generation
+  - file: environment/environment_information
+  - file: environment/custom_observations
   - file: environment/speed_profiles
   - file: environment/updates
     sections:
       - file: environment/updates/Agent-Close-Following
       # - file: environment/updates/schedules
+      # - file: environment/updates/interfaces
 
 ## TUTORIALS
 - caption: Turorials
@@ -36,7 +36,7 @@ parts:
     #   - file: tutorials/or/or
   - file: tutorials/rl
     # sections:
-    #   - file: tutorials/rl/single-agent      
+    #   - file: tutorials/rl/single-agent
     #   - file: tutorials/rl/multi-agent
     #   - file: tutorials/rl/sequential-agent
 

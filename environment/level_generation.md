@@ -1,26 +1,33 @@
 Level Generation
 ================
 
-## Rail Generators and Schedule Generators
-The separation between rail generator and schedule generator reflects the organisational separation in the railway domain
+## Rail Generators, Line Generators and Timetable Generators
+The separation between rail generation and schedule generation reflects the organisational separation in the railway domain
 - Infrastructure Manager (IM): is responsible for the layout and maintenance of tracks simulated by `rail_generator`.
 - Railway Undertaking (RU): operates trains on the infrastructure
-Usually, there is a third organisation, which ensures discrimination-free access to the infrastructure for concurrent requests for the infrastructure in a **schedule planning phase** simulated by `schedule_generator`
+Usually, there is a third organisation, which ensures discrimination-free access to the infrastructure for concurrent requests for the infrastructure in a **schedule planning phase** simulated by `line_generator` and `timetable_generator`.
 However, in the **Flat**land challenge, we focus on the re-scheduling problem during live operations. So, 
 
-Technically `rail_generator`s and `schedule_generator`s are implemented as follows 
+Technically `rail_generator`, `line_generator` and the `timetable_generator` are implemented as follows 
 ```python
 RailGeneratorProduct = Tuple[GridTransitionMap, Optional[Any]]
 RailGenerator = Callable[[int, int, int, int], RailGeneratorProduct]
 
 AgentPosition = Tuple[int, int]
-Schedule = collections.namedtuple('Schedule',   'agent_positions '
-                                                'agent_directions '
-                                                'agent_targets '
-                                                'agent_speeds '
-                                                'agent_malfunction_rates '
-                                                'max_episode_steps')
-ScheduleGenerator = Callable[[GridTransitionMap, int, Optional[Any], Optional[int]], Schedule]
+
+Line = collections.namedtuple('Line',  [('agent_positions', IntVector2DArray),
+                                        ('agent_directions', List[Grid4TransitionsEnum]),
+                                        ('agent_targets', IntVector2DArray),
+                                        ('agent_speeds', List[float]),
+                                        ('agent_malfunction_rates', List[int])])
+
+LineGenerator = Callable[[GridTransitionMap, int, Optional[Any], Optional[int]], Line]
+
+Timetable = collections.namedtuple('Timetable',  [('earliest_departures', List[int]),
+                                                  ('latest_arrivals', List[int]),
+                                                  ('max_episode_steps', int)])
+
+timetable_generator = Callable[[List[EnvAgent], DistanceMap, dict, RandomState], Timetable]
 ```
 
 We can then produce `RailGenerator`s by completing the following:
@@ -30,7 +37,7 @@ def sparse_rail_generator(num_cities=5, num_intersections=4, num_trainstations=2
 
     def generator(width, height, num_agents, num_resets=0):
 
-        # generate the grid and (optionally) some hints for the schedule_generator
+        # generate the grid and (optionally) some hints for the line_generator
         ...
 
         return grid_map, {'agents_hints': {
@@ -41,9 +48,9 @@ def sparse_rail_generator(num_cities=5, num_intersections=4, num_trainstations=2
 
     return generator
 ```
-And, similarly, `ScheduleGenerator`s:
+similarly, `LineGenerator`s:
 ```python
-def sparse_schedule_generator(speed_ratio_map: Mapping[float, float] = None) -> ScheduleGenerator:
+def sparse_line_generator(speed_ratio_map: Mapping[float, float] = None) -> LineGenerator:
     def generator(rail: GridTransitionMap, num_agents: int, hints: Any = None):
         # place agents:
         # - initial position
@@ -56,9 +63,21 @@ def sparse_schedule_generator(speed_ratio_map: Mapping[float, float] = None) -> 
 
     return generator
 ```
-Notice that the `rail_generator` may pass `agents_hints` to the  `schedule_generator` which the latter may interpret.
+
+And finally, `timetable_generator` is called within the `RailEnv`'s reset() during line generation to create a time table for the trains.
+
+```python
+def timetable_generator(agents: List[EnvAgent], distance_map: DistanceMap, 
+                            agents_hints: dict, np_random: RandomState = None) -> Timetable:
+    ...
+
+    return Timetable(earliest_departures, latest_arrivals, max_episode_steps)
+```
+
+Notice that the `rail_generator` may pass `agents_hints` to the  `line_generator` and `timetable_generator` which the latter may interpret.
 For instance, the way the `sparse_rail_generator` generates the grid, it already determines the agent's goal and target.
-Hence, `rail_generator` and `schedule_generator` have to match if `schedule_generator` presupposes some specific `agents_hints`.
+Hence, `rail_generator`, `line_generator` and  `timetable_generator` have to match if `line_generator` presupposes some specific `agents_hints`.
+Currently, the only one used are the `sparse_rail_generator`, `sparse_line_generator` and the `timetable_generator` which works in conjunction with these.
 ______________
 ## Available Rail Generators
 
@@ -93,14 +112,14 @@ rail_generator=sparse_rail_generator(
 env = RailEnv(
     width=50, height=50,
     rail_generator=rail_generator,
-    schedule_generator=sparse_schedule_generator(),
+    line_generator=sparse_line_generator(),
     number_of_agents=10
 )
 
 env.reset()
 ```
 
-You can see that you now need both a `rail_generator` and a `schedule_generator` to generate a level. These need to work nicely together. The `rail_generator` will generate the railway infrastructure and provide hints to the `schedule_generator` about where to place agents. The `schedule_generator` will then generate a schedule by placing agents at different train stations and providing them with individual targets.
+You can see that you now need both a `rail_generator` and a `line_generator` to generate a level. These need to work nicely together. The `rail_generator` will generate the railway infrastructure and provide hints to the `line_generator` about where to place agents. The `line_generator` will then generate a Line by placing agents at different train stations and providing them with individual targets.
 
 You can tune the following parameters in the `sparse_rail_generator`:
 
@@ -134,16 +153,4 @@ env.reset()
 ```
 
 ![rail_from_manual_specifications](../../assets/images/fixed_rail.png)
-
-Other rail generators
----------------------
-
-```{note}
-Only the `sparse_rail_generator` will be used for evaluations in the context of the [NeurIPS 2020 challenge](https://www.aicrowd.com/challenges/neurips-2020-flatland-challenge/).
-```
-
-Other rail generators are available and can be used for example if you want more diversity in your training set:
-
-- [`complex_rail_generator`](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/envs/rail_generators.py#L42)
-- [`random_rail_generator`](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/envs/rail_generators.py#L282)
 

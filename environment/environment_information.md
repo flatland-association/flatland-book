@@ -73,6 +73,12 @@ All the agent in the initiated environment can be found in the env.agents class.
 -   **Agent direction:** `agent.direction` which is an int representing the current orientation {0: North, 1: East, 2: South, 3: West}
 -   **Agent moving:** `agent.moving` where 0 means the agent is currently not moving and 1 indicates agent is moving.
 
+### Agent timetable information 
+
+In **Flat**land 3, agents have a time window within which they must start and reach their destination. The following properties specify the time window:
+-   **Earliest departure:** `agent.earliest_departure` specifies the earliest time step of the simulation at which the agent is allowed to depart.
+-   **Latest arrival:** `agent.latest_arrival` specifies the latest time step of the simulation before or at which the agent is expected to reach it's destination.
+
 ### Agent malfunction information
 
 Similar to the speed data you can also access individual data about the
