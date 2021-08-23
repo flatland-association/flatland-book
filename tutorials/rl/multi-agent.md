@@ -1,18 +1,18 @@
 Multiple Agents
-===
+===============
 
 ```{admonition} Goal
-In this tutorial, you will train a multi-agent policy that you can submit to the AMLD 2021 Flatland Challenge.
+In this tutorial, you will train a multi-agent policy that you can submit to the Flatland Challenge.
 ```
 
-We will use the [`multi_agent_training.py`](https://gitlab.aicrowd.com/flatland/baselines/blob/master/torch_training/multi_agent_training.py) file to train multiple agents.
+We will use the [`multi_agent_training.py`](https://gitlab.aicrowd.com/flatland/flatland-starter-kit/-/blob/flatland3/reinforcement_learning/multi_agent_training.py) file to train multiple agents.
 
 The file in the previous section was kept as simple as possible on purpose. In this section, we want to create a more robust policy that we'll be able to submit in the challenge. We will implement many quality-of-life improvements: command line parameters, utilities to save and restore policies, tools to log metrics about the training process...
 
-We consider that you have already gone through the previous section and won't repeat the details about setting up the environment, creating the policy etc.  
+We consider that you have already gone through the previous section and won't repeat the details about setting up the environment, creating the policy etc.
 
 Command line arguments
----
+----------------------
 
 We use the [`argparse`](https://pypi.org/project/argparse/) module to parse command line arguments. These arguments have two purposes: they allow us to tweak the training parameters without having to change the code, and they will also allow us to run simple hyper-parameter sweeps using W&B tools.
 
@@ -91,7 +91,7 @@ optional arguments:
 ```
 
 Hyperparameter Sweeps
----
+---------------------
 
 Evaluating the performance of reinforcement learning approaches is [famously difficult](https://arxiv.org/abs/1709.06560), due to the variance in the results and hyperpamater sensibility.
 
@@ -130,7 +130,7 @@ wandb: Run sweep agent with: wandb agent masterscrat/neurips2020-flatland-starte
 
 You can now run one or multiple instances of the suggested command to start training sessions. The DQN baseline provided in the starter kit runs on a single core, so you can scale up the hyperparameter search by starting as many training sessions as you have cores on your machine.
 
-The results will start pouring in. A nice way to visualize them is to clone [one of the provided W&B report](https://wandb.ai/masterscrat/flatland-examples-reinforcement_learning/reports/Flatland-Starter-Kit-Training-in-environments-of-various-sizes--VmlldzoxNjgxMTk), and to add a new run set containing the metrics from your runs. This makes it easy to compare performance with existing results. 
+The results will start pouring in. A nice way to visualize them is to clone [one of the provided W&B report](https://wandb.ai/masterscrat/flatland-examples-reinforcement_learning/reports/Flatland-Starter-Kit-Training-in-environments-of-various-sizes--VmlldzoxNjgxMTk), and to add a new run set containing the metrics from your runs. This makes it easy to compare performance with existing results.
 
 ```{admonition}
 More to come...
