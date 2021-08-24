@@ -11,8 +11,7 @@ parts:
   chapters:
   - file: getting-started/installation
   - file: getting-started/env
-  # - file: getting-started/The_Rail_Environment
-  # - file: getting-started/sequential-agent
+  - file: getting-started/The_Rail_Environment
 
 ## ENVIRONMENT
 - caption: Environment
@@ -35,10 +34,10 @@ parts:
     # sections:
     #   - file: tutorials/or/or
   - file: tutorials/rl
-    # sections:
-    #   - file: tutorials/rl/single-agent
-    #   - file: tutorials/rl/multi-agent
-    #   - file: tutorials/rl/sequential-agent
+    sections:
+      - file: tutorials/rl/single-agent
+      - file: tutorials/rl/multi-agent
+      - file: tutorials/rl/sequential-agent
 
 ## CHALLENGES
 - caption: Challenges
