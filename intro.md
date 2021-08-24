@@ -3,7 +3,7 @@ Welcome to Flatland
 
 
 ```{admonition} Ongoing Challenge
-Take part in the **[AMLD 2021 Flatland Challenge](https://www.aicrowd.com/challenges/flatland)** on AIcrowd!
+Take part in the **[Flatland 3 Challenge](https://www.aicrowd.com/challenges/flatland-3)** on AIcrowd!
 ```
 
 ![Flatland](https://i.imgur.com/9cNtWjs.gif)
@@ -112,9 +112,10 @@ Use these channels if you have a problem or a question for the organizers:
 🤝 Partners
 ---
 
-<a href="https://sbb.ch" target="_blank" style="margin-right:30px"><img src="https://i.imgur.com/OSCXtde.png" alt="SBB" width="250"/></a> 
-<a href="https://www.deutschebahn.com/" target="_blank" style="margin-right:30px"><img src="https://i.imgur.com/pjTki15.png" alt="DB"  width="150"/></a>
-<a href="https://www.aicrowd.com" target="_blank"><img src="https://i.imgur.com/kBZQGI9.png" alt="AIcrowd"  width="150"/></a>
+<a href="https://sbb.ch" target="_blank" style="margin-right:30px"><img src="https://annpr2020.ch/wp-content/uploads/2020/06/SBB.png" alt="SBB" width="140"/></a> 
+<a href="https://www.deutschebahn.com/" target="_blank" style="margin-right:30px"><img src="https://i.imgur.com/pjTki15.png" alt="DB"  width="140"/></a>
+<a href="https://www.sncf.com/en" target="_blank" style="margin-right:30px"><img src="https://iconape.com/wp-content/png_logo_vector/logo-sncf.png" alt="SNCF"  width="140"/></a>
+<a href="https://www.aicrowd.com" target="_blank"><img src="https://i.imgur.com/kBZQGI9.png" alt="AIcrowd"  width="140"/></a>
 
 
 
