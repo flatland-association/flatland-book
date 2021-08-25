@@ -12,7 +12,7 @@ build:
   before_script:
     - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
   script:
-    - export IMAGE_TAG="${DOCKER_USERNAME}/flatland-docs:${CI_COMMIT_SHA:0:8}"
+    - export IMAGE_TAG="aicrowd/flatland-docs:${CI_COMMIT_SHA:0:8}"
     - docker build -t "$IMAGE_TAG" . -f deploy/Dockerfile
     - docker push "$IMAGE_TAG"
       #  only:
