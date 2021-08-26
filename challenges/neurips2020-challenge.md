@@ -1,7 +1,7 @@
 Neurips 2020
 ==================
 
-The **[Neurips 2020 challenge](https://www.aicrowd.com/challenges/flatland)** is the newest competition around the Flatland environment.
+The **[Neurips 2020 challenge](https://www.aicrowd.com/challenges/flatland)** has concluded.
 
 ![Flatland](../../assets/images/flatland_wide.png)
 

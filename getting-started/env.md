@@ -25,7 +25,7 @@ An agent in a cell can have a discrete orientation direction which represents th
 
 Agents can only travel in the direction they are currently facing. Hence, the permitted transitions for any given agent depend both on its position and on its direction. Transition maps define the railway network in the flatland world. One can implement any real world railway network within the Flatland environment by manupulating the transition maps of cells.
  
-For more information on transtion maps checkout [level generation](../env/environment_information)!
+For more information on transtion maps checkout [level generation](../environment/environment_information)!
 
 
 ↔️ Actions
@@ -64,7 +64,7 @@ The three provided observations are:
 
 ***Global, local and tree:** A visual summary of the three provided observations.*
 
-**[🔗 Provided observations](env/observations)**
+**[🔗 Provided observations](environment/observations)**
 
 ```{admonition} Code reference
 The provided observations are defined in [envs/observations.py](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/envs/observations.py)
@@ -72,51 +72,45 @@ The provided observations are defined in [envs/observations.py](https://gitlab.a
 
 Each of the provided observation has its strengths and weaknesses. However, it is unlikely that you will be able to solve the problem by using any single one of them directly. Instead you will need to design your own observation, which can be a combination of the existing ones or which could be radically different.
 
-**[🔗 Create your own observations](../env/custom_observations)**
+**[🔗 Create your own observations](../environment/custom_observations)**
 
 
 🌟 Rewards
 ----------
 
-At each time step, each agent receives a combined reward which consists of a local and a global reward signal. 
+In **Flat**land 3, rewards are only provided at the end of an episode by default making it a sparse reward setting.
 
-Locally, the agent receives $r_l = −1$ for each time step, and $r_l = 0$ for each time step after it has reached its target location. The global reward signal $r_g = 0$ only returns a non-zero value when all agents have reached their targets, in which case it is worth $r_g = 1$. 
+The episodes finish when all the trains have reached their target, or when the maximum number of time steps is reached. 
 
-Every agent $i$ receives a reward:
+The actual reward structure has the following cases:
 
-$$r_i(t) = \alpha r_l(t) + \beta r_g(t)$$
+- **Train has arrived at it's target**: The agent will be given a reward of 0 for arriving on time or before the expected time. For arriving at the target later than the specified time, the agent is given a negative reward proportional to the delay.
+`min(latest_arrival - actual_arrival, 0 )`
 
-$\alpha$ and β are factors for tuning collaborative behavior. This reward creates an objective of finishing the episode as quickly as possible in a collaborative way.
+- **The train did not reach it's target yet**: The reward is negative and equal to the estimated amount of time needed by the agent to reach its target from it's current position, if it travels on the shortest path to the target, while accounting for it's latest arrival time.
+`agent.get_current_delay()` *refer to it in detail [here](../environment/timetables)*
+The value returned will be positive if the expected arrival time is projected before latest arrival and negative if the expected arrival time is projected after latest arrival. Since it is called at the end of the episode, the agent is already past it's deadline and so the value will always be negative.
 
-In the [NeurIPS 2020 challenge](https://www.aicrowd.com/challenges/neurips-2020-flatland-challenge#background), the values used are: $\alpha = 1.0$ and $\beta = 1.0$.
+- **The train never departed**: If the agent hasn't departed (i.e. status is `READY_TO_DEPART`) at the end of the episode, it is considered to be cancelled and the following reward is provided.
+`-1 * cancellation_factor * (travel_time_on_shortest_path + cancellation_time_buffer)`
 
 ```{admonition} Code reference
 The reward is calculated in [envs/rail_env.py](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/envs/rail_env.py)
 ```
 
-The episodes finish when all the trains have reached their target, or when the maximum number of time steps is reached. 
+
 
 🚉 Other concepts
 -----------------
-
-### Custom levels
-
-Going further, you will want to run experiment using a variety of environments. You can create custom levels either using multiple random generators, or design them by hands.
-
-**[🔗 Generate custom levels](../env/level_generation)**
 
 ### Stochasticity
 
 An important aspect of these levels will be their **stochasticity**, which means how often and for how long trains will malfunction. Malfunctions force the agents the reconsider their plans which can be costly. 
 
-**[🔗 Adjust stochasticity](../env/stochasticity)**
+**[🔗 Adjust stochasticity](../environment/stochasticity)**
 
 ### Speed profiles
 
 Finally, trains in real railway networks don't all move at the same speed. A freight train will for example be slower than a passenger train. This is an important consideration, as you want to avoid scheduling a fast train behind a slow train!
 
-```{note}
-Speed profiles are not used in the first round of the [NeurIPS 2020 challenge](https://www.aicrowd.com/challenges/neurips-2020-flatland-challenge/).
-```
-
-**[🔗 Tune speed profiles](../env/speed_profiles)**
+**[🔗 Tune speed profiles](../environment/speed_profiles)**

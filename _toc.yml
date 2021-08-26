@@ -12,6 +12,7 @@ parts:
   - file: getting-started/installation
   - file: getting-started/env
   - file: getting-started/The_Rail_Environment
+  - file: getting-started/sequential-agent
 
 ## ENVIRONMENT
 - caption: Environment
@@ -22,10 +23,9 @@ parts:
   - file: environment/custom_observations
   - file: environment/speed_profiles
   - file: environment/updates
-    sections:
-      - file: environment/updates/Agent-Close-Following
-      # - file: environment/updates/schedules
-      # - file: environment/updates/interfaces
+  - file: environment/updates/Agent-Close-Following
+  - file: environment/updates/timetables
+  # - file: environment/updates/interfaces
 
 ## TUTORIALS
 - caption: Turorials
@@ -42,6 +42,12 @@ parts:
 ## CHALLENGES
 - caption: Challenges
   chapters:
+  - file: challenges/flatland3
+    sections:
+      - file: challenges/flatland3/first-submission # NEEDS FIX
+      - file: challenges/flatland3/eval             # NEEDS FIX
+      - file: challenges/flatland3/flatland-3-migration-guide
+      # - file: challenges/flatland3/envconfig
   - file: challenges/amld2021
     sections:
       - file: challenges/amld2021/first-submission
