@@ -44,8 +44,8 @@ parts:
   chapters:
   - file: challenges/flatland3
     sections:
-      - file: challenges/flatland3/first-submission # NEEDS FIX
-      - file: challenges/flatland3/eval             # NEEDS FIX
+      - file: challenges/flatland3/first-submission 
+      - file: challenges/flatland3/eval             
       - file: challenges/flatland3/flatland-3-migration-guide
       # - file: challenges/flatland3/envconfig
   - file: challenges/amld2021

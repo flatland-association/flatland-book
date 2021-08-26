@@ -1,7 +1,7 @@
 Evaluation Metrics
 ===
 
-The **[AMLD 2021 challenge](https://www.aicrowd.com/challenges/flatland)** is the newest competition around the Flatland environment.
+The **[Flatland 3 challenge](https://www.aicrowd.com/challenges/flatland-3)** is the newest competition around the Flatland environment.
 
 In this edition, we are encouraging participants to develop innovative solutions that leverage **reinforcement learning**. The evaluation metrics and prize distribution are designed accordingly.
 
