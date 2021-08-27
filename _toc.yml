@@ -22,9 +22,8 @@ parts:
   - file: environment/environment_information
   - file: environment/custom_observations
   - file: environment/speed_profiles
-  - file: environment/updates
-  - file: environment/updates/Agent-Close-Following
-  - file: environment/updates/timetables
+  - file: environment/Agent-Close-Following
+  - file: environment/timetables
   # - file: environment/updates/interfaces
 
 ## TUTORIALS
