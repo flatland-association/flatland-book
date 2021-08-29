@@ -27,6 +27,11 @@ parts:
   - file: environment/updates/timetables
   # - file: environment/updates/interfaces
 
+- caption: Environment Documentation
+  chapters:
+  - file: env_doc/flatland/docs/index
+
+
 ## TUTORIALS
 - caption: Turorials
   chapters:

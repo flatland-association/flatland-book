@@ -7,6 +7,12 @@ latex:
   latex_documents:
     targetname: book.tex
 
+sphinx:
+  extra_extensions:
+    - sphinx.ext.autodoc
+    - sphinx.ext.viewcode
+    # - recommonmark
+
 html:
   favicon: assets/images/favicon.ico
   google_analytics_id: UA-132885496-4
