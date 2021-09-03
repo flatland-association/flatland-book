@@ -25,7 +25,7 @@ $ git clone git@gitlab.aicrowd.com:flatland/flatland.git
 Once you have a copy of the source, install it with:
 
 ```console
-$ python setup.py install
+$ pip install -e flatland/
 ```
 
 Test installation

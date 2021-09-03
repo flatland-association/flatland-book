@@ -87,7 +87,7 @@ Currently, the only one used are the `sparse_rail_generator`, `sparse_line_gener
 ______________
 ## Available Rail Generators
 
-Flatland provides multiple ways to create random environments. The most important one is the [`sparse_rail_generator`](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/envs/rail_generators.py#L563), which generates realistic-looking railway networks.
+Flatland provides the [`sparse_rail_generator`](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/envs/rail_generators.py#L563), which generates realistic-looking railway networks.
 
 Sparse rail generator
 ---------------------
@@ -108,15 +108,15 @@ To build an environment, instantiate a `RailEnv` as follow:
 
 ```python
 rail_generator=sparse_rail_generator(
-    max_num_cities=5,
+    max_num_cities=2,
     grid_mode=False,
-    max_rails_between_cities=4,
-    max_rail_pairs_in_city=4, 
+    max_rails_between_cities=2,
+    max_rail_pairs_in_city=2, 
     seed=0
 )
 
 env = RailEnv(
-    width=50, height=50,
+    width=30, height=30,
     rail_generator=rail_generator,
     line_generator=sparse_line_generator(),
     number_of_agents=10
@@ -139,25 +139,4 @@ You can tune the following parameters in the `sparse_rail_generator`:
 
 - `seed`: The random seed used to initialize the random generator. Can be used to generate reproducible networks.
 
-
-<!-- Manually specified railway
---------------------------
-
-It is possible to manually design railway networks using [`rail_from_manual_specifications_generator`](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/envs/rail_generators.py#L182).
-
-It accepts a list of lists whose each element is a 2-tuple, whose entries represent the `cell_type` (see `core.transitions.RailEnvTransitions`) and the desired clockwise rotation of the cell contents (0, 90, 180 or 270 degrees):
-
-```python
-specs = [[(0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0)],
-         [(0, 0), (0, 0), (0, 0), (0, 0), (7, 0), (0, 0)],
-         [(7, 270), (1, 90), (1, 90), (1, 90), (2, 90), (7, 90)],
-         [(0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0)]]
-
-env = RailEnv(width=6, height=4,
-              rail_generator=rail_from_manual_specifications_generator(specs),
-              number_of_agents=1
-env.reset()
-```
-
-![rail_from_manual_specifications](../assets/images/fixed_rail.png) -->
 
