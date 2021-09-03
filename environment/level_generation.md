@@ -32,8 +32,8 @@ timetable_generator = Callable[[List[EnvAgent], DistanceMap, dict, RandomState],
 
 We can then produce `RailGenerator`s by completing the following:
 ```python
-def sparse_rail_generator(num_cities=5, num_intersections=4, num_trainstations=2, min_node_dist=20, node_radius=2,
-                          num_neighb=3, grid_mode=False, enhance_intersection=False, seed=1):
+def sparse_rail_generator(max_num_cities=5, grid_mode=False, max_rails_between_cities=4,
+                          max_rail_pairs_in_city=4, seed=0):
 
     def generator(width, height, num_agents, num_resets=0):
 
@@ -42,8 +42,9 @@ def sparse_rail_generator(num_cities=5, num_intersections=4, num_trainstations=2
 
         return grid_map, {'agents_hints': {
             'num_agents': num_agents,
-            'agent_start_targets_nodes': agent_start_targets_nodes,
-            'train_stations': train_stations
+            'city_positions': city_positions,
+            'train_stations': train_stations,
+            'city_orientations': city_orientations
         }}
 
     return generator
@@ -55,8 +56,9 @@ def sparse_line_generator(speed_ratio_map: Mapping[float, float] = None) -> Line
         # place agents:
         # - initial position
         # - initial direction
-        # - (initial) speed
-        # - malfunction
+        # - targets
+        # - speed data
+        # - malfunction data
         ...
 
         return agents_position, agents_direction, agents_target, speeds, agents_malfunction
@@ -69,6 +71,10 @@ And finally, `timetable_generator` is called within the `RailEnv`'s reset() duri
 ```python
 def timetable_generator(agents: List[EnvAgent], distance_map: DistanceMap, 
                             agents_hints: dict, np_random: RandomState = None) -> Timetable:
+    # specify:
+    # - earliest departures
+    # - latest arrivals
+    # - max episode steps
     ...
 
     return Timetable(earliest_departures, latest_arrivals, max_episode_steps)
@@ -89,7 +95,7 @@ Sparse rail generator
 The idea behind the sparse rail generator is to mimic classic railway structures where dense nodes (cities) are sparsely connected to each other and where you have to manage traffic flow between the nodes efficiently.
 The cities in this level generator are much simplified in comparison to real city networks but they mimic parts of the problems faced in daily operations of any railway company.
 
-![sparse rail](../../assets/images/sparse_railway.png)
+![sparse rail](../assets/images/sparse_railway.png)
 
 There are a number of parameters you can tune to build your own map and test different complexity levels of the levels.
 
@@ -102,10 +108,10 @@ To build an environment, instantiate a `RailEnv` as follow:
 
 ```python
 rail_generator=sparse_rail_generator(
-    max_num_cities: int = 5,
-    grid_mode: bool = False,
-    max_rails_between_cities: int = 4,
-    max_rails_in_city: int = 4, 
+    max_num_cities=5,
+    grid_mode=False,
+    max_rails_between_cities=4,
+    max_rail_pairs_in_city=4, 
     seed=0
 )
 
@@ -133,7 +139,8 @@ You can tune the following parameters in the `sparse_rail_generator`:
 
 - `seed`: The random seed used to initialize the random generator. Can be used to generate reproducible networks.
 
-Manually specified railway
+
+<!-- Manually specified railway
 --------------------------
 
 It is possible to manually design railway networks using [`rail_from_manual_specifications_generator`](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/envs/rail_generators.py#L182).
@@ -152,5 +159,5 @@ env = RailEnv(width=6, height=4,
 env.reset()
 ```
 
-![rail_from_manual_specifications](../../assets/images/fixed_rail.png)
+![rail_from_manual_specifications](../assets/images/fixed_rail.png) -->
 

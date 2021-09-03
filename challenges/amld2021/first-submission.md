@@ -226,9 +226,9 @@ The starter kit contains 2 example policies to get started with this challenge:
 - a simple single-agent DQN method
 - a more robust multi-agent DQN method that you can submit out of the box to the challenge 🚀
 
-**🔗 [Train the single-agent DQN policy](https://flatland.aicrowd.com/getting-started/rl/single-agent.html)**
+**🔗 [Train the single-agent DQN policy](https://flatland.aicrowd.com/tutorials/rl/single-agent.html)**
 
-**🔗 [Train the multi-agent DQN policy](https://flatland.aicrowd.com/getting-started/rl/multi-agent.html)**
+**🔗 [Train the multi-agent DQN policy](https://flatland.aicrowd.com/tutorials/rl/multi-agent.html)**
 
 The single-agent example is meant as a minimal example of how to use DQN. The multi-agent is a better starting point to create your own solution.
 

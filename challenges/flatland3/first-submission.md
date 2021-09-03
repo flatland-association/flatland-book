@@ -1,20 +1,12 @@
-# 📚 Competition procedure
+# Make your first submission
 
 Flatland tackles a key problem in the transportation world: **How to efficiently manage dense traffic on complex railway networks?**
 
 In this challenge, you will pit your ideas on reinforcement learning and operations research to get the best solution to Flatland 3. Your contribution may shape the way modern traffic management systems are implemented, not only in railway but also in other areas of transportation and logistics!
 
-
-**The following is a high level description of how this process works.**
-
-![](https://i.imgur.com/xzQkwKV.jpg)
-
-1. **Sign up** to join the competition on the [Flatland 3 challenge page at AIcrowd](https://www.aicrowd.com/challenges/flatland-3).
-2. **Clone** this repo and start developing your solution.
-3. **Design and build** your agents that can solve Flatland 3 maps.
-4. [**Submit**](#-submission) your agents to [AIcrowd Gitlab](https://gitlab.aicrowd.com) for evaluation. [[Refer this for detailed instructions]](#-submission).
-
 > ⚠️ Accept the rules [here](https://www.aicrowd.com/challenges/flatland-3/challenge_rules) before you submit. 
+
+In the following instructions, you will be using the [starter kit](https://gitlab.aicrowd.com/flatland/flatland-starter-kit) to make your first submission.
 
 # 💪 Getting started
 
@@ -23,7 +15,7 @@ In this challenge, you will pit your ideas on reinforcement learning and operati
 Clone the starter kit repository and install the dependencies.
 
 ```bash
-git clone https://gitlab.aicrowd.com/flatland/flatland-starter-kit
+git clone https://gitlab.aicrowd.com/flatland/flatland-starter-kit.git
 cd flatland-starter-kit
 
 pip install git+http://gitlab.aicrowd.com/flatland/flatland.git
@@ -35,7 +27,7 @@ conda env create -f environment.yml
 
 ## Write your agents
 
-Implement an agent that is capable of adding producing actions for every train in the Flatland map. Refer to `baselines/run.py` for a reference agent.
+Implement an agent that is capable of adding producing actions for every train in the Flatland map. Refer to `baselines/run.py` [here](https://gitlab.aicrowd.com/flatland/flatland-starter-kit/-/blob/master/baselines/run.py) for a reference agent.
 
 **Note:** Please note that the maps are generated on the evaluator and your cannot control the settings for map generation.
 
@@ -118,12 +110,7 @@ If you want to submit without the helper script, please refer [`SUBMISSION.md`](
    * [Challenge page](https://www.aicrowd.com/challenges/flatland-3)
    * [Leaderboard](https://www.aicrowd.com/challenges/flatland-3/leaderboards)
  - 🗣 Community
-    * [Challenge discussion forum](https://www.aicrowd.com/challenges/flatland-3/discussions)
-
-# ✨ Contributors
-
-- [Nimish Santosh](https://www.aicrowd.com/participants/nimishsantosh107)
-- [Dipam Chakraborty](https://www.aicrowd.com/participants/dipam)
+    * [Challenge discussion forum](https://www.aicrowd.com/challenges/flatland-3/discussion)
 
 
 **Best of Luck** 🎉 

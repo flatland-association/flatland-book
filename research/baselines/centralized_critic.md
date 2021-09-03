@@ -71,6 +71,6 @@ The described approach was developed and evaluated in a project of [Deutsche Bah
 
 ### 🌟 Credits
 
-[![DB](images/db-logo.png)](https://www.digitale-schiene-deutschland.de/index_en.html) 
+[![DB](images/db-logo.png)](https://digitale-schiene-deutschland.de/en) 
 
 [![InstaDeep](images/instadeep-logo.png)](http://www.instadeep.com/)
