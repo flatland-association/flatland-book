@@ -10,7 +10,7 @@ This document will show you how to submit a test submission in 10 minutes.
 
 In the next ten minutes, you will submit your first agent to the [AMLD 2021 Flatland Challenge](https://www.aicrowd.com/challenges/flatland) and will see your name on the leaderboard.
 
-![leaderboard](../assets/images/you.png)
+![leaderboard](../../assets/images/you.png)
 
 If you have any problem along the way, take a look at the [troubleshooting tips](#troubleshooting) at the end of this page. If things still don't go your way, don't hesitate to [ask about it in the forum](https://discourse.aicrowd.com/c/neurips-2020-flatland-challenge).
 
@@ -179,7 +179,7 @@ To submit to the challenge, you will use [git tags](https://git-scm.com/book/en/
 
 Head to [gitlab.aicrowd.com/projects/new](https://gitlab.aicrowd.com/projects/new) to create your private repository. You can use any name you want for it.
 
-![](../assets/images/create-repo.png)
+![](../../assets/images/create-repo.png)
 
 #### Push a tag
 
@@ -215,7 +215,7 @@ You should now be able to see the details of your submission at:
 
 You should start seeing something like this at the address above: 
 
-![submission issue](../assets/images/submission-issue.png)
+![submission issue](../../assets/images/submission-issue.png)
 
 Be patient, the evaluation will take some time! 🕙
 
@@ -226,9 +226,9 @@ The starter kit contains 2 example policies to get started with this challenge:
 - a simple single-agent DQN method
 - a more robust multi-agent DQN method that you can submit out of the box to the challenge 🚀
 
-**🔗 [Train the single-agent DQN policy](https://flatland.aicrowd.com/getting-started/rl/single-agent.html)**
+**🔗 [Train the single-agent DQN policy](https://flatland.aicrowd.com/tutorials/rl/single-agent.html)**
 
-**🔗 [Train the multi-agent DQN policy](https://flatland.aicrowd.com/getting-started/rl/multi-agent.html)**
+**🔗 [Train the multi-agent DQN policy](https://flatland.aicrowd.com/tutorials/rl/multi-agent.html)**
 
 The single-agent example is meant as a minimal example of how to use DQN. The multi-agent is a better starting point to create your own solution.
 
