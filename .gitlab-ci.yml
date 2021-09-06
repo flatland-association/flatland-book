@@ -1,5 +1,6 @@
 stages:
   - build
+  - verify
   - deploy
 
 build:
@@ -15,8 +16,21 @@ build:
     - export IMAGE_TAG="aicrowd/flatland-docs:${CI_COMMIT_SHA:0:8}"
     - docker build -t "$IMAGE_TAG" . -f deploy/Dockerfile
     - docker push "$IMAGE_TAG"
-      #  only:
-      #    - master
+
+verify:
+  stage: verify
+  allow_failure: true
+  image: docker:18
+  services:
+    - docker:18-dind
+  variables:
+    DOCKER_HOST: "tcp://localhost:2375"
+  before_script:
+    - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+  script:
+    - export IMAGE_TAG="aicrowd/flatland-docs:${CI_COMMIT_SHA:0:8}"
+    - docker run -p 80:80 -d "$IMAGE_TAG"
+    - docker run --network host aicrowd/tools:broken-link-finder http://localhost
 
 deploy:
   stage: deploy
