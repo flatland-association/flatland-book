@@ -14,17 +14,17 @@ In this edition, the primary metrics use the **normalized return** from your age
 What is the **normalized return**?
 
 - The **returns** are the sum of rewards your agents accumulate during each episode.
-- To **normalize** these return, we scale them so that they stays in the range $[-1.0, 0.0]$. This makes it possible to compare results between environments of different dimensions. 
+- To **normalize** these return, we scale them so that they stays in the range $[0.0, 1.0]$. This makes it possible to compare results between environments of different dimensions. 
 
 In code:
 
 ```python
-normalized_reward = cumulative_reward / (self.env._max_episode_steps * self.env.get_num_agents())
+normalized_reward = (cumulative_reward / (self.env._max_episode_steps * self.env.get_num_agents())) + 1
 ```
 
 The episodes finish when all the trains have reached their target, or when the maximum number of time steps is reached. Therefore:
-- The **minimum possible value** (ie worst possible) is -1.0, which occurs if none of the agents reach their goal during the episode.
-- The **maximum possible value** (ie best possible) is 0.0, which would occur if all the agents would reach their targets in one time step, which is generally not achievable.
+- The **minimum possible value** (ie worst possible) is 0.0, which occurs if none of the agents reach their goal during the episode.
+- The **maximum possible value** (ie best possible) is 1.0, which would occur if all the agents would reach their targets in one time step, which is generally not achievable.
 
 <!-- The primary metrics is different for each Round:
 - In **Round 1**, the normalized returns were averaged over all the evaluation episodes, resulting in the **mean normalized return**.
