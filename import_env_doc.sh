@@ -11,7 +11,7 @@ fi
 mkdir env_doc
 cd env_doc
 
-git clone --single-branch --branch sphinxdocs git@gitlab.aicrowd.com:flatland/flatland.git
+git clone --single-branch --branch flatland3-pettingzoo git@gitlab.aicrowd.com:flatland/flatland.git
 
 cd flatland
 

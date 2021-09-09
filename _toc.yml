@@ -25,11 +25,11 @@ parts:
   - file: environment/updates
   - file: environment/updates/Agent-Close-Following
   - file: environment/updates/timetables
-  # - file: environment/updates/interfaces
+  - file: env_doc/flatland/docs/10_interface_toc.rst
 
-- caption: Environment Documentation
-  chapters:
-  - file: env_doc/flatland/docs/index
+# - caption: Environment Documentation
+#   chapters:
+#   - file: env_doc/flatland/docs/index
 
 
 ## TUTORIALS
