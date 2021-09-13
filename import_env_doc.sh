@@ -1,17 +1,20 @@
 #!/usr/bin/env bash
 
-DIR="env_doc/"
+DIR="_sources/"
 
 if [ -d "$DIR" ]; then
   # Take action if $DIR exists. #
   echo "Removing old files in ${DIR}..."
-  rm -rf env_doc
+  rm -rf ${DIR}
 fi
 
-mkdir env_doc
-cd env_doc
+mkdir ${DIR}
+cd ${DIR}
 
 git clone --single-branch --branch flatland3-pettingzoo git@gitlab.aicrowd.com:flatland/flatland.git
+
+echo "Removing flatland git files in ${DIR}..."
+rm -rf flatland/.git
 
 cd flatland
 
