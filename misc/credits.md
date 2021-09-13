@@ -1,73 +1,11 @@
 Credits
 ===
 
-<div class="unit whole">
-      <article>
-        <h2>Core Team and Organizers</h2>
-        <style>
-.person {
-text-align: center;
-display: inline-block
-}
-.person img {
-margin: 0.4em;
-}
-.person span {
-display: block;
-padding-top: 0.3em;
-font-size: 0.8em;
-}
-</style>
 
-<div class="grid">
-<div class="unit one-fourth person">
-
-<a href="https://github.com/spMohanty" class="post-author">
-   <img class="avatar" alt="spMohanty" width="150" height="150" data-proofer-ignore="true" src="https://avatars3.githubusercontent.com/spMohanty?v=3&amp;s=150"><br>
-   Sharada P. Mohanty
-</a>
-<span>Baselines &amp; crowdAI integration</span>
-</div>
-
-<div class="unit one-fourth person">
-
-<a href="https://github.com/spMohanty" class="post-author">
-   <img class="avatar" alt="spMohanty" width="150" height="150" data-proofer-ignore="true" src="https://avatars3.githubusercontent.com/spMohanty?v=3&amp;s=150"><br>
-   Sharada P. Mohanty
-</a>
-<span>Baselines &amp; crowdAI integration</span>
-</div>
-</div>
+<!-- ## Contributors -->
 
 
-----
-## Acknowledgements
-
-<div class="grid">
-
-
-<div class="unit one-fifth person">
-<a href="https://github.com/seungjaeryanlee" class="post-author">
-   <img class="avatar" alt="seungjaeryanlee" width="120" height="120" data-proofer-ignore="true" src="https://avatars3.githubusercontent.com/seungjaeryanlee?v=3&amp;s=120"><br>
-   seungjaeryanlee
-</a>
-</div>
-
-<div class="unit one-fifth person">
-<a href="https://github.com/seungjaeryanlee" class="post-author">
-   <img class="avatar" alt="seungjaeryanlee" width="120" height="120" data-proofer-ignore="true" src="https://avatars3.githubusercontent.com/seungjaeryanlee?v=3&amp;s=120"><br>
-   seungjaeryanlee
-</a>
-</div>
-
-</div>
-
-<div class="clear"></div>
-
-## Contributors
-
-
-
+<!-- ![contributors](../assets/images/contributors.png) -->
 
 
 Core Team and Organizers
@@ -86,10 +24,16 @@ Core Team and Organizers
 * Manuel Schneider <manuel.schneider@hest.ethz.ch>
 * Irene Sturm <irene.sturm@deutschebahn.com>
 * Sven Koenig <skoenig@usc.edu>
+* Nimish Santhosh <nimish@aicrowd.com>
+* Dipam Chakraborty <dipam@aicrowd.com>
+* Michel Marti <michel.marti@t-systems.com>
+* Charlie Amaudruz <charles-frederick.amaudruz@sncf.fr>
+* François Ramond <francois.ramond@sncf.fr>
 
 Acknowledgements
 ----------------
 * Guillaume Sartoretti <guillaume.sartoretti@nus.edu.sg>
+* Shivam Agarwal <shivam.agarwal@paluno.uni-due.de>
 
 Contributors
 ------------

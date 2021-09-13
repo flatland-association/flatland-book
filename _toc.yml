@@ -88,4 +88,4 @@ parts:
     sections:
         -   file: misc/contributing-code
         -   file: misc/contributing-doc
-  # - file: misc/credits
+  - file: misc/credits
