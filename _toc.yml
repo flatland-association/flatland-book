@@ -21,6 +21,7 @@ parts:
   - file: environment/level_generation
   - file: environment/environment_information
   - file: environment/custom_observations
+  - file: environment/stochasticity
   - file: environment/speed_profiles
   - file: environment/Agent-Close-Following
   - file: environment/timetables
@@ -92,4 +93,4 @@ parts:
     sections:
         -   file: misc/contributing-code
         -   file: misc/contributing-doc
-  # - file: misc/credits
+  - file: misc/credits

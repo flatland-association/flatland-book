@@ -3,8 +3,8 @@ Challenge Solutions
 
 Multiple challenges have been organized around the Flatland environment:
 
-- [AMLD 2021 Flatland Challenge (!LINK UPDATE!)](https://www.aicrowd.com/challenges/flatland)
-- [NeurIPS 2020 Flatland Challenge (!LINK UPDATE!)](https://www.aicrowd.com/challenges/flatland/leaderboards?challenge_round_id=588)
+- [AMLD 2021 Flatland Challenge](https://www.aicrowd.com/challenges/flatland-amld-2021)
+- [NeurIPS 2020 Flatland Challenge](https://www.aicrowd.com/challenges/flatland)
 - [2019 Flatland Challenge](https://www.aicrowd.com/challenges/flatland-challenge)
 
 This page documents the existing top solutions submitted during these events.

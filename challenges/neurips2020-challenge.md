@@ -3,7 +3,7 @@ Neurips 2020
 
 The **[Neurips 2020 challenge](https://www.aicrowd.com/challenges/flatland)** has concluded.
 
-![Flatland](../../assets/images/flatland_wide.png)
+![Flatland](../assets/images/flatland_wide.png)
 
 - Follow the guide to make your [first submission](neurips2020/first-submission)
 - Read about the [evaluations metrics](neurips2020/eval) of this edition.

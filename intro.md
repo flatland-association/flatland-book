@@ -34,16 +34,19 @@ $ flatland-demo # show demonstration
 $ python <<EOF # random agent
 import numpy as np
 from flatland.envs.rail_env import RailEnv
-env = RailEnv(width=16, height=16)
+env = RailEnv(width=30, height=30)
 obs = env.reset()
 while True:
-    obs, rew, done, info = env.step({0: np.random.randint(0, 5)})
+    obs, rew, done, info = env.step({
+            0: np.random.randint(0, 5),
+            1: np.random.randint(0, 5)
+        })
     if done:
         break
 EOF
 ```
 
-Want to dive straight in? **[Make your first submission to the NeurIPS 2020 challenge in 10 minutes!](getting-started/first-submission)**
+Want to dive straight in? **[Make your first submission to the Flatland 3 challenge in 10 minutes!](challenges/flatland3/first-submission)**
 
 
 📑 Flatland Paper
@@ -91,8 +94,8 @@ In several environments, it has been observed that agents can overfit to remarka
 ---
 
 - [Step by step introduction to Flatland](getting-started/env)
-- [Take part in the NeurIPS challenge](getting-started/first-submission)
-- [Use Flatland for your research](research/philosophy)
+- [Take part in the Flatland 3 Challenge](challenges/flatland3/first-submission)
+- [Use Flatland for your research](research/research-ideas)
 - [Contribute to Flatland](misc/contributing)
 - [Sponsor a Challenge](mailto:hello@aicrowd.com)
 
