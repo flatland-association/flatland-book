@@ -25,6 +25,9 @@ parts:
   - file: environment/speed_profiles
   - file: environment/Agent-Close-Following
   - file: environment/timetables
+  - file: environment/pettingzoo
+  - file: environment/interface
+  - file: environment/wrappers
   # - file: _sources/flatland/docs/10_interface_toc.rst
 
 # - caption: Environment Documentation
