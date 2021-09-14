@@ -8,10 +8,10 @@ Malfunctions are implemented using a [Poisson process](https://en.wikipedia.org/
 The parameters necessary for the stochastic events are provided as a `NamedTuple` called `MalfunctionParameters`:
 
 ```python
-malfunction_parameters = (
-    malfunction_rate=env_params.malfunction_rate,
-    min_duration=20,
-    max_duration=50
+stochastic_data = MalfunctionParameters(
+    malfunction_rate=1/10000,   # Rate of malfunction occurence
+    min_duration=15,  # Minimal duration of malfunction
+    max_duration=50   # Max duration of malfunction
 )
 ```
 
@@ -20,12 +20,12 @@ The parameters are as follows:
 - `malfunction_rate` is the mean rate of the poisson process in number of environment steps.
 - `min_duration` and `max_duration` set the range of malfunction durations. They are sampled uniformly.
 
-You can then introduce stochasticity in an environment by using the `malfunction_generator_and_process_data` parameter of the `RailEnv` constructor:
+You can then introduce stochasticity in an environment by using the `malfunction_generator` parameter of the `RailEnv` constructor:
 
 ```python
 RailEnv(
     ...
-    malfunction_generator_and_process_data=malfunction_from_params(malfunction_parameters),
+    malfunction_generator=ParamMalfunctionGen(stochastic_data),
     ...
 )
 ```
@@ -44,4 +44,4 @@ for a in range(env.get_num_agents()):
 
 You will quickly realize that this will lead to unforeseen difficulties which means that your controller needs to observe the environment at all times to be able to react to the stochastic events!
 
-[Check out the starter kit](https://gitlab.aicrowd.com/flatland/neurips2020-flatland-starter-kit/blob/master/reinforcement_learning/multi_agent_training.py#L55) for a complete example of how to train a model using malfunctions.
+<!-- [Check out the starter kit](https://gitlab.aicrowd.com/flatland/neurips2020-flatland-starter-kit/blob/master/reinforcement_learning/multi_agent_training.py#L55) for a complete example of how to train a model using malfunctions. -->
