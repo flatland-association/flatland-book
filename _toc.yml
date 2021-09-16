@@ -17,9 +17,9 @@ parts:
 ## ENVIRONMENT
 - caption: Environment
   chapters:
-  - file: environment/observations
   - file: environment/level_generation
   - file: environment/environment_information
+  - file: environment/observations
   - file: environment/custom_observations
   - file: environment/stochasticity
   - file: environment/speed_profiles

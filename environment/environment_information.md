@@ -3,6 +3,53 @@ Environment information
 
 When building your custom observation builder, you might want to aggregate and define your own features that are different from the raw environment data. In this section we introduce how such information can be accessed and how you can build your own features out of them.
 
+
+Agent information
+-----------------
+
+The agents are represented as an agent class and are provided when the environment is instantiated. Because agents can have different properties it is helpful to know how to access this information. 
+
+You can simply access the three main types of agent information in the following ways `agent = env.agents[handle]`
+
+### Agent basic information 
+
+All the agent in the initiated environment can be found in the env.agents class. Given the index of the agent you have access to:
+-   **Agent position:** `agent.position` which returns the current coordinates (x, y) of the agent.
+-   **Agent target:** `agent.target` which returns the target coordinates (x, y).
+-   **Agent direction:** `agent.direction` which is an int representing the current orientation {0: North, 1: East, 2: South, 3: West}
+-   **Agent moving:** `agent.moving` where 0 means the agent is currently not moving and 1 indicates agent is moving.
+
+### Agent timetable information 
+
+In **Flat**land 3, agents have a time window within which they must start and reach their destination. The following properties specify the time window:
+-   **Earliest departure:** `agent.earliest_departure` specifies the earliest time step of the simulation at which the agent is allowed to depart.
+-   **Latest arrival:** `agent.latest_arrival` specifies the latest time step of the simulation before or at which the agent is expected to reach it's destination.
+
+### Agent malfunction information
+
+Similar to the speed data you can also access individual data about the
+malfunctions of an agent. All data is available through
+agent.malfunction_data with:
+
+- **`malfunction`:** Indication how long the agent is still malfunctioning by an integer counting down at each time step. `0` means the agent is ok and can move.
+- **`malfunction_rate`:** Poisson rate at which malfunctions happen for this agent
+- **`next_malfunction`:** Number of steps until next malfunction will occur
+- **`nr_malfunctions`:** Number of malfunctions an agent have occurred for this agent so far
+
+### Agent speed information
+
+<!-- ```{note}
+Speed profiles are not used in the first round of the NeurIPS 2020 challenge.
+``` -->
+
+Beyond the basic agent information we can also access more details about
+the agents type by looking at speed data:
+
+-   **Agent max speed:** agent.speed_data["speed"] wich defines the traveling speed when the agent is moving.
+-   **Agent position fraction:** `agent.speed_data["position_fraction"]` which is a number between 0 and 1 and indicates when the move to the next cell will occur. Each speed of an agent is 1 or a smaller fraction. At each env.step() the agent moves at its fractional speed forwards and only changes to the next cell when the cumulated fractions are `agent.speed_data["position_fraction"] >= 1`.
+-   Agent can move at different speed which can be set up by modifying the agent.speed_data within the schedule_generator.
+
+
 Transitions maps
 ----------------
 
@@ -57,51 +104,5 @@ num_transitions = np.count_nonzero(cell_transitions)
 if total_transitions > 2 > num_transitions:
     unusable_switch_detected = True
 ```
-
-Agent information
------------------
-
-The agents are represented as an agent class and are provided when the environment is instantiated. Because agents can have different properties it is helpful to know how to access this information. 
-
-You can simply access the three main types of agent information in the following ways `agent = env.agents[handle]`
-
-### Agent basic information 
-
-All the agent in the initiated environment can be found in the env.agents class. Given the index of the agent you have access to:
--   **Agent position:** `agent.position` which returns the current coordinates (x, y) of the agent.
--   **Agent target:** `agent.target` which returns the target coordinates (x, y).
--   **Agent direction:** `agent.direction` which is an int representing the current orientation {0: North, 1: East, 2: South, 3: West}
--   **Agent moving:** `agent.moving` where 0 means the agent is currently not moving and 1 indicates agent is moving.
-
-### Agent timetable information 
-
-In **Flat**land 3, agents have a time window within which they must start and reach their destination. The following properties specify the time window:
--   **Earliest departure:** `agent.earliest_departure` specifies the earliest time step of the simulation at which the agent is allowed to depart.
--   **Latest arrival:** `agent.latest_arrival` specifies the latest time step of the simulation before or at which the agent is expected to reach it's destination.
-
-### Agent malfunction information
-
-Similar to the speed data you can also access individual data about the
-malfunctions of an agent. All data is available through
-agent.malfunction_data with:
-
-- **`malfunction`:** Indication how long the agent is still malfunctioning by an integer counting down at each time step. `0` means the agent is ok and can move.
-- **`malfunction_rate`:** Poisson rate at which malfunctions happen for this agent
-- **`next_malfunction`:** Number of steps until next malfunction will occur
-- **`nr_malfunctions`:** Number of malfunctions an agent have occurred for this agent so far
-
-### Agent speed information
-
-<!-- ```{note}
-Speed profiles are not used in the first round of the NeurIPS 2020 challenge.
-``` -->
-
-Beyond the basic agent information we can also access more details about
-the agents type by looking at speed data:
-
--   **Agent max speed:** agent.speed_data["speed"] wich defines the traveling speed when the agent is moving.
--   **Agent position fraction:** `agent.speed_data["position_fraction"]` which is a number between 0 and 1 and indicates when the move to the next cell will occur. Each speed of an agent is 1 or a smaller fraction. At each env.step() the agent moves at its fractional speed forwards and only changes to the next cell when the cumulated fractions are `agent.speed_data["position_fraction"] >= 1`.
--   Agent can move at different speed which can be set up by modifying the agent.speed_data within the schedule_generator.
-
 
 
