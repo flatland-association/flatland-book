@@ -21,13 +21,13 @@ parts:
   - file: environment/environment_information
   - file: environment/observations
   - file: environment/custom_observations
-  - file: environment/stochasticity
-  - file: environment/speed_profiles
-  - file: environment/Agent-Close-Following
   - file: environment/timetables
-  - file: environment/pettingzoo
   - file: environment/interface
   - file: environment/wrappers
+  - file: environment/stochasticity
+  - file: environment/speed_profiles
+  - file: environment/pettingzoo
+  - file: environment/Agent-Close-Following
   # - file: _sources/flatland/docs/10_interface_toc.rst
 
 # - caption: Environment Documentation
