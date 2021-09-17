@@ -4,13 +4,13 @@ Flatland 3 introduces a state machine as a refactor of `env.step` function in Fl
 
 The goal is to provide a unified state machine which controls the state and transitions of the trains, rather than the older system which had a mix of `agent.moving` and `agent.status`.
 
-<!-- The figure below illustrates the working of the state machine. -->
+The figure below illustrates the working of the state machine.
 
-<!-- <Digram> -->
+![](../assets/images/Flatland_3_State_Machine.jpg)
 
 The principles we try to implement are as follows:
 
-1. Only a single state transtition is allowed per env.step.
+1. Only a single state transtition is allowed per `env.step`.
 
 2. The action preprocessing ,position changes, speed counters and malfunctions are controlled by the state.
 

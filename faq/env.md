@@ -76,7 +76,7 @@ See the implementation in [envs/schedule_generators.py](https://gitlab.aicrowd.c
 What are malfunctions and what can i do to resolve them?
 ---
 
-Malfunctions are random events that occur according to a Poisson process. They hinder an agent from performing any action. While an agent is malfunctioning, it is blocking the paths for other agents. There is nothing you can do to fix an agent, it will get fixed automatically as soon as `agent.malfunction_data['malfunction'] == 0`.
+Malfunctions are random events that occur according to a Poisson process. They hinder an agent from performing any action. While an agent is malfunctioning, it is blocking the paths for other agents. There is nothing you can do to fix an agent, it will get fixed automatically as soon as `agent.malfunction_hander.malfunction_down_counter == 0`.
 
 You can however adjust the other agent actions to avoid delay propagation within the railway network and keeping traffic as smooth as possible.
 

@@ -26,6 +26,7 @@ parts:
   - file: environment/wrappers
   - file: environment/stochasticity
   - file: environment/speed_profiles
+  - file: environment/state_machine
   - file: environment/pettingzoo
   - file: environment/Agent-Close-Following
   # - file: _sources/flatland/docs/10_interface_toc.rst
