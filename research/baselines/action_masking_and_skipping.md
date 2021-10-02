@@ -63,8 +63,6 @@ Action masking is implemented for `fully_connected_model`, `global_dens_obs_mode
 
 ### 📈 Results
 
-[![](images/action_masking_and_skipping_wb.png)](https://app.wandb.ai/masterscrat/flatland/reports/Skipping-%22no-choice%22-cells-and-action-masking-expriments--VmlldzoxNTY5NDM)
-
 W&B report: [https://app.wandb.ai/masterscrat/flatland/reports/Skipping-%22no-choice%22-cells-and-action-masking-expriments--VmlldzoxNTY5NDM](https://app.wandb.ai/masterscrat/flatland/reports/Skipping-%22no-choice%22-cells-and-action-masking-expriments--VmlldzoxNTY5NDM)
 
 - Vanilla APEX agents learn fastest w.r.t number of samples.

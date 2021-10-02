@@ -61,7 +61,7 @@ The best runs achieved around **45% mean completion** on the sparse, small flata
 
 [Full metrics of the training runs can be found in the *Weights & Biases* report](https://app.wandb.ai/masterscrat/flatland/reports/Density-Obs-|-sparse-small_v0--VmlldzoxMTYxMDE)
 
-[![w&b report](images/global_density_obs_wb.png)](https://app.wandb.ai/masterscrat/flatland/reports/Density-Obs-|-sparse-small_v0--VmlldzoxMTYxMDE)
+[w&b report](https://app.wandb.ai/masterscrat/flatland/reports/Density-Obs-|-sparse-small_v0--VmlldzoxMTYxMDE)
 
 
 ### 🔗 Links

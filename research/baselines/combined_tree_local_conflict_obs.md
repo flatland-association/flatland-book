@@ -30,7 +30,7 @@ This observation does not generate itself any information for the agent but just
 
 Since this observations is meant as a helper to easily explore combinations of observations, there is no meaningful baseline. However, we did a run combining tree and local conflict observations as a sanity check:
 
-[![w&b report](images/combined_obs_wb.png)](https://app.wandb.ai/masterscrat/flatland/reports/Tree-and-Conflict-Obs-|-sparse-small_v0--VmlldzoxNTc4MzU)
+[w&b report](https://app.wandb.ai/masterscrat/flatland/reports/Tree-and-Conflict-Obs-|-sparse-small_v0--VmlldzoxNTc4MzU)
 
 ### 🌟 Credits
 
