@@ -57,7 +57,7 @@ parts:
       - file: challenges/flatland3/eval             
       - file: challenges/flatland3/flatland-3-migration-guide
       - file: challenges/flatland3/test-submissions-local
-      # - file: challenges/flatland3/envconfig
+      - file: challenges/flatland3/envconfig
   - file: challenges/amld2021
     sections:
       - file: challenges/amld2021/first-submission
