@@ -42,7 +42,7 @@ You can now run the following:
 ```console
 $ conda env create -f environment.yml # creates the flatland-rl environment
 $ conda activate flatland-rl # activates it
-$ pip install -U flatland-rl
+$ pip install flatland-rl==2.2.2
 ```
 
 ```{note}
