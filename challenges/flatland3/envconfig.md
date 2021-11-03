@@ -41,3 +41,29 @@
 |Test_12|200     |150  |150  |33      |10        |
 |Test_13|400     |150  |150  |37      |10        |
 |Test_14|425     |158  |158  |41      |10        |
+
+
+### Round 2
+
+* Round 2 features the same base settings as round 1 with 2 very important differences.
+    1. More frequent malfunctions.
+    2. Multiple speed profiles (presence of slow and fast trains)
+
+|test_id|n_agents|x_dim|y_dim|n_cities|n_envs_run|
+|-------|--------|-----|-----|--------|----------|
+|Test_00|7       |30   |30   |2       |10        |
+|Test_01|10      |30   |30   |2       |10        |
+|Test_02|20      |30   |30   |3       |10        |
+|Test_03|50      |30   |35   |3       |10        |
+|Test_04|80      |35   |30   |5       |10        |
+|Test_05|80      |45   |35   |7       |10        |
+|Test_06|80      |40   |60   |9       |10        |
+|Test_07|80      |60   |40   |13      |10        |
+|Test_08|80      |60   |60   |17      |10        |
+|Test_09|100     |80   |120  |21      |10        |
+|Test_10|100     |100  |80   |25      |10        |
+|Test_11|200     |100  |100  |29      |10        |
+|Test_12|200     |150  |150  |33      |10        |
+|Test_13|400     |150  |150  |37      |10        |
+|Test_14|425     |158  |158  |41      |10        |
+
