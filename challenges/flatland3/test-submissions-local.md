@@ -189,7 +189,7 @@ $ redis-cli
 If you often interrupt submissions, you can systematically cleanup the Redis database before starting the evaluator:
 
 ```console
-redis-cli -c "flushall"; flatland-evaluator --tests ./scratch/test-envs/ --shuffle False
+redis-cli -c "flushall"; flatland-evaluator --tests ./debug-environments/ --shuffle False
 ```
 
 ### "`unknown locale: UTF-8`"
