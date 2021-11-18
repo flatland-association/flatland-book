@@ -36,7 +36,7 @@ This means that each agent can only chose an action to be taken when entering a 
 This action is then executed when a step to the next cell is valid. For example
 
 - Agent enters switch and choses to deviate left. Agent fractional speed is 1/4 and thus the agent will take 4 time steps to complete its journey through the cell. On the 4th time step the agent will leave the cell deviating left as chosen at the entry of the cell.
-    - All actions chosen by the agent during its travels within a cell are ignored
+    - All actions chosen by the agent during its travels within a cell are ignoredm. Except STOP_MOVING, if stop action is provided then the agent's speed counter is not updated.
     - Agents can make observations at any time step. Make sure to discard observations without any information. See this [example](https://gitlab.aicrowd.com/flatland/baselines/blob/master/torch_training/training_navigation.py) for a simple implementation.
 - The environment checks if agent is allowed to move to next cell only at the time of the switch to the next cell
 
