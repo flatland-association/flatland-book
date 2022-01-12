@@ -53,11 +53,11 @@ metadata:
 spec:
   tls:
     - hosts:
-        - flatland-docs.internal.k8s.aicrowd.com
+        - flatland-docs.aws-internal.k8s.aicrowd.com
         - flatland.aicrowd.com
       secretName: flatland-docs-tls-secret
   rules:
-  - host: flatland-docs.internal.k8s.aicrowd.com
+  - host: flatland-docs.aws-internal.k8s.aicrowd.com
     http:
       paths:
       - path: /
