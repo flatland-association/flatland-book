@@ -15,6 +15,11 @@ spec:
       labels:
         app: flatland-docs
     spec:
+      nodeSelector:
+        node-group: service-nodes
+      tolerations:
+        - key: node-group
+          value: service-nodes
       imagePullSecrets:
       - name: regcred
       containers:
