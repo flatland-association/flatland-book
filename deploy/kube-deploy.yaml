@@ -61,6 +61,9 @@ spec:
         - flatland-docs.aws-internal.k8s.aicrowd.com
         - flatland.aicrowd.com
       secretName: flatland-docs-tls-secret
+    - hosts:
+        - flatland-docs.internal.k8s.aicrowd.com
+      secretName: flatland-docs-legacy-tls-secret
   rules:
   - host: flatland-docs.aws-internal.k8s.aicrowd.com
     http:
@@ -70,6 +73,13 @@ spec:
           serviceName: flatland-docs
           servicePort: 80
   - host: flatland.aicrowd.com
+    http:
+      paths:
+        - path: /
+          backend:
+            serviceName: flatland-docs
+            servicePort: 80
+  - host: flatland-docs.internal.k8s.aicrowd.com
     http:
       paths:
         - path: /
