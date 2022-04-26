@@ -35,7 +35,6 @@ parts:
 #   chapters:
 #   - file: _sources/flatland/docs/index
 
-
 ## TUTORIALS
 - caption: Turorials
   chapters:
@@ -83,6 +82,19 @@ parts:
       - file: research/baselines/combined_tree_local_conflict_obs
       - file: research/baselines/action_masking_and_skipping
   - file: research/research-ideas
+
+## ANALYSIS
+- caption: Analysis Framework
+  chapters:
+  - file: analysis-framework/intro
+  - file: analysis-framework/setup
+  - file: analysis-framework/desc_1_api
+    sections:
+      - file: analysis-framework/section_1_api/api-contents
+      - file: analysis-framework/section_1_api/api-usage
+      - file: analysis-framework/section_1_api/provided-raw-info
+      - file: analysis-framework/section_1_api/provided-metrics
+      - file: analysis-framework/section_1_api/extending-usage
 
 ## FAQ
 - caption: FAQ
