@@ -16,7 +16,7 @@ Before working with a submission ID, the data has to be fetched first; This can 
     -   `submission_ids`:`<List<str>>` - A list of submission IDs as strings for whose data will be downloaded.
 
 ```{note}
-They do not have a progress bar yet, please wait till it completes.
+A progress bar would appear showing the total files present within the submission log directory.
 ```
 
 #### 2. Getting the metrics

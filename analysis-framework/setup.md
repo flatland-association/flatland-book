@@ -10,7 +10,13 @@ This repository requires python v3.6 or v3.7 as the `flatland-rl` module depends
 Not released on PyPi yet, this section will be updated after the release.
 ```
 
-## Install from Source
+## Install from source
+
+```console
+$ pip install git+https://gitlab.aicrowd.com/flatland/flatland-analysis.git
+```
+
+## Install using a local clone of the source
 
 The Analysis Framework code source is available on [gitlab](https://gitlab.aicrowd.com/flatland/flatland-analysis).
 
