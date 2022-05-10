@@ -56,7 +56,7 @@ framework = AnalysisFramework()
 framework.fetch_submission_data(submission_id="T12345")
 
 results = framework.get_level_metrics(
-    metrics = [PercentageArrived, PercentageDepartedNotArrived],
+    metrics = [PercentageArrived, PercentageDepartedNotArrived, DelayArrived('mean')],
     submission_id = "T12345",
     test_id = 0,
     level_id = 0
@@ -64,15 +64,17 @@ results = framework.get_level_metrics(
 print(results) # type: List[float]
 
 results = framework.get_test_metrics(
-    metrics = [PercentageArrived, PercentageDepartedNotArrived],
+    metrics = [PercentageArrived, CurrentDelayNotArrived('max')],
     submission_id = "T12345",
-    test_id = 0
+    test_id = 0,
+    aggregate_fn='mean'
 )
 print(results) # type: List[float]
 
 results = framework.get_submission_metrics(
-    metrics = [PercentageArrived, PercentageDepartedNotArrived],
-    submission_id = "T12345"
+    metrics = [PercentageArrived, , LenSPNeverDeparted('min')],
+    submission_id = "T12345",
+    aggregate_fn='mean'
 )
 print(results) # type: List[float]
 ```

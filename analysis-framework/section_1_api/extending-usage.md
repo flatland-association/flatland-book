@@ -19,6 +19,8 @@ from flatland.envs.step_utils.states import TrainState  # fetch the TrainState c
 
 
 class PercentageMoving(BaseMetric):
+    # the __init__() function can be overridden incase your metric needs custom init parameters.
+
     def compute() -> float: # Notice how the metric must only return a float, so the aggregate_data method can work seamlessly
         agent_states = self.level.get_agent_states()
         return ((np.array(agent_states) == TrainState.MOVING).sum()) / len(agent_states)
