@@ -115,7 +115,7 @@ Use these channels if you have a problem or a question for the organizers:
 🤝 Partners
 ---
 
-<a href="https://sbb.ch" target="_blank" style="margin-right:30px"><img src="https://annpr2020.ch/wp-content/uploads/2020/06/SBB.png" alt="SBB" width="140"/></a> 
+<a href="https://sbb.ch" target="_blank" style="margin-right:30px"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/SBB_CFF_FFS_logo.svg/2560px-SBB_CFF_FFS_logo.svg.png" alt="SBB" width="140"/></a> 
 <a href="https://www.deutschebahn.com/" target="_blank" style="margin-right:30px"><img src="https://i.imgur.com/pjTki15.png" alt="DB"  width="140"/></a>
 <a href="https://www.sncf.com/en" target="_blank" style="margin-right:30px"><img src="https://iconape.com/wp-content/png_logo_vector/logo-sncf.png" alt="SNCF"  width="140"/></a>
 <a href="https://www.aicrowd.com" target="_blank"><img src="https://i.imgur.com/kBZQGI9.png" alt="AIcrowd"  width="140"/></a>
