@@ -1,4 +1,6 @@
-FROM python:3.8-slim AS builder
+FROM python:3.9-slim AS builder
+
+RUN apt-get update -y && apt-get install -y gcc
 
 COPY requirements.txt /app/
 RUN pip install -r /app/requirements.txt
