@@ -1,4 +1,4 @@
-FROM python:3.9-slim AS builder
+FROM python:3.10-slim-buster AS builder
 
 RUN apt-get update -y && apt-get install -y gcc
 
