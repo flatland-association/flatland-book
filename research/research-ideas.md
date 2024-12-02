@@ -1,7 +1,7 @@
 Research Ideas
 ===
 
-This page lists publications, blogs posts and other resources that could be interesting in the context of the Flatland environment. These ideas are currently unexplored, and anyone is welcome to research them. Conversely, feel free to [submit PRs](https://gitlab.aicrowd.com/flatland/flatland-book/blob/master/research/research-ideas.md) if you have interesting ideas that you are willing to share with the community!
+This page lists publications, blogs posts and other resources that could be interesting in the context of the Flatland environment. These ideas are currently unexplored, and anyone is welcome to research them. Conversely, feel free to [submit PRs]( https://github.com/flatland-association/flatland-book/blob/master/research/research-ideas.md) if you have interesting ideas that you are willing to share with the community!
 
 Publications
 ---
