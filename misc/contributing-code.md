@@ -6,7 +6,7 @@ Ready to contribute? Here's how to set up Flatland for local development.
 2. Clone Flatland locally:
 
     ```console
-    $ git clone git@gitlab.aicrowd.com:flatland/flatland.git
+    $ git clone git@git@github.com:flatland-association/flatland-rl.git
     ```
 
 3. Install the software dependencies via Anaconda-3 or Miniconda-3. (This assumes you have Anaconda installed by following [these instructions](https://www.anaconda.com/distribution))
