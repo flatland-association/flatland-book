@@ -20,8 +20,9 @@ Flatland is a 2D rectangular grid environment of arbitrary width and height, whe
 
 An agent in a cell can have a discrete orientation direction which represents the cardinal direction the agent is pointing to. An agent can move to a subset of adjacent cells. The subset of adjacent cells that an agent is allowed to transition to is defined by a 4-bit transition map representing possible transitions in 4 different directions.
 
-![Imgur](https://i.imgur.com/Q72tAI8.png)
-*8 unique cells enable us to implement any realworld railway network in the flatland env*
+![actions.drawio.png](../assets/images/actions.drawio.png)
+*10 basic cells modulo rotation enable us to implement any realworld railway network in the flatland env*
+This gives a set of 30 valid transitions in total (see `#` giving number of rotations).
 
 Agents can only travel in the direction they are currently facing. Hence, the permitted transitions for any given agent depend both on its position and on its direction. Transition maps define the railway network in the flatland world. One can implement any real world railway network within the Flatland environment by manupulating the transition maps of cells.
  
