@@ -22,7 +22,8 @@ An agent in a cell can have a discrete orientation direction which represents th
 adjacent cells. The subset of adjacent cells that an agent is allowed to transition to is defined by a 4-bit transition map representing possible transitions in
 4 different directions.
 
-![actions.drawio.png](../assets/images/actions.drawio.png)
+![basic_railway_elements.drawio.png](../assets/images/basic_railway_elements.drawio.png)
+
 *10 basic cells modulo rotation enable us to implement any realworld railway network in the flatland env*
 This gives a set of 30 valid transitions in total (see `#` giving number of rotations).
 
