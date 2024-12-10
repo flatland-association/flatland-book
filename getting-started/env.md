@@ -29,7 +29,7 @@ This gives a set of 30 valid transitions in total (see `#` giving number of rota
 
 Agents can only travel in the direction they are currently facing. Hence, the permitted transitions for any given agent depend both on its position and on its
 direction. Transition maps define the railway network in the flatland world. One can implement any real world railway network within the Flatland environment by
-manupulating the transition maps of cells.
+manipulating the transition maps of cells.
 
 For more information on transtion maps checkout [environment information](../environment/environment_information)!
 
