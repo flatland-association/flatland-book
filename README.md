@@ -1,6 +1,6 @@
 # Contribute to Flatland Book
 
-This repository is an aggregation of all the documentation, exploratory research, baselines, un-explored ideas, future research directions for the Flatland-RL project.
+This repository is an aggregation of all the documentation, exploratory research, baselines, un-explored ideas, future research directions for the [Flatland-RL](https://github.com/flatland-association/flatland-rl/) project.
 
 # Installation
 

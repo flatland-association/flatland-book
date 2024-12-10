@@ -20,7 +20,7 @@ html:
   use_edit_page_button: false # will need custom gitlab integration
 
 repository:
-  url: https://gitlab.aicrowd.com/flatland/flatland-book
+  url:  https://github.com/flatland-association/flatland-book
 
 execute:
   execute_notebooks: off
