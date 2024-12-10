@@ -31,7 +31,7 @@ Agents can only travel in the direction they are currently facing. Hence, the pe
 direction. Transition maps define the railway network in the flatland world. One can implement any real world railway network within the Flatland environment by
 manipulating the transition maps of cells.
 
-For more information on transtion maps checkout [environment information](../environment/environment_information)!
+For more information on transition maps checkout [environment information](../environment/environment_information)!
 
 
 ↔️ Actions
