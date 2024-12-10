@@ -24,7 +24,7 @@ adjacent cells. The subset of adjacent cells that an agent is allowed to transit
 
 ![basic_railway_elements.drawio.png](../assets/images/basic_railway_elements.drawio.png)
 
-*10 basic cells modulo rotation enable us to implement any realworld railway network in the flatland env*
+*10 basic cells modulo rotation enable us to implement any real-world railway network in the flatland env*
 This gives a set of 30 valid transitions in total (see `#` giving number of rotations).
 
 Agents can only travel in the direction they are currently facing. Hence, the permitted transitions for any given agent depend both on its position and on its
