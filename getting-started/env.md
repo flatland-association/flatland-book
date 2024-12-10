@@ -116,7 +116,7 @@ The episodes finish when all the trains have reached their target, or when the m
 
 The actual reward structure has the following cases:
 
-- **Train has arrived at it's target**: The agent will be given a reward of 0 for arriving on time or before the expected time. For arriving at the target later
+- **Train has arrived at its target**: The agent will be given a reward of 0 for arriving on time or before the expected time. For arriving at the target later
   than the specified time, the agent is given a negative reward proportional to the delay.
   `min(latest_arrival - actual_arrival, 0 )`
 
