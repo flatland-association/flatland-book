@@ -29,6 +29,7 @@ parts:
   - file: environment/state_machine
   - file: environment/pettingzoo
   - file: environment/Agent-Close-Following
+  - file: environment/graph_demo
   # - file: _sources/flatland/docs/10_interface_toc.rst
 
 # - caption: Environment Documentation
