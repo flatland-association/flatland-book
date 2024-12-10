@@ -140,7 +140,7 @@ The reward is calculated in [envs/rail_env.py](https://gitlab.aicrowd.com/flatla
 ### Stochasticity
 
 An important aspect of these levels will be their **stochasticity**, which means how often and for how long trains will malfunction. Malfunctions force the
-agents the reconsider their plans which can be costly.
+agents to reconsider their plans, which can be costly.
 
 **[🔗 Adjust stochasticity](../environment/stochasticity)**
 
