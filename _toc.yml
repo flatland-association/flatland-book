@@ -30,14 +30,14 @@ parts:
   - file: environment/pettingzoo
   - file: environment/Agent-Close-Following
   - file: environment/graph_demo
-  # - file: _sources/flatland/docs/10_interface_toc.rst
 
-# - caption: Environment Documentation
-#   chapters:
-#   - file: _sources/flatland/docs/index
+## APIDOC
+- caption: APIDOC
+  chapters:
+   - file: apidocs/index
 
 ## TUTORIALS
-- caption: Turorials
+- caption: Tutorials
   chapters:
   - file: tutorials/or
     # sections:
