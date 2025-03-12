@@ -57,7 +57,7 @@ constant increment, thus enacting exactly one action per agent per timestep.
 ```{admonition} Code reference
 The actions are defined in [flatland.envs.rail_env.RailEnvActions](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/envs/rail_env.py#L69).
 
-You can refer to the directions in your code using eg `RailEnvActions.MOVE_FORWARD`, `RailEnvActions.MOVE_RIGHT`...
+You can refer to the directions in your code using e.g., `RailEnvActions.MOVE_FORWARD`, `RailEnvActions.MOVE_RIGHT`...
 ```
 
 The following diagram shows the interplay of agent position/direction and actions.
@@ -76,7 +76,7 @@ Upon entering the new cell, the `MOVE_LEFT` action will update the agent's direc
 
 ### 💥 Agent Malfunctions
 
-Malfunctions are implemented to simulate delays by stopping agents at random times for random durations. Train that malfunction can’t move for a random, but
+Malfunctions are implemented to simulate delays by stopping agents at random times for random durations. Trains that malfunction can’t move for a random, but
 known, number of steps. They of course block the trains following them 😬.
 
 👀 Observations
@@ -118,13 +118,13 @@ The actual reward structure has the following cases:
 
 - **Train has arrived at its target**: The agent will be given a reward of 0 for arriving on time or before the expected time. For arriving at the target later
   than the specified time, the agent is given a negative reward proportional to the delay.
-  `min(latest_arrival - actual_arrival, 0 )`
+  `min(latest_arrival - actual_arrival, 0)`
 
-- **The train did not reach it's target yet**: The reward is negative and equal to the estimated amount of time needed by the agent to reach its target from
-  it's current position, if it travels on the shortest path to the target, while accounting for it's latest arrival time.
+- **The train did not reach its target yet**: The reward is negative and equal to the estimated amount of time needed by the agent to reach its target from
+  its current position, if it travels on the shortest path to the target, while accounting for its latest arrival time.
   `agent.get_current_delay()` *refer to it in detail [here](../environment/timetables)*
   The value returned will be positive if the expected arrival time is projected before latest arrival and negative if the expected arrival time is projected
-  after latest arrival. Since it is called at the end of the episode, the agent is already past it's deadline and so the value will always be negative.
+  after latest arrival. Since it is called at the end of the episode, the agent is already past its deadline and so the value will always be negative.
 
 - **The train never departed**: If the agent hasn't departed (i.e. status is `READY_TO_DEPART`) at the end of the episode, it is considered to be cancelled and
   the following reward is provided.
