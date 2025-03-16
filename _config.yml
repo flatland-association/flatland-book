@@ -12,7 +12,7 @@ sphinx:
     - sphinx.ext.autodoc
     - sphinx.ext.viewcode
     # - recommonmark
-
+    - sphinxcontrib.mermaid
 html:
   favicon: assets/images/favicon.ico
   google_analytics_id: UA-132885496-4
