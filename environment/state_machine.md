@@ -11,48 +11,44 @@ The figure below illustrates the working of the state machine.
 ```mermaid
 %%{ init: { 'theme': 'base', 'themeVariables': { 'background': '#f4f4f4' } } }%%
 graph TB
-    START(("&nbsp;")) --> WAITING
-    MALFUNCTION_OFF_MAP -- NOT <font color = green>in_malfunction</font><br/><font color = red>earliest_departure_reached</font><br/><font color = red>stop_action_given</font> --> STOPPED
-    READY_TO_DEPART -- <font color = red>in_malfunction</font> --> MALFUNCTION_OFF_MAP
-    READY_TO_DEPART -- <font color = green>valid_movement_action_given</font> --> MOVING
-    MALFUNCTION_OFF_MAP -- NOT <font color = green>in_malfunction</font><br/><font color = red>earliest_departure_reached</font><br/><font color = green>valid_movement_action_given</font> --> MOVING
-    MOVING  -- NOT <font color=red>in_malfunction</font><br/><font color=green>target_reached</font> -->  DONE
-DONE --> END((("&nbsp;")))
-subgraph On Map States
-direction TB
-WAITING -- <font color = red>in_malfunction</font> --> MALFUNCTION_OFF_MAP
-WAITING -- <font color = red>earliest_departure_reached</font> --> READY_TO_DEPART
+  START(("&nbsp;")) --> WAITING
+  MALFUNCTION_OFF_MAP -- NOT <font color = green>in_malfunction</font><br/><font color = red>earliest_departure_reached</font><br/><font color = red>stop_action_given</font> --> STOPPED
+  READY_TO_DEPART -- <font color = red>in_malfunction</font> --> MALFUNCTION_OFF_MAP
+  READY_TO_DEPART -- <font color = green>valid_movement_action_given</font> --> MOVING
+  MALFUNCTION_OFF_MAP -- NOT <font color = green>in_malfunction</font><br/><font color = red>earliest_departure_reached</font><br/><font color = green>valid_movement_action_given</font> --> MOVING
+  MOVING -- NOT <font color = red>in_malfunction</font><br/><font color = green>target_reached</font> --> DONE
+  DONE --> END((("&nbsp;")))
+  subgraph On Map States
+    direction TB
+    WAITING -- <font color = red>in_malfunction</font> --> MALFUNCTION_OFF_MAP
+    WAITING -- <font color = red>earliest_departure_reached</font> --> READY_TO_DEPART
+    MALFUNCTION_OFF_MAP -- NOT <font color = green>in_malfunction</font><br/><font color = red>earliest_departure_reached</font><br/>NOT <font color = red>stop_action_given</font><br/>NOT <font color = green>valid_movement_action_given</font> --> READY_TO_DEPART
+    MALFUNCTION_OFF_MAP -- NOT <font color = green>in_malfunction</font><br/>NOT <font color = red>earliest_departure_reached</font> --> WAITING
+  end
 
-MALFUNCTION_OFF_MAP  -- NOT <font color = green>in_malfunction</font><br/><font color = red>earliest_departure_reached</font><br/>NOT <font color = red>stop_action_given</font><br/>NOT <font color = green>valid_movement_action_given</font> -->  READY_TO_DEPART
-MALFUNCTION_OFF_MAP  -- NOT <font color = green>in_malfunction</font><br/>NOT <font color = red>earliest_departure_reached</font> --> WAITING
-end
+  subgraph Off Map States
+    direction TB
+    MOVING -- <font color = red>in_malfunction</font> --> MALFUNCTION
+    MOVING -- NOT <font color = red>in_malfunction</font><br/>NOT <font color = green>target_reached</font><br/><font color = red>stop_action_given</font> --> STOPPED
+    MOVING -- NOT <font color = red>in_malfunction</font><br/>NOT <font color = green>target_reached</font><br/><font color = red>movement_conflict</font> --> STOPPED
+    STOPPED -- <font color = red>in_malfunction</font> --> MALFUNCTION
+    STOPPED -- NOT <font color = red>in_malfunction</font><br/><font color = green>valid_movement_action_given</font> --> MOVING
+    MALFUNCTION -- NOT <font color = green>in_malfunction</font><br/><font color = green>valid_movement_action_given</font> --> MOVING
+    MALFUNCTION -- NOT <font color = green>in_malfunction</font><br/>NOT <font color = green>valid_movement_action_given</font> --> STOPPED
+  end
 
-
-subgraph Off Map States
-direction TB
-MOVING  --<font color = red>in_malfunction</font> --> MALFUNCTION
-
-MOVING  --NOT <font color = red>in_malfunction</font><br/>NOT <font color =green>target_reached</font><br/><font color = red>stop_action_given</font> --> STOPPED
-MOVING  -- NOT  <font color = red>in_malfunction</font><br/>NOT <font color = green>target_reached</font><br/><font color = red>movement_conflict</font> --> STOPPED
-STOPPED  -- <font color= red>in_malfunction</font> --> MALFUNCTION
-STOPPED  -- NOT <font color = red>in_malfunction</font><br/><font color = green>valid_movement_action_given</font> --> MOVING
-MALFUNCTION  -- NOT <font color = green>in_malfunction</font><br/><font color = green>valid_movement_action_given</font> --> MOVING
-MALFUNCTION  -- NOT <font color = green>in_malfunction</font><br/>NOT <font color= green>valid_movement_action_given</font> --> STOPPED
-end
-
-START:::StartState
-WAITING:::OffMapState
-READY_TO_DEPART:::OffMapState
-MALFUNCTION_OFF_MAP:::OffMapState
-MOVING:::OnMapState
-STOPPED:::OnMapState
-MALFUNCTION:::OnMapState
-END:::EndState
-
-classDef OffMapState font-style: italic, font-weight: bold, fill: yellow, color: black
-classDef OnMapState font-style: italic, font-weight: bold, fill: green, color: black
-classDef StartState font-style: italic, font-weight: bold, fill: black, color: black
-classDef EndState font-style: italic, font-weight: bold, fill: black, color: black
+  START:::StartState
+  WAITING:::OffMapState
+  READY_TO_DEPART:::OffMapState
+  MALFUNCTION_OFF_MAP:::OffMapState
+  MOVING:::OnMapState
+  STOPPED:::OnMapState
+  MALFUNCTION:::OnMapState
+  END:::EndState
+  classDef OffMapState font-style: italic, font-weight: bold, fill: yellow, color: black
+  classDef OnMapState font-style: italic, font-weight: bold, fill: green, color: black
+  classDef StartState font-style: italic, font-weight: bold, fill: black, color: black
+  classDef EndState font-style: italic, font-weight: bold, fill: black, color: black
 ```
 
 `valid_movement_action_given` stands for `movement_action_given` and `movement_allowed`
