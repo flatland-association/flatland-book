@@ -12,19 +12,19 @@ The figure below illustrates the working of the state machine.
 %%{ init: { 'theme': 'base', 'themeVariables': { 'background': '#f4f4f4' } } }%%
 graph TB
     START(("&nbsp;")) --> WAITING
-    MALFUNCTION_OFF_MAP -- <font color = green>malfunction_counter_complete</font><br/><font color = red>earliest_departure_reached</font><br/><font color = red>stop_action_given</font> --> STOPPED
+    MALFUNCTION_OFF_MAP -- NOT <font color = green>in_malfunction</font><br/><font color = red>earliest_departure_reached</font><br/><font color = red>stop_action_given</font> --> STOPPED
     READY_TO_DEPART -- <font color = red>in_malfunction</font> --> MALFUNCTION_OFF_MAP
     READY_TO_DEPART -- <font color = green>valid_movement_action_given</font> --> MOVING
-    MALFUNCTION_OFF_MAP -- <font color = green>malfunction_counter_complete</font><br/><font color = red>earliest_departure_reached</font><br/><font color = green>valid_movement_action_given</font> --> MOVING
-    MOVING  --NOT#nbsp;<font color=red>in_malfunction</font><br/><font color=green>target_reached</font>-->  DONE
+    MALFUNCTION_OFF_MAP -- NOT <font color = green>in_malfunction</font><br/><font color = red>earliest_departure_reached</font><br/><font color = green>valid_movement_action_given</font> --> MOVING
+    MOVING  -- NOT <font color=red>in_malfunction</font><br/><font color=green>target_reached</font> -->  DONE
 DONE --> END((("&nbsp;")))
 subgraph On Map States
 direction TB
 WAITING -- <font color = red>in_malfunction</font> --> MALFUNCTION_OFF_MAP
 WAITING -- <font color = red>earliest_departure_reached</font> --> READY_TO_DEPART
 
-MALFUNCTION_OFF_MAP  -- <font color = green>malfunction_counter_complete</font><br/><font color = red>earliest_departure_reached</font><br/>NOT#nbsp ;<font color = red>stop_action_given</font><br/>NOT#nbsp;<font color = green>valid_movement_action_given</font> -->  READY_TO_DEPART
-MALFUNCTION_OFF_MAP  -- <font color = green>malfunction_counter_complete</font><br/>NOT#nbsp;<font color = red>earliest_departure_reached</font> --> WAITING
+MALFUNCTION_OFF_MAP  -- NOT <font color = green>in_malfunction</font><br/><font color = red>earliest_departure_reached</font><br/>NOT <font color = red>stop_action_given</font><br/>NOT <font color = green>valid_movement_action_given</font> -->  READY_TO_DEPART
+MALFUNCTION_OFF_MAP  -- NOT <font color = green>in_malfunction</font><br/>NOT <font color = red>earliest_departure_reached</font> --> WAITING
 end
 
 
@@ -32,12 +32,12 @@ subgraph Off Map States
 direction TB
 MOVING  --<font color = red>in_malfunction</font> --> MALFUNCTION
 
-MOVING  --NOT#nbsp;<font color = red>in_malfunction</font><br/>NOT#nbsp;<font color =green>target_reached</font><br/><font color = red>stop_action_given</font> --> STOPPED
-MOVING  -- NOT#nbsp; <font color = red>in_malfunction</font><br/>NOT#nbsp;<font color = green>target_reached</font><br/><font color = red>movement_conflict</font> --> STOPPED
+MOVING  --NOT <font color = red>in_malfunction</font><br/>NOT <font color =green>target_reached</font><br/><font color = red>stop_action_given</font> --> STOPPED
+MOVING  -- NOT  <font color = red>in_malfunction</font><br/>NOT <font color = green>target_reached</font><br/><font color = red>movement_conflict</font> --> STOPPED
 STOPPED  -- <font color= red>in_malfunction</font> --> MALFUNCTION
-STOPPED  -- NOT#nbsp;<font color = red>in_malfunction</font><br/><font color = green>valid_movement_action_given</font> --> MOVING
-MALFUNCTION  -- <font color = green>malfunction_counter_complete</font><br/><font color = green>valid_movement_action_given</font> --> MOVING
-MALFUNCTION  -- <font color = green>malfunction_counter_complete</font><br/>NOT#nbsp;<font color= green>valid_movement_action_given</font> --> STOPPED
+STOPPED  -- NOT <font color = red>in_malfunction</font><br/><font color = green>valid_movement_action_given</font> --> MOVING
+MALFUNCTION  -- NOT <font color = green>in_malfunction</font><br/><font color = green>valid_movement_action_given</font> --> MOVING
+MALFUNCTION  -- NOT <font color = green>in_malfunction</font><br/>NOT <font color= green>valid_movement_action_given</font> --> STOPPED
 end
 
 START:::StartState
@@ -106,7 +106,6 @@ The corresponding signals in the state machine are described below
 | State Transition Signal        | Description                                                                                                                                                                            |
 |--------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `in_malfunction`               | Malfunction states start when in_malfunction is set to true                                                                                                                            |
-| `malfunction_counter_complete` | Malfunction counter complete - No malfunction or malfunction state ends in next step and actions are allowed from next timestep                                                        |
 | `earliest_departure_reached`   | Earliest departure reached - Train is allowed to move now                                                                                                                              |
 | `stop_action_given`            | Stop Action Given - User provided a stop action. Action preprocessing can also change a moving action to a stop action if the train tries to move into a invalid or occupied position. |
 | `movement_action_given`        | Movement action is provided.                                                                                                                                                           |
