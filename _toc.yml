@@ -17,6 +17,7 @@ parts:
 ## ENVIRONMENT
 - caption: Environment
   chapters:
+  - file: environment/key_concepts
   - file: environment/level_generation
   - file: environment/environment_information
   - file: environment/observations
