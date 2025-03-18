@@ -8,7 +8,7 @@ The goal is to provide a unified state machine which controls the state and tran
 
 The figure below illustrates the working of the state machine.
 
-```{mermaid}
+```mermaid
 %%{ init: { 'theme': 'base', 'themeVariables': { 'background': '#f4f4f4' } } }%%
 graph TB
     START(("&nbsp;")) --> WAITING
@@ -59,7 +59,7 @@ classDef EndState font-style: italic, font-weight: bold, fill: black, color: bla
 
 Legend:
 
-```{mermaid}
+```mermaid
 %%{ init: { 'theme': 'base', 'themeVariables': { 'background': '#f4f4f4' } } }%%
 stateDiagram-v2
     direction LR
