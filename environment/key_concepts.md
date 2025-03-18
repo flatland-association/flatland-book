@@ -1,6 +1,30 @@
 Key Concepts
 ============
+To help you get a high-level understanding of how the Flatland works, on this page, you learn about the key concepts and general architecture.
 
+```mermaid
+sequenceDiagram
+    actor Algorithmic Researcher
+    box Flatland
+        participant Runner
+        participant Evaluator
+        participant RailEnv
+
+    end
+    Algorithmic Researcher -) FlatlandRunner: scenario
+    loop scenario
+        Runner ->> RailEnv: actions
+        RailEnv -->> Runner: observations, rewards, info
+        Runner -) InteractiveAI: events, context
+        loop interaction
+            Operator -) InteractiveAI: requests
+            InteractiveAI -) Operator: information, action options
+        end
+    end
+    actor Operator
+    Runner ->> Evaluator: trajectory
+    Evaluator -) Algorithmic Researcher: scenario evaluation
+```
 
 Building Block View
 -------------------
