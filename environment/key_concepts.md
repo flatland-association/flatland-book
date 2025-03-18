@@ -278,7 +278,7 @@ flowchart TD
     style state_machen.step fill: #fcc, stroke: #000, stroke-width: 1px, color: black
     style ObservationBuilder fill: #90ee90, stroke: #000, stroke-width: 1px, color: black
     style get_observations fill: #90ee90, stroke: #000, stroke-width: 1px, color: black
-    rail_env.step~~~legend
+    rail_env.step ~~~ legend
 ```
 
 Flow Env Reset
