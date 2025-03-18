@@ -19,7 +19,7 @@ The Flatland code source is available from [gitlab](https://gitlab.aicrowd.com/f
 Clone the public repository:
 
 ```console
-$ git clone git@git@github.com:flatland-association/flatland-rl.git
+$ git clone git@github.com:flatland-association/flatland-rl.git
 ```
 
 Once you have a copy of the source, install it with:

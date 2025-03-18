@@ -1,5 +1,5 @@
 Operations Research 
-===
+====================
 
 Optimal solutions to the The Vehicle Re-scheduling Problem in flatland env can be obtained by formulating and solving optimization problems. Iterative/Closed form solutions for VRSP have been heavily explored in Operations Research.
 

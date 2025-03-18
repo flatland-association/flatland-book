@@ -6,110 +6,84 @@ defaults:
 
 parts:
 
-## GETTING STARTED
-- caption: Getting started
-  chapters:
-  - file: getting-started/installation
-  - file: getting-started/env
-  - file: getting-started/The_Rail_Environment
-  - file: getting-started/sequential-agent
+  ## GETTING STARTED
+  - caption: Getting started
+    chapters:
+      - file: getting-started/installation
+      - file: gettings-started/The_Rail_Environment
+      - file: getting-started/why-flatland
 
-## ENVIRONMENT
-- caption: Environment
-  chapters:
-  - file: environment/key_concepts
-  - file: environment/level_generation
-  - file: environment/environment_information
-  - file: environment/observations
-  - file: environment/custom_observations
-  - file: environment/timetables
-  - file: environment/interface
-  - file: environment/wrappers
-  - file: environment/stochasticity
-  - file: environment/speed_profiles
-  - file: environment/state_machine
-  - file: environment/pettingzoo
-  - file: environment/Agent-Close-Following
-  - file: environment/graph_demo
+  ## KEY CONCEPTS
+  - caption: Key concepts
+    chapters:
+      - file: key-concepts/key_concepts
+      - file: key-concepts/env
 
-## APIDOC
-- caption: APIDOC
-  chapters:
-   - file: apidocs/index
 
-## TUTORIALS
-- caption: Tutorials
-  chapters:
-  - file: tutorials/or
-    # sections:
-    #   - file: tutorials/or/or
-  - file: tutorials/rl
-    sections:
-      - file: tutorials/rl/single-agent
-      - file: tutorials/rl/multi-agent
-      - file: tutorials/rl/sequential-agent
+  ## ENVIRONMENT
+  - caption: Environment
+    chapters:
+      - file: environment/level_generation
+      - file: environment/environment_information
+      - file: environment/observations
+      - file: environment/custom_observations
+      - file: environment/timetables
+      - file: environment/interface
+      - file: environment/wrappers
+      - file: environment/stochasticity
+      - file: environment/speed_profiles
+      - file: environment/state_machine
+      - file: environment/pettingzoo
+      - file: environment/Agent-Close-Following
+      - file: environment/graph_demo
 
-## CHALLENGES
-- caption: Challenges
-  chapters:
-  - file: challenges/flatland3
-    sections:
-      - file: challenges/flatland3/first-submission 
-      - file: challenges/flatland3/eval             
-      - file: challenges/flatland3/flatland-3-migration-guide
-      - file: challenges/flatland3/test-submissions-local
-      - file: challenges/flatland3/envconfig
-  - file: challenges/amld2021
-    sections:
-      - file: challenges/amld2021/first-submission
-      - file: challenges/amld2021/eval
-      - file: challenges/amld2021/envconfig
-  - file: challenges/neurips2020-challenge
-    sections:
-      - file: challenges/neurips2020/first-submission
-      - file: challenges/neurips2020/eval
-      - file: challenges/neurips2020/envconfig
-      - file: challenges/neurips2020/faq      
-  - file: challenges/top-challenge-solutions
 
-## RESEARCH
-- caption: Research
-  chapters:
-  - file: research/baselines
-    sections:
-      - file: research/baselines/getting-started
-      - file: research/baselines/centralized_critic
-      - file: research/baselines/imitation_learning
-      - file: research/baselines/global_density_obs
-      - file: research/baselines/combined_tree_local_conflict_obs
-      - file: research/baselines/action_masking_and_skipping
-  - file: research/research-ideas
+  ## TUTORIALS
+  - caption: Tutorials
+    chapters:
+      - file: tutorials/sequential-agent
+      - file: tutorials/or
+      - file: tutorials/rl
 
-## ANALYSIS
-- caption: Analysis Framework
-  chapters:
-  - file: analysis-framework/intro
-  - file: analysis-framework/setup
-  - file: analysis-framework/desc_1_api
-    sections:
-      - file: analysis-framework/section_1_api/api-contents
-      - file: analysis-framework/section_1_api/api-usage
-      - file: analysis-framework/section_1_api/provided-raw-info
-      - file: analysis-framework/section_1_api/provided-metrics
-      - file: analysis-framework/section_1_api/extending-usage
+  ## CHALLENGES
+  - caption: Challenges
+    chapters:
+      - file: challenges/flatland-benchmarks
+      - file: challenges/flatland3
+        sections:
+          - file: challenges/flatland3/first-submission
+          - file: challenges/flatland3/eval
+          - file: challenges/flatland3/flatland-3-migration-guide
+          - file: challenges/flatland3/test-submissions-local
+          - file: challenges/flatland3/envconfig
+      - file: challenges/amld2021
+        sections:
+          - file: challenges/amld2021/first-submission
+          - file: challenges/amld2021/eval
+          - file: challenges/amld2021/envconfig
+      - file: challenges/neurips2020-challenge
+        sections:
+          - file: challenges/neurips2020/first-submission
+          - file: challenges/neurips2020/eval
+          - file: challenges/neurips2020/envconfig
+          - file: challenges/neurips2020/faq
+      - file: challenges/top-challenge-solutions
 
-## FAQ
-- caption: FAQ
-  chapters:
-  - file: faq/env
-  - file: faq/research
+  ## RESOURCES
+  - caption: Resources
+    chapters:
+      - file: resources/bibliography
+      - file: resources/youtube
+      - file: resources/community-projects
 
-## MISC
-- caption: Misc
-  chapters:
-  - file: misc/external-resources
-  - file: misc/contributing
-    sections:
-        -   file: misc/contributing-code
-        -   file: misc/contributing-doc
-  - file: misc/credits
+  ## APIDOC
+  - caption: APIDOC
+    chapters:
+      - file: apidocs/index
+
+  ## MISC
+  - caption: Misc
+    chapters:
+      - file: misc/external-resources
+      - file: misc/contributing
+      - file: misc/credits
