@@ -8,7 +8,7 @@ To improve the documentation, follow this simple process:
 1. Fork the `flatland-book` repository, which contains the documentation you're currently reading
 
     ```console
-    $ git clone git@gitlab.aicrowd.com:flatland/flatland-book.git
+    $ git clone git@github.com:flatland-association/flatland-book.git
     ```
     
 2. Write or fix the documentation as intented
