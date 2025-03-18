@@ -7,12 +7,15 @@ sequenceDiagram
     actor Algorithmic Researcher
     box Flatland
         participant Runner
+        participant Policy
         participant Evaluator
         participant RailEnv
 
     end
     Algorithmic Researcher -) FlatlandRunner: scenario
     loop scenario
+        Runner ->> Policy: observations
+        Policy -->> Runner: actions
         Runner ->> RailEnv: actions
         RailEnv -->> Runner: observations, rewards, info
         Runner -) InteractiveAI: events, context
