@@ -101,4 +101,4 @@ Special cases:
 This observation is defined in [flatland.envs.observations.TreeObsForRailEnv](https://github.com/flatland-association/flatland-rl/blob/master/flatland/envs/observations.py#L18)
 ```
 
-Notice how **channel 4** indicates if a possible conflict is detected. In order to predict conflicts, the tree observation relies on a predictor, which anticipates where agents will be in the future. We provide a stock predictor that assumes each agent just travels along its shortest path. We will [talk in more details about predictors](custom_observations) when introducing custom observations. 
+Notice how **channel 4** indicates if a possible conflict is detected. In order to predict conflicts, the tree observation relies on a predictor, which anticipates where agents will be in the future. We provide a stock predictor that assumes each agent just travels along its shortest path. We will [talk in more details about predictors](observation_builder/custom_observations.md) when introducing custom observations. 

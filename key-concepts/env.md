@@ -104,7 +104,7 @@ The provided observations are defined in [envs/observations.py](https://github.c
 Each of the provided observations has its strengths and weaknesses. However, it is unlikely that you will be able to solve the problem by using any single one of
 them directly. Instead you will need to design your own observation, which can be a combination of the existing ones or which could be radically different.
 
-**[🔗 Create your own observations](../environment/custom_observations)**
+**[🔗 Create your own observations](../environment/observation_builder/custom_observations.md)**
 
 
 🌟 Rewards
@@ -122,7 +122,7 @@ The actual reward structure has the following cases:
 
 - **The train did not reach its target yet**: The reward is negative and equal to the estimated amount of time needed by the agent to reach its target from
   its current position, if it travels on the shortest path to the target, while accounting for its latest arrival time.
-  `agent.get_current_delay()` *refer to it in detail [here](../environment/timetables)*
+  `agent.get_current_delay()` *refer to it in detail [here](../environment/scenario_generation/timetables.md)*
   The value returned will be positive if the expected arrival time is projected before latest arrival and negative if the expected arrival time is projected
   after latest arrival. Since it is called at the end of the episode, the agent is already past its deadline and so the value will always be negative.
 
@@ -142,11 +142,11 @@ The reward is calculated in [envs/rail_env.py](https://github.com/flatland-assoc
 An important aspect of these levels will be their **stochasticity**, which means how often and for how long trains will malfunction. Malfunctions force the
 agents to reconsider their plans, which can be costly.
 
-**[🔗 Adjust stochasticity](../environment/stochasticity)**
+**[🔗 Adjust stochasticity](../environment/environment/stochasticity.md)**
 
 ### Speed profiles
 
 Finally, trains in real railway networks don't all move at the same speed. A freight train will for example be slower than a passenger train. This is an
 important consideration, as you want to avoid scheduling a fast train behind a slow train!
 
-**[🔗 Tune speed profiles](../environment/speed_profiles)**
+**[🔗 Tune speed profiles](../environment/environment/speed_profiles.md)**

@@ -23,19 +23,32 @@ parts:
   ## ENVIRONMENT
   - caption: Environment
     chapters:
-      - file: environment/level_generation
       - file: environment/environment_information
-      - file: environment/observations
-      - file: environment/custom_observations
-      - file: environment/timetables
-      - file: environment/interface
-      - file: environment/wrappers
-      - file: environment/stochasticity
-      - file: environment/speed_profiles
-      - file: environment/state_machine
-      - file: environment/pettingzoo
-      - file: environment/Agent-Close-Following
-      - file: environment/graph_demo
+        sections:
+          - file: environment/environment/state_machine
+          - file: environment/environment/Agent-Close-Following
+          - file: environment/environment/graph_demo
+          - file: environment/environment/stochasticity
+          - file: environment/environment/speed_profiles
+
+#            Actions
+#            Rewards
+#            Agent
+#            Transition Map
+#            State machine
+#            Malfunctions
+#            Motion Check / Close following -> internal
+#            Graph
+
+      - file: environment/scenario_generation
+        sections:
+          - file: environment/scenario_generation/rail
+          - file: environment/scenario_generation/line
+          - file: environment/scenario_generation/timetable
+      - file: environment/observation_builder
+        sections:
+          - file: environment/observation_builder/custom_observations
+      - file: evaluation
 
 
   ## TUTORIALS

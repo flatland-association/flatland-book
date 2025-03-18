@@ -95,7 +95,7 @@ Sparse rail generator
 The idea behind the sparse rail generator is to mimic classic railway structures where dense nodes (cities) are sparsely connected to each other and where you have to manage traffic flow between the nodes efficiently.
 The cities in this level generator are much simplified in comparison to real city networks but they mimic parts of the problems faced in daily operations of any railway company.
 
-![sparse rail](../assets/images/sparse_railway.png)
+![sparse rail](../../assets/images/sparse_railway.png)
 
 There are a number of parameters you can tune to build your own map and test different complexity levels of the levels.
 
