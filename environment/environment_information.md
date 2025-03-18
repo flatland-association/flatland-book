@@ -58,7 +58,7 @@ Transitions maps
 The transition maps build the base for all movements in the environment. They contain all the information about allowed transitions for the agent at any given position. Because railway movement is limited to the railway tracks, these are important features for any controller that wants to interact with the environment. 
 
 ```{admonition} Code reference
-All functionality and features of transition maps can be found in [core/transition_map.py](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/core/transition_map.py).
+All functionality and features of transition maps can be found in [core/transition_map.py](https://github.com/flatland-association/flatland-rl/blob/master/flatland/core/transition_map.py).
 ```
 
 There are two different possibilities to access the possible transitions at any given cell:
@@ -77,7 +77,7 @@ To understand the transitions returned it is best to represent it as a binary nu
 
 For example, the binary code 1000 0000 0010 0000, represents a straight where an agent facing north can transition north and an agent facing south can transition south and no other transitions are possible. 
 
-To get a better feeling of what the binary representations of the elements look like, check the special cases of `GridTransitions` in [`RailEnvTransitions`](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/core/grid/rail_env_grid.py#L28). They are the set of transitions mimicking the types of real Swiss rail connections:
+To get a better feeling of what the binary representations of the elements look like, check the special cases of `GridTransitions` in [`RailEnvTransitions`](https://github.com/flatland-association/flatland-rl/blob/master/flatland/core/grid/rail_env_grid.py#L28). They are the set of transitions mimicking the types of real Swiss rail connections:
 
 ```python
 transition_list = [int('0000000000000000', 2),  # empty cell - Case 0

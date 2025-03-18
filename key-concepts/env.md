@@ -55,7 +55,7 @@ Flatland is a discrete time simulation, i.e. it performs all actions with consta
 constant increment, thus enacting exactly one action per agent per timestep.
 
 ```{admonition} Code reference
-The actions are defined in [flatland.envs.rail_env.RailEnvActions](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/envs/rail_env.py#L69).
+The actions are defined in [flatland.envs.rail_env.RailEnvActions](https://github.com/flatland-association/flatland-rl/blob/master/flatland/envs/rail_env.py#L69).
 
 You can refer to the directions in your code using e.g., `RailEnvActions.MOVE_FORWARD`, `RailEnvActions.MOVE_RIGHT`...
 ```
@@ -98,7 +98,7 @@ The three provided observations are:
 **[🔗 Provided observations](environment/observations)**
 
 ```{admonition} Code reference
-The provided observations are defined in [envs/observations.py](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/envs/observations.py)
+The provided observations are defined in [envs/observations.py](https://github.com/flatland-association/flatland-rl/blob/master/flatland/envs/observations.py)
 ```
 
 Each of the provided observations has its strengths and weaknesses. However, it is unlikely that you will be able to solve the problem by using any single one of
@@ -131,7 +131,7 @@ The actual reward structure has the following cases:
   `-1 * cancellation_factor * (travel_time_on_shortest_path + cancellation_time_buffer)`
 
 ```{admonition} Code reference
-The reward is calculated in [envs/rail_env.py](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/envs/rail_env.py)
+The reward is calculated in [envs/rail_env.py](https://github.com/flatland-association/flatland-rl/blob/master/flatland/envs/rail_env.py)
 ```
 
 🚉 Other concepts

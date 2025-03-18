@@ -87,7 +87,7 @@ Currently, the only one used are the `sparse_rail_generator`, `sparse_line_gener
 ______________
 ## Available Rail Generators
 
-Flatland provides the [`sparse_rail_generator`](https://gitlab.aicrowd.com/flatland/flatland/blob/master/flatland/envs/rail_generators.py#L563), which generates realistic-looking railway networks.
+Flatland provides the [`sparse_rail_generator`](https://github.com/flatland-association/flatland-rl/blob/master/flatland/envs/rail_generators.py#L563), which generates realistic-looking railway networks.
 
 Sparse rail generator
 ---------------------
