@@ -9,7 +9,7 @@ the [Flatland-RL](https://github.com/flatland-association/flatland-rl/) project.
 ```shell
 git clone https://github.com/flatland-association/flatland-book.git 
 
-pip install -U "jupyter-book>=0.11.2" sphinxcontrib-apidoc sphinxcontrib-mermaid flatland-rl
+pip install -U -r requirements.txt
 
 FLATLAND_MODULE_PATH=$(python -c 'import os; import importlib; print(os.path.dirname(importlib.import_module("flatland").__file__))')
 FLATLAND_MODULE_VERSION=$(python -c "import flatland; print(flatland.__version__)")
