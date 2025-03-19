@@ -10,7 +10,7 @@ parts:
   - caption: Getting started
     chapters:
       - file: getting-started/installation
-      - file: gettings-started/The_Rail_Environment
+      - file: getting-started/The_Rail_Environment
       - file: getting-started/why-flatland
 
   ## KEY CONCEPTS
