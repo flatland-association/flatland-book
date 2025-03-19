@@ -27,6 +27,6 @@ else
   find . -name "*.md" -print0 | xargs -0  sed -i 's/```{mermaid}/```mermaid/g'
 fi
 
-find _build -name "*.ipynb" -print0 | xargs -0 grep -E "ImportError|KeyboardInterrupt"
-NUM=$(find _build -name "*.ipynb" -print0 | xargs -0 grep -E "ImportError|KeyboardInterrupt" | wc -l)
+find _build -name "*.ipynb" -print0 | xargs -0  --no-run-if-empty grep -E "ImportError|KeyboardInterrupt"
+NUM=$(find _build -name "*.ipynb" -print0 | xargs -0  --no-run-if-empty grep -E "ImportError|KeyboardInterrupt" | wc -l)
 exit ${NUM}
