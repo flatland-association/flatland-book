@@ -10,10 +10,23 @@ FLATLAND_MODULE_VERSION=$(python -c "import flatland; print(flatland.__version__
 sphinx-apidoc --force -a -e -o apidocs ${FLATLAND_MODULE_PATH}  -H "Flatland ${FLATLAND_MODULE_VERSION} API Reference" --tocfile 'index'
 
 # tweak mermaid directives for sphinx, see https://sphinxcontrib-mermaid-demo.readthedocs.io/en/latest/index.html
-# on macOS: use find . -name "*.md" -print0 | xargs -0  sed -i '' 's/```mermaid/```{mermaid}/g'
-find . -name "*.md" -print0 | xargs -0  sed -i 's/```mermaid/```{mermaid}/g'
+if [ "$(uname)" == "Darwin" ]; then
+  # sed works differently under macOS...
+  find . -name "*.md" -print0 | xargs -0  sed -i '' 's/```mermaid/```{mermaid}/g'
+else
+  find . -name "*.md" -print0 | xargs -0  sed -i 's/```mermaid/```{mermaid}/g'
+fi
 jupyter-book clean .
 jupyter book build .
-find _build -name "*.ipynb" -print0 | xargs -0 fgrep ImportError
-NUM=$(find _build -name "*.ipynb" -print0 | xargs -0 fgrep ImportError | wc -l)
+
+# revert tweak mermaid directives for sphinx
+if [ "$(uname)" == "Darwin" ]; then
+  # sed works differently under macOS...
+  find . -name "*.md" -print0 | xargs -0  sed -i '' 's/```{mermaid}/```mermaid/g'
+else
+  find . -name "*.md" -print0 | xargs -0  sed -i 's/```{mermaid}/```mermaid/g'
+fi
+
+find _build -name "*.ipynb" -print0 | xargs -0 grep -E "ImportError|KeyboardInterrupt"
+NUM=$(find _build -name "*.ipynb" -print0 | xargs -0 grep -E "ImportError|KeyboardInterrupt" | wc -l)
 exit ${NUM}
