@@ -21,11 +21,7 @@ jobs:
       - name: Build
         run: |
           pip install -U -r requirements.txt
-          FLATLAND_MODULE_PATH=$(python -c 'import os; import importlib; print(os.path.dirname(importlib.import_module("flatland").__file__))')
-          FLATLAND_MODULE_VERSION=$(python -c "import flatland; print(flatland.__version__)")
-          sphinx-apidoc --force -a -e -o apidocs ${FLATLAND_MODULE_PATH}  -H "Flatland ${FLATLAND_MODULE_VERSION} API Reference" --tocfile 'index'
-          find . -name "*.md" -print0 | xargs -0  sed -i 's/```mermaid/```{mermaid}/g'
-          jupyter-book build .
+          bash build.sh
       # https://github.com/actions/upload-artifact
       - name: Upload GitHub Actions artifact
         uses: actions/upload-artifact@v4

@@ -1,4 +1,4 @@
-# Book settings
+# Book settings, see https://jupyterbook.org/en/stable/customize/config.html
 title: ""
 author: The Flatland Community
 logo: assets/images/flatland-logo.svg
@@ -16,6 +16,7 @@ html:
   favicon: assets/images/favicon.ico
   google_analytics_id: UA-132885496-4
   home_page_in_navbar: true
+  use_repository_button: true
   use_edit_page_button: true
   use_issues_button: true
 
@@ -26,4 +27,4 @@ repository:
   branch: main
 
 execute:
-  execute_notebooks: off
+  execute_notebooks: auto
