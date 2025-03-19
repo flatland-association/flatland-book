@@ -3,7 +3,7 @@ set -x
 # avoid executing all notebooks
 # TODO https://github.com/flatland-association/flatland-rl/issues/132 make all notebooks executable unattended
 # TODO use notebooks from flatland-rl directly instead of duplicating in flatland-notebook repo?
-find venv -name "*.ipynb" -print0 | xargs -0 rm
+find venv -name "*.ipynb" -print0 | xargs -0 --no-run-if-empty rm
 
 FLATLAND_MODULE_PATH=$(python -c 'import os; import importlib; print(os.path.dirname(importlib.import_module("flatland").__file__))')
 FLATLAND_MODULE_VERSION=$(python -c "import flatland; print(flatland.__version__)")
