@@ -1,15 +1,28 @@
 Reinforcement Learning
-===
+======================
 
-```{note}
-Looking for industrial-strength RL baselines? Head over to the [RLlib baselines](../research/baselines) to find full implementations of methods such as Ape-X, PPO and imitation learning algorithms.
-```
 
-Let's get our hands dirty with some simple reinforcement learning methods! We will solve tasks such as the one pictured below using DQN implementations written from scratch using PyTorch.
+RLlib
+-----
+We provide a Flatland wrapper for ray RLlib multi-agent environment (https://docs.ray.io/en/latest/rllib/multi-agent-envs.html).
 
-![Conflict_Avoidance](https://i.imgur.com/AvBHKaD.gif)
+RLlib is an open source library for reinforcement learning (RL), offering support for production-level, highly scalable, and fault-tolerant RL workloads, while
+maintaining simple and unified APIs for a large variety of industry applications
 
-- The [single agent](rl/single-agent) tutorial will guide through a basic Dueling Double DQN implementation which controls a single train
-- The [multi agent](rl/multi-agent) tutorial shows how to extend this method to the multi-agent setting. You will then be able to submit this agent to the NeurIPS 2020 Flatland challenge!
+🔬See [Flatland RLlib Demo](rl/rllib_demo).
 
-The code for these examples can be found in [the starter kit repository](https://gitlab.aicrowd.com/flatland/flatland-starter-kit).
+📖See also: RLlib: Abstractions for Distributed Reinforcement Learning, https://arxiv.org/abs/1712.09381
+
+PettingZoo
+----------
+We Provider a Flatland wrapper for PettingZoo parallel API (https://pettingzoo.farama.org/api/parallel/) for environments where all agents have simultaneous
+actions and observations.
+This API is based around the paradigm of Partially Observable Stochastic Games (POSGs) and the details are similar to RLlib’s MultiAgent environment
+specification,
+except it allows for different observation and action spaces between the agents.
+
+🔬See [Flatland PettingZoo Demo](rl/pettingzoo_demo).
+
+📖See also PettingZoo: A Standard API for Multi-Agent Reinforcement Learning, https://arxiv.org/pdf/2009.14471
+
+

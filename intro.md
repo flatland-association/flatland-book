@@ -94,23 +94,18 @@ trajectories? <!-- To enable one to answer this question we provide configurable
 🚉 Next stops
 ---
 
-- [Step by step introduction to Flatland](getting-started/env)
-- [Take part in the Flatland 3 Challenge](challenges/flatland3/first-submission)
-- [Use Flatland for your research](research/research-ideas)
+- [Step by step introduction to Flatland](key-concepts/env.md)
+- [Take part in the Flatland Benchmarks](challenges/flatland-benchmarks)
 - [Contribute to Flatland](misc/contributing)
-- [Sponsor a Challenge](mailto:hello@aicrowd.com)
+- [Sponsor a Challenge](mailto:contact@flatland-association.org)
 
 📱 Communication
 ---
 
-Join the Discord channel to exchange with other participants:
+Use these channels if you have a problem or a question:
 
-- [Discord Channel](https://discord.com/invite/hCR3CZG)
-
-Use these channels if you have a problem or a question for the organizers:
-
-- [Discussion Forum](https://discourse.aicrowd.com/c/neurips-2020-flatland-challenge)
-- [Issue Tracker](https://gitlab.aicrowd.com/flatland/flatland/issues/)
+- [Discussion Forum](https://github.com/flatland-association/flatland-rl/discussions)
+- [Issue Tracker](https://github.com/flatland-association/flatland-rl/issues/)
 
 🤝 Partners
 ---

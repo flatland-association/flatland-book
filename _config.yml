@@ -1,4 +1,4 @@
-# Book settings
+# Book settings, see https://jupyterbook.org/en/stable/customize/config.html
 title: ""
 author: The Flatland Community
 logo: assets/images/flatland-logo.svg
@@ -11,16 +11,20 @@ sphinx:
   extra_extensions:
     - sphinx.ext.autodoc
     - sphinx.ext.viewcode
-    # - recommonmark
-
+    - sphinxcontrib.mermaid
 html:
   favicon: assets/images/favicon.ico
   google_analytics_id: UA-132885496-4
   home_page_in_navbar: true
-  use_edit_page_button: false # will need custom gitlab integration
+  use_repository_button: true
+  use_edit_page_button: true
+  use_issues_button: true
+
 
 repository:
-  url:  https://github.com/flatland-association/flatland-book
+  url: https://github.com/flatland-association/flatland-book
+  provider: github
+  branch: main
 
 execute:
   execute_notebooks: off

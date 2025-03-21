@@ -13,15 +13,21 @@ jobs:
   build:
     runs-on: ubuntu-22.04
     steps:
-      -   uses: actions/checkout@v4
-      -   name: Set up Python
-          uses: actions/setup-python@v5
-          with:
-            python-version: "3.10"
-      -   name: Build
-          run: |
-            pip install -U "jupyter-book>=0.11.2" sphinxcontrib-apidoc flatland-rl
-            FLATLAND_MODULE_PATH=$(python -c 'import os; import importlib; print(os.path.dirname(importlib.import_module("flatland").__file__))')
-            FLATLAND_MODULE_VERSION=$(python -c "import flatland; print(flatland.__version__)")
-            sphinx-apidoc --force -a -e -o apidocs ${FLATLAND_MODULE_PATH}  -H "Flatland ${FLATLAND_MODULE_VERSION} API Reference" --tocfile 'index'
-            jupyter-book build .
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - name: Install graphviz
+        run: sudo apt-get install graphviz graphviz-dev
+      - name: Build
+        run: |
+          pip install -U -r requirements.txt
+          bash build.sh
+      # https://github.com/actions/upload-artifact
+      - name: Upload GitHub Actions artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: upload-build
+          path: _build/html/
+          if-no-files-found: error

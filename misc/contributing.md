@@ -8,42 +8,18 @@ Types of Contributions
 
 You can contribute in many ways:
 
-### Write Documentation
+### Documentation
 
-Flatland could always use more documentation, whether as part of the official Flatland docs, in docstrings, or even on the web in blog posts, articles, and such. 
+Flatland could always use more documentation, whether as part of the official Flatland docs, in docstrings, or even on the web in blog posts, articles, and
+such.
 
-A quick reference for writing good docstrings is available at : [docs.python-guide.org/writing/documentation/#writing-docstrings](https://docs.python-guide.org/writing/documentation/#writing-docstrings)
+**🔗 [Documentation contribution guidelines](https://github.com/flatland-association/flatland-book/blob/main/CONTRIBUTING.md)**
 
-**🔗 [Documentation contribution guidelines](contributing-doc)**
+### Fix Bugs/Implement Features/Report Bugs/Submit Feedback
 
-### Fix Bugs
+Look through the Repository [Issue Tracker](https://github.com/flatland-association/flatland-rl/issues) for features, bug reports.
+This is also best way to send us feedback.
 
-Look through the Repository Issue Tracker for bugs. Anything tagged with "bug" and "help wanted" is open to whoever wants to implement it.
+**🔗 [Code contribution guidelines](https://github.com/flatland-association/flatland-rl/blob/main/CONTRIBUTING.md)**
 
-**🔗 [Code contribution guidelines](contributing-code)**
-
-### Implement Features
-
-Look through the Repository Issue Tracker for features. Anything tagged with "enhancement" and "help wanted" is open to whoever wants to implement it.
-
-**🔗 [Code contribution guidelines](contributing-code)**
-
-### Report Bugs
-
-Report bugs at [gitlab.aicrowd.com/flatland/flatland/issues](https://gitlab.aicrowd.com/flatland/flatland/issues)
-
-If you are reporting a bug, please include:
-
-* Your operating system name and version.
-* Any details about your local setup that might be helpful in troubleshooting.
-* Detailed steps to reproduce the bug.
-
-### Submit Feedback
-
-The best way to send feedback is to file an issue at [gitlab.aicrowd.com/flatland/flatland/issues](https://gitlab.aicrowd.com/flatland/flatland/issues).
-
-If you are proposing a feature:
-
-* Explain in detail how it would work.
-* Keep the scope as narrow as possible, to make it easier to implement.
-* Remember that this is a volunteer-driven project, and that contributions are welcome 👼
+All contributions welcome 👼
