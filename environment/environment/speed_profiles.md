@@ -1,5 +1,5 @@
-Speed profiles
-==============
+Speed Profiles (aka. Multi-Speed)
+=================================
 
 <!-- ```{note}
 Speed profiles are not used in the [NeurIPS 2020 challenge](https://www.aicrowd.com/challenges/neurips-2020-flatland-challenge/).

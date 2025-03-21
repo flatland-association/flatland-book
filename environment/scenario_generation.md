@@ -11,71 +11,61 @@ The separation between rail generation and schedule generation reflects the orga
   *schedule planning phase** simulated by `line_generator` and `timetable_generator`.
   However, in the **Flat**land challenge, we focus on the re-scheduling problem during live operations. So,
 
-[//]: # (Technically `rail_generator`, `line_generator` and the `timetable_generator` are implemented as follows)
+We can produce `RailGenerator`s by completing the following:
 
-[//]: # (```python)
+```python
+def sparse_rail_generator(max_num_cities=5, grid_mode=False, max_rails_between_cities=4,
+                          max_rail_pairs_in_city=4, seed=0):
+    def generator(width, height, num_agents, num_resets=0):
+        # generate the grid and (optionally) some hints for the line_generator
+        ...
 
-[//]: # (RailGeneratorProduct = Tuple[GridTransitionMap, Optional[Any]])
+        return grid_map, {'agents_hints': {
+            'num_agents': num_agents,
+            'city_positions': city_positions,
+            'train_stations': train_stations,
+            'city_orientations': city_orientations
+        }}
 
-[//]: # (RailGenerator = Callable[[int, int, int, int], RailGeneratorProduct])
+    return generator
+```
 
-[//]: # ()
+similarly, `LineGenerator`s:
 
-[//]: # (AgentPosition = Tuple[int, int])
+```python
+def sparse_line_generator(speed_ratio_map: Mapping[float, float] = None) -> LineGenerator:
+    def generator(rail: GridTransitionMap, num_agents: int, hints: Any = None):
+        # place agents:
+        # - initial position
+        # - initial direction
+        # - targets
+        # - speed data
+        # - malfunction data
+        ...
 
-[//]: # ()
+        return agents_position, agents_direction, agents_target, speeds, agents_malfunction
 
-[//]: # (Line = collections.namedtuple&#40;'Line',  [&#40;'agent_positions', IntVector2DArray&#41;,)
+    return generator
+```
 
-[//]: # (                                        &#40;'agent_directions', List[Grid4TransitionsEnum]&#41;,)
+And finally, `timetable_generator` is called within the `RailEnv`'s reset() during line generation to create a time table for the trains.
 
-[//]: # (                                        &#40;'agent_targets', IntVector2DArray&#41;,)
+```python
+def timetable_generator(agents: List[EnvAgent], distance_map: DistanceMap,
+                        agents_hints: dict, np_random: RandomState = None) -> Timetable:
+    # specify:
+    # - earliest departures
+    # - latest arrivals
+    # - max episode steps
+    ...
 
-[//]: # (                                        &#40;'agent_speeds', List[float]&#41;,)
+    return Timetable(earliest_departures, latest_arrivals, max_episode_steps)
+```
 
-[//]: # (                                        &#40;'agent_malfunction_rates', List[int]&#41;]&#41;)
-
-[//]: # ()
-
-[//]: # (LineGenerator = Callable[[GridTransitionMap, int, Optional[Any], Optional[int]], Line])
-
-[//]: # ()
-
-[//]: # (Timetable = collections.namedtuple&#40;'Timetable',  [&#40;'earliest_departures', List[int]&#41;,)
-
-[//]: # (                                                  &#40;'latest_arrivals', List[int]&#41;,)
-
-[//]: # (                                                  &#40;'max_episode_steps', int&#41;]&#41;)
-
-[//]: # ()
-
-[//]: # (timetable_generator = Callable[[List[EnvAgent], DistanceMap, dict, RandomState], Timetable])
-
-[//]: # (```)
-
-### Variable Speed Profiles
-
-> This feature was introduced in [4.0.6](https://github.com/flatland-association/flatland-rl/pull/136)
-
-#### Description
-
-Trains can choose to run slower than permitted. This reflects core railway domain features.
-
-In particular, trains have a speed that can be lower than the current max speed.
-The simulation updates the train's speed counter accordingly. Reinterpret `DO_NOTHING` as keep running, `STOP_MOVING` as decelerate and `MOVE_FORWARD` as
-accelerate.
-Configuration sets the acceleration/braking delta or the old behaviour.
-A penalty can be configured to reward function penalizing if a train enters a cell already occupied.
-
-#### Changes
-
-* Refactor `SpeedCounter` to use travelled distance instead of `max_count`.
-* Support speed changes in `SpeedCounter`.
-* reinterpret actions (configuration whether to keep current behaviour):
-    * `MOVE_FORWARD` increase speed (delta configurable)
-    * `STOP_MOVING` decrease speed (delta configurable); set to STOPPING state if speed zero is reached.
-* configurable penalty if trains "crash" (if the env needs to force-stop-them), penalty proportional to train's speed.
-* extract reward handling to separate (testable) class
+Notice that the `rail_generator` may pass `agents_hints` to the  `line_generator` and `timetable_generator` which the latter may interpret.
+For instance, the way the `sparse_rail_generator` generates the grid, it already determines the agent's goal and target.
+Hence, `rail_generator`, `line_generator` and  `timetable_generator` have to match if `line_generator` presupposes some specific `agents_hints`.
+Currently, the only one used are the `sparse_rail_generator`, `sparse_line_generator` and the `timetable_generator` which works in conjunction with these.
 
 ### Multi-stop Schedules (w/o alternatives/routing flexibility)
 
@@ -100,7 +90,7 @@ Schedule generator can be configured with number of intermediate targets.
     - `intermediate_early_departure_penalty_factor`
 * Allow for line length in `sparse_line_generator` (same for all agents).
 
-### 110 Over- and underpasses (aka. level-free diamond crossings)
+### Over- and underpasses (aka. level-free diamond crossings)
 
 > This feature was introduced in [4.0.5](https://github.com/flatland-association/flatland-rl/pull/120)
 

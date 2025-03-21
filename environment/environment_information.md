@@ -1,6 +1,34 @@
 Environment
 ===========
 
+The goal in Flatland is simple:
+
+> **We seek to minimize the time it takes to bring all the agents to their respective target.**
+
+This raises a number of questions:
+
+- 🗺 [**Environment**](./environment/transitions) where are the agents and where can they go?
+- ↔️[**Actions:**](./environment/actions) what can the agents do?
+- 👀 [**Observations:**](./observation_builder) what can each agent "see"?
+- 🌟[**Rewards:**](./environment/rewards) what is the metric used to evaluate the agents?
+
+🚉 Other concepts
+-----------------
+
+### Stochasticity
+
+An important aspect of these levels will be their **stochasticity**, which means how often and for how long trains will malfunction. Malfunctions force the
+agents to reconsider their plans, which can be costly.
+
+**[🔗 Adjust stochasticity](../environment/environment/stochasticity.md)**
+
+### Speed profiles
+
+Finally, trains in real railway networks don't all move at the same speed. A freight train will for example be slower than a passenger train. This is an
+important consideration, as you want to avoid scheduling a fast train behind a slow train!
+
+**[🔗 Tune speed profiles](../environment/environment/speed_profiles.md)**
+
 ### Variable Speed Profiles
 
 > This feature was introduced in [4.0.6](https://github.com/flatland-association/flatland-rl/pull/136)
@@ -48,7 +76,7 @@ Schedule generator can be configured with number of intermediate targets.
     - `intermediate_early_departure_penalty_factor`
 * Allow for line length in `sparse_line_generator` (same for all agents).
 
-### 110 Over- and underpasses (aka. level-free diamond crossings)
+### Over- and underpasses (aka. level-free diamond crossings)
 
 > This feature was introduced in [4.0.5](https://github.com/flatland-association/flatland-rl/pull/120)
 

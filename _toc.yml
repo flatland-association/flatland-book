@@ -17,7 +17,6 @@ parts:
   - caption: Key concepts
     chapters:
       - file: key-concepts/key_concepts
-      - file: key-concepts/env
 
 
   ## ENVIRONMENT
@@ -25,23 +24,15 @@ parts:
     chapters:
       - file: environment/environment_information
         sections:
+          - file: environment/environment/actions
+          - file: environment/environment/rewards
+          - file: environment/environment/agent
+          - file: environment/environment/transitions
           - file: environment/environment/state_machine
           - file: environment/environment/stochasticity
           - file: environment/environment/speed_profiles
           - file: environment/environment/Agent-Close-Following
           - file: environment/environment/graph_demo
-
-
-# TODO
-#            Actions
-#            Rewards
-#            Agent
-#            Transition Map
-#            State machine
-#            Malfunctions
-#            Motion Check / Close following -> internal
-#            Graph
-
       - file: environment/scenario_generation
         sections:
           - file: environment/scenario_generation/rail
@@ -49,9 +40,11 @@ parts:
           - file: environment/scenario_generation/timetable
       - file: environment/observation_builder
         sections:
+          - file: environment/observation_builder/provided_observations
           - file: environment/observation_builder/custom_observations
-      - file: evaluation
-
+      - file: environment/integrations
+      - file: environment/evaluation
+      - file: environment/scenarios
 
   ## TUTORIALS
   - caption: Tutorials

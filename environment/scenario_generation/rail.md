@@ -2,64 +2,9 @@ Rail Generator
 ================
 
 
-We can produce `RailGenerator`s by completing the following:
-```python
-def sparse_rail_generator(max_num_cities=5, grid_mode=False, max_rails_between_cities=4,
-                          max_rail_pairs_in_city=4, seed=0):
-
-    def generator(width, height, num_agents, num_resets=0):
-
-        # generate the grid and (optionally) some hints for the line_generator
-        ...
-
-        return grid_map, {'agents_hints': {
-            'num_agents': num_agents,
-            'city_positions': city_positions,
-            'train_stations': train_stations,
-            'city_orientations': city_orientations
-        }}
-
-    return generator
-```
-similarly, `LineGenerator`s:
-```python
-def sparse_line_generator(speed_ratio_map: Mapping[float, float] = None) -> LineGenerator:
-    def generator(rail: GridTransitionMap, num_agents: int, hints: Any = None):
-        # place agents:
-        # - initial position
-        # - initial direction
-        # - targets
-        # - speed data
-        # - malfunction data
-        ...
-
-        return agents_position, agents_direction, agents_target, speeds, agents_malfunction
-
-    return generator
-```
-
-And finally, `timetable_generator` is called within the `RailEnv`'s reset() during line generation to create a time table for the trains.
-
-```python
-def timetable_generator(agents: List[EnvAgent], distance_map: DistanceMap, 
-                            agents_hints: dict, np_random: RandomState = None) -> Timetable:
-    # specify:
-    # - earliest departures
-    # - latest arrivals
-    # - max episode steps
-    ...
-
-    return Timetable(earliest_departures, latest_arrivals, max_episode_steps)
-```
-
-Notice that the `rail_generator` may pass `agents_hints` to the  `line_generator` and `timetable_generator` which the latter may interpret.
-For instance, the way the `sparse_rail_generator` generates the grid, it already determines the agent's goal and target.
-Hence, `rail_generator`, `line_generator` and  `timetable_generator` have to match if `line_generator` presupposes some specific `agents_hints`.
-Currently, the only one used are the `sparse_rail_generator`, `sparse_line_generator` and the `timetable_generator` which works in conjunction with these.
-______________
 ## Available Rail Generators
 
-Flatland provides the [`sparse_rail_generator`](https://github.com/flatland-association/flatland-rl/blob/master/flatland/envs/rail_generators.py#L563), which generates realistic-looking railway networks.
+Flatland provides the [`sparse_rail_generator`](https://github.com/flatland-association/flatland-rl/blob/main/flatland/envs/rail_generators.py#L563), which generates realistic-looking railway networks.
 
 Sparse rail generator
 ---------------------
