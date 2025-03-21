@@ -57,6 +57,8 @@ parts:
       - file: tutorials/sequential-agent
       - file: tutorials/or
       - file: tutorials/rl
+        sections:
+          - file: tutorials/rl/rllib_demo
 
   ## CHALLENGES
   - caption: Challenges

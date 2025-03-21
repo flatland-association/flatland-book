@@ -168,14 +168,21 @@ The corresponding signals in the state machine are described below
 | `movement_allowed`           | Movement allowed if inside cell or at end of cell and no conflict with other trains ("motion check")                                                                                   |
 | `new_speed`                  | The new speed: `MOVE_FORWARD` means accelerate and `STOP_MOVING` means braking. `MOVE_LEFT` and `MOVE_RIGHT` do not accelerate.                                                        |
 
-## Old state diagram
+[//]: # (## Old state diagram)
 
-![Flatland 3 State Machine](https://flatland-association.github.io/flatland-book/_images/Flatland_3_State_Machine.jpg)
+[//]: # ()
+[//]: # (![Flatland 3 State Machine]&#40;https://flatland-association.github.io/flatland-book/_images/Flatland_3_State_Machine.jpg&#41;)
 
-### Differences with code of old diagram added in the new diagram above
+[//]: # ()
+[//]: # (### Differences with code of old diagram added in the new diagram above)
 
-* `MALFUNCTION OFF MAP --> READY_TO_DEPART`: malfunction_counter_complete and earliest_departure_reached **and not valid_movement_action_given and not
-  stop_action_given**
-* `MOVING --> DONE`: **not in_malfunction** and target_reached
-* `MOVING --> STOPPED`: **not in_malfunction and not target_reached** and (stop_action_given or movement_conflict)
-* `MALFUNCTION --> STOPPED`: malfunction_counter_complete **and not in_malfunction and not valid_movement_action_given**
+[//]: # ()
+[//]: # (* `MALFUNCTION OFF MAP --> READY_TO_DEPART`: malfunction_counter_complete and earliest_departure_reached **and not valid_movement_action_given and not)
+
+[//]: # (  stop_action_given**)
+
+[//]: # (* `MOVING --> DONE`: **not in_malfunction** and target_reached)
+
+[//]: # (* `MOVING --> STOPPED`: **not in_malfunction and not target_reached** and &#40;stop_action_given or movement_conflict&#41;)
+
+[//]: # (* `MALFUNCTION --> STOPPED`: malfunction_counter_complete **and not in_malfunction and not valid_movement_action_given**)

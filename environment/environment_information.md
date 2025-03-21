@@ -1,5 +1,5 @@
-Environment information
-=======================
+Environment
+===========
 
 When building your custom observation builder, you might want to aggregate and define your own features that are different from the raw environment data. In this section we introduce how such information can be accessed and how you can build your own features out of them.
 
