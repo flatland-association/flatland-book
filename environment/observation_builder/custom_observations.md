@@ -1,14 +1,147 @@
 Custom observations
 ===
+When building your custom observation builder, you might want to aggregate and define your own features that are different from the raw environment data. In
+this section we introduce how such information can be accessed and how you can build your own features out of them.
+
+
+Agent information
+-----------------
+
+The agents are represented as an agent class and are provided when the environment is instantiated. Because agents can have different properties it is helpful
+to know how to access this information.
+
+You can simply access the three main types of agent information in the following ways `agent = env.agents[handle]`
+
+### Agent basic information
+
+All the agent in the initiated environment can be found in the env.agents class. Given the index of the agent you have access to:
+
+- **Agent position:** `agent.position` which returns the current coordinates (x, y) of the agent.
+- **Agent target:** `agent.target` which returns the target coordinates (x, y).
+- **Agent direction:** `agent.direction` which is an int representing the current orientation {0: North, 1: East, 2: South, 3: West}
+- **Agent moving:** `agent.state` is the state of the agent's state machine, when moving, `agent.state == TrainState.MOVING` indicates that the train in
+  currently on the map and moving.
+
+### Agent timetable information
+
+In **Flat**land 3, agents have a time window within which they must start and reach their destination. The following properties specify the time window:
+
+- **Earliest departure:** `agent.earliest_departure` specifies the earliest time step of the simulation at which the agent is allowed to depart.
+- **Latest arrival:** `agent.latest_arrival` specifies the latest time step of the simulation before or at which the agent is expected to reach it's
+  destination.
+
+### Agent malfunction information
+
+Similar to the speed data you can also access individual data about the
+malfunctions of an agent. All data is available through
+`agent.malfunction_handler` with:
+
+- **`malfunction_down_counter`:** Indication how long the agent is still malfunctioning by an integer counting down at each time step. `0` means the agent is ok
+  and can move.
+- **`num_malfunctions`:** Number of malfunctions an agent have occurred for this agent so far
+
+### Agent speed information
+
+Beyond the basic agent information we can also access more details about
+the agents type by looking at `agent.speed_counter`:
+
+- **Agent speed:** `agent.speed_counter.speed` wich defines the traveling speed when the agent is moving.
+- **Agent speed counter:** When the speed of an agent is fractional, the agent stays in the same cell for more than one step, specifically for
+  `agent.speed_counter.max_count + 1` number of steps. The value `agent.speed_counter.counter` indicates when the move to the next cell will occur, this number
+  is 0 indexed. When this value reaches the value of `agent.speed_counter.max_counter`, the agent can exit the cell to the next one. At each `env.step` the
+  agent increments its speed counter if the agent state is moving.
+- `agent.speed_counter.is_cell_entry` indicates whether the agent just entered the cell and `agent.speed_counter.is_cell_exit` indicates the agent can exit the
+  cell next step.
+
+## State Machine
+
+Flatland 3 introducted a state machine for the every agent that controls the behavior of the agent depending on the current state.
+
+The possible states are `WAITING`, `READY_TO_DEPART`, `MALFUNCTION_OFF_MAP`, `MOVING`, `STOPPED`, `MALFUNCTION`, and `DONE`.
+
+Detailed descriptions of the states and the transitions in the state machine can be found in
+the [state machine subsection](https://flatland.aicrowd.com/environment/state_machine.html).
+
+
+Transitions maps
+----------------
+
+The transition maps build the base for all movements in the environment. They contain all the information about allowed transitions for the agent at any given
+position. Because railway movement is limited to the railway tracks, these are important features for any controller that wants to interact with the
+environment.
+
+```{admonition} Code reference
+All functionality and features of transition maps can be found in [core/transition_map.py](https://github.com/flatland-association/flatland-rl/blob/master/flatland/core/transition_map.py).
+```
+
+There are two different possibilities to access the possible transitions at any given cell:
+
+### get_transitions()
+
+Provide a cell position and an orientation (usually the orientation of the agent) and call `env.rail.get_transitions(*position, direction)`. In return, you get
+will a 4D vector with the transition probability ordered as [North, East, South, West] given the initial orientation.
+
+The position is a tuple of the form `(x, y)` where $x \in [0, h]$ and $y \in [0, w]$ with $h$ and $w$ the height and width of the environment. This can be used
+for branching in a tree search and when looking for all possible allowed paths of an agent as it will provide a simple way to get the possible trajectories.
+
+### get_full_transitions()
+
+When more detailed information about the cell is necessary, you can also get the **full** transitions of a cell by calling
+`env.rail.get_full_transitions(*position)`. This will return an `int16` for the cell representing the allowed transitions.
+
+To understand the transitions returned it is best to represent it as a binary number `bin(transition_int)`, where the bits have to following meaning: NN NE NS
+NW EN EE ES EW SN SE SS SW WN WE WS WW.
+
+For example, the binary code 1000 0000 0010 0000, represents a straight where an agent facing north can transition north and an agent facing south can
+transition south and no other transitions are possible.
+
+To get a better feeling of what the binary representations of the elements look like, check the special cases of `GridTransitions` in [
+`RailEnvTransitions`](https://github.com/flatland-association/flatland-rl/blob/master/flatland/core/grid/rail_env_grid.py#L28). They are the set of transitions
+mimicking the types of real Swiss rail connections:
+
+```python
+transition_list = [int('0000000000000000', 2),  # empty cell - Case 0
+                   int('1000000000100000', 2),  # Case 1 - straight
+                   int('1001001000100000', 2),  # Case 2 - simple switch
+                   int('1000010000100001', 2),  # Case 3 - diamond drossing
+                   int('1001011000100001', 2),  # Case 4 - single slip
+                   int('1100110000110011', 2),  # Case 5 - double slip
+                   int('0101001000000010', 2),  # Case 6 - symmetrical
+                   int('0010000000000000', 2),  # Case 7 - dead end
+                   int('0100000000000010', 2),  # Case 1b (8)  - simple turn right
+                   int('0001001000000000', 2),  # Case 1c (9)  - simple turn left
+                   int('1100000000100010', 2)]  # Case 2b (10) - simple switch mirrored
+```
+
+These two objects can be used for example to detect switches that are usable by other agents, but not the observing agent itself. This can be an important
+feature when actions have to be taken in order to avoid conflicts.
+
+```python
+cell_transitions = self.env.rail.get_transitions(*position, direction)
+transition_bit = bin(self.env.rail.get_full_transitions(*position))
+
+total_transitions = transition_bit.count("1")
+num_transitions = np.count_nonzero(cell_transitions)
+
+# Detect Switches that can only be used by other agents.
+if total_transitions > 2 > num_transitions:
+    unusable_switch_detected = True
+```
 
 Overview
 --------
 
-One of the main objectives of the [Flatland challenge](https://gitlab.aicrowd.com/flatland/neurips2020-flatland-baselines) is to find a suitable observation to solve the problems. Three observations are [provided with Flatland out of the box](observations), however it is unlikely that they will be sufficient for this challenge. 
+One of the main objectives of the [Flatland challenge](https://gitlab.aicrowd.com/flatland/neurips2020-flatland-baselines) is to find a suitable observation to
+solve the problems. Three observations are [provided with Flatland out of the box](observations), however it is unlikely that they will be sufficient for this
+challenge.
 
-Flatland was built with as much flexibility as possible when it comes to building your custom observations. Whenever an environment needs to compute new observations for each agent, it queries an object derived from the [`ObservationBuilder` base class](https://github.com/flatland-association/flatland-rl/blob/master/flatland/core/env_observation_builder.py#L18), which takes the current state of the environment and returns the desired observation.
+Flatland was built with as much flexibility as possible when it comes to building your custom observations. Whenever an environment needs to compute new
+observations for each agent, it queries an object derived from the [
+`ObservationBuilder` base class](https://github.com/flatland-association/flatland-rl/blob/master/flatland/core/env_observation_builder.py#L18), which takes the
+current state of the environment and returns the desired observation.
 
 We will go through 3 examples to explain how to build custom observations:
+
 - [Simple (but useless) observation](#simple-but-useless-observation)
 - [Single-agent navigation](#single-agent-navigation)
 - [Using predictors and rendering observations](#using-predictors-and-rendering-observations)
@@ -16,9 +149,12 @@ We will go through 3 examples to explain how to build custom observations:
 Simple (but useless) observation
 --------------------------------
 
-In this first example we implement all the methods necessary for an observation builder to be valid and work with Flatland. This observation builder will simply return a vector of size 5 filled with the ID of the agent. This is a toy example and wouldn't help an actual agent to learn anything. 
+In this first example we implement all the methods necessary for an observation builder to be valid and work with Flatland. This observation builder will simply
+return a vector of size 5 filled with the ID of the agent. This is a toy example and wouldn't help an actual agent to learn anything.
 
-Custom observation builders need to derive from the [`flatland.core.env_observation_builder.ObservationBuilder`](https://github.com/flatland-association/flatland-rl/blob/master/flatland/core/env_observation_builder.py#L18) base class and must implement at least two methods, `reset(self)` and `get(self, handle)`.
+Custom observation builders need to derive from the [
+`flatland.core.env_observation_builder.ObservationBuilder`](https://github.com/flatland-association/flatland-rl/blob/master/flatland/core/env_observation_builder.py#L18)
+base class and must implement at least two methods, `reset(self)` and `get(self, handle)`.
 
 Below is a simple example that returns observation vectors of size 5 featuring only the ID (handle) of the agent whose observation vector is
 being computed:
@@ -52,19 +188,26 @@ env = RailEnv(width=30,
 env.reset()
 ```
 
-Anytime `env.reset()` or `env.step()` is called, the observation builder will return the custom observation of all agents initialized in the env. Not very useful, but it is a start! 
+Anytime `env.reset()` or `env.step()` is called, the observation builder will return the custom observation of all agents initialized in the env. Not very
+useful, but it is a start!
 
-The code sample above is available in [`custom_observation_example_01_SimpleObs.py`](https://github.com/flatland-association/flatland-rl/blob/master/examples/custom_observation_example_01_SimpleObs.py). 
+The code sample above is available in [
+`custom_observation_example_01_SimpleObs.py`](https://github.com/flatland-association/flatland-rl/blob/master/examples/custom_observation_example_01_SimpleObs.py).
 
 In the next example, we highlight how to inherit from existing observation builders and how to access internal variables of Flatland.
 
 Single-agent navigation
 -----------------------
 
-Observation builders can inherit from existing concrete subclasses of [`ObservationBuilder`](https://github.com/flatland-association/flatland-rl/blob/master/flatland/core/env_observation_builder.py#L18). For example, it may be useful to extend the [`TreeObsForRailEnv`](https://github.com/flatland-association/flatland-rl/blob/master/flatland/envs/observations.py#L18) observation builder. A feature of this class is that on `reset()`, it pre-computes the lengths of the shortest paths from all cells and orientations to the target of each agent, i.e. a distance map for each agent.
+Observation builders can inherit from existing concrete subclasses of [
+`ObservationBuilder`](https://github.com/flatland-association/flatland-rl/blob/master/flatland/core/env_observation_builder.py#L18). For example, it may be
+useful to extend the [`TreeObsForRailEnv`](https://github.com/flatland-association/flatland-rl/blob/master/flatland/envs/observations.py#L18) observation
+builder. A feature of this class is that on `reset()`, it pre-computes the lengths of the shortest paths from all cells and orientations to the target of each
+agent, i.e. a distance map for each agent.
 
 In this example we exploit these distance maps by implementing an observation builder that shows the current shortest path for each agent
-as a one-hot observation vector of length 3, whose components represent the possible directions an agent can take (`LEFT`, `FORWARD`, `RIGHT`). All values of the observation vector are set to `0` except for the shortest direction where it is set to `1`.
+as a one-hot observation vector of length 3, whose components represent the possible directions an agent can take (`LEFT`, `FORWARD`, `RIGHT`). All values of
+the observation vector are set to `0` except for the shortest direction where it is set to `1`.
 
 Using this observation with highly engineered features indicating the agent's shortest path, an agent can then learn to take the corresponding
 action at each time-step; or we could even hardcode the optimal policy. Note that this simple strategy fails when multiple agents are present,
@@ -73,6 +216,7 @@ this context.
 
 ```python
 from flatland.envs.observations import TreeObsForRailEnv
+
 
 class SingleAgentNavigationObs(TreeObsForRailEnv):
     """
@@ -84,6 +228,7 @@ class SingleAgentNavigationObs(TreeObsForRailEnv):
     E.g., if taking the Left branch (if available) is the shortest route to the agent's target, the observation vector
     will be [1, 0, 0].
     """
+
     def __init__(self):
         super().__init__(max_depth=0)
         # We set max_depth=0 in because we only need to look at the current
@@ -120,6 +265,7 @@ class SingleAgentNavigationObs(TreeObsForRailEnv):
 
         return observation
 
+
 env = RailEnv(width=30,
               height=30,
               number_of_agents=2,
@@ -134,7 +280,8 @@ for i in range(env.get_num_agents()):
     print(obs[i])
 ```
 
-Finally, the following is an example of hard-coded navigation for single agents that achieves optimal single-agent navigation to target, and shows the path taken as an animation.
+Finally, the following is an example of hard-coded navigation for single agents that achieves optimal single-agent navigation to target, and shows the path
+taken as an animation.
 
 ```python
 env = RailEnv(width=30,
@@ -151,30 +298,40 @@ env_renderer = RenderTool(env)
 env_renderer.render_env(show=True, frames=True, show_observations=False)
 
 for step in range(100):
-    action = np.argmax(obs[0])+1
-    obs, all_rewards, done, _ = env.step({0:action})
+    action = np.argmax(obs[0]) + 1
+    obs, all_rewards, done, _ = env.step({0: action})
     print("Rewards: ", all_rewards, "  [done=", done, "]")
 
     env_renderer.render_env(show=True, frames=True, show_observations=False)
     time.sleep(0.1)
 ```
 
-The code sample above is available in [`custom_observation_example_02_SingleAgentNavigationObs.py`](https://github.com/flatland-association/flatland-rl/blob/master/examples/custom_observation_example_02_SingleAgentNavigationObs.py).
+The code sample above is available in [
+`custom_observation_example_02_SingleAgentNavigationObs.py`](https://github.com/flatland-association/flatland-rl/blob/master/examples/custom_observation_example_02_SingleAgentNavigationObs.py).
 
 Using predictors and rendering observations
 -------------------------------------------
 
-Because the re-scheduling task of the [Flatland challenge](https://www.aicrowd.com/challenges/neurips-2020-flatland-challenge/) requires some short term planning, we allow the possibility to use custom predictors that help predict upcoming conflicts and help agent solve them in a timely manner. 
+Because the re-scheduling task of the [Flatland challenge](https://www.aicrowd.com/challenges/neurips-2020-flatland-challenge/) requires some short term
+planning, we allow the possibility to use custom predictors that help predict upcoming conflicts and help agent solve them in a timely manner.
 
-The Flatland environment comes with a built-in predictor called [`ShortestPathPredictorForRailEnv`](https://github.com/flatland-association/flatland-rl/blob/master/flatland/envs/predictions.py#L85), to give you an idea what you can do with these predictors.
+The Flatland environment comes with a built-in predictor called [
+`ShortestPathPredictorForRailEnv`](https://github.com/flatland-association/flatland-rl/blob/master/flatland/envs/predictions.py#L85), to give you an idea what
+you can do with these predictors.
 
-Any custom predictor can be passed to the observation builder and will then be used to build the observation. In this example we will illustrate how an observation builder can be used to detect conflicts using a predictor.
+Any custom predictor can be passed to the observation builder and will then be used to build the observation. In this example we will illustrate how an
+observation builder can be used to detect conflicts using a predictor.
 
-Note that the toy `ObservePredictions` observation we will create only contains information about potential conflicts and has no feature about the agents' objectives, so it wouldn't be sufficient to solve real tasks!
+Note that the toy `ObservePredictions` observation we will create only contains information about potential conflicts and has no feature about the agents'
+objectives, so it wouldn't be sufficient to solve real tasks!
 
-You can also render your custom observation or predictor information as an overlay on the environment. All you need to do in order to render your custom observation is to populate `self.env.dev_obs_dict[handle]` for every agent (all handles). For the predictor, you can similarly use `self.env.dev_pred_dict[handle]`.
+You can also render your custom observation or predictor information as an overlay on the environment. All you need to do in order to render your custom
+observation is to populate `self.env.dev_obs_dict[handle]` for every agent (all handles). For the predictor, you can similarly use
+`self.env.dev_pred_dict[handle]`.
 
-In contrast to the previous examples, we also implement the `def get_many(self, handles=None)` function for this custom observation builder. The reasoning here is that we want to call the predictor only once per `env.step()`. The base implementation of `def get_many(self, handles=None)` will call the `get(handle)` function for all handles, which mean that it normally does not need to be reimplemented, except for cases such as this one.
+In contrast to the previous examples, we also implement the `def get_many(self, handles=None)` function for this custom observation builder. The reasoning here
+is that we want to call the predictor only once per `env.step()`. The base implementation of `def get_many(self, handles=None)` will call the `get(handle)`
+function for all handles, which mean that it normally does not need to be reimplemented, except for cases such as this one.
 
 ```python
 class ObservePredictions(TreeObsForRailEnv):
@@ -240,7 +397,7 @@ class ObservePredictions(TreeObsForRailEnv):
 
         # We track what cells where considered while building the observation and make them accessible for rendering
         visited = set()
-        
+
         for _idx in range(10):
             # Check if any of the other prediction overlap with agents own predictions
             x_coord = self.predictions[handle][_idx][1]
@@ -294,9 +451,11 @@ for step in range(100):
     time.sleep(0.5)
 ```
 
-The code sample above is available in [`custom_observation_example_03_ObservePredictions.py`](https://github.com/flatland-association/flatland-rl/blob/master/examples/custom_observation_example_03_ObservePredictions.py).
+The code sample above is available in [
+`custom_observation_example_03_ObservePredictions.py`](https://github.com/flatland-association/flatland-rl/blob/master/examples/custom_observation_example_03_ObservePredictions.py).
 
 Going further
 ---
 
-When building your custom observation builder, you might want to aggregate and define your own features that are different from the raw environment data. The [next section](environment_information) explains how to access such information.
+When building your custom observation builder, you might want to aggregate and define your own features that are different from the raw environment data.
+The [next section](environment_information) explains how to access such information.
