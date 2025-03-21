@@ -7,9 +7,10 @@ set -x
 FLATLAND_MODULE_PATH=$(python -c 'import os; import importlib; print(os.path.dirname(importlib.import_module("flatland").__file__))')
 FLATLAND_MODULE_VERSION=$(python -c "import flatland; print(flatland.__version__)")
 
-cp ${FLATLAND_MODULE_PATH}/../notebooks/rllib_demo.ipynb tutorials/rl
-cp ${FLATLAND_MODULE_PATH}/../notebooks/graph_demo.ipynb environment/environment
-# TODO activate with 4.0.6
+# TODO copy from flatland-rl
+#cp ${FLATLAND_MODULE_PATH}/../notebooks/rllib_demo.ipynb tutorials/rl
+#cp ${FLATLAND_MODULE_PATH}/../notebooks/graph_demo.ipynb environment/environment
+#cp ${FLATLAND_MODULE_PATH}/../notebooks/Agent-Close-Following.ipynb environment/environment
 #cp -R ${FLATLAND_MODULE_PATH}/../notebooks/images/ environment/environment/images/
 
 sphinx-apidoc --force -a -e -o apidocs ${FLATLAND_MODULE_PATH}  -H "Flatland ${FLATLAND_MODULE_VERSION} API Reference" --tocfile 'index'
@@ -22,7 +23,7 @@ else
   find . -name "*.md" -print0 | xargs -0  sed -i 's/```mermaid/```{mermaid}/g'
 fi
 jupyter-book clean .
-jupyter book build .
+jupyter-book build .
 
 # revert tweak mermaid directives for sphinx
 if [ "$(uname)" == "Darwin" ]; then

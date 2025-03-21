@@ -26,11 +26,13 @@ parts:
       - file: environment/environment_information
         sections:
           - file: environment/environment/state_machine
-          - file: environment/environment/Agent-Close-Following
-          - file: environment/environment/graph_demo
           - file: environment/environment/stochasticity
           - file: environment/environment/speed_profiles
+          - file: environment/environment/Agent-Close-Following
+          - file: environment/environment/graph_demo
 
+
+# TODO
 #            Actions
 #            Rewards
 #            Agent
@@ -59,6 +61,7 @@ parts:
       - file: tutorials/rl
         sections:
           - file: tutorials/rl/rllib_demo
+          - file: tutorials/rl/pettingzoo_demo
 
   ## CHALLENGES
   - caption: Challenges

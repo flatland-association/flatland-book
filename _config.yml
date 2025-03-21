@@ -27,4 +27,4 @@ repository:
   branch: main
 
 execute:
-  execute_notebooks: auto
+  execute_notebooks: off
