@@ -7,10 +7,12 @@ set -x
 FLATLAND_MODULE_PATH=$(python -c 'import os; import importlib; print(os.path.dirname(importlib.import_module("flatland").__file__))')
 FLATLAND_MODULE_VERSION=$(python -c "import flatland; print(flatland.__version__)")
 
-# TODO copy from flatland-rl
-#cp ${FLATLAND_MODULE_PATH}/../notebooks/rllib_demo.ipynb tutorials/rl
-#cp ${FLATLAND_MODULE_PATH}/../notebooks/graph_demo.ipynb environment/environment
+# TODO copy from flatland-rl - which ones to run and which ones to cache?
+cp assets/images/graph_to_digraph.drawio.png environment/environment/images/graph_to_digraph.drawio.png
+cp ${FLATLAND_MODULE_PATH}/../notebooks/graph_demo.ipynb environment/environment
+
 #cp ${FLATLAND_MODULE_PATH}/../notebooks/Agent-Close-Following.ipynb environment/environment
+# TODO waiting for 4.0.7 pr and copy from there
 #cp -R ${FLATLAND_MODULE_PATH}/../notebooks/images/ environment/environment/images/
 
 sphinx-apidoc --force -a -e -o apidocs ${FLATLAND_MODULE_PATH}  -H "Flatland ${FLATLAND_MODULE_VERSION} API Reference" --tocfile 'index'
@@ -33,6 +35,6 @@ else
   find . -name "*.md" -print0 | xargs -0  sed -i 's/```{mermaid}/```mermaid/g'
 fi
 
-find _build -name "*.ipynb" -print0 | xargs -0  --no-run-if-empty grep -E "ImportError|KeyboardInterrupt" || true
-NUM=$(find _build -name "*.ipynb" -print0 | xargs -0  --no-run-if-empty grep -E "ImportError|KeyboardInterrupt" | wc -l)
+find _build -name "*.ipynb" -print0 | xargs -0  --no-run-if-empty grep -E "ImportError|KeyboardInterrupt|AttributeError|ModuleNotFoundError" || true
+NUM=$(find _build -name "*.ipynb" -print0 | xargs -0  --no-run-if-empty grep -E "ImportError|KeyboardInterrupt|AttributeError|ModuleNotFoundError" | wc -l)
 exit ${NUM}

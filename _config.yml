@@ -3,15 +3,26 @@ title: ""
 author: The Flatland Community
 logo: assets/images/flatland-logo.svg
 
-latex:
-  latex_documents:
-    targetname: book.tex
+
 
 sphinx:
+  config:
+    # https://github.com/mgaitan/sphinxcontrib-mermaid
+    # https://github.com/mgaitan/sphinxcontrib-mermaid/blob/ceddc68e62ff1f032e1314f471df52114ed31fd7/sphinxcontrib/mermaid/__init__.py#L44
+    # https://stackoverflow.com/questions/79123430/rendering-icons-in-mermaid-architecture-diagram
+    # overriding mermaid_init_js seems not to add elkLayout any more, need to tweak as follows,see https://github.com/mgaitan/sphinxcontrib-mermaid/issues/172:
+    # icon sets at https://github.com/iconify/icon-sets/blob/HEAD/collections.md
+    mermaid_init_js: |
+      import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";import elkLayouts from "https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs";mermaid.registerLayoutLoaders(elkLayouts);
+      mermaid.initialize({startOnLoad:false}); mermaid.registerIconPacks([ { name: "logos", loader: () => fetch("https://unpkg.com/@iconify-json/logos@1/icons.json").then((res) => res.json()), }, { name: "ip", loader: () => fetch("https://raw.githubusercontent.com/iconify/icon-sets/04057d97799c7874eda5d8d5de23ea6c4cb34473/json/icon-park.json").then((res) => res.json()), },]);
+
+
   extra_extensions:
     - sphinx.ext.autodoc
     - sphinx.ext.viewcode
     - sphinxcontrib.mermaid
+
+# https://jupyterbook.org/en/stable/advanced/html.html
 html:
   favicon: assets/images/favicon.ico
   google_analytics_id: UA-132885496-4
@@ -20,11 +31,22 @@ html:
   use_edit_page_button: true
   use_issues_button: true
 
-
+# https://jupyterbook.org/en/stable/basics/repository.html
 repository:
   url: https://github.com/flatland-association/flatland-book
   provider: github
   branch: main
 
+# https://jupyterbook.org/en/stable/content/execute.html
 execute:
-  execute_notebooks: off
+  execute_notebooks: auto
+  exclude_patterns:
+    # take too long or too many dependencies - make sure to have good coverage in flatland-rl for these code parts
+    - "rllib_demo.ipynb"
+    - "pettingzoo_demo.ipynb"
+    - "Agent-Close-Following.ipynb"
+
+
+# https://jupyterbook.org/en/stable/interactive/launchbuttons.html
+launch_buttons:
+  colab_url: "https://colab.research.google.com"

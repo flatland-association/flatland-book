@@ -1,1 +1,6 @@
 _build/
+/environment/environment/images/graph_to_digraph.drawio.png
+/environment/environment/graph_demo.ipynb
+.ipynb_checkpoints
+/apidocs/
+/.idea/
