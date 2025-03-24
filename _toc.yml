@@ -24,11 +24,10 @@ parts:
     chapters:
       - file: environment/environment_information
         sections:
+          - file: environment/environment/transitions
           - file: environment/environment/actions
           - file: environment/environment/rewards
           - file: environment/environment/agent
-          - file: environment/environment/transitions
-          - file: environment/environment/state_machine
           - file: environment/environment/stochasticity
           - file: environment/environment/speed_profiles
           - file: environment/environment/Agent-Close-Following
