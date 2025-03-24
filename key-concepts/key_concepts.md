@@ -22,14 +22,16 @@ service evaluator(ip:checklist)[Evaluator] in flatland
 service runner(ip:refresh-one)[Runner] in flatland
 
 service railEnv(ip:train)[RailEnv] in flatland
+service scenarios(ip:database-config)[Scenarios] in flatland
 service policy(ip:six-circular-connection)[AI or OR Agent] in ai
 service interactiveAI(ip:map-two)[InteractiveAI] in ui
-service operator(ip:user)[Operator]
+service operator(ip:user)[Operator] in ui
 
 algorithmicResearcher:B -- T:runner
 algorithmicResearcher:B -- T:evaluator
 runner:R -- L:railEnv
 runner:L -- R:evaluator
+scenarios:T -- B:runner
 railEnv:T -- B:policy
 railEnv:R -- L:interactiveAI
 interactiveAI:R -- L:operator
@@ -38,12 +40,14 @@ interactiveAI:R -- L:operator
 High-Level Runtime View
 -----------------------
 
+
+
 Notation: [Mermaid Sequence Diagram](https://mermaid.js.org/syntax/sequenceDiagram.html)
 
 ```mermaid
 sequenceDiagram
-    
     participant Runner
+    participant Scenarios
     participant Evaluator
     participant RailEnv
     actor Algorithmic Researcher
@@ -55,6 +59,7 @@ sequenceDiagram
         participant Runner
         participant Evaluator
         participant RailEnv
+        participant Scenarios
     end
 
     box Algorithmic Research
@@ -68,6 +73,8 @@ sequenceDiagram
     end
 
     Algorithmic Researcher -) Runner: scenario
+    Runner ->> Scenarios: scenario ID
+    Scenarios -->> Runner: scenario
     loop scenario
         Runner ->> AI or OR Agent: observations
         AI or OR Agent -->> Runner: actions
