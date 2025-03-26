@@ -21,8 +21,10 @@ sphinx-apidoc --force -a -e -o apidocs ${FLATLAND_MODULE_PATH}  -H "Flatland ${F
 if [ "$(uname)" == "Darwin" ]; then
   # sed works differently under macOS...
   find . -name "*.md" -print0 | xargs -0  sed -i '' 's/```mermaid/```{mermaid}/g'
+  find . -name "*.ipynb" -print0 | xargs -0  sed -i '' 's/```mermaid/```{mermaid}/g'
 else
   find . -name "*.md" -print0 | xargs -0  sed -i 's/```mermaid/```{mermaid}/g'
+  find . -name "*.ipynb" -print0 | xargs -0  sed -i 's/```mermaid/```{mermaid}/g'
 fi
 jupyter-book clean .
 jupyter-book build .
@@ -31,8 +33,10 @@ jupyter-book build .
 if [ "$(uname)" == "Darwin" ]; then
   # sed works differently under macOS...
   find . -name "*.md" -print0 | xargs -0  sed -i '' 's/```{mermaid}/```mermaid/g'
+  find . -name "*.ipynb" -print0 | xargs -0  sed -i '' 's/```{mermaid}/```mermaid/g'
 else
   find . -name "*.md" -print0 | xargs -0  sed -i 's/```{mermaid}/```mermaid/g'
+  find . -name "*.ipynb" -print0 | xargs -0  sed -i 's/```{mermaid}/```mermaid/g'
 fi
 
 find _build -name "*.ipynb" -print0 | xargs -0  --no-run-if-empty grep -E "ImportError|KeyboardInterrupt|AttributeError|ModuleNotFoundError" || true
