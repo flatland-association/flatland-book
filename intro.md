@@ -38,6 +38,21 @@ while True:
 EOF
 ```
 
+Features
+---------
+The Flatland environment provides simplistic representation of a rail network on a grid world to address the vehicle rescheduling problem (VRSP):
+
+ 
+* 🔬Flatland is used to develop reinforcement learning (RL) solutions to the VRSP
+* 🕹️️Trains are agents with a limited action space (⏸️⬅️⬆️➡️⏹️)
+* ⏰ Agents have schedules for their origin, destination and intermediate stops 
+* 🛤️Railway network includes switches, slips, crossings and over-/underpasses
+* 👀  what can each agent "see"?
+* 🌟Rewards: what is the metric used to evaluate the agents?
+* 🗺Translation from grid representation of the network to a graph representation is implemented
+* 🚨Agents have variable speed profiles
+* 🔥Agents can be disrupted (in malfunction)
+
 📑 Flatland Paper
 ---
 
