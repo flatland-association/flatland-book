@@ -230,22 +230,32 @@ Notation: [Mermaid Sequence Diagram](https://mermaid.js.org/syntax/sequenceDiagr
 flowchart TD
     subgraph rail_env.step
         direction TB
-        start(("&nbsp;")) --> pre_step_loop
+        start(("&nbsp;")) --> effects_generator.on_episode_step_start
+        effects_generator.on_episode_step_start --> pre_step_loop
         subgraph pre_step_loop_ [pre step loop]
-            pre_step_loop{Agent loop:<br/> more agents?} -->|yes| preprocess_action
-            preprocess_action --> motionCheck.addAgent
-            motionCheck.addAgent --> pre_step_loop
+            pre_step_loop{Agent loop:<br/> more agents?} -->|yes| malfunction_handler.generate_malfunction
+            malfunction_handler.generate_malfunction --> preprocess_action
+            preprocess_action --> compute_position_direction_speed_update
+            compute_position_direction_speed_update --> motion_check.addAgent
+            motion_check.addAgent --> pre_step_loop
         end
-        pre_step_loop -->|no| find_conflicts
-        find_conflicts --> step_loop
+        pre_step_loop -->|no| motion_check.find_conflicts
+        motion_check.find_conflicts --> step_loop
         subgraph step_loop_ [step loop]
-            step_loop{Agent loop:<br/> more agents?} -->|yes| check_motion
-            check_motion --> state_machen.step
-            state_machen.step --> step_loop
+            step_loop{Agent loop:<br/> more agents?} -->|yes| motion_check.check_motion
+            motion_check.check_motion --> state_machen.step
+            state_machen.step --> update_position_direction_speed
+            update_position_direction_speed --> handle_done_state
+            handle_done_state --> step_reward
+            step_reward --> malfunction_handler.update_counter
+            malfunction_handler.update_counter --> agent_step_validate_invariants
+            agent_step_validate_invariants --> step_loop
         end
         step_loop -->|no| end_of_episode_update
-        end_of_episode_update --> record_steps
-        record_steps --> get_observations
+        end_of_episode_update --> step_validate_invariants
+        step_validate_invariants --> record_steps
+        record_steps --> effects_generator.on_episode_step_end
+        effects_generator.on_episode_step_end --> get_observations
         get_observations --> get_info_dict
         get_info_dict -->|observations,rewards,infos| end_((("&nbsp;")))
     end
@@ -257,13 +267,37 @@ flowchart TD
     end
     style MotionCheck fill: #ffe, stroke: #333, stroke-width: 1px, color: black
     style find_conflicts fill: #ffe, stroke: #333, stroke-width: 1px, color: black
-    style check_motion fill: #ffe, stroke: #333, stroke-width: 1px, color: black
+    style motion_check.check_motion fill: #ffe, stroke: #333, stroke-width: 1px, color: black
+    style motion_check.find_conflicts fill: #ffe, stroke: #333, stroke-width: 1px, color: black
+    style motion_check.addAgent fill: #ffe, stroke: #333, stroke-width: 1px, color: black
     style RailEnvAgent fill: #fcc, stroke: #333, stroke-width: 1px, color: black
     style state_machen.step fill: #fcc, stroke: #000, stroke-width: 1px, color: black
     style ObservationBuilder fill: #90ee90, stroke: #000, stroke-width: 1px, color: black
     style get_observations fill: #90ee90, stroke: #000, stroke-width: 1px, color: black
     rail_env.step ~~~ legend
 ```
+
+| step                                     | description                                                                                                                                                                                                                                                                                                                                             |
+|------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| effects_generator.on_episode_step_start  | Hook for external events modifying the env (state) before observations and rewards are computed.                                                                                                                                                                                                                                                        |
+| malfunction_handler.generate_malfunction | Draw malfunctions                                                                                                                                                                                                                                                                                                                                       |
+| preprocess_action                        | 1. Change to DO_NOTHING if illegal action (not one of the defined action); <br/> 2. Check MOVE_LEFT/MOVE_RIGHT actions on current position else try MOVE_FORWARD; <br/>  3. Change to STOP_MOVING if the movement is not possible in the grid (e.g. if MOVE_FORWARD in a symmetric switch or MOVE_LEFT in straight element or leads outside of bounds). |
+| compute_position_direction_speed_update  | Based on preprocessed action and current state, compute next position/direction/speed unilaterally.                                                                                                                                                                                                                                                     |
+| motion_check.addAgent                    | Register the new position/direction with the MotionCheck conflict resolution.                                                                                                                                                                                                                                                                           |
+| motion_check.find_conflicts              | Find and resolve conflicts.                                                                                                                                                                                                                                                                                                                             |
+| motion_check.check_motion                | Check whether the next position/direction is possible given the other agents' desired updates.                                                                                                                                                                                                                                                          |
+| state_machen.step                        | With MotionCheck's decision for this agent, do agent state machine transition.                                                                                                                                                                                                                                                                          |
+| update_position_direction_speed          | Based on the new state, update position/direction/speed.                                                                                                                                                                                                                                                                                                |
+| handle_done_state                        | Based on the new position, check whether target is reached and remove agent if `remove_agents_at_target` is set in the env.                                                                                                                                                                                                                             |
+| step_reward                              | Compute step rewards.                                                                                                                                                                                                                                                                                                                                   |
+| malfunction_handler.update_counter       | Update current malfunctions.                                                                                                                                                                                                                                                                                                                            |
+| agent_step_validate_invariants           | Validate invariants at agent level, in particular check for whether on map and off map states are matching with position being None                                                                                                                                                                                                                     |
+| end_of_episode_update                    | Have all agents terminated?                                                                                                                                                                                                                                                                                                                             |
+| step_validate_invariants                 | Validate overall  invariants, in particular verify that no two agents occupy the same cell (apart from level-free diamond crossings).                                                                                                                                                                                                                   |
+| record_steps                             | Records steps.                                                                                                                                                                                                                                                                                                                                          |
+| effects_generator.on_episode_step_end    | Hook for external events modifying the env (state) before observations and rewards are computed.                                                                                                                                                                                                                                                        |
+| get_observations                         | Call observation builder for all agents.                                                                                                                                                                                                                                                                                                                |
+| get_info_dict                            | Prepare infos for all agents.                                                                                                                                                                                                                                                                                                                           |
 
 Runtime View Env Reset
 ----------------------
@@ -281,7 +315,10 @@ flowchart TD
         generate_rail --> generate_line
         generate_line --> generate_timetable
         generate_timetable --> reset_agents
-        reset_agents -->|observations,infos| end_((("&nbsp;")))
+        reset_agents --> effects_generator.on_episode_start
+        effects_generator.on_episode_start --> get_info_dict
+        get_info_dict --> get_observations
+        get_observations -->|observations,infos| end_((("&nbsp;")))
     end
 
 ```
