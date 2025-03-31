@@ -6,6 +6,14 @@ We use the terms from [arc42](https://docs.arc42.org/section-7/) for the differe
 
 [//]: # (icon-park icons from  &#40;https://icones.js.org/collection/icon-park&#41;)
 
+Flatland Code Repositories
+--------------------------
+
+* [**flatland-rl**](https://github.com/flatland-association/flatland-rl) contains the environment and evaluation code
+* [**flatland-baselines**](https://github.com/flatland-association/flatland-baselines) contains baseline controllers/agents
+* [**flatland-scenarios**](https://github.com/flatland-association/flatland-scenarios) contains scenarios for illustration, regression testing and benchmarking
+* [**flatland-book**](https://github.com/flatland-association/flatland-book) contains the source code for this documentation
+
 Context View
 ------------
 
@@ -43,7 +51,6 @@ High-Level Runtime View
 
 
 Notation: [Mermaid Sequence Diagram](https://mermaid.js.org/syntax/sequenceDiagram.html)
-
 
 ```mermaid
 sequenceDiagram
@@ -96,8 +103,6 @@ Building Block View
 -------------------
 
 Notation: [Mermaid Class Diagram](https://mermaid.js.org/syntax/classDiagram.html)
-
-
 
 ```mermaid
 classDiagram
