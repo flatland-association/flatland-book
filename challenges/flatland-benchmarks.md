@@ -2,7 +2,7 @@ Flatland Benchmarks
 ===================
 
 
-Flatland 3 Benchmarks are hosted at [fab.flatland.cloud](https://fab.flatland.cloud).
+Flatland 3 Benchmarks are hosted at [benchmarks.flatland.cloud](https://benchmarks.flatland.cloud).
 Flatland 3 Benchmarks follow up on the [Flatland 3 Challenge](https://flatland-association.github.io/flatland-book/challenges/flatland3.html).
 More precisely, Flatland 3 Benchmarks follow Flatland 3 Challenge's
 [Round 2 Environment Configurations](https://flatland-association.github.io/flatland-book/challenges/flatland3/envconfig.html#round-2), having the same
