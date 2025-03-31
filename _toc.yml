@@ -33,10 +33,6 @@ parts:
           - file: environment/environment/Agent-Close-Following
           - file: environment/environment/graph_demo
       - file: environment/scenario_generation
-        sections:
-          - file: environment/scenario_generation/rail
-          - file: environment/scenario_generation/line
-          - file: environment/scenario_generation/timetable
       - file: environment/observation_builder
         sections:
           - file: environment/observation_builder/provided_observations

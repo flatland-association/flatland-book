@@ -19,14 +19,10 @@ This raises a number of questions:
 * 🌟 [**Rewards:**](./environment/rewards) what is the metric used to evaluate the agents?
 * 🔥[**Stochasticity**](environment/stochasticity.md) how often and for how long trains will malfunction? Agents can be disrupted (in malfunction)
 
-
-🚉 concepts introduced in 4.0.5 and 4.0.6
+🚉 New concepts introduced in 4.0.5 and 4.0.6
 ---------------------------------------------
 
-
-
 ### 🕹⏫ Variable Speed
-
 
 > This feature was introduced in [4.0.6](https://github.com/flatland-association/flatland-rl/pull/136)
 
