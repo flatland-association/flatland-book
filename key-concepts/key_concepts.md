@@ -230,31 +230,31 @@ Notation: [Mermaid Sequence Diagram](https://mermaid.js.org/syntax/sequenceDiagr
 flowchart TD
     subgraph rail_env.step
         direction TB
-        start(("&nbsp;")) --> effects_generator.on_episode_step_start
+        start(("&nbsp;")) --> effects_generator.on_episode_step_start[effects_generator<br/>.on_episode_step_start]
         effects_generator.on_episode_step_start --> pre_step_loop
         subgraph pre_step_loop_ [pre step loop]
-            pre_step_loop{Agent loop:<br/> more agents?} -->|yes| malfunction_handler.generate_malfunction
-            malfunction_handler.generate_malfunction --> preprocess_action
-            preprocess_action --> compute_position_direction_speed_update
+            pre_step_loop{Agent loop:<br/> more agents?} -->|yes| generate_malfunction[malfunction_handler<br/>.generate_malfunction]
+            generate_malfunction --> preprocess_action
+            preprocess_action --> compute_position_direction_speed_update[compute_<br/>position_direction_speed_<br/>update]
             compute_position_direction_speed_update --> motion_check.addAgent
             motion_check.addAgent --> pre_step_loop
         end
-        pre_step_loop -->|no| motion_check.find_conflicts
+        pre_step_loop -->|no| motion_check.find_conflicts[motion_check<br/>.find_conflicts]
         motion_check.find_conflicts --> step_loop
         subgraph step_loop_ [step loop]
-            step_loop{Agent loop:<br/> more agents?} -->|yes| motion_check.check_motion
-            motion_check.check_motion --> state_machen.step
-            state_machen.step --> update_position_direction_speed
+            step_loop{Agent loop:<br/> more agents?} -->|yes| motion_check.check_motion[motion_check<br/>.check_motion]
+            motion_check.check_motion --> state_machine.step
+            state_machine.step --> update_position_direction_speed[update_<br/>position_direction_speed]
             update_position_direction_speed --> handle_done_state
             handle_done_state --> step_reward
-            step_reward --> malfunction_handler.update_counter
-            malfunction_handler.update_counter --> agent_step_validate_invariants
+            step_reward --> malfunction_handler.update_counter[malfunction_handler<br/>.update_counter]
+            malfunction_handler.update_counter --> agent_step_validate_invariants[agent_step_<br/>validate_invariants]
             agent_step_validate_invariants --> step_loop
         end
         step_loop -->|no| end_of_episode_update
-        end_of_episode_update --> step_validate_invariants
+        end_of_episode_update --> step_validate_invariants[step_<br/>validate_invariants]
         step_validate_invariants --> record_steps
-        record_steps --> effects_generator.on_episode_step_end
+        record_steps --> effects_generator.on_episode_step_end[effects_generator<br/>.on_episode_step_end]
         effects_generator.on_episode_step_end --> get_observations
         get_observations --> get_info_dict
         get_info_dict -->|observations,rewards,infos| end_((("&nbsp;")))
@@ -266,12 +266,11 @@ flowchart TD
         ObservationBuilder(ObservationBuilder)
     end
     style MotionCheck fill: #ffe, stroke: #333, stroke-width: 1px, color: black
-    style find_conflicts fill: #ffe, stroke: #333, stroke-width: 1px, color: black
     style motion_check.check_motion fill: #ffe, stroke: #333, stroke-width: 1px, color: black
     style motion_check.find_conflicts fill: #ffe, stroke: #333, stroke-width: 1px, color: black
     style motion_check.addAgent fill: #ffe, stroke: #333, stroke-width: 1px, color: black
     style RailEnvAgent fill: #fcc, stroke: #333, stroke-width: 1px, color: black
-    style state_machen.step fill: #fcc, stroke: #000, stroke-width: 1px, color: black
+    style state_machine.step fill: #fcc, stroke: #000, stroke-width: 1px, color: black
     style ObservationBuilder fill: #90ee90, stroke: #000, stroke-width: 1px, color: black
     style get_observations fill: #90ee90, stroke: #000, stroke-width: 1px, color: black
     rail_env.step ~~~ legend
@@ -286,7 +285,7 @@ flowchart TD
 | motion_check.addAgent                    | Register the new position/direction with the MotionCheck conflict resolution.                                                                                                                                                                                                                                                                           |
 | motion_check.find_conflicts              | Find and resolve conflicts.                                                                                                                                                                                                                                                                                                                             |
 | motion_check.check_motion                | Check whether the next position/direction is possible given the other agents' desired updates.                                                                                                                                                                                                                                                          |
-| state_machen.step                        | With MotionCheck's decision for this agent, do agent state machine transition.                                                                                                                                                                                                                                                                          |
+| state_machine.step                        | With MotionCheck's decision for this agent, do agent state machine transition.                                                                                                                                                                                                                                                                          |
 | update_position_direction_speed          | Based on the new state, update position/direction/speed.                                                                                                                                                                                                                                                                                                |
 | handle_done_state                        | Based on the new position, check whether target is reached and remove agent if `remove_agents_at_target` is set in the env.                                                                                                                                                                                                                             |
 | step_reward                              | Compute step rewards.                                                                                                                                                                                                                                                                                                                                   |
