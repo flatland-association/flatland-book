@@ -7,29 +7,22 @@ The goal in Flatland is simple:
 
 This raises a number of questions:
 
-- 🗺 [**Environment**](./environment/transitions) where are the agents and where can they go?
-- ↔️[**Actions:**](./environment/actions) what can the agents do?
-- 👀 [**Observations:**](./observation_builder) what can each agent "see"?
-- 🌟[**Rewards:**](./environment/rewards) what is the metric used to evaluate the agents?
+* 🛤️ [**Environment**](./environment/transitions) where are the agents and where can they go? Railway network includes switches, slips, crossings and
+  over-/underpasses
+    * 🗺 Translation from grid representation of the network to a graph representation is implemented
+* 🕹️ [**Actions:**](./environment/actions) what can the agents do? Trains are agents with a limited action space (⬆️⬅️➡️⏸️⏹️)
+    * ⏫ how can agents control speed? Agents have variable speed profiles
+* 👀 [**Observations:**](./observation_builder) what can each agent "see"?
+* ⏰ [**Scenario Generatior**](scenario_generation.md) which trains are there and what are they supposed to do? Agents have schedules for their origin,
+  destination and intermediate stops
+    * 🚄 How fast can trains run? Agents have multiple speed profiles
+* 🌟 [**Rewards:**](./environment/rewards) what is the metric used to evaluate the agents?
+* 🔥[**Stochasticity**](environment/stochasticity.md) how often and for how long trains will malfunction? Agents can be disrupted (in malfunction)
 
-🚉 Other concepts
------------------
+🚉 New concepts introduced in 4.0.5 and 4.0.6
+---------------------------------------------
 
-### Stochasticity
-
-An important aspect of these levels will be their **stochasticity**, which means how often and for how long trains will malfunction. Malfunctions force the
-agents to reconsider their plans, which can be costly.
-
-**[🔗 Adjust stochasticity](../environment/environment/stochasticity.md)**
-
-### Speed profiles
-
-Finally, trains in real railway networks don't all move at the same speed. A freight train will for example be slower than a passenger train. This is an
-important consideration, as you want to avoid scheduling a fast train behind a slow train!
-
-**[🔗 Tune speed profiles](../environment/environment/speed_profiles.md)**
-
-### Variable Speed Profiles
+### 🕹⏫ Variable Speed
 
 > This feature was introduced in [4.0.6](https://github.com/flatland-association/flatland-rl/pull/136)
 
@@ -53,7 +46,7 @@ A penalty can be configured to reward function penalizing if a train enters a ce
 * configurable penalty if trains "crash" (if the env needs to force-stop-them), penalty proportional to train's speed.
 * extract reward handling to separate (testable) class
 
-### Multi-stop Schedules (w/o alternatives/routing flexibility)
+### ⏰📉 Multi-stop Schedules (w/o alternatives/routing flexibility)
 
 > This feature was introduced in [4.0.5](https://github.com/flatland-association/flatland-rl/pull/124)
 
@@ -76,7 +69,7 @@ Schedule generator can be configured with number of intermediate targets.
     - `intermediate_early_departure_penalty_factor`
 * Allow for line length in `sparse_line_generator` (same for all agents).
 
-### Over- and underpasses (aka. level-free diamond crossings)
+### 🛤🎢Over- and underpasses (aka. level-free diamond crossings)
 
 > This feature was introduced in [4.0.5](https://github.com/flatland-association/flatland-rl/pull/120)
 

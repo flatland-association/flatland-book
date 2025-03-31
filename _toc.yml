@@ -24,20 +24,15 @@ parts:
     chapters:
       - file: environment/environment_information
         sections:
+          - file: environment/environment/transitions
           - file: environment/environment/actions
           - file: environment/environment/rewards
           - file: environment/environment/agent
-          - file: environment/environment/transitions
-          - file: environment/environment/state_machine
           - file: environment/environment/stochasticity
           - file: environment/environment/speed_profiles
           - file: environment/environment/Agent-Close-Following
           - file: environment/environment/graph_demo
       - file: environment/scenario_generation
-        sections:
-          - file: environment/scenario_generation/rail
-          - file: environment/scenario_generation/line
-          - file: environment/scenario_generation/timetable
       - file: environment/observation_builder
         sections:
           - file: environment/observation_builder/provided_observations
@@ -98,3 +93,4 @@ parts:
       - file: misc/external-resources
       - file: misc/contributing
       - file: misc/credits
+

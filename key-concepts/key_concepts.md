@@ -2,20 +2,90 @@ Key Concepts
 ============
 To help you get a high-level understanding of how the Flatland works, on this page, you learn about the key concepts and general architecture.
 
+We use the terms from [arc42](https://docs.arc42.org/section-7/) for the different views.
+
+[//]: # (icon-park icons from  &#40;https://icones.js.org/collection/icon-park&#41;)
+
+Flatland Code Repositories
+--------------------------
+
+* [**flatland-rl**](https://github.com/flatland-association/flatland-rl) contains the environment and evaluation code
+* [**flatland-baselines**](https://github.com/flatland-association/flatland-baselines) contains baseline controllers/agents
+* [**flatland-scenarios**](https://github.com/flatland-association/flatland-scenarios) contains scenarios for illustration, regression testing and benchmarking
+* [**flatland-book**](https://github.com/flatland-association/flatland-book) contains the source code for this documentation
+
+Context View
+------------
+
+Notation: [Mermaid Architecture Diagram](https://mermaid.js.org/syntax/architecture.html)
+
+```mermaid
+architecture-beta
+group flatland(ip:railway)[Flatland]
+group ai(ip:brain)[Algorithmic Research]
+group ui(ip:data-user)[User Interaction]
+
+service algorithmicResearcher(ip:user)[Algorithmic Researcher] in ai
+service evaluator(ip:checklist)[Evaluator] in flatland
+service runner(ip:refresh-one)[Runner] in flatland
+
+service railEnv(ip:train)[RailEnv] in flatland
+service scenarios(ip:database-config)[Scenarios] in flatland
+service policy(ip:six-circular-connection)[AI or OR Agent] in ai
+service interactiveAI(ip:map-two)[InteractiveAI] in ui
+service operator(ip:user)[Operator] in ui
+
+algorithmicResearcher:B -- T:runner
+algorithmicResearcher:B -- T:evaluator
+runner:R -- L:railEnv
+runner:L -- R:evaluator
+scenarios:T -- B:runner
+railEnv:T -- B:policy
+railEnv:R -- L:interactiveAI
+interactiveAI:R -- L:operator
+```
+
+High-Level Runtime View
+-----------------------
+
+
+
+Notation: [Mermaid Sequence Diagram](https://mermaid.js.org/syntax/sequenceDiagram.html)
+
 ```mermaid
 sequenceDiagram
+    participant Runner
+    participant Scenarios
+    participant Evaluator
+    participant RailEnv
     actor Algorithmic Researcher
+    participant AI or OR Agent
+    participant InteractiveAI
+    actor Operator
+
     box Flatland
         participant Runner
         participant Evaluator
         participant RailEnv
+        participant Scenarios
+    end
 
+    box Algorithmic Research
+        participant Algorithmic Researcher
+        participant AI or OR Agent
+    end
+
+    box User Interaction
+        participant InteractiveAI
+        participant Operator
     end
 
     Algorithmic Researcher -) Runner: scenario
+    Runner ->> Scenarios: scenario ID
+    Scenarios -->> Runner: scenario
     loop scenario
-        Runner ->> Policy: observations
-        Policy -->> Runner: actions
+        Runner ->> AI or OR Agent: observations
+        AI or OR Agent -->> Runner: actions
         Runner ->> RailEnv: actions
         RailEnv -->> Runner: observations, rewards, info
         Runner -) InteractiveAI: events, context
@@ -24,13 +94,15 @@ sequenceDiagram
             InteractiveAI -) Operator: information, action options
         end
     end
-    actor Operator
+
     Runner ->> Evaluator: trajectory
     Evaluator -) Algorithmic Researcher: scenario evaluation
 ```
 
 Building Block View
 -------------------
+
+Notation: [Mermaid Class Diagram](https://mermaid.js.org/syntax/classDiagram.html)
 
 ```mermaid
 classDiagram
@@ -60,7 +132,7 @@ classDiagram
         class RailEnvTransitions
     }
     namespace  core_graph {
-        class GridTransitionMap
+        class GraphTransitionMap
     }
     namespace env_generation {
         class env_generator {
@@ -139,8 +211,9 @@ classDiagram
     TreeObsForRailEnv --|> ObservationBuilder
     RailEnv --> "*" EnvAgent
     RailEnv --> "1" GridTransitionMap
-    RailEnv --> "1" Line
-    RailEnv --> "1" Timetable
+    RailEnv --> "1" RailGenerator
+    RailEnv --> "1" LineGenerator
+    RailEnv --> "1" TimetableGenerator
     RailEnv --> "1" ObservationBuilder
     PettingZooParallelEnv --> "1" RailEnv
     RayMultiAgentWrapper --> "1" RailEnv
@@ -148,10 +221,10 @@ classDiagram
     TreeObsForRailEnv --> "1" PredictionBuilder
 ```
 
+Runtime View RailEnv Step
+-------------------------
 
-
-Flow RailEnv Step
------------------
+Notation: [Mermaid Sequence Diagram](https://mermaid.js.org/syntax/sequenceDiagram.html)
 
 ```mermaid
 flowchart TD
@@ -192,8 +265,10 @@ flowchart TD
     rail_env.step ~~~ legend
 ```
 
-Flow Env Reset
---------------
+Runtime View Env Reset
+----------------------
+
+Notation: [Mermaid Sequence Diagram](https://mermaid.js.org/syntax/sequenceDiagram.html)
 
 ```mermaid
 flowchart TD
