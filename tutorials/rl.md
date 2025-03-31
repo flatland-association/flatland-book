@@ -1,6 +1,9 @@
 Reinforcement Learning
 ======================
 
+Both RLlib and PettingZoo environment wrappers are [Gymnasium](https://gymnasium.farama.org/)-compatible.
+Gymnasium is a maintained fork of OpenAI’s Gym library. The Gymnasium interface is simple, pythonic, and capable of representing general RL problems, and has
+a [compatibility wrapper](https://gymnasium.farama.org/introduction/gym_compatibility/) for old Gym environments.
 
 RLlib
 -----
