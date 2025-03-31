@@ -44,6 +44,7 @@ High-Level Runtime View
 
 Notation: [Mermaid Sequence Diagram](https://mermaid.js.org/syntax/sequenceDiagram.html)
 
+
 ```mermaid
 sequenceDiagram
     participant Runner
@@ -96,6 +97,8 @@ Building Block View
 
 Notation: [Mermaid Class Diagram](https://mermaid.js.org/syntax/classDiagram.html)
 
+
+
 ```mermaid
 classDiagram
     direction BT
@@ -124,7 +127,7 @@ classDiagram
         class RailEnvTransitions
     }
     namespace  core_graph {
-        class GridTransitionMap
+        class GraphTransitionMap
     }
     namespace env_generation {
         class env_generator {
