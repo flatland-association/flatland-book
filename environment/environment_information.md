@@ -19,27 +19,14 @@ This raises a number of questions:
 * 🌟 [**Rewards:**](./environment/rewards) what is the metric used to evaluate the agents?
 * 🔥[**Stochasticity**](environment/stochasticity.md) how often and for how long trains will malfunction? Agents can be disrupted (in malfunction)
 
-TODO harmonize with toc
-TODO what about below - remove or changelog?
 
-🚉 Other concepts
------------------
+🚉 concepts introduced in 4.0.5 and 4.0.6
+---------------------------------------------
 
-### 🔥Stochasticity
 
-An important aspect of these levels will be their **stochasticity**, which means how often and for how long trains will malfunction. Malfunctions force the
-agents to reconsider their plans, which can be costly.
 
-**[🔗 Adjust stochasticity](../environment/environment/stochasticity.md)**
+### 🕹⏫ Variable Speed
 
-### 🚄 Speed profiles
-
-Finally, trains in real railway networks don't all move at the same speed. A freight train will for example be slower than a passenger train. This is an
-important consideration, as you want to avoid scheduling a fast train behind a slow train!
-
-**[🔗 Tune speed profiles](../environment/environment/speed_profiles.md)**
-
-### 🕹⏫ Variable Speed Profiles
 
 > This feature was introduced in [4.0.6](https://github.com/flatland-association/flatland-rl/pull/136)
 
