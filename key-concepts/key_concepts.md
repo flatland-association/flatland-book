@@ -314,7 +314,7 @@ flowchart TD
         generate_rail --> generate_line
         generate_line --> generate_timetable
         generate_timetable --> reset_agents
-        reset_agents --> effects_generator.on_episode_start
+        reset_agents --> effects_generator.on_episode_start[effects_generator<br/>.on_episode_start]
         effects_generator.on_episode_start --> get_info_dict
         get_info_dict --> get_observations
         get_observations -->|observations,infos| end_((("&nbsp;")))
