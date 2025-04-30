@@ -29,7 +29,7 @@ g = &
 + \underbrace{(1 - \mathrm{A}_J) \cdot d}_{\text{target not reached}}\\
 & + \sum_{j=2}^{J-1} \Big[
 % intermediate late arrival
-\underbrace{\mathrm{A}_j \cdot \mathrm{A} \cdot \min \{\mathrm{A}_j - a_j,0\}}_{\text{late arrival}}
+\underbrace{\mathrm{A}_j \cdot \alpha \cdot \min \{\mathrm{A}_j - a_j,0\}}_{\text{late arrival}}
 % intermediate stop not served
 + \underbrace{(1 - \mathrm{A}_j) \cdot \mu}_{\text{stop not served}}
 % intermediate early departure
@@ -47,7 +47,7 @@ The symbols are described in Table~\ref{tab:events}.
 | $\mathrm{A}_J$   | 1              | $\mathrm{A}_J$ | $a_J$  | $\mathrm{A}_J$ latest arrival and $a_J$ actual arrival at target $J$                                      |
 | $\Delta_0$       | $\phi$, $\pi$  |                | $p$    | cancellation factor $\phi$ and buffer $\pi$,    <br/> $p$ is the shortest path from start to target       |
 | $1-\mathrm{A}_J$ | 1              |                | $d$    | time $d$ remaining on shortest path towards target                                                        |
-| $\mathrm{A}_j$   | $\mathrm{A}$   | $\mathrm{A}_j$ | $a_j$  | latest arrival $\mathrm{A}_j$, actual arrival time $a_j$    <br/> at intermediate stop $j=2,\ldots,J-1$   |
+| $\mathrm{A}_j$   | $\alpha$       | $\mathrm{A}_j$ | $a_j$  | latest arrival $\mathrm{A}_j$, actual arrival time $a_j$    <br/> at intermediate stop $j=2,\ldots,J-1$   |
 | $1-\mathrm{A}_j$ | $\mu$          |                |        | intermediate stop $j$ not served, $j=2,\ldots,J-1$                                                        |
 | $\Delta_j$       | $\delta$       | $\delta_j$     | $d_j$  | earliest departure from stop $j$, actual departure time $d_j$ <br/> at intermediate stop $j=2,\ldots,J-1$ |
 | $\mathrm{K}_t$   | $\kappa$       |                | $v(t)$ | collision at time $t$ with speed $v(t)$                                                                   |
