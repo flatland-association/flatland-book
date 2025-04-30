@@ -42,16 +42,15 @@ g = &
 where $J$ is the number of stops (including the departure at the start, but including the target) and $T$ is the number of timesteps of the episode.
 The symbols are described in Table~\ref{tab:events}.
 
-| event            | penalty       | scheduled      | actual | description                                                                                               |
-|------------------|---------------|----------------|--------|-----------------------------------------------------------------------------------------------------------|
-|                  | factor        |                |        |                                                                                                           |
-| $\mathrm{A}_J$   | 1             | $\mathrm{A}_J$ | $a_J$  | $\mathrm{A}_J$ latest arrival and $a_J$ actual arrival at target $J$                                      |
-| $\Delta_0$       | $\phi$, $\pi$ |                | $p$    | cancellation factor $\phi$ and buffer $\pi$,    <br/> $p$ is the shortest path from start to target       |
-| $1-\mathrm{A}_J$ | 1             |                | $d$    | time $d$ remaining on shortest path towards target                                                        |
-| $\mathrm{A}_j$   | $\mathrm{A}$  | $\mathrm{A}_j$ | $a_j$  | latest arrival $\mathrm{A}_j$, actual arrival time $a_j$    <br/> at intermediate stop $j=2,\ldots,J-1$   |
-| $1-\mathrm{A}_j$ | $\mu$         |                |        | intermediate stop $j$ not served, $j=2,\ldots,J-1$                                                        |
-| $\Delta_j$       | $\delta$      | $\delta_j$     | $d_j$  | earliest departure from stop $j$, actual departure time $d_j$ <br/> at intermediate stop $j=2,\ldots,J-1$ |
-| $\mathrm{K}_t$   | $\kappa$      |                | $v(t)$ | collision at time $t$ with speed $v(t)$                                                                   |
+| event            | penalty factor | scheduled      | actual | description                                                                                               |
+|------------------|----------------|----------------|--------|-----------------------------------------------------------------------------------------------------------|
+| $\mathrm{A}_J$   | 1              | $\mathrm{A}_J$ | $a_J$  | $\mathrm{A}_J$ latest arrival and $a_J$ actual arrival at target $J$                                      |
+| $\Delta_0$       | $\phi$, $\pi$  |                | $p$    | cancellation factor $\phi$ and buffer $\pi$,    <br/> $p$ is the shortest path from start to target       |
+| $1-\mathrm{A}_J$ | 1              |                | $d$    | time $d$ remaining on shortest path towards target                                                        |
+| $\mathrm{A}_j$   | $\mathrm{A}$   | $\mathrm{A}_j$ | $a_j$  | latest arrival $\mathrm{A}_j$, actual arrival time $a_j$    <br/> at intermediate stop $j=2,\ldots,J-1$   |
+| $1-\mathrm{A}_j$ | $\mu$          |                |        | intermediate stop $j$ not served, $j=2,\ldots,J-1$                                                        |
+| $\Delta_j$       | $\delta$       | $\delta_j$     | $d_j$  | earliest departure from stop $j$, actual departure time $d_j$ <br/> at intermediate stop $j=2,\ldots,J-1$ |
+| $\mathrm{K}_t$   | $\kappa$       |                | $v(t)$ | collision at time $t$ with speed $v(t)$                                                                   |
 
 ```{admonition} Code reference
 The reward is calculated in [envs/rewards.py](https://github.com/flatland-association/flatland-rl/blob/main/flatland/envs/rewards.py)
