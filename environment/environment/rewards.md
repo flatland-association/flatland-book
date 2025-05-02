@@ -16,7 +16,7 @@ S &= \sum_{i=1}^N g_i
 \end{align}
 ```
 
-is the sum of all rewards $g_i$ of agent $i$. The reward $g_i$ of an agent consists of a reward at the end of the episode as well as at each timestep $t$.
+is the sum of all rewards $g_i$ of agent $i$. The reward $g_i$ of an agent consists of a reward at the end of the episode as well as at each timestep $t.$
 Per-timestep rewards only consist of a penalty if the train crashes, i.e., collides with another train that occupies the same cell. The collision penalty is
 proportional to the current speed $v(t)$ of the train. The reward $g_i$ of an agent $i$ is
 
