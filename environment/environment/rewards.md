@@ -39,7 +39,7 @@ g = &
 \end{align}
 ```
 
-where $J$ is the number of stops (including the departure at the start, but including the target) and $T$ is the number of timesteps of the episode.
+where $J$ is the number of stops (including the departure at the start, as well as the target) and $T$ is the number of timesteps of the episode.
 The symbols are described in Table~\ref{tab:events}.
 
 | event            | penalty factor | scheduled      | actual | description                                                                                               |
