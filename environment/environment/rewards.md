@@ -26,7 +26,7 @@ g_i = &
 % delay at target:
 \underbrace{\mathrm{A}_J \cdot  \min \{\alpha_J - a_J,0\}}_{\text{delay at target}}  
 % journey not started:
-+ \underbrace{(1 - \Delta_1) \cdot \phi \cdot (p + \pi)}_{\text{journey not started}}
++ \underbrace{(1 - \Delta_1) \cdot \phi \cdot (-(p + \pi))}_{\text{journey not started}}
 % target not reached:
 + \underbrace{(1 - \mathrm{A}_J) \cdot (-d)}_{\text{target not reached}}\\
 & + \sum_{j=2}^{J-1} \Big[
