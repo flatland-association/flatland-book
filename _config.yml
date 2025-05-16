@@ -44,7 +44,6 @@ execute:
     # take too long or too many dependencies - make sure to have good coverage in flatland-rl for these code parts
     - "rllib_demo.ipynb"
     - "pettingzoo_demo.ipynb"
-    - "Agent-Close-Following.ipynb"
 
 
 # https://jupyterbook.org/en/stable/interactive/launchbuttons.html
