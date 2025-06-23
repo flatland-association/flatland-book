@@ -4,6 +4,8 @@ on:
   workflow_dispatch:
   pull_request:
     branches: [ "main" ]
+  schedule:
+    - cron: '30 5 * * *'
 
 concurrency:
   group: ${{ github.head_ref || github.ref }}
@@ -21,6 +23,27 @@ jobs:
       - name: Build
         run: |
           pip install -U -r requirements.txt
+          bash build.sh
+      # https://github.com/actions/upload-artifact
+      - name: Upload GitHub Actions artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: upload-build
+          path: _build/html/
+          if-no-files-found: error
+
+  build-flatland-rl-main:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - name: Build
+        run: |
+          pip install -U -r requirements.txt
+          pip install -U git+https://github.com/flatland-association/flatland-rl.git
           bash build.sh
       # https://github.com/actions/upload-artifact
       - name: Upload GitHub Actions artifact
