@@ -49,6 +49,6 @@ jobs:
       - name: Upload GitHub Actions artifact
         uses: actions/upload-artifact@v4
         with:
-          name: upload-build
+          name: upload-build-main
           path: _build/html/
           if-no-files-found: error
