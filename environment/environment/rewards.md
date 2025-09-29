@@ -1,8 +1,21 @@
 Rewards
 ========
 
+Rewards Interface
+-----------------
 
-The Flatland scoring function is designed to capture key operational metrics such as punctuality, efficiency in responding to disruptions, and safety.
+The `Rewards` interface has the following methods:
+
+* `step_reward`: Handles end-of-step-reward for a particular agent.
+* `end_of_episode_reward`: Handles end-of-episode reward for a particular agent.
+* `cumulate`: Cumulate multiple rewards to one.
+* `empty`: Return empty initial value neutral for the cumulation.
+
+Default Rewards
+---------------
+
+The Flatland `DefaultRewards` scoring function is designed to capture key operational metrics such as punctuality, efficiency in responding to disruptions, and
+safety.
 Punctuality and schedule adherence are rewarded based on the difference between actual and target arrival and departure times at each stop respectively,
 as well as penalties for intermediate stops not served or even journeys not started.
 Safety measures are implemented as penalties for collisions which are directly proportional to the train’s speed at impact, ensuring that high-speed operations
@@ -61,3 +74,25 @@ Also note that order of intermediate stops is also not enforced by the simulatio
 ```{admonition} Code reference
 The reward is calculated in [envs/rewards.py](https://github.com/flatland-association/flatland-rl/blob/main/flatland/envs/rewards.py)
 ```
+
+Punctuality Rewards
+-------------------
+
+`PunctualityRewards` is `n_stops_on_time / n_stops`.
+
+An agent is deemed not punctual at a stop if it arrives to late, departs to early or does not serve the stop at all.
+
+If an agent is punctual at a stop, n_stops_on_time is increased by 1.
+
+> This feature was introduced in [4.2.2](https://github.com/flatland-association/flatland-rl/pull/272)
+
+Basic Multi-Objective Rewards
+-----------------------------
+
+For illustration purposes, a basic MORL (Multi-Objective Reinforcement Learning) `BasicMultiObjectiveRewards` is implemented. It is composed of 3 components:
+
+- default score
+- energy efficiency: `- square (speed/max_speed).`
+- smoothness: `- square (speed differences)`
+
+> This feature was introduced in [4.2.1](https://github.com/flatland-association/flatland-rl/pull/269)
