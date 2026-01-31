@@ -23,18 +23,18 @@ are managed with extra caution.
 
 More formally, the score
 
-```math
-\begin{align}
+$$
+\begin{aligned}
 S &= \sum_{i=1}^N g_i
-\end{align}
-```
+\end{aligned}
+$$
 
 is the sum of all rewards $g_i$ of agent $i$. The reward $g_i$ of an agent consists of a reward at the end of the episode as well as at each timestep $t.$
 Per-timestep rewards only consist of a penalty if the train crashes, i.e., collides with another train that occupies the same cell. The collision penalty is
 proportional to the current speed $v(t)$ of the train. The reward $g_i$ of an agent $i$ is
 
-```math
-\begin{align}
+$$
+\begin{aligned}
 g_i = &
 % delay at target:
 \underbrace{\mathrm{A}_J \cdot  \min \{\alpha_J - a_J,0\}}_{\text{delay at target}}  
@@ -51,8 +51,8 @@ g_i = &
 + \underbrace{\Delta_j \cdot \delta \cdot \min \{ d_j - \delta_j, 0 \}}_{\text{early departure}} \Big] \\
 % collision
 & + \sum_{t=1}^T  \underbrace{\mathrm{K}_t \cdot \kappa \cdot (- v(t))}_{\text{collision}} \ ,
-\end{align}
-```
+\end{aligned}
+$$
 
 where $J$ is the number of stops (including the departure at the start, as well as the target) and $T$ is the number of timesteps of the episode.
 The symbols are described in Table~\ref{tab:events}.
