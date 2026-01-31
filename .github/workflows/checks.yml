@@ -22,6 +22,7 @@ jobs:
           python-version: "3.10"
       - name: Build
         run: |
+          set -euxo pipefail
           pip install -U -r requirements.txt
           bash build.sh
       # https://github.com/actions/upload-artifact
@@ -42,6 +43,7 @@ jobs:
           python-version: "3.10"
       - name: Build
         run: |
+          set -euxo pipefail
           pip install -U -r requirements.txt
           pip install -U git+https://github.com/flatland-association/flatland-rl.git
           bash build.sh
