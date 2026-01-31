@@ -5,7 +5,13 @@ FLATLAND_MODULE_PATH=$(python -c 'import os; import importlib; print(os.path.dir
 FLATLAND_MODULE_VERSION=$(python -c "import flatland; print(flatland.__version__)")
 
 cp ${FLATLAND_MODULE_PATH}/../notebooks/graph_demo.ipynb environment/environment
-sed -i '' 's|./images/|../../assets/images/|g'  environment/environment/graph_demo.ipynb
+if [ "$(uname)" == "Darwin" ]; then
+  # sed works differently under macOS...
+  sed -i '' 's|./images/|../../assets/images/|g'  environment/environment/graph_demo.ipynb
+else
+  sed -i 's|./images/|../../assets/images/|g'  environment/environment/graph_demo.ipynb
+fi
+
 cp ${FLATLAND_MODULE_PATH}/../notebooks/Agent-Close-Following.ipynb environment/environment
 
 
