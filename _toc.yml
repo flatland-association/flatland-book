@@ -56,7 +56,7 @@ parts:
     chapters:
       - file: challenges/flatland4
         sections:
-          - file: challenges/flatland3/eval
+          - file: challenges/flatland4/eval
       - file: challenges/flatland-benchmarks
       - file: challenges/flatland3
         sections:
