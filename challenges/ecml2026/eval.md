@@ -1,9 +1,12 @@
 Evaluation Metrics
 ===
 
-The **[Flatland 4 challenge](https://fab.flatland.cloud/suites/24ab2336-a407-4329-b781-d71846250e24)** is the newest competition around the Flatland environment.
+The **[Flatland 4 challenge](https://fab.flatland.cloud/suites/24ab2336-a407-4329-b781-d71846250e24)** is the newest competition around the Flatland
+environment.
 
-In this edition, we are encouraging participants to develop innovative solutions that leverage **reinforcement learning**. The scenario setup and the evaluation metrics are designed accordingly. However, we are still open for other solutions as well, e.g. operations research, and encourage participants to benchmark their state-of-the art algorithms
+In this edition, we are encouraging participants to develop innovative solutions that leverage **reinforcement learning**. The scenario setup and the evaluation
+metrics are designed accordingly. However, we are still open for other solutions as well, e.g. operations research, and encourage participants to benchmark
+their state-of-the art algorithms
 
 
 ⚖ Evaluation metrics
@@ -17,7 +20,8 @@ What is the **normalized return**?
 
 - The **returns** are the sum of Flatland's default rewards your agents accumulate during each episode as described
   in [rewards.md](../../environment/environment/rewards.md)
-- To **normalize** these return, we scale them so that they stays in the range $[0.0, 1.0]$. This makes it possible to compare results between environments of different dimensions and different number of agents.
+- To **normalize** these return, we scale them so that they stays in the range $[0.0, 1.0]$. This makes it possible to compare results between environments of
+  different dimensions and different number of agents.
 
 In code:
 
@@ -37,7 +41,6 @@ The submission score is the sum of the normalized scenario rewards.
 
 Evaluation is stopped when a submission does not reach the threshold of 25% completed agents within a level (5 scenarios).
 
-
 ### Factors in reward function
 
 The factors for the [reward function](../../environment/environment/rewards.md) in this competition are:
@@ -47,23 +50,9 @@ The factors for the [reward function](../../environment/environment/rewards.md) 
 | journey not started (cancellation factor) |   5   |
 | cancellation time buffer                  |   0   |
 | delay at target                           |   1   |
-| target not reached minimum penalty        | 100   |
+| target not reached minimum penalty        |  100  |
 | intermediate stop not served              |  50   |
-| intermediate late arrival                 |   0.5 |
-| intermediate early departure              |   0.5 |
-| collision                                 | 250   |
+| intermediate late arrival                 |  0.5  |
+| intermediate early departure              |  0.5  |
+| collision                                 |  250  |
 
-
-⏱ Time and Resource limits
----
-
-The agents have to act within **time limits**:
-
-- You are allowed up to 30 minutes per scenario.
-- The full evaluation must finish in 4 hours.
-
-The agents are evaluated in a container with **resource limits**
-
-- 4 CPU cores
-- 15 GB of main memory.
-  We do not provide GPUs.
