@@ -41,7 +41,7 @@ g_i = &
 % journey not started:
 + \underbrace{(1 - \Delta_1) \cdot \phi \cdot (-(p + \pi))}_{\text{journey not started}}
 % target not reached:
-+ \underbrace{(1 - \mathrm{A}_J) \cdot (-d)}_{\text{target not reached}}\\
++ \underbrace{(1 - \mathrm{A}_J) \cdot \min\{-\nu, -d\}}_{\text{target not reached}}\\
 & + \sum_{j=2}^{J-1} \Big[
 % intermediate late arrival
 \underbrace{\mathrm{A}_j \cdot \alpha \cdot \min \{\alpha_j - a_j,0\}}_{\text{late arrival}}
@@ -55,17 +55,17 @@ g_i = &
 $$
 
 where $J$ is the number of stops (including the departure at the start, as well as the target) and $T$ is the number of timesteps of the episode.
-The symbols are described in Table~\ref{tab:events}.
+The symbols are described in the table below.
 
-|                              | penalty factor <br/>($\geq 0$) | event <br/> $\in \{0,1\}$ | scheduled  | actual | description                                                                                               |
-|:-----------------------------|--------------------------------|---------------------------|------------|--------|-----------------------------------------------------------------------------------------------------------|
-| delay at target              | 1                              | $\mathrm{A}_J$            | $\alpha_J$ | $a_J$  | $\mathrm{A}_J$ latest arrival and $a_J$ actual arrival at target $J$                                      |
-| journey not started          | $\phi$, $\pi$                  | $1-\Delta_1$              |            | $p$    | cancellation factor $\phi$ and buffer $\pi$,    <br/> $p$ is the shortest path from start to target       |
-| target not reached           | 1                              | $1-\mathrm{A}_J$          |            | $d$    | time $d$ remaining on shortest path towards target                                                        |
-| intermediate late arrival    | $\alpha$                       | $\mathrm{A}_j$            | $\alpha_j$ | $a_j$  | latest arrival $\mathrm{A}_j$, actual arrival time $a_j$    <br/> at intermediate stop $j=2,\ldots,J-1$   |
-| intermediate stop not served | $\mu$                          | $1-\mathrm{A}_j$          |            |        | intermediate stop $j$ not served, $j=2,\ldots,J-1$                                                        |
-| intermediate early departure | $\delta$                       | $\Delta_j$                | $\delta_j$ | $d_j$  | earliest departure from stop $j$, actual departure time $d_j$ <br/> at intermediate stop $j=2,\ldots,J-1$ |
-| collision                    | $\kappa$                       | $\mathrm{K}_t$            |            | $v(t)$ | collision at time $t$ with speed $v(t)$                                                                   |
+|                              | penalty factor <br/>($\geq 0$) | event <br/> $\in \{0,1\}$ | scheduled  | actual     | description                                                                                               |
+|:-----------------------------|--------------------------------|---------------------------|------------|------------|-----------------------------------------------------------------------------------------------------------|
+| delay at target              | 1                              | $\mathrm{A}_J$            | $\alpha_J$ | $a_J$      | $\mathrm{A}_J$ latest arrival and $a_J$ actual arrival at target $J$                                      |
+| journey not started          | $\phi$, $\pi$                  | $1-\Delta_1$              |            | $p$        | cancellation factor $\phi$ and buffer $\pi$,    <br/> $p$ is the shortest path from start to target       |
+| target not reached           | 1                              | $1-\mathrm{A}_J$          |            | $d$, $\nu$ | time $d$ remaining on shortest path towards target or minimum penalty for target not reached $\nu$ if $d < \nu$    |
+| intermediate late arrival    | $\alpha$                       | $\mathrm{A}_j$            | $\alpha_j$ | $a_j$      | latest arrival $\mathrm{A}_j$, actual arrival time $a_j$    <br/> at intermediate stop $j=2,\ldots,J-1$   |
+| intermediate stop not served | $\mu$                          | $1-\mathrm{A}_j$          |            |            | intermediate stop $j$ not served, $j=2,\ldots,J-1$                                                        |
+| intermediate early departure | $\delta$                       | $\Delta_j$                | $\delta_j$ | $d_j$      | earliest departure from stop $j$, actual departure time $d_j$ <br/> at intermediate stop $j=2,\ldots,J-1$ |
+| collision                    | $\kappa$                       | $\mathrm{K}_t$            |            | $v(t)$     | collision at time $t$ with speed $v(t)$                                                                   |
 
 Note that the simulation enforces that agents cannot start earlier than $\delta_1$ at their start. On the other hand, early departure at intermediate stops is
 not enforced by the simulation, but will be penalized by the rewards function.
