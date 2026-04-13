@@ -42,15 +42,16 @@ Evaluation is stopped when a submission does not reach the threshold of 25% comp
 
 The factors for the [reward function](../../environment/environment/rewards.md) in this competition are:
 
-| factor                             | value |
-|------------------------------------|:-----:|
-| journey not started (cancellation) |   1   |
-| cancellation time buffer           |   0   |
-| delay at target                    |   1   |
-| intermediate stop not served       |  15   |
-| intermediate late arrival          |   0.5 |
-| intermediate early departure       |   0.5 |
-| collision                          | 100   |
+| factor                                    | value |
+|-------------------------------------------|:-----:|
+| journey not started (cancellation factor) |   5   |
+| cancellation time buffer                  |   0   |
+| delay at target                           |   1   |
+| target not reached minimum penalty        | 100   |
+| intermediate stop not served              |  50   |
+| intermediate late arrival                 |   0.5 |
+| intermediate early departure              |   0.5 |
+| collision                                 | 250   |
 
 
 ⏱ Time and Resource limits
@@ -58,8 +59,8 @@ The factors for the [reward function](../../environment/environment/rewards.md) 
 
 The agents have to act within **time limits**:
 
-- You are allowed up to 30 minutes per episode.
-- The full evaluation must finish in 2 hours.
+- You are allowed up to 30 minutes per scenario.
+- The full evaluation must finish in 4 hours.
 
 The agents are evaluated in a container with **resource limits**
 
