@@ -71,6 +71,8 @@ Note that the simulation enforces that agents cannot start earlier than $\delta_
 not enforced by the simulation, but will be penalized by the rewards function.
 Also note that order of intermediate stops is also not enforced by the simulation in case of overlapping time windows.
 
+To  to compare results between environments of different dimensions and different number of agents, the rward can be normalized, such that the normalized reward is in the range $[0.0, 1.0]$. For each agent there is a maximum penalty set at ```- max_episode_steps```. This guarantees normalization regardless of the parametrization of the rewards.
+
 ```{admonition} Code reference
 The reward is calculated in [envs/rewards.py](https://github.com/flatland-association/flatland-rl/blob/main/flatland/envs/rewards.py)
 ```
