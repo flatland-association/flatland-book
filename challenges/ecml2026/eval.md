@@ -20,20 +20,18 @@ What is the **normalized return**?
 
 - The **returns** are the sum of Flatland's default rewards your agents accumulate during each episode as described
   in [rewards.md](../../environment/environment/rewards.md)
-- To **normalize** these return, we scale them so that they stays in the range $[0.0, 1.0]$. This makes it possible to compare results between environments of
-  different dimensions and different number of agents.
+- To **normalize** these return, we scale them so that they stays in the range $[0.0, 1.0]$. To guarantee this, the maximum penalty per agent can be at most ```max_episode_steps```. This normalized rewards allows to compare results between environments of different dimensions and different number of agents.
 
 In code:
 
 ```python
-normalized_reward = (cumulative_reward / (self.env._max_episode_steps * self.env.get_num_agents())) + 1
+normalized_reward = sum([max(cumulative_rewards[agent.handle], - self.env.max_episode_steps) for agent in agents]) / (self.env.max_episode_steps * self.env.get_num_agents()) + 1
 ```
 
 The episodes finish when all the trains have reached their target, or when the maximum number of time steps is reached. Therefore:
 
 - The **minimum possible value** (i.e. worst possible) is 0.0, which occurs if none of the agents reach their goal during the episode.
-- The **maximum possible value** (i.e. best possible) is 1.0, which would occur if all the agents would reach their targets in one time step, which is generally
-  not achievable.
+- The **maximum possible value** (i.e. best possible) is 1.0, which would occur if all the agents would reach their targets and intermediate stops on time, i.e. not receive any penalty.
 
 ### Submission Score
 
@@ -55,4 +53,3 @@ The factors for the [reward function](../../environment/environment/rewards.md) 
 | intermediate late arrival                 |  0.5  |
 | intermediate early departure              |  0.5  |
 | collision                                 |  250  |
-
