@@ -72,9 +72,7 @@ The agents are evaluated in a container with **resource limits**
 
 We do not provide GPUs.
 
-### Details
-
-Limits on the
+### Detailed overview over resource limits
 
 | Limit[^1]                       | Value                                                                                    | Submission outcome             | Details                                                                                     |
 |---------------------------------|------------------------------------------------------------------------------------------|--------------------------------|---------------------------------------------------------------------------------------------|
