@@ -57,6 +57,8 @@ The factors for the [reward function](../../environment/environment/rewards.md) 
 | intermediate early departure              |  0.5  |
 | collision                                 |  250  |
 
+This configuration is implemented using `--rewards flatland.envs.rewards.ECML2026Rewards`.
+
 ⛽ Time and Resource limits
 ---
 
