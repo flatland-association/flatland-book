@@ -1,7 +1,7 @@
 Evaluation Metrics
 ===
 
-The **[Flatland 4 challenge](https://fab.flatland.cloud/suites/24ab2336-a407-4329-b781-d71846250e24)** is the newest competition around the Flatland
+The **[ECML 2026 challenge](https://fab.flatland.cloud/suites/24ab2336-a407-4329-b781-d71846250e24)** is the newest competition around the Flatland
 environment.
 
 In this edition, we are encouraging participants to develop innovative solutions that leverage **reinforcement learning**. The scenario setup and the evaluation
@@ -65,7 +65,7 @@ This configuration is implemented using `--rewards flatland.envs.rewards.ECML202
 The agents have to act within **time limits**:
 
 - You are allowed up to 30 minutes per scenario.
-- The full evaluation must finish in 4 hours.
+- The full evaluation must finish in 5 hours.
 
 The agents are evaluated in a container with **resource limits**
 
