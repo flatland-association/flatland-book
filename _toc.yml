@@ -54,6 +54,10 @@ parts:
   ## CHALLENGES
   - caption: Challenges
     chapters:
+      - file: challenges/ecml2026
+        sections:
+          - file: challenges/ecml2026/eval
+          - file: challenges/ecml2026/levelconfig
       - file: challenges/flatland-benchmarks
       - file: challenges/flatland3
         sections:
