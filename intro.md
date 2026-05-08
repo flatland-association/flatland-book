@@ -1,7 +1,7 @@
 Welcome to Flatland
 ===
 
-![Flatland](https://i.imgur.com/9cNtWjs.gif)
+![Flatland](./_images/9cNtWjs.gif)
 
 Flatland tackles a major problem in the transportation world:
 
@@ -125,10 +125,12 @@ Use these channels if you have a problem or a question:
 🤝 Partners
 ---
 
-<a href="https://sbb.ch" target="_blank" style="margin-right:30px"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/SBB_CFF_FFS_logo.svg/2560px-SBB_CFF_FFS_logo.svg.png" alt="SBB" width="280"/></a>
-<a href="https://www.deutschebahn.com/" target="_blank" style="margin-right:30px"><img src="https://i.imgur.com/pjTki15.png" alt="DB"  width="140"/></a>
+<a href="https://sbb.ch" target="_blank" style="margin-right:30px"><img src="https://flatland-association.org/members/sbb-cff-ffs-logo.svg" alt="SBB" width="280"/></a>
+<a href="https://www.deutschebahn.com/" target="_blank" style="margin-right:30px"><img src="./_images/pjTki15.png" alt="DB"  width="140"/></a>
 <a href="https://www.sncf.com/en" target="_blank" style="margin-right:30px"><img src="https://iconape.com/wp-content/png_logo_vector/logo-sncf.png" alt="SNCF"  width="140"/></a>
-<a href="https://www.aicrowd.com" target="_blank"><img src="https://i.imgur.com/kBZQGI9.png" alt="AIcrowd"  width="140"/></a>
+<a href="https://www.aicrowd.com" target="_blank"><img src="./_images/kBZQGI9.png" alt="AIcrowd"  width="140"/></a>
+<a href="https://flatland.cloud" target="_blank"><img src="https://flatland-association.org/members/flatland-community-logo.svg" alt="Flatland Community"  height="60"/></a>
+
 
 
 

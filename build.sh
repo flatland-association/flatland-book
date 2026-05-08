@@ -39,6 +39,9 @@ else
   find . -name "*.ipynb" -print0 | xargs -0  sed -i 's/```{mermaid}/```mermaid/g'
 fi
 
+# plain html imgs seem not copied
+cp assets/images/* _build/html/_images
+
 find _build -name "*.ipynb" -print0 | xargs -0  --no-run-if-empty grep -E "ImportError|KeyboardInterrupt|AttributeError|ModuleNotFoundError|NameError" || true
 NUM=$(find _build -name "*.ipynb" -print0 | xargs -0  --no-run-if-empty grep -E "ImportError|KeyboardInterrupt|AttributeError|ModuleNotFoundError|NameError" | wc -l)
 exit ${NUM}
