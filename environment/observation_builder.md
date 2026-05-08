@@ -12,7 +12,7 @@ The three provided observations are:
 - Local grid observation
 - Tree observation
 
-![stock observations](https://i.imgur.com/oo8EIYv.png)
+![stock observations](../_images/oo8EIYv.png)
 
 ***Global, local and tree:** A visual summary of the three provided observations.*
 
