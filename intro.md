@@ -12,7 +12,7 @@ handle trains that randomly break down?
 
 Flatland is an open-source toolkit to develop and compare solutions for this problem.
 
-[![Main](https://github.com/flatland-association/flatland-rl/actions/workflows/main.yml/badge.svg)](https://github.com/flatland-association/flatland-rl/actions/workflows/main.yml)
+[![Main](https://github.com/flatland-association/flatland-rl/actions/workflows/checks.yml/badge.svg)](https://github.com/flatland-association/flatland-rl/actions/workflows/checks.yml)
 
 
 ⚡ Quick start
