@@ -27,16 +27,19 @@ classDiagram
     note for TransitionMap "Topology"
     note for Line "Services in Space"
     note for Timetable "Services in Space and Time"
-    note for Agent "TODO: alternatively, this is the next configuration chosen by the action; configuration,next_configuration is then the edge"
+    note for EnvAgent "TODO: alternatively, this is the next configuration chosen by the action; configuration,next_configuration is then the edge"
     note for Stop "aka. Haltepunkt"
     Journey --> Itinerary: current
     PassengerLocation "1" --> "0..1" Stop
     RailEnv --> TransitionMap
     AgentTimetable "1" --> "1" Line
-    AgentTimetable "1" --> "2..." AgentTimetableItem
-    AgentTimetableItem "1" --> "1.." AgentTimetableItemAlternative
+    AgentTimetable "1" --> "2..." AgentTimetableItem: timetable
     TravelWiseEnv --|> RailEnv
     TravelWiseEnv --> "passengers use trains, ships etc." RailEnv
+    Stop "1.." --> "1" Station
+    Stop "0,1" --> "1" Configuration
+    Line "1" --> "1.." LineFlexibleStop
+    LineFlexibleStop "1.." --> "1.." Stop
 
     namespace Controller {
         class Trajectory {
@@ -54,47 +57,42 @@ classDiagram
             register() "register for event topics"
             deregister() "de-register from event topics"
         }
-        class Configuration {
-            <<interface>>
-        }
-
-        class Station {
-            stops: Set[Stop]
-        }
-
-        class Stop {
-            configuration: Configuration
-            meta: Any
-        }
 
         class TransitionMap {
             configurations: Set[Configuration] "aka. nodes aka. grid cell entry points"
             transitions: Set[Tuple[Configuration, Configuration]] "aka. edges aka. grid cell transition"
+            apply_action_independent()
+            get_successor_configurations()
+            get_predecessor_configurations()
+            is_valid_configuration()
         }
 
+        class Station {
+            description: Any
+        }
+
+        class Stop {
+            description: Any
+        }
+
+        class Line
+
+        class LineFlexibleStop
+
         class Timetable {
-            agentTimetables: List[AgentTimetable]
+            agentTimetables: Map[EnvAgent, AgentTimetable]
         }
 
         class AgentTimetable {
             line: Line
             initial(): Configuration
-            target(): Configuration
-            current(): Optional[Configuration]
+            targets(): Set[Configuration]
+            timetable: Map[LineFlexibleStop, AgentTimetableItem]
         }
-        class AgentTimetableItem
-        class AgentTimetableItemAlternative {
-            stop: Configuration
+
+        class AgentTimetableItem {
             earliestArrival: int
             latestDeparture: int
-        }
-
-        class Line {
-            stops: List[[List[Stop]]]
-        }
-
-        class Station {
-            stops: Set[Stop]
         }
 
         class FlatlandPolicy {
@@ -102,10 +100,12 @@ classDiagram
             act()
         }
 
-        class Agent {
-            configuration: Configuration
-            next_configuration: Configuration
+        class EnvAgent {
+            current(): Optional[Configuration]
+            next_configuration(): Optional[Configuration]
             offset: Fraction
+            timetable: AgentTimeTable
+            next_stop(): LineFlexibleStop
         }
     }
     namespace TravelWise {
@@ -119,77 +119,116 @@ classDiagram
 
 ```
 
-## JSON Representation
+## Interfaces and JSON Representation (WiP)
 
-https://github.com/flatland-association/flatland-rl/issues/129
+See https://github.com/flatland-association/flatland-rl/issues/129
 
 ### Environment State
+
+Defines the state deterministically, including random state, so setting the state and stepping gives commutatively the same state.
+(Obviously, this definition is only necessary, but not sufficient - single `None` state would satisfy this definition.)
+
+```python
+from abc import abstractmethod, ABCMeta
+from typing import TypeVar, Generic
+
+T = TypeVar('T')
+
+
+class Persistable(Generic[T]):
+    def save(self, path):
+        ...
+
+    @staticmethod
+    def load(self, path) -> T:
+        ...
+
+
+State = TypeVar('State', covariant=True)
+
+
+class Environment(Persistable[State], metaclass=ABCMeta):
+    @abstractmethod
+    def __getstate__(self) -> State:
+        ...
+
+    def __setstate__(self, state: State):
+        ...
+
+
+class EnvState(Persistable["EnvState"]):
+
+    @property
+    def get_configuration(self) -> "EnvConfiguration":
+        ...
+
+
+if __name__ == '__main__':
+    some_env = ...
+    some_seed = ...
+    any_other_env = ...
+    some_actions = ...
+    some_env.reset(some_seed)
+
+    any_other_env.__setstate__(some_env.__getstate__())
+    assert any_other_env.__getstate__() == some_env.__getstate__()
+
+    some_env.step(some_actions)
+    any_other_env.step(some_actions)
+
+    assert any_other_env.__getstate__() == some_env.__getstate__()
+
+    some_env.reset(some_seed)
+    any_other_env.reset(some_seed)
+
+    assert any_other_env.__getstate__() == some_env.__getstate__()
+```
 
 ```json
 {
   "meta": {
     "version": 0.1,
-    "type": "Flatland Digiial Environment State"
+    "type": "Flatland Digital Environment State"
   },
-  "rail": {
-    "topology": {
-      "type": grid
-      or
-      graph,
-      "configuration": {
-        type-dependent
-        representation
-      }
-    },
-    "stations": {
-      todo
-      details
-    },
-    "lines": [
-      {
-        "waypoints": [
-          for
-          all
-          lines
-          list
-          of
-          waypoints
-          with
-          flexibility
-        ]
-        "stations": [
-          {
-            "rail_elements": [],
-            "
-          }
-        ]
-      }
-    ],
-    "timetable": [
-      {
-        "earliest": int,
-        "latest": int
-      }
-    ],
-    "agents": {
-      "position": position/direction/counter
-      or
-      edge/offset,
-      "max_speed": float [
-  0,
-  1
-]
-"speed": float [0, 1]
-"malfunction": int
-"state": enum
-"line": },
-"internal": {
-"elapsed_steps": int,
-}
+  "random_state": {},
+  "rail": {},
+  "stations": {},
+  "lines": {},
+  "timetable": {},
+  "agents": {}
 }
 ```
 
 ### Environment Configuration
+
+Defines the environment, so if we control the seed, exactly the same env with same state comes out:
+
+```python
+from ... import Persistable
+
+
+class EnvConfiguration(Persistable["EnvConfiguration"]):
+    pass
+
+
+class Environment:
+
+    def configuration(self) -> "EnvConfiguration":
+        ...
+
+    @staticmethod
+    def from_configuration(pathOrConfiguration) -> "Environment":
+        ...
+
+
+if __name__ == '__main__':
+    some_env = ...
+    some_seed = ...
+    configuration = some_env.get_configuration()
+    env = Environment.from_configuration(configuration)
+
+    assert env.from_configuration(configuration).reset(some_seed).__getstate__() == some_env.reset(some_seed).__getstate__()
+```
 
 ```json
 {
@@ -197,67 +236,72 @@ https://github.com/flatland-association/flatland-rl/issues/129
     "version": 0.1,
     "type": "Flatland Digitial Environment Configuration"
   },
+  "cls": "flatland.envs.rail_env.RailEnv",
+  "kwargs": {
+    "acceleration_delta": 1.0,
+    "braking_delta": -1.0,
+    "observation_builder": {
+      "cls": "...",
+      "kwargs": {}
+    }
+  },
   "reset_generators": {
     "rail": {
-      "type": Python
-      class
-      or
-      identifier
-      to
-      be
-      more
-      refactoring
-      safe,
-      "configuration": kwargs
+      "cls": "...",
+      "kwargs": {}
     },
-    "line": {},
-    "timetable": {}
+    "line": {
+      "cls": "...",
+      "kwargs": {}
+    },
+    "timetable": {
+      "cls": "...",
+      "kwargs": {}
+    }
   },
   "effects_generators": [
     {
-      "including malfunction"
+      "cls": "...",
+      "kwargs": {}
     }
   ],
   "rewards": {
-    "type": fully-qualified
-    class
-    or
-    identifier,
-    "configuration": kwargs
-  },
-  "params": {
-    "acceleration_delta": 1.0,
-    "braking_delta": -1.0,
-    "observation_builder": type
-    with
-    no
-    args
-    state
-    to
-    any,
-    "info_builder": type
-    with
-    no
-    args
-    state
-    to
-    dict
-    "remove_agents_at_target": True,
-    "max_episode_steps"
+    "cls": "...",
+    "kwargs": {}
   }
 }
 ```
 
-## Open Questions
+## Discussion, Open Questions
 
-- Term journey?
-- Term itinerary?
-- Term/concept milestones?
+- Term/concept milestones? -> event generator, conditional events,
+    - milestone: delay at arrival, departure, opening of fast track
+- TravelWiseEnv hypothesis:
+    - motion check: optional if not shared, potentially capacity, not mutex but semaphore?
+    - query view on infrastructure timetables: gives a set of itineraries, which can be prioritized according to preferences; graph represents these
+      itineraries, the possible "paths" and not the infrastructure, the graph can change when itineraries become impossible or (better) options arise (I can
+      catch a delayed train); each agent has their own (disjoint) sub-graph it is running on; optimization/performance issue: when do we need to update the
+      graph(s)?
+    - actions in TravelWiseEnv: choose from a set of itineraries or choose between up to 5 (?) next at decision points?
+
+
 - Term/concept connection?
-- actions in TravelWiseEnv?
-- controller output not only defines next configuration
-- stats level?
-- detail add effects generators and events
+    - Used for rewards/evalution? Derived from agent's preferred itinerary? Initially preferred? Stil unclear how used.
+- Term journey?
+    - passenger wants to go from A to B at T.
+- Term itinerary?
+    - controller output may not only define next configuration, but full "path", see above
+    - how does this harmonize with RailEnv's timetable concept?
+
+### Potential Tasks
+
+- env: does it keep track of intermediate stops in schedule, where are we in schedule (see `next_stop` above, not implemented yet). If yes, what about decisions
+  to skip, env would
+  have to know from the actions, currently actions do not map directly to such decisions.
+- details add effects generators and events
 - detail harmonize data model with math formulation
-- Do we need concept of Intention/chosen path? Where? How represented? Is this itinerary
+- Do we need concept of Intention/chosen path? Where? How represented? Is this itinerary?
 - update JSON according to class view
+
+
+
