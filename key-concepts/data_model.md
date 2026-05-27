@@ -50,7 +50,7 @@ classDiagram
             effects_generator
             events_generator
             step() "env step, called by controller"
-            reset() "re-generate a new rail,line and timetable"
+            reset() "re-generate a new rail, line and timetable"
             register() "register for event topics"
             deregister() "de-register from event topics"
         }
