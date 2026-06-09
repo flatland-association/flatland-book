@@ -272,7 +272,7 @@ if __name__ == '__main__':
 }
 ```
 
-## Discussion, Open Questions
+## Tentatively Resolved
 
 - Term/concept milestones? -> event generator, conditional events,
     - milestone: delay at arrival, departure, opening of fast track
@@ -283,12 +283,14 @@ if __name__ == '__main__':
       catch a delayed train); each agent has their own (disjoint) sub-graph it is running on; optimization/performance issue: when do we need to update the
       graph(s)?
     - actions in TravelWiseEnv: choose from a set of itineraries or choose between up to 5 (?) next at decision points?
+- Term journey
+    - passenger wants to go from A to B at T. -> synonym of Schedule, no need for new concept.
 
+## Discussion, Open Questions
 
 - Term/concept connection?
     - Used for rewards/evalution? Derived from agent's preferred itinerary? Initially preferred? Stil unclear how used.
-- Term journey?
-    - passenger wants to go from A to B at T.
+
 - Term itinerary?
     - controller output may not only define next configuration, but full "path", see above
     - how does this harmonize with RailEnv's timetable concept?
@@ -302,6 +304,8 @@ if __name__ == '__main__':
 - detail harmonize data model with math formulation
 - Do we need concept of Intention/chosen path? Where? How represented? Is this itinerary?
 - update JSON according to class view
+- merge data model with key_concepts or are they two separate view ?
+
 
 
 
