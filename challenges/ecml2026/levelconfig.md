@@ -10,8 +10,7 @@
 | level_5 |     5      | {90,125,150,300,532}  |            {3,3,4,6,6}            | Like level 4 but with more severe malfunctions (more frequent & longer)                          | Breakdowns and departure delays                 |
 | level_6 |     5      | {532,532,532,532,532} |            {6,6,6,6,6}            | Full map only, progressively more malfunctions (including infrastructure disruptions)            | Breakdowns, departure delays and infrastructure |
 
-All the parameters for the lines and timetables in these levels are set by hand. These include the sequence of stations, the time windows at stops (earliest
-departure and latest arrival) and the frequencies, i.e. the number of steps between the initial earliest departures of trains on a given line. Likewise, the
-parametrization of the malfunctions is done by hand, however, they are pseudorandom with a given seed to ensure fairness between different submissions.
+The scenarios are generated using the flatland scenario generator (see [flatland-scenarios](https://github.com/flatland-association/flatland-scenarios/tree/main/competitions/competition_2026)). The lines and initial timetables are parametrized by hand and the rollout (i.e. generation of all timetables) is done using the script in the linked repository. The initial parameters as well as the parameters in the metadata file for the rollout are hidden from competitors. These parameters include the sequence of stations (i.e. lines), the time windows at stops (i.e. timetables with earliest departure and latest arrival) and the frequencies (i.e. the number of steps between the initial earliest departures of trains on a given line). Likewise, the
+parametrization of the malfunctions is hidden in the metadata file, as is the seed for the pseudorandom occurence of malfunctions, which stays the same for all submissions to ensure fairness between different submissions.
 
 To generate environments for training or use the provided example curriculum, see [training_envs](training_envs).
