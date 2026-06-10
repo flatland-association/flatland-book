@@ -13,4 +13,6 @@
 The scenarios are generated using the flatland scenario generator (see [flatland-scenarios](https://github.com/flatland-association/flatland-scenarios/tree/main/competitions/competition_2026)). The lines and initial timetables are parametrized by hand and the rollout (i.e. generation of all timetables) is done using the script in the linked repository. The initial parameters as well as the parameters in the metadata file for the rollout are hidden from competitors. These parameters include the sequence of stations (i.e. lines), the time windows at stops (i.e. timetables with earliest departure and latest arrival) and the frequencies (i.e. the number of steps between the initial earliest departures of trains on a given line). Likewise, the
 parametrization of the malfunctions is hidden in the metadata file, as is the seed for the pseudorandom occurence of malfunctions, which stays the same for all submissions to ensure fairness between different submissions.
 
-To generate environments for training or use the provided example curriculum, see [training_envs](training_envs).
+All 28 stations are provided for participants in [*stations.pkl*](reinforcement_learning/sampling/stations.pkl). 6 lines that are used in the evaliation are also given as examples in [*level_o_scenario_1.pkl*](reinforcement_learning/sampling/level_0_scenario_1.pkl).
+
+To generate environments for training from the given resources or to use the provided example curriculum, see [training_envs](training_envs).
