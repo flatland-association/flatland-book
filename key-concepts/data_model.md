@@ -288,12 +288,31 @@ if __name__ == '__main__':
 
 ## Discussion, Open Questions
 
-- Term/concept connection?
+- Once more: Term/concept connection?
     - Used for rewards/evalution? Derived from agent's preferred itinerary? Initially preferred? Stil unclear how used.
 
 - Term itinerary?
-    - controller output may not only define next configuration, but full "path", see above
+  - controller output may not only define next configuration, but full "path", see above Is this a generalization of actions or something else?
     - how does this harmonize with RailEnv's timetable concept?
+  - how does this relate to existing precitionbuilder (used in tree obs)
+
+- How simple can the queries from top to bottom layer be?
+
+- Can we have data, make examples? What are the sizes full etc.
+- Elephant in the room: what are the actions on the graph?
+
+- What do we still need for a full graph env? -> let's make a plan, which steps for TW. Knowns:
+  1. finalize data model
+  2. early samples
+  3. finalize graph approach
+
+  - core: step, configurations -> edges or nodes + direction/action?
+  - distance map etc.?
+  - observations?
+  - rewards
+
+  4. event generator mechanism
+  5. data
 
 ### Potential Tasks
 
