@@ -272,7 +272,7 @@ if __name__ == '__main__':
 }
 ```
 
-## Tentatively Resolved
+## Tentatively/Partially Resolved
 
 - Term/concept milestones? -> event generator, conditional events,
     - milestone: delay at arrival, departure, opening of fast track
@@ -285,34 +285,36 @@ if __name__ == '__main__':
     - actions in TravelWiseEnv: choose from a set of itineraries or choose between up to 5 (?) next at decision points?
 - Term journey
     - passenger wants to go from A to B at T. -> synonym of Schedule, no need for new concept.
+- Term/concept connection?
+    - Use `transfer` for passenger level, transfer between rides
+    - Use `connection` for the IM/RU side, for the commercial offering, what's the timetable -> not relevant for TW
+    - Used for rewards/evalution? Derived from agent's preferred itinerary? Initially preferred? Stil unclear how used.
 
 ## Discussion, Open Questions
 
-- Once more: Term/concept connection?
-    - Used for rewards/evalution? Derived from agent's preferred itinerary? Initially preferred? Stil unclear how used.
-
 - Term itinerary?
-  - controller output may not only define next configuration, but full "path", see above Is this a generalization of actions or something else?
-    - how does this harmonize with RailEnv's timetable concept?
-  - how does this relate to existing precitionbuilder (used in tree obs)
+    - controller output may not only define next configuration, but full "path", see above Is this a generalization of actions or something else?
+        - how does this harmonize with RailEnv's timetable concept?
+    - how does this relate to existing prediction builder (used in tree obs)
 
-- How simple can the queries from top to bottom layer be?
+- How simple can the queries from top to bottom layer be? Problem: logic in query, observation builder not functional any more (anti pattern: passing through
+  query to env to observation to return as observation next)
 
-- Can we have data, make examples? What are the sizes full etc.
+- Can we have data, make examples? What are the sizes full etc. Which simplifications on topology and schedule.
 - Elephant in the room: what are the actions on the graph?
 
 - What do we still need for a full graph env? -> let's make a plan, which steps for TW. Knowns:
-  1. finalize data model
-  2. early samples
-  3. finalize graph approach
+    1. finalize data model
+    2. early samples
+    3. finalize graph approach
 
-  - core: step, configurations -> edges or nodes + direction/action?
-  - distance map etc.?
-  - observations?
-  - rewards
+        - core: step, configurations -> edges or nodes + direction/action?
+        - distance map etc.?
+        - observations?
+        - rewards
 
-  4. event generator mechanism
-  5. data
+    4. event generator mechanism
+    5. data
 
 ### Potential Tasks
 
