@@ -17,7 +17,6 @@ parts:
   - caption: Key concepts
     chapters:
       - file: key-concepts/key_concepts
-      - file: key-concepts/data_model
 
 
   ## ENVIRONMENT
@@ -89,6 +88,11 @@ parts:
       - file: resources/bibliography
       - file: resources/youtube
       - file: resources/community-projects
+      - file: resources/travelwise
+        sections:
+          - file: resources/travelwise/data_model
+
+
 
   ## APIDOC
   - caption: APIDOC

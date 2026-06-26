@@ -1,4 +1,4 @@
-Flatland Data Model
+TravelWise Data Model
 ===================
 
 ## Building Blocks
