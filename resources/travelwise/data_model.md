@@ -1,6 +1,8 @@
 Travel Wise Data Model
 ===================
 
+This page gives technical details to the general approach of [Travel Wise](../travelwise).
+
 ## Building Blocks
 
 Flatland represents RL view of the world: agent policies act on the env upon receiving a (partial) observation of the env state.
@@ -16,7 +18,9 @@ The railway domain is reflected at the microscopic level:
 * infrastructure/topology is defined by the transition map and stations and stops in the map
 * services are defined spatially by lines and spatio-temporally by timetables
 
-The Travel Wise extension reflects passenger journeys. Technical, it is an extension of RailEnv, but also refers to an underlying RailEnv where trains, ships
+The Travel Wise extension reflects passenger journeys.
+
+Technically, it is an extension of RailEnv, but also refers to an underlying RailEnv where trains, ships
 etc. run.
 
 ```mermaid
@@ -303,20 +307,34 @@ if __name__ == '__main__':
 - Can we have data, make examples? What are the sizes full etc. Which simplifications on topology and schedule.
 - Elephant in the room: what are the actions on the graph?
 
-- What do we still need for a full graph env? -> let's make a plan, which steps for TW. Knowns:
-    1. finalize data model
-    2. early samples
-    3. finalize graph approach
+## Work Packages and Tasks
 
+- Graph Simulation:
+    - Generalization core to work on abstract configurations instead of grid-based coordinates, incl. rewards
         - core: step, configurations -> edges or nodes + direction/action?
         - distance map etc.?
         - observations?
         - rewards
+    - Generalization
+        - Trajectory API
+        - Observation Builders
+        - DLA/baselines
+- Infrastructure Graph
+    - Import of rail data
+    - Import of line/timetable data
+    - Modelling of foot transfers
+- Passenger Graph
+    - Import of passenger journeys
+    - Implementation of itineraries
+    - Hooking into infrastructure graph (hopping on/off a vehicle).
+    - Definition of actions for this Flatland environment.
+- Milestones
+    - Conceptual definition of milestones for each use case
+    - Implementation of milestones as policy runner callbacks or effects generators to detect milestone events
+    - Definition of the event payload
+    - Implement sending (generalization of Interactive AI callback): async queue that sends out REST calls/RabbitMQ messages etc.
 
-    4. event generator mechanism
-    5. data
-
-### Potential Tasks
+## TODOs
 
 - env: does it keep track of intermediate stops in schedule, where are we in schedule (see `next_stop` above, not implemented yet). If yes, what about decisions
   to skip, env would
