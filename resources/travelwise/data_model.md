@@ -1,4 +1,4 @@
-TravelWise Data Model
+Travel Wise Data Model
 ===================
 
 ## Building Blocks
@@ -16,7 +16,7 @@ The railway domain is reflected at the microscopic level:
 * infrastructure/topology is defined by the transition map and stations and stops in the map
 * services are defined spatially by lines and spatio-temporally by timetables
 
-The TravelWise extension reflects passenger journeys. Technical, it is an extension of RailEnv, but also refers to an underlying RailEnv where trains, ships
+The Travel Wise extension reflects passenger journeys. Technical, it is an extension of RailEnv, but also refers to an underlying RailEnv where trains, ships
 etc. run.
 
 ```mermaid
