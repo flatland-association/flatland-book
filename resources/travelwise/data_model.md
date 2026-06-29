@@ -123,159 +123,6 @@ classDiagram
 
 ```
 
-## Interfaces and JSON Representation (WiP)
-
-See https://github.com/flatland-association/flatland-rl/issues/129
-
-### Environment State
-
-Defines the state deterministically, including random state, so setting the state and stepping gives commutatively the same state.
-(Obviously, this definition is only necessary, but not sufficient - single `None` state would satisfy this definition.)
-
-```python
-from abc import abstractmethod, ABCMeta
-from typing import TypeVar, Generic
-
-T = TypeVar('T')
-
-
-class Persistable(Generic[T]):
-    def save(self, path):
-        ...
-
-    @staticmethod
-    def load(self, path) -> T:
-        ...
-
-
-State = TypeVar('State', covariant=True)
-
-
-class Environment(Persistable[State], metaclass=ABCMeta):
-    @abstractmethod
-    def __getstate__(self) -> State:
-        ...
-
-    def __setstate__(self, state: State):
-        ...
-
-
-class EnvState(Persistable["EnvState"]):
-
-    @property
-    def get_configuration(self) -> "EnvConfiguration":
-        ...
-
-
-if __name__ == '__main__':
-    some_env = ...
-    some_seed = ...
-    any_other_env = ...
-    some_actions = ...
-    some_env.reset(some_seed)
-
-    any_other_env.__setstate__(some_env.__getstate__())
-    assert any_other_env.__getstate__() == some_env.__getstate__()
-
-    some_env.step(some_actions)
-    any_other_env.step(some_actions)
-
-    assert any_other_env.__getstate__() == some_env.__getstate__()
-
-    some_env.reset(some_seed)
-    any_other_env.reset(some_seed)
-
-    assert any_other_env.__getstate__() == some_env.__getstate__()
-```
-
-```json
-{
-  "meta": {
-    "version": 0.1,
-    "type": "Flatland Digital Environment State"
-  },
-  "random_state": {},
-  "rail": {},
-  "stations": {},
-  "lines": {},
-  "timetable": {},
-  "agents": {}
-}
-```
-
-### Environment Configuration
-
-Defines the environment, so if we control the seed, exactly the same env with same state comes out:
-
-```python
-from ... import Persistable
-
-
-class EnvConfiguration(Persistable["EnvConfiguration"]):
-    pass
-
-
-class Environment:
-
-    def configuration(self) -> "EnvConfiguration":
-        ...
-
-    @staticmethod
-    def from_configuration(pathOrConfiguration) -> "Environment":
-        ...
-
-
-if __name__ == '__main__':
-    some_env = ...
-    some_seed = ...
-    configuration = some_env.get_configuration()
-    env = Environment.from_configuration(configuration)
-
-    assert env.from_configuration(configuration).reset(some_seed).__getstate__() == some_env.reset(some_seed).__getstate__()
-```
-
-```json
-{
-  "meta": {
-    "version": 0.1,
-    "type": "Flatland Digitial Environment Configuration"
-  },
-  "cls": "flatland.envs.rail_env.RailEnv",
-  "kwargs": {
-    "acceleration_delta": 1.0,
-    "braking_delta": -1.0,
-    "observation_builder": {
-      "cls": "...",
-      "kwargs": {}
-    }
-  },
-  "reset_generators": {
-    "rail": {
-      "cls": "...",
-      "kwargs": {}
-    },
-    "line": {
-      "cls": "...",
-      "kwargs": {}
-    },
-    "timetable": {
-      "cls": "...",
-      "kwargs": {}
-    }
-  },
-  "effects_generators": [
-    {
-      "cls": "...",
-      "kwargs": {}
-    }
-  ],
-  "rewards": {
-    "cls": "...",
-    "kwargs": {}
-  }
-}
-```
-
 ## Tentatively/Partially Resolved
 
 - Term/concept milestones? -> event generator, conditional events,
@@ -294,31 +141,18 @@ if __name__ == '__main__':
     - Use `connection` for the IM/RU side, for the commercial offering, what's the timetable -> not relevant for TW
     - Used for rewards/evalution? Derived from agent's preferred itinerary? Initially preferred? Stil unclear how used.
 
-## Discussion, Open Questions
-
-- Term itinerary?
-    - controller output may not only define next configuration, but full "path", see above Is this a generalization of actions or something else?
-        - how does this harmonize with RailEnv's timetable concept?
-    - how does this relate to existing prediction builder (used in tree obs)
-
-- How simple can the queries from top to bottom layer be? Problem: logic in query, observation builder not functional any more (anti pattern: passing through
-  query to env to observation to return as observation next)
-
-- Can we have data, make examples? What are the sizes full etc. Which simplifications on topology and schedule.
-- Elephant in the room: what are the actions on the graph?
-
 ## Work Packages and Tasks
 
 - Graph Simulation:
     - Generalization core to work on abstract configurations instead of grid-based coordinates, incl. rewards
         - core: step, configurations -> edges or nodes + direction/action?
+      - rewards
         - distance map etc.?
-        - observations?
-        - rewards
-    - Generalization
+      - observation builder
         - Trajectory API
-        - Observation Builders
         - DLA/baselines
+    - finalize data and math model
+    - potentially implement persistence according to this finalized model
 - Infrastructure Graph
     - Import of rail data
     - Import of line/timetable data
@@ -326,7 +160,8 @@ if __name__ == '__main__':
 - Passenger Graph
     - Import of passenger journeys
     - Implementation of itineraries
-    - Hooking into infrastructure graph (hopping on/off a vehicle).
+        - Implementation of timetable query on the underlying infrastructure graph.
+  - Hooking into infrastructure graph (hopping on/off a vehicle) to update the itinerary
     - Definition of actions for this Flatland environment.
 - Milestones
     - Conceptual definition of milestones for each use case
@@ -334,16 +169,30 @@ if __name__ == '__main__':
     - Definition of the event payload
     - Implement sending (generalization of Interactive AI callback): async queue that sends out REST calls/RabbitMQ messages etc.
 
-## TODOs
+### Priorities, PoCs/spikes
 
-- env: does it keep track of intermediate stops in schedule, where are we in schedule (see `next_stop` above, not implemented yet). If yes, what about decisions
-  to skip, env would
-  have to know from the actions, currently actions do not map directly to such decisions.
-- details add effects generators and events
-- detail harmonize data model with math formulation
-- Do we need concept of Intention/chosen path? Where? How represented? Is this itinerary?
-- update JSON according to class view
-- merge data model with key_concepts or are they two separate view ?
+- graph simulation fully working
+- refine use cases: data imports and graph modelling
+- milestones conceptuatl definition
+- passenger graph/itinerary: refine conceptual work and PoC for passenger graph/itinerary builder for passenger journey from infrastructure graph
+- PoC/skeleton TW environment hooking into RailEnv
+
+## Discussion, Open Questions
+
+- Is it really a subgraph? For passenger decisions, this is time-based, so multiple passenger edges might map to the same infrastructure edge! Is it a
+  location-based infrastructure graph as well or does it reflect the timetable options (arrival at 11.00, so outgoing edges start not before 11.00, but multiple
+  might go over the same infrastructure?)
+- Term itinerary?
+    - Is itinerary the passenger graph or a choice of decisions based on this graph?
+    - controller output may not only define next configuration, but full "path", see above Is this a generalization of actions or something else?
+        - how does this harmonize with RailEnv's timetable concept?
+    - how does this relate to existing prediction builder (used in tree obs)
+- How simple can the queries from top to bottom layer be? Problem: logic in query, observation builder not functional any more (anti pattern: passing through
+  query to env to observation to return as observation next)
+- Can we have data, make examples? What are the sizes full etc. Which simplifications on topology and schedule.
+- Elephant in the room: what are the actions on the graph?
+
+
 
 
 
