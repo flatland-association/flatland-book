@@ -147,27 +147,35 @@ classDiagram
     - Generalization core to work on abstract configurations instead of grid-based coordinates, incl. rewards
         - core: step, configurations -> edges or nodes + direction/action?
       - rewards
-        - distance map etc.?
+          - distance map etc.?
       - observation builder
-        - Trajectory API
-        - DLA/baselines
+          - Trajectory API
+          - DLA/baselines
     - finalize data and math model
     - potentially implement persistence according to this finalized model
 - Infrastructure Graph
     - Import of rail data
     - Import of line/timetable data
     - Modelling of foot transfers
+  - Agent subgraph view on infrastructure graph conditional on edge attributes (transport mode, fast lane open for X) and agent attributes (transport mode,
+    agent ID)
 - Passenger Graph
     - Import of passenger journeys
     - Implementation of itineraries
         - Implementation of timetable query on the underlying infrastructure graph.
-  - Hooking into infrastructure graph (hopping on/off a vehicle) to update the itinerary
-    - Definition of actions for this Flatland environment.
+  - Hooking into infrastructure graph (hopping on/off a vehicle) to update the itinerary, resp. update position on graph
+      - Definition of actions for this Flatland environment.
+  - Either separate graphs for each agent or introduction of
+      - edge capacities (1 for infrastructure layer, high for passenger layer)
+      - mutex on/off (on for infrastructure layer, off for passenger layer)
+
 - Milestones
     - Conceptual definition of milestones for each use case
     - Implementation of milestones as policy runner callbacks or effects generators to detect milestone events
     - Definition of the event payload
     - Implement sending (generalization of Interactive AI callback): async queue that sends out REST calls/RabbitMQ messages etc.
+- Fast Lanes:
+    - Implementation of effects generator opening/closing fast lanes, probably offline, potentially online (integration with TW solution)
 
 ### Priorities, PoCs/spikes
 
@@ -191,9 +199,3 @@ classDiagram
   query to env to observation to return as observation next)
 - Can we have data, make examples? What are the sizes full etc. Which simplifications on topology and schedule.
 - Elephant in the room: what are the actions on the graph?
-
-
-
-
-
-
