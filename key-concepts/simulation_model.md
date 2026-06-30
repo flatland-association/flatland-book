@@ -91,12 +91,14 @@ classDiagram
 
 ### Flatland Transition Maps
 
-| Concept                 | Grid                                                                      | Graph                                                                                                                       |
-|-------------------------|---------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------|
-| Configurations (?)      | Row, column, direction `(r,c), d=configuration` how cells can be entered. | An abstract **node** without further structure.                                                                             |
-| Transition Map          | For each configuration, which are possible successor configurations.      | A pair of **node**s defines a directed **edge**                                                                             |
-| Agent Configuration (?) | Configuration, next configuration, offset                                 | Edge, offset.                                                                                                               |
-| Resource Map            | Each `row,col=cell` is a mutually exclusively allocatable resource.       | A group of edges may require the same mutually exclusively allocatable resource, reflecting common physical infrastructure. |
+| Concept        | Grid                                                                      | Graph                                                                                                                       |
+|----------------|---------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------|
+| Coordinate     | Row, column, direction `(r,c), d=configuration` how cells can be entered. | An abstract **node** without further structure.                                                                             |
+| Transition Map | For each coordinate, which are possible successor coordinates.            | A pair of **node**s defines a directed **edge**                                                                             |
+| Configuration  | Coordinate, next coordinate, offset, speed, malfunction_counter           | Edge, offset.                                                                                                               |
+| Resource Map   | Each `row,col=cell` is a mutually exclusively allocatable resource.       | A group of edges may require the same mutually exclusively allocatable resource, reflecting common physical infrastructure. |
+
+In Flatland 4.2.5, configurations are `((r,c),d)`; renaming to `coordinate` planned for 4.3.0.
 
 ### Flatland Rail
 
