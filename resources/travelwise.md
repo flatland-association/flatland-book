@@ -10,12 +10,12 @@ These core ideas will be implemented in Flatland to enable the simulation of Tra
 
 ## Introduction
 
-The Flatland framework represents a systemic view of a given infrastructure map which is used for dispatching and (re-)routing of trains. With the Travel Wise extensions, a travellers point of view as well as multimodal travel is introduced. With these extensions the concept of connectiong trains and other modes of transportation is introduced alongside new terminology explained in the table below.
+The Flatland framework represents a systemic view of a given infrastructure map which is used for dispatching and (re-)routing of trains. With the Travel Wise extensions, a travellers point of view as well as multimodal travel is introduced. With these extensions the concept of connecting trains and other modes of transportation is introduced alongside new terminology explained in the table below.
 
 | term      | description |
 |-----------|-------------|
 | journey   | A journey is a travel from point A to point B using potentially different modes of transportation. |
-| Itinerary | The itinerary describes the planned route for a given journey. The initial itinerary might be updated during the scenario according to a given metric (default: shortest time). |
+| Itinerary | The itinerary describes the planned route (space and time) for a given journey. The initial itinerary might be updated during the scenario according to a given metric (default: shortest time). |
 | Transfer  | Each change of mode of transportation is a transfer, even if the mode is the same, e.g. from one train to another. |
 
 ## High-Level Description
@@ -76,11 +76,11 @@ Optional data for additional use cases:
 
 Both layers need a controller and a policy under which the controller can act. The policies are different for the two layers. While on the infrastructure layer the policy is supposed to keep the system running, in the passenger layer it is responsible for finding the optimal itinerary for the passenger. Optimal can be different things, though. Examples include
 
-- shortest time
-- fewest transfers
+- shortest time,
+- fewest transfers,
 - longer transfer times (e.g. for passengers with reduced mobility)
 
-and can include instructions to, e.g., not update the itinerary at every decision point but only if the passenger is not able to stick to the initial itinerary.  
+and can include instructions to, e.g., not update the itinerary at every decision point but only if the passenger is not able to stick to the initial itinerary.
 
 ## Travel Wise Scenarios
 
