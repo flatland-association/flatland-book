@@ -23,32 +23,35 @@ The Travel Wise extension reflects passenger journeys.
 Technically, it is an extension of RailEnv, but also refers to an underlying RailEnv where trains, ships
 etc. run.
 
+Travel Wise policy runner steps through the rail env by using an "auto-pilot" Flatland policy for the rail env and then a passenger policy to step the passenger
+env, based on the observed new state of the rail env.
+Agents controlled in rail env are vehicles, agents controlled in the passenger env are passengers.
+
 ```mermaid
 classDiagram
     direction LR
-    note for TravelWiseEnv "Agents reflect passengers and configurations represent passenge locations and policies drive passengers; TODO: what are the actions"
+    note for PassengerEnv "Agents reflect passengers and configurations represent passenge locations and policies drive passengers; TODO: what are the actions"
     note for RailEnv "Agents reflect trains/ships/etc. Configurations can be graph nodes or grid cell entry points (r,c,d)."
     note for TransitionMap "Topology"
-    note for Line "Services in Space"
-    note for Timetable "Services in Space and Time"
-    note for EnvAgent "TODO: alternatively, this is the next configuration chosen by the action; configuration,next_configuration is then the edge"
-    note for Stop "aka. Haltepunkt"
-    Journey --> Itinerary: current
-    PassengerLocation "1" --> "0..1" Stop
+    note for Line "Services in Space; aka. Journey for passengers"
+    note for Timetable "Services in Space and Time; aka. Initial Itinerary for passengers"
+    note for StoppingPoint "aka. Haltepunkt. "
     RailEnv --> TransitionMap
     AgentTimetable "1" --> "1" Line
     AgentTimetable "1" --> "2..." AgentTimetableItem: timetable
-    TravelWiseEnv --|> RailEnv
-    TravelWiseEnv --> "passengers use trains, ships etc." RailEnv
-    Stop "1.." --> "1" Station
-    Stop "0,1" --> "1" Configuration
-    Line "1" --> "1.." LineFlexibleStop
-    LineFlexibleStop "1.." --> "1.." Stop
+    PassengerEnv --|> "inheritance" RailEnv
+    PassengerEnv --> "passengers use trains, ships etc." RailEnv
+    StoppingPoint "1.." --> "1" Station
+    StoppingPoint "0,1" --> "1" Coordinate
+    Line "1" --> "1.." LineFlexibleStoppingPoint
+    LineFlexibleStoppingPoint "1.." --> "1.." StoppingPoint
+    FlatlandPolicy --> RailEnv
+    PassengerPolicy --> PassengerEnv
+    TravelWisePolicyRunner --> FlatlandPolicy
+    TravelWisePolicyRunner --> PassengerPolicy
 
     namespace Controller {
-        class Trajectory {
-            env: RailEnv
-            policy: FlatlandPolicy
+        class TravelWisePolicyRunner {
         }
     }
 
@@ -63,25 +66,25 @@ classDiagram
         }
 
         class TransitionMap {
-            configurations: Set[Configuration] "aka. nodes aka. grid cell entry points"
-            transitions: Set[Tuple[Configuration, Configuration]] "aka. edges aka. grid cell transition"
+            configurations: Set[Coordinate] "aka. nodes aka. grid cell entry points"
+            transitions: Set[Tuple[Coordinate, Coordinate]] "aka. edges aka. grid cell transition"
             apply_action_independent()
-            get_successor_configurations()
-            get_predecessor_configurations()
-            is_valid_configuration()
+            get_successor_coordinates()
+            get_predecessor_coordinates()
+            is_valid_coordinate()
         }
 
         class Station {
             description: Any
         }
 
-        class Stop {
+        class StoppingPoint {
             description: Any
         }
 
         class Line
 
-        class LineFlexibleStop
+        class LineFlexibleStoppingPoint
 
         class Timetable {
             agentTimetables: Map[EnvAgent, AgentTimetable]
@@ -111,14 +114,15 @@ classDiagram
             timetable: AgentTimeTable
             next_stop(): LineFlexibleStop
         }
+        class Coordinate
     }
     namespace TravelWise {
-        class TravelWiseEnv {
+        class PassengerEnv {
             step()
         }
+        class PassengerPolicy {
+            act()
+        }
     }
-
-    note for RailEnv "parameterized &lt;Configuration,TransitionMap,Action,Rewards,Observation>"
-    note for FlatlandPolicy "parameterized &lt;Observation,Action,Reward>"
 
 ```
