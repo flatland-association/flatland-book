@@ -42,7 +42,7 @@ The passenger layer is represented as a `PassengerEnv` where all properties corr
 | line | list of stations that are served successively | journey | two points (origin and destination) that are connected through the graph |
 | timetable | list of time windows (latest arrival, earliest departure) for a given line | initial itinerary | list of specific modes of transport creating a viable path from origin and destination taking into account their timetables |
 | action   | generalized version of the railway case actions, including *move to edge a1*, *accelerate*, *brake* | action | in principle, there are the same actions, however, in practice there is only *move to edge a1* since the passenger agents leave their graph as soon as they *hop on* a vehicle (they still exist, but refer to their vehicle in the environment state) |
-| observation | conventional `RailEnv` obsercvations, e.g. tree observation| observation | global observation of the infrastructure graph and timetables;  |
+| observation | conventional `RailEnv` observations, e.g. tree observation| observation | global observation of the infrastructure graph and timetables;  |
 | effects  | triggers for milestones can be e.g. delayed trains, trains passing a specific node, ... | effects | triggers for milestones can be passenger specific, e.g. *my* train is delayed, ... |
 | malfunction | includes breakdowns, departure delays, ... | - | so far, there are no malfunctions planned in this env |
 
