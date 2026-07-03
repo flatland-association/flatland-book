@@ -73,6 +73,7 @@ classDiagram
     Gate "1" --> "1.." Pin
     Chain --> "1..." Link
     GateLink --> "2" Gate
+  Station --> "1..." GateLink
 
     namespace Rail {
         class FlatlandNode
@@ -80,7 +81,7 @@ classDiagram
     }
     note for FlatlandEdge "Either station xor line(s)"
     note for Fibre "May define subset of Cartesian product of from and to pins.<br/>Fibres can fork and join.<br/>Fibres must not go through other stations"
-    note for Chain "Links in the Chain end/start at same station at different Gates" 
+  note for Chain "Links in the Chain must end/start at same station at different Gates linked by a GateLink"
 
 ```
 
@@ -140,5 +141,5 @@ Without `Chain`s and `GateLink`s:
 | `Station`       | city                    |
 | `Link`          | inter_city_line         |
 | `Gate` / `Pin`  | outer_connection_points |
-| `StoppingPint`  | train_station           |
+| `StoppingPoint` | train_station           |
 | `Station` cells | free_rail / inner city  |
