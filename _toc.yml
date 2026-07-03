@@ -33,6 +33,8 @@ parts:
           - file: environment/environment/Agent-Close-Following
           - file: environment/environment/graph_demo
       - file: environment/scenario_generation
+        sections:
+          - file: environment/stations_links.md
       - file: environment/observation_builder
         sections:
           - file: environment/observation_builder/provided_observations
