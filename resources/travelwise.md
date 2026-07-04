@@ -6,7 +6,7 @@ These core ideas will be implemented in Flatland to enable the simulation of Tra
 
 - Multimodality: move from trains-only to other modes of transport (busses, airplanes, ships and ferries, ...)
 - Passenger journey: agents can also be people travelling from A to B potentially using multiple modes of transportation
-- Graph representation: move from the grid-world to a graph-world in a two-layered representation of an infrastructure-graph and a passenger-graph
+- Graph representation: move from the grid-world to a graph-world in a two-layered representation of an infrastructure graph and a passenger graph
 
 ## Introduction
 
@@ -28,7 +28,7 @@ On the **passenger level**, the agents are groups of people (N=1..n) referred to
 
 ![Two Layers](./travelwise/two-layers.drawio.png)
 
-A passener, therefore, _hops on_ a vehicle running on the infrastructure layer. On each node of the graph where a transfer is possible (stations, stops, airports,...) the passenger _hops back up_ and _sees_ the possible paths on its own graph.
+A passener, therefore, _hops down on_ a vehicle running on the infrastructure layer. On each node of the graph where a transfer is possible (stations, stops, airports,...) the passenger _hops back up_ and _sees_ the possible paths on its own graph.
 
 ### Environments
 
@@ -40,10 +40,10 @@ The passenger layer is represented as a `PassengerEnv` where all properties corr
 | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | infrastructure      | graph consisting of nodes and multimodal edges                                                                                                                                                               | ...               | (the graph corresponds to a subgraph of the infrastructure graph)                                                                                                                                                                                      |
 | line                | list of stations that are served successively                                                                                                                                                                | journey           | two points (origin and destination) that are connected through the graph                                                                                                                                                                               |
-| timetable           | list of time windows (latest arrival, earliest departure) for a given line                                                                                                                                   | initial itinerary | list of specific modes of transport creating a viable path from origin and destination taking into account their timetables                                                                                                                            |
+| timetable           | list of time windows (latest arrival, earliest departure) for a given line                                                                                                                                   | initial itinerary | list of specific modes of transport creating a viable path from origin to destination taking into account their timetables                                                                                                                             |
 | action              | generalized version of the railway case actions, including _move to edge a1_, _accelerate_, _brake_ (this is a larger action space, since there can be more than two outgoing edges at a node (left, right)) | action            | in principle, there are the same actions, however, in practice there is only _move to edge a1_ since the passenger agents leave their graph as soon as they _hop on_ a vehicle (they still exist, but refer to their vehicle in the environment state) |
 | observation         | conventional `RailEnv` observations, e.g. tree observation                                                                                                                                                   | observation       | global observation of the infrastructure graph and timetables; potentially a list of itineraries to choose from                                                                                                                                        |
-| effect              | triggers for milestones can be e.g. delayed trains, trains passing a specific node, ...                                                                                                                      | effect            | triggers for milestones can be passenger specific, e.g. _my_ train is delayed, ...                                                                                                                                                                     |
+| event               | triggers for milestones can be e.g. delayed trains, trains passing a specific node, ...                                                                                                                      | event             | triggers for milestones can be passenger specific, e.g. _my_ train is delayed, ...                                                                                                                                                                     |
 | malfunction         | includes breakdowns, departure delays, ...                                                                                                                                                                   | -                 | so far, there are no malfunctions planned in this env                                                                                                                                                                                                  |
 
 Note:
@@ -83,7 +83,7 @@ Both layers need a controller and a policy under which the controller can act. T
 - fewest transfers,
 - longer transfer times (e.g. for passengers with reduced mobility)
 
-and can include instructions to, e.g., not update the itinerary at every decision point but only if the passenger is not able to stick to the initial itinerary.
+and can include instructions to, e.g. not update the itinerary at every decision point but only if the passenger is not able to stick to the initial itinerary.
 
 ## Travel Wise Scenarios
 
@@ -107,6 +107,8 @@ In addition to the data needed for a general scenario (described above), a Trave
 #### Quantiatively ballpark numbers
 
 ### Scientific Questions
+
+(incomplete list)
 
 - What is the impact of a disruption and what are its cascading effects?
   - metrics include: total delay, number of passengers affected, number (and type) of vehicles affected, number of corrective measures implemented (like opening fast track lane)

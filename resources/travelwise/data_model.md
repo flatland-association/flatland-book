@@ -1,5 +1,4 @@
-Travel Wise Data Model
-===================
+# Travel Wise Data Model
 
 This page gives technical details to the general approach of [Travel Wise](../travelwise).
 
@@ -15,8 +14,8 @@ External effects can be modelled by effects generators, modifying the environmen
 
 The railway domain is reflected at the microscopic level:
 
-* infrastructure/topology is defined by the transition map and stations and stops in the map
-* services are defined spatially by lines and spatio-temporally by timetables
+- infrastructure/topology is defined by the transition map and stations and stops in the map
+- services are defined spatially by lines and spatio-temporally by timetables
 
 The Travel Wise extension reflects passenger journeys.
 
@@ -30,7 +29,7 @@ Agents controlled in rail env are vehicles, agents controlled in the passenger e
 ```mermaid
 classDiagram
     direction LR
-    note for PassengerEnv "Agents reflect passengers and configurations represent passenge locations and policies drive passengers; TODO: what are the actions"
+    note for PassengerEnv "Agents reflect passengers and configurations represent passenger locations and policies drive passengers; TODO: what are the actions"
     note for RailEnv "Agents reflect trains/ships/etc. Configurations can be graph nodes or grid cell entry points (r,c,d)."
     note for TransitionMap "Topology"
     note for Line "Services in Space; aka. Journey for passengers"
@@ -98,8 +97,8 @@ classDiagram
         }
 
         class AgentTimetableItem {
-            earliestArrival: int
-            latestDeparture: int
+            latesttArrival: int
+            earliestDeparture: int
         }
 
         class FlatlandPolicy {
