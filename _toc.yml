@@ -88,6 +88,11 @@ parts:
       - file: resources/bibliography
       - file: resources/youtube
       - file: resources/community-projects
+      - file: resources/travelwise
+        sections:
+          - file: resources/travelwise/data_model
+
+
 
   ## APIDOC
   - caption: APIDOC
