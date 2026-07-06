@@ -1,5 +1,5 @@
-Stations and LinksData Model
-============================
+Stations and Links Data Model
+=============================
 
 > This feature was introduced in [4.3.0](https://github.com/flatland-association/flatland-rl/pull/441)
 
@@ -85,54 +85,10 @@ classDiagram
 
 ```
 
-### JSON Representation
+### Implementation
 
-Without `Chain`s and `GateLink`s:
+See [stations_links.py](https://github.com/flatland-association/flatland-rl/tree/main/flatland/envs/stations_links.py).
 
-```json
-{
-    "stations_links": {
-        "stations": {
-            "station_id": {
-                "name": "",
-                "gates": {
-                    "gate_id": {
-                        "name": "",
-                        "pins": {
-                            "pin_id": {
-                                "node": "",
-                                "name": ""
-                            }
-                        }
-                    }
-                },
-                "stopping_points": [
-                    {
-                        "node": "",
-                        "name": ""
-                    }
-                ],
-                "edges": []
-            }
-        },
-        "links": [
-            {
-                "from_station": "",
-                "from_gate": "",
-                "to_station": "",
-                "to_gate": "",
-                "fibres": [
-                    {
-                        "from_pin": "",
-                        "to_pin": "",
-                        "edges": []
-                    }
-                ]
-            }
-        ]
-    }
-}
-```
 
 ## Terminology mapping to `sparse_rail_gen`
 
