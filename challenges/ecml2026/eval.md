@@ -36,7 +36,7 @@ $$
 where $m_{l,s}$ and $a_{l,s}$ are the maximum episode steps and number of agents for scenario $s$ of level $l$ respectively. The (unnormalized) total reward for agent $a$ in level $l$ and scenario $s$ is the sum over the different categories of rewards/penalties
 
 $$
-r_a^{l,s} = \sum_{c\in C} r_{a,c}^{l,s} < 0  \ .
+r_a^{l,s} = \sum_{c\in C} r_{a,c}^{l,s} \leq 0  \ .
 $$
 
 For comparing the contributions of different reward categories to the scenario score we look at the normalized category score
