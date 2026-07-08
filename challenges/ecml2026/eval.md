@@ -30,6 +30,21 @@ normalized_reward = sum([max(cumulative_rewards[agent.handle], - self.env.max_ep
         self.env.max_episode_steps * self.env.get_num_agents()) + 1
 ```
 
+As math:
+$$
+S_\text{submission} = \sum_{l=0}^6 \sum_{s=1}^5 \left( \sum_{a=1}^{a_{l,s}} \frac{\max\{r_a, -m_{l,s}\}}{m_{l,s} a_{l,s}} + 1 \right) \ ,
+$$
+
+The (unnormalized) total reward per agent is a sum over different categories of rewards/penalties:
+$$
+r_a = \sum_{c\in C} r_{a,c}
+$$
+
+For comparing submissions, it's interesting to look at the normalized category score per category and scenario:
+$$
+S_{\text{submission},c,s} = ...
+$$
+
 The episodes finish when all the trains have reached their target, or when the maximum number of time steps is reached. Therefore:
 
 - The **minimum possible value** (i.e. worst possible) is 0.0, which occurs if none of the agents reach their goal during the episode.
