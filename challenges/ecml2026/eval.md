@@ -118,6 +118,42 @@ trains have to reach their destination. Constraints to ensure a level playing fi
 
 Failing to satisfy the success rate or time constraint requirement results in the termination of the submission, leaving the summed score as up to this point.
 
+```mermaid
+  gantt
+  dateFormat HH:mm
+  axisFormat %H:%M
+  title Per-scenario pod lifecycle — nested time limits
+
+  section Waiting phase (from job creation, t=0)
+    wait_for_pod_to_start_limit — pod not yet listed (max 2m): crit, start1, 00:00, 2m
+    wait_for_pod_to_run_limit — Pending/Unknown incl. image pull (max 30m, measured from t=0): active, run1, 00:00, 30m
+
+  section Running phase
+    running_time_limit — pod Running, per scenario (max 30m, starts once Running): done, running1, 00:30, 30m
+
+  section Hard k8s ceiling (per scenario pod)
+    active_deadline_seconds — on pod spec, pull+run together (1h = wait_for_pod_to_run_limit + running_time_limit, no slack): crit, adl1, 00:00, 60m
+```
+
+```mermaid
+  gantt
+    dateFormat HH:mm
+    axisFormat %H:%M
+    title Submission-level — across ALL scenarios
+
+    section Orchestration job (whole submission, hard k8s ceiling)
+        orchestration_job_active_deadline_seconds — ALL scenarios + technical overhead (8h): crit, orch, 00:00, 480m
+
+    section Scenario pods (run sequentially, one at a time)
+        Scenario 1 pod (start+pull+run+eval): done, s1, 00:00, 15m
+        Scenario 2 pod: done, s2, after s1, 45m
+        Scenario 3 pod: active, s3, after s2, 30m
+        "… remaining scenarios (up to 1h each, per active_deadline_seconds) …": crit, sN, after s3, 90m
+
+    section Cumulative running-time budget (Running-phase seconds only, excl. pull/eval overhead — NOT wall clock)
+        total_running_time_limit exhausted — per eval.md (5h): milestone, tot_doc, 05:00, 0m
+```
+
 ## 📪 Daily Submission Limits and Submission Closure.
 
 You can submit up to 2 times per day.
