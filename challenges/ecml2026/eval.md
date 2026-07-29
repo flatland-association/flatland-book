@@ -33,10 +33,11 @@ $$
 S_\text{submission} = \sum_{l=0}^6 \sum_{s=1}^5 \left( \sum_{a=1}^{a_{l,s}} \frac{\max\{r_a^{l,s}, -m_{l,s}\}}{m_{l,s} a_{l,s}} + 1 \right) \ ,
 $$
 
-where $m_{l,s}$ and $a_{l,s}$ are the maximum episode steps and number of agents for scenario $s$ of level $l$ respectively. The (unnormalized) total reward for agent $a$ in level $l$ and scenario $s$ is the sum over the different categories of rewards/penalties
+where $m_{l,s}$ and $a_{l,s}$ are the maximum episode steps and number of agents for scenario $s$ of level $l$ respectively. The (unnormalized) total reward for
+agent $a$ in level $l$ and scenario $s$ is the sum over the different categories of rewards/penalties
 
 $$
-r_a^{l,s} = \sum_{c\in C} r_{a,c}^{l,s} \leq 0  \ .
+r_a^{l,s} = \sum_{c\in C} r_{a,c}^{l,s} \leq 0 \ .
 $$
 
 For comparing the contributions of different reward categories to the scenario score we look at the normalized category score
@@ -64,7 +65,7 @@ Evaluation is stopped when a submission does not reach the threshold of 25% comp
 The factors for the [reward function](../../environment/environment/rewards.md) in this competition are:
 
 | factor                                    | value |
-| ----------------------------------------- | :---: |
+|-------------------------------------------|:-----:|
 | journey not started (cancellation factor) |   5   |
 | cancellation time buffer                  |   0   |
 | delay at target                           |   1   |
@@ -93,21 +94,22 @@ We do not provide GPUs.
 ### Detailed overview over resource limits
 
 | Limit[^1]                                   | Value                                                                                    | Submission outcome             | Details                                                                                                                                               |
-| ------------------------------------------- | ---------------------------------------------------------------------------------------- | ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+|---------------------------------------------|------------------------------------------------------------------------------------------|--------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `dailyLimit`                                | `2`                                                                                      | Not created                    | Error in frontend as error `429 TOO_MANY_REQUESTS` from backend.                                                                                      |
-| `WAIT_FOR_POD_TO_RUN_LIMIT`                 | `1200` (20 min)                                                                          | Failure                        | submission pod should be listed by now, i.e. pulling has started by now.                                                                              |
-| `WAIT_FOR_POD_TO_START_LIMIT`               | `1200` (20 min)                                                                          | Failure                        | submission pod should have reached running state by now, i.e. pulling should be done by now                                                           |
-| `RUNNING_TIME_LIMIT`                        | `1800` (30 min)                                                                          | Success with termination cause | per scenario; evaluation terminated; results do notexcl. the overlong scenario                                                                        |
+| `WAIT_FOR_POD_TO_START_LIMIT`               | `120` (2 min)                                                                            | Failure                        | per scenario, submission pod should be listed by now, i.e. pulling has started by now.                                                                |
+| `WAIT_FOR_POD_TO_RUN_LIMIT`                 | `1800` (30 min)                                                                          | Failure                        | per scenario, submission pod should have reached running state by now, i.e. pulling should be done by now .                                           |
+| `RUNNING_TIME_LIMIT`                        | `1800` (30 min)                                                                          | Success with termination cause | per scenario, excluding technical overhead for starting pods and running offline trajectory evaluation; results do not include the overlong scenario  |
+| `ACTIVE_DEADLINE_SECONDS`                   | `3600` (1h)                                                                              | Failure/cleanup                | per scenario, including technical overhead for starting pods for submission                                                                           |
+| `ORCHESTRATION_JOB_ACTIVE_DEADLINE_SECONDS` | `28800` (8h)                                                                             | Failure/cleanup                | all scenarios, including technical overhead for starting pods for orchestration and evaluation                                                        |
 | `TOTAL_RUNNING_TIME_LIMIT`                  | `18000` (5h)                                                                             | Success with termination cause | all scenarios, excluding technical overhead for starting pods and running offline trajectory evaluation; results do not include the overlong scenario |
-| `ACTIVE_DEADLINE_SECONDS`                   | `3600` (1h)                                                                              | Failure/cleanup                | everything including technical overhead for starting pods for submission                                                                              |
 | `PERCENTAGE_COMPLETE_THRESHOLD`             | `0.25` (25%)                                                                             | Success with termination cause | `Mean percentage of done agents during the last test was too low`; results do include the test, but stop after the test.                              |
 | `ORCHESTRATION_JOB_K8S_RESOURCE_ALLOCATION` | `{"requests": {"memory": "5Gi", "cpu": "1"}, "limits": {"memory": "5Gi", "cpu": "1"}}`   | Failure                        | resource limits for pod running the submission                                                                                                        |
 | `K8S_RESOURCE_ALLOCATION`                   | `{"requests": {"memory": "15Gi", "cpu": "4"}, "limits": {"memory": "15Gi", "cpu": "4"}}` | Failure                        | resource limits for pod running the submission                                                                                                        |
-| `ORCHESTRATION_JOB_ACTIVE_DEADLINE_SECONDS` | `28800` (8h)                                                                             | Failure/cleanup                | everything including technical overhead for starting pods for orchestration and evaluation                                                            |
 
 [^1]: see [implementation](https://github.com/flatland-association/flatland-benchmarks/pull/594/changes)
 
-To move from one level to the next, a submission has to achieve a mean success rate of 25\% over the 5 scenarios of that level, i.e., at least 25\% of the trains have to reach their destination. Constraints to ensure a level playing field:
+To move from one level to the next, a submission has to achieve a mean success rate of 25\% over the 5 scenarios of that level, i.e., at least 25\% of the
+trains have to reach their destination. Constraints to ensure a level playing field:
 
 - 30 minutes per scenario limit
 - 5 hours per submission limit
