@@ -107,6 +107,15 @@ We do not provide GPUs.
 
 [^1]: see [implementation](https://github.com/flatland-association/flatland-benchmarks/pull/594/changes)
 
+To move from one level to the next, a submission has to achieve a mean success rate of 25\% over the 5 scenarios of that level, i.e., at least 25\% of the trains have to reach their destination. Constraints to ensure a level playing field:
+
+- 30 minutes per scenario limit
+- 5 hours per submission limit
+- 2 daily submissions limit
+- computation resources for all submissions: 4 CPU cores with 15 GB of memory
+
+Failing to satisfy the success rate or time constraint requirement results in the termination of the submission, leaving the summed score as up to this point.
+
 ## 📪 Daily Submission Limits and Submission Closure.
 
 You can submit up to 2 times per day.
