@@ -46,7 +46,13 @@ $$
 S_{\text{cat-norm}, c}^{l,s} = \frac{r_c^{l,s}}{\sum_{c\in C} r_c^{l,s}} \ , \quad r_c^{l,s} = \sum_{a=1}^{a_{l,s}} r_{a,c}^{l,s}
 $$
 
-for level $l$, scenario $s$ and category $c$.
+for level $l$, scenario $s$ and category $c$. Note that this score allows only for a comparison of the composition of the reward and not of total rewards, since
+
+$$
+\sum_c S_{\text{cat-norm}, c}^{l,s} = 1 \ ,
+$$
+
+regardless of the total reward.
 
 The episodes finish when all the trains have reached their target, or when the maximum number of time steps is reached. Therefore:
 
@@ -65,7 +71,7 @@ Evaluation is stopped when a submission does not reach the threshold of 25% comp
 The factors for the [reward function](../../environment/environment/rewards.md) in this competition are:
 
 | factor                                    | value |
-|-------------------------------------------|:-----:|
+| ----------------------------------------- | :---: |
 | journey not started (cancellation factor) |   5   |
 | cancellation time buffer                  |   0   |
 | delay at target                           |   1   |
@@ -94,7 +100,7 @@ We do not provide GPUs.
 ### Detailed overview over resource limits
 
 | Limit[^1]                                   | Value                                                                                    | Submission outcome             | Details                                                                                                                                               |
-|---------------------------------------------|------------------------------------------------------------------------------------------|--------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ------------------------------------------- | ---------------------------------------------------------------------------------------- | ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `dailyLimit`                                | `2`                                                                                      | Not created                    | Error in frontend as error `429 TOO_MANY_REQUESTS` from backend.                                                                                      |
 | `WAIT_FOR_POD_TO_START_LIMIT`               | `120` (2 min)                                                                            | Failure                        | per scenario, submission pod should be listed by now, i.e. pulling has started by now.                                                                |
 | `WAIT_FOR_POD_TO_RUN_LIMIT`                 | `1800` (30 min)                                                                          | Failure                        | per scenario, submission pod should have reached running state by now, i.e. pulling should be done by now .                                           |

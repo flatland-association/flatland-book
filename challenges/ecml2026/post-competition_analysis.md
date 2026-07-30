@@ -1,8 +1,10 @@
-# Evaluation
+# Post-competition Analysis
+
+This section provides an overview of the two winning solutions and the baselines for both the RL and non-RL tracks.
 
 ## Competition Paper
 
-[Real-World Baselines Challenge: Dynamic Train Rescheduling under Stochastic Perturbations](./Real_World_Baselines_Challenge__Dynamic_Train_Rescheduling_under_Stochastic_Perturbations.pdf)
+[Real-World Baselines Challenge: Dynamic Train Rescheduling under Stochastic Perturbations](./Real_World_Baselines_Challenge__Dynamic_Train_Rescheduling_under_Stochastic_Perturbations.pdf) (under review; will be published in the ECML PKDD conference journal)
 
 ## Leaderboard
 
@@ -14,6 +16,8 @@
 | RL     | Baseline: [Organizer: adaptive-completion-7d07d93](https://competition.flatland.cloud/suites/6240c685-0fb4-481e-9404-47a570632227/c85d5fc2-15da-4a62-8e14-28d1261c29bd/submissions/e7fd3100-df18-4772-9049-bdff62791d66)          | 9.4231  | roman.liessner    | https://github.com/dynamik1703/ecml2026-starterkit                                               |
 
 ## Evaluation
+
+See [eval.md](./eval.md) for rewards and normalized rewards definitions.
 
 ### Sucess Rates
 
@@ -30,6 +34,8 @@
 ![submission comparison per level normalized](./plots/submission_comparison_per_level_normalized.png)
 
 ### Submission Comparison per Scenario
+
+See [eval.md](./eval.md) for the definition of the reward categories normalized score.
 
 ![submission comparison per scenario](./plots/submission_comparison_per_scenario_normalized.png)
 
