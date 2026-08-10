@@ -93,7 +93,7 @@ classDiagram
 | Entry Point    | Row, column, entry direction.                                                          | An abstract **node** or **vertex** without further structure (e.g. a string ID).                                            |
 | Configuration  | Long form: Pair entry point, next entry point. Short form: row, column, exit direction | A pair (ordered tuple) of **node**s defines a directed **edge**.                                                            |
 | Transition Map | Possible successor Entry Points for each Entry Point.                        | The graph.                                                                                                                  |
-| Agent State    | Coordinate, next coordinate, offset, speed, malfunction_counter, done.                 | Edge, offset, speed, malfunction counter, done.                                                                             |
+| Agent State    | Configuration, offset, speed, malfunction_counter, done.                 | Edge, offset, speed, malfunction counter, done.                                                                             |
 | Resource Map   | Each `row,col=cell` is a mutually exclusively allocatable resource.                    | A group of edges may require the same mutually exclusively allocatable resource, reflecting common physical infrastructure. |
 
 In Flatland 4.2.5, configurations are `((r,c),d)`; renaming to Entry Point planned for 4.4.0.
