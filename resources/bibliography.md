@@ -4,9 +4,19 @@ Hopefully, this is the complete list of all publications that have used Flatland
 
 👏 Thanks to [aiAdrian](https://github.com/aiAdrian/flatland_railway_extension/blob/master/publications/flatland_research.MD) for compiling!
 
+### 2026
+
+Castagna, A., Zahlner, S., Egli, A., Eichenberger, C., Boos, D., Meyer, M., & Fuxjäger, A. (2026, 11. Mai). [Towards Autonomous Railway Operations: A Semi-Hierarchical Deep Reinforcement Learning Approach to the Vehicle Rescheduling Problem.](https://arxiv.org/pdf/2605.10257v1) arXiv. doi.org
+
+Yang, J., Yang, H., Wang, W., & Xia, C. (2026). 
+[Large-Scale Metro Train Timetable Rescheduling via Multi-Agent Deep Reinforcement Learning: A High-Dimensional Optimization Approach in Flatland Environment.](https://www.mdpi.com/2076-3417/16/7/3338)
+Applied Sciences, 16(7), 3338.
+
+
 ### 2025
 
 ----
+[Mock, A., & Nguyen, M. K. (2025). Applying Reinforcement Learning to Train Scheduling.](https://www.zhaw.ch/storage/engineering/institute-zentren/cai/studentische_arbeiten/Spring_2025/BA_FS_25_RL_Train_Schedulin_train_scheduling_mockand1_nguyemi1.pdf)
 
 Jaziri, A., Künzel, E., & Ramesh, V. (2025).
 [Mitigating the Stability-Plasticity Dilemma in Adaptive Train Scheduling with Curriculum-Driven Continual DQN Expansion.](https://arxiv.org/pdf/2408.09838)
