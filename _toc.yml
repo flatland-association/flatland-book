@@ -16,6 +16,7 @@ parts:
   ## KEY CONCEPTS
   - caption: Key concepts
     chapters:
+      - file: key-concepts/simulation_model
       - file: key-concepts/key_concepts
 
 

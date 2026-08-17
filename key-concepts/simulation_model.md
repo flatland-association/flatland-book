@@ -41,7 +41,7 @@ Adapted from [RLlib](https://docs.ray.io/en/latest/rllib/rllib-env.html#rllib-en
 ### Flatland Environment
 
 | Concept             | Description                                                                                                                                                                                                                                                                |
-| ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|---------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Agent               | Each train is a single agent in Flatland.                                                                                                                                                                                                                                  |
 | (MA)RL Loop         | (Multi-Agent) Reinforcement Learning Loop is a control loop: a policy receives observations from the env and outputs actions. See above.                                                                                                                                   |
 | Policy              | Recevies an observation for each agent and outputs an action for each agent. The policy may consist of a single sub-policy applied to each agent unilaterally or it may have different sub-policies for each agent individually or even consider all observations jointly. |
@@ -88,19 +88,20 @@ classDiagram
 
 ### Flatland Transition Maps
 
-| Concept        | Grid                                                                | Graph                                                                                                                       |
-| -------------- | ------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| Coordinate     | Row, column, direction how cells can be entered.                    | An abstract **node** without further structure.                                                                             |
-| Transition Map | For each coordinate, which are possible successor coordinates.      | A pair of **node**s defines a directed **edge**.                                                                            |
-| Configuration  | Coordinate, next coordinate, offset, speed, malfunction_counter     | Edge, offset.                                                                                                               |
-| Resource Map   | Each `row,col=cell` is a mutually exclusively allocatable resource. | A group of edges may require the same mutually exclusively allocatable resource, reflecting common physical infrastructure. |
+| Concept        | Grid                                                                                   | Graph                                                                                                                       |
+|----------------|----------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------|
+| Entry Point    | Row, column, entry direction.                                                          | An abstract **node** or **vertex** without further structure (e.g. a string ID).                                            |
+| Configuration  | Long form: Pair entry point, next entry point. Short form: row, column, exit direction | A pair (ordered tuple) of **node**s defines a directed **edge**.                                                            |
+| Transition Map | Possible successor Entry Points for each Entry Point.                        | The graph.                                                                                                                  |
+| Agent State    | Configuration, offset, speed, malfunction_counter, done.                 | Edge, offset, speed, malfunction counter, done.                                                                             |
+| Resource Map   | Each `row,col=cell` is a mutually exclusively allocatable resource.                    | A group of edges may require the same mutually exclusively allocatable resource, reflecting common physical infrastructure. |
 
-In Flatland 4.2.5, configurations are `((r,c),d)`; renaming to `coordinate` planned for 4.3.0.
+In Flatland 4.2.5, configurations are `((r,c),d)`; renaming to Entry Point planned for 4.4.0.
 
 ### Flatland Rail
 
 | Concept               | Description                                                                                                                                                                                                                                                                |
-| --------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|-----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Malfunction Generator | An instance of effects generator, changing agent's state.                                                                                                                                                                                                                  |
 | Rail (Generator)      | Outputs a transition map and stopping points, and, optionally, stations and links.                                                                                                                                                                                         |
 | Line (Generator)      | Outputs a sequence of stops, which are sets of configurations. The first is a singleton called initial configuration; the last is called target; the others are called intermediate stops.                                                                                 |
