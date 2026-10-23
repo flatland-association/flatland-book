@@ -26,8 +26,8 @@ flowchart LR
         agent_policy((agent))
 
     end
-    RailEnv -->|actions| Policy
-    Policy -->|observations| RailEnv
+    RailEnv -->|observations| Policy
+    Policy -->|actions| RailEnv
     agent o--o agent_policy
     RailEnv -->|info| PolicyRunner
     RailEnv -->|rewards| PolicyRunner
