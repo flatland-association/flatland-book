@@ -81,6 +81,6 @@ In particular, Diamond crossing can be defined to be level-free, which allows tw
 
 #### Changes
 
-* Add list of cells which allow for level-free crossings if agents move in opposite directions.
+* Add list of cells which allow for level-free crossings if agents move perpendicular to each other (one horizontal, the other vertical).
 * Add `p_level_free` in rail gen to sample percentage of level free diamond-crossings from generated diamond crossings.
 
