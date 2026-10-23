@@ -42,6 +42,14 @@ fi
 # plain html imgs seem not copied
 cp assets/images/* _build/html/_images
 
-find _build -name "*.ipynb" -print0 | xargs -0  --no-run-if-empty grep -E "ImportError|KeyboardInterrupt|AttributeError|ModuleNotFoundError|NameError" || true
-NUM=$(find _build -name "*.ipynb" -print0 | xargs -0  --no-run-if-empty grep -E "ImportError|KeyboardInterrupt|AttributeError|ModuleNotFoundError|NameError" | wc -l)
-exit ${NUM}
+# fail on any notebook execution error: jupyter-book writes a report per failed notebook (any exception, incl. SyntaxError),
+# and notebooks executed with allow_errors keep the error as an output.
+FAILED=$( (find _build/html/reports -name "*.err.log" 2>/dev/null; grep -rl --include="*.ipynb" '"output_type": "error"' _build/jupyter_execute 2>/dev/null) | sort -u)
+if [ -n "${FAILED}" ]; then
+  echo "Notebook execution failed:"
+  echo "${FAILED}"
+  for f in $(echo "${FAILED}" | grep "\.err\.log$"); do
+    tail -n 20 "${f}"
+  done
+  exit 1
+fi
