@@ -93,6 +93,7 @@ as each agent would only attempt its greedy solution, which is not usually [Pare
 this context.
 
 ```python
+from flatland.core.grid.grid4_utils import get_new_position
 from flatland.envs.observations import TreeObsForRailEnv
 
 
@@ -120,8 +121,11 @@ class SingleAgentNavigationObs(TreeObsForRailEnv):
         # Here we access agent information from the environment.
         # Information from the environment can be accessed but not changed!
         agent = self.env.agents[handle]
+        # The configuration is ((row, column), direction); off the map, use the one at which the agent enters the map.
+        configuration = agent.current_configuration if agent.current_configuration is not None else agent.initial_configuration
+        position, direction = configuration
 
-        possible_transitions = self.env.rail.get_transitions(*agent.position, agent.direction)
+        possible_transitions = self.env.rail.get_transitions(configuration)
         num_transitions = np.count_nonzero(possible_transitions)
 
         # Start from the current orientation, and see which transitions are available;
@@ -131,10 +135,10 @@ class SingleAgentNavigationObs(TreeObsForRailEnv):
             observation = [0, 1, 0]
         else:
             min_distances = []
-            for direction in [(agent.direction + i) % 4 for i in range(-1, 2)]:
-                if possible_transitions[direction]:
-                    new_position = self._new_position(agent.position, direction)
-                    min_distances.append(self.env.distance_map.get()[handle, new_position[0], new_position[1], direction])
+            for new_direction in [(direction + i) % 4 for i in range(-1, 2)]:
+                if possible_transitions[new_direction]:
+                    new_position = get_new_position(position, new_direction)
+                    min_distances.append(self.env.distance_map.get()[handle, new_position[0], new_position[1], new_direction])
                 else:
                     min_distances.append(np.inf)
 
