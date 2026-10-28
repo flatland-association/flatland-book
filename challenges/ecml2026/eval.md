@@ -102,7 +102,7 @@ The agents have to act within **time limits**:
 The agents are evaluated in a container with **resource limits**
 
 - 4 CPU cores
-- 15 GB of main memory.
+- 15 GiB of main memory.
 
 We do not provide GPUs.
 
@@ -118,8 +118,8 @@ We do not provide GPUs.
 | `ORCHESTRATION_JOB_ACTIVE_DEADLINE_SECONDS` | `28800` (8h)                                                                             | Failure/cleanup                | all scenarios, including technical overhead for starting pods for orchestration and evaluation                                                        |
 | `TOTAL_RUNNING_TIME_LIMIT`                  | `18000` (5h)                                                                             | Success with termination cause | all scenarios, excluding technical overhead for starting pods and running offline trajectory evaluation; results do not include the overlong scenario |
 | `PERCENTAGE_COMPLETE_THRESHOLD`             | `0.25` (25%)                                                                             | Success with termination cause | `Mean percentage of done agents during the last test was too low`; results do include the test, but stop after the test.                              |
-| `ORCHESTRATION_JOB_K8S_RESOURCE_ALLOCATION` | `{"requests": {"memory": "5Gi", "cpu": "1"}, "limits": {"memory": "5Gi", "cpu": "1"}}`   | Failure                        | resource limits for pod running the submission                                                                                                        |
-| `K8S_RESOURCE_ALLOCATION`                   | `{"requests": {"memory": "15Gi", "cpu": "4"}, "limits": {"memory": "15Gi", "cpu": "4"}}` | Failure                        | resource limits for pod running the submission                                                                                                        |
+| `ORCHESTRATION_JOB_K8S_RESOURCE_ALLOCATION` | `{"requests": {"memory": "5Gi", "cpu": "1"}, "limits": {"memory": "5Gi", "cpu": "1"}}`   | Failure                        | resource limits for the orchestration job pod, one per submission, which runs the submission's scenario pods and evaluates their trajectories         |
+| `K8S_RESOURCE_ALLOCATION`                   | `{"requests": {"memory": "15Gi", "cpu": "4"}, "limits": {"memory": "15Gi", "cpu": "4"}}` | Failure                        | resource limits for the submission pod, one per scenario                                                                                              |
 
 [^1]: see [implementation](https://github.com/flatland-association/flatland-benchmarks/pull/594/changes)
 
@@ -129,7 +129,7 @@ trains have to reach their destination. Constraints to ensure a level playing fi
 - 30 minutes per scenario limit
 - 5 hours per submission limit
 - 2 daily submissions limit
-- computation resources for all submissions: 4 CPU cores with 15 GB of memory
+- computation resources for all submissions: 4 CPU cores with 15 GiB of memory
 
 Failing to satisfy the success rate or time constraint requirement results in the termination of the submission, leaving the summed score as up to this point.
 
