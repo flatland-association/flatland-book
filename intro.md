@@ -1,7 +1,7 @@
 Welcome to Flatland
 ===
 
-![Flatland](./_images/9cNtWjs.gif)
+![Flatland](assets/images/9cNtWjs.gif)
 
 Flatland tackles a major problem in the transportation world:
 
@@ -110,7 +110,7 @@ merely memorize specific trajectories.
 🚉 Next stops
 ---
 
-- [Step by step introduction to Flatland](key-concepts/env.md)
+- [Step by step introduction to Flatland](key-concepts/key_concepts.md)
 - [Take part in the Flatland Benchmarks](challenges/flatland-benchmarks)
 - [Contribute to Flatland](misc/contributing)
 - [Sponsor a Challenge](mailto:contact@flatland-association.org)
