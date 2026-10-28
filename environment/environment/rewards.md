@@ -64,19 +64,19 @@ The symbols are described in the table below.
 | journey not started          | $\phi$, $\pi$                  | $1-\Delta_1$              |            | $p$ | cancellation factor $\phi$ and buffer $\pi$,    <br/> $p$ is the shortest path from start to target                                                                                                                             |
 | target not reached           | 1                              | $1-\mathrm{A}_J$          | $\alpha_J$ | $d$ | projected delay $\alpha_J - T - d$ at the end of the episode, with time $d$ remaining on shortest path to target with maximum speed for corresponding train category; at least the minimum penalty $\nu$ for target not reached |
 | intermediate late arrival    | $\alpha$                       | $\mathrm{A}_j$            | $\alpha_j$ | $a_j$ | latest arrival $\alpha_j$, actual arrival time $a_j$    <br/> at intermediate stop $j=2,\ldots,J-1$                                                                                                                             |
-| intermediate stop not served | $\mu$                          | $1-\mathrm{A}_j$          |            |     | intermediate stop $j$ not served, $j=2,\ldots,J-1$                                                                                                                                                                              |
+| intermediate stop not served | $\mu$                          | $1-\mathrm{A}_j$          |            |     | intermediate stop $j$ not served (not stopped at), $j=2,\ldots,J-1$                                                                                                                                                             |
 | intermediate early departure | $\delta$                       | $\Delta_j$                | $\delta_j$ | $d_j$ | earliest departure from stop $j$, actual departure time $d_j$ <br/> at intermediate stop $j=2,\ldots,J-1$                                                                                                                       |
 | collision                    | $\kappa$                       | $\mathrm{K}_t$            |            | $v(t)$ | collision or invalid action forcing a stop at time $t$ with speed $v(t)$                                                                                                                                                       |
 
 The events used in the table are:
 
-| event          | description                                           |
-|:---------------|:------------------------------------------------------|
-| $\mathrm{A}_J$ | arrived at target $J$                                 |
-| $\Delta_1$     | departed from start                                   |
-| $\mathrm{A}_j$ | arrived at intermediate stop $j$                      |
-| $\Delta_j$     | departed from intermediate stop $j$                   |
-| $\mathrm{K}_t$ | forced stop at time $t$ (collision or invalid action) |
+| event          | description                                                                                                     |
+|:---------------|:----------------------------------------------------------------------------------------------------------------|
+| $\mathrm{A}_J$ | arrived at target $J$                                                                                           |
+| $\Delta_1$     | departed from start                                                                                             |
+| $\mathrm{A}_j$ | stopped at intermediate stop $j$ (at one of its halting cells); running through without stopping does not count |
+| $\Delta_j$     | departed from intermediate stop $j$                                                                             |
+| $\mathrm{K}_t$ | forced stop at time $t$ (collision or invalid action)                                                           |
 
 The scheduled and actual values used in the table are:
 
