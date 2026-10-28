@@ -232,7 +232,7 @@ classDiagram
 Runtime View RailEnv Step
 -------------------------
 
-Notation: [Mermaid Sequence Diagram](https://mermaid.js.org/syntax/sequenceDiagram.html)
+Notation: [Mermaid Flowchart](https://mermaid.js.org/syntax/flowchart.html)
 
 ```mermaid
 flowchart TD
@@ -269,14 +269,14 @@ flowchart TD
     subgraph legend
         Environment(Environment)
         MotionCheck(MotionCheck)
-        RailEnvAgent(RailEnvAgent)
+        EnvAgent(EnvAgent)
         ObservationBuilder(ObservationBuilder)
     end
     style MotionCheck fill: #ffe, stroke: #333, stroke-width: 1px, color: black
     style motion_check.check_motion fill: #ffe, stroke: #333, stroke-width: 1px, color: black
     style motion_check.find_conflicts fill: #ffe, stroke: #333, stroke-width: 1px, color: black
     style motion_check.add_agent fill: #ffe, stroke: #333, stroke-width: 1px, color: black
-    style RailEnvAgent fill: #fcc, stroke: #333, stroke-width: 1px, color: black
+    style EnvAgent fill: #fcc, stroke: #333, stroke-width: 1px, color: black
     style state_machine.step fill: #fcc, stroke: #000, stroke-width: 1px, color: black
     style malfunction_handler.update_counter fill: #fcc, stroke: #000, stroke-width: 1px, color: black
     style ObservationBuilder fill: #90ee90, stroke: #000, stroke-width: 1px, color: black
@@ -311,7 +311,7 @@ speed_counter update are inline code in `step()`, without a method of their own.
 Runtime View Env Reset
 ----------------------
 
-Notation: [Mermaid Sequence Diagram](https://mermaid.js.org/syntax/sequenceDiagram.html)
+Notation: [Mermaid Flowchart](https://mermaid.js.org/syntax/flowchart.html)
 
 ```mermaid
 flowchart TD
