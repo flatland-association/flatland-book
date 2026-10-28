@@ -80,8 +80,9 @@ Single-agent navigation
 Observation builders can inherit from existing concrete subclasses of [
 `ObservationBuilder`](https://github.com/flatland-association/flatland-rl/blob/main/flatland/core/env_observation_builder.py#L18). For example, it may be
 useful to extend the [`TreeObsForRailEnv`](https://github.com/flatland-association/flatland-rl/blob/main/flatland/envs/observations.py#L18) observation
-builder. A feature of this class is that on `reset()`, it pre-computes the lengths of the shortest paths from all cells and orientations to the target of each
-agent, i.e. a distance map for each agent.
+builder. A feature of this class is that it has access to the distance map of the environment: `RailEnv.reset()` resets `env.distance_map`, which computes the
+lengths of the shortest paths from all cells and orientations to the target of each agent on first access by `env.distance_map.get()`, i.e. a distance map for
+each agent.
 
 In this example we exploit these distance maps by implementing an observation builder that shows the current shortest path for each agent
 as a one-hot observation vector of length 3, whose components represent the possible directions an agent can take (`LEFT`, `FORWARD`, `RIGHT`). All values of
