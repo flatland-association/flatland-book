@@ -56,7 +56,10 @@ regardless of the total reward.
 
 The episodes finish when all the trains have reached their target, or when the maximum number of time steps is reached. Therefore:
 
-- The **minimum possible value** (i.e. worst possible) is 0.0, which occurs if none of the agents reach their goal during the episode.
+- The **minimum possible value** (i.e. worst possible) is 0.0, which occurs if every agent accumulates a total penalty of at least `max_episode_steps`
+  (penalties beyond `max_episode_steps` per agent are not counted, see the code above). Agents not reaching their goal do not necessarily lead to the
+  minimum: e.g. the penalty for an agent that never departs is proportional to its travel time on the shortest path, which is usually less than
+  `max_episode_steps`.
 - The **maximum possible value** (i.e. best possible) is 1.0, which would occur if all the agents would reach their targets and intermediate stops on time, i.e.
   not receive any penalty.
 
