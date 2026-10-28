@@ -9,6 +9,12 @@ their state-of-the art algorithms
 
 ## ⚖ Evaluation metrics
 
+> The competition was evaluated with flatland-rl 4.2.6, as pinned in the
+> [starterkit](https://github.com/flatland-association/ecml2026-starterkit). flatland-rl 4.3.0 changed the reward semantics described below: no collision
+> penalty for stops issued by the controller ([#452](https://github.com/flatland-association/flatland-rl/pull/452)), intermediate stops served at any halting
+> cell of the station ([#453](https://github.com/flatland-association/flatland-rl/pull/453)) and the normalization
+> ([#457](https://github.com/flatland-association/flatland-rl/pull/457)). Scores computed with 4.3.0 can therefore differ from the published ones.
+
 ### Normalized Episode Rewards
 
 The primary metrics uses the **normalized return** from your agents - the higher the better.
