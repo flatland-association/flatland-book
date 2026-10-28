@@ -43,7 +43,7 @@ $ pip install "flatland-rl<4"
 ```
 
 ```{note}
-Flatland 3 is tested with Python 3.6 and 3.7 on modern versions of macOS and Linux. We are unable to support Windows completely at this time. WSL is known to work but you may encounter problems with graphical rendering. Your [contribution is welcome](../../contributing.md) if you can help with this!
+Flatland 3 is tested with Python 3.6 and 3.7 on modern versions of macOS and Linux. We are unable to support Windows completely at this time. WSL is known to work but you may encounter problems with graphical rendering. Your [contribution is welcome](../../misc/contributing.md) if you can help with this!
 ```
 
 ✅ Test your local setup
