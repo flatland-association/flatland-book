@@ -24,10 +24,10 @@ scenario:
 ## Synthetic (aka. Random) Scenarios
 
 We provide synthetic scenarios as used in the Flatland 3 Benchmark Environments based
-on [Flatland 3 Round 2 Environment Configurations](https://flatland-association.github.io/flatland-book/challenges/flatland3/envconfig.html).
+on [Flatland 3 Round 2 Environment Configurations](../challenges/flatland3/envconfig).
 
 They can be generated on the fly using `create_envs_from_metadata()`
-in [gen_env.py](https://github.com/flatland-association/flatland-benchmarks/blob/main/definitions/benchmarks/flatland3_benchmarks/gen_envs.py)
+in [gen_envs.py](https://github.com/flatland-association/flatland-benchmarks/blob/main/definitions/benchmarks/flatland3_benchmarks/gen_envs.py)
 from [metadata.csv](https://github.com/flatland-association/flatland-scenarios/blob/main/trajectories/malfunction_deadlock_avoidance_heuristics/metadata.csv):
 
 |     | test_id | env_id  | n_agents | x_dim | y_dim | n_cities | max_rail_pairs_in_city | n_envs_run | seed | grid_mode | max_rails_between_cities | malfunction_duration_min | malfunction_duration_max | malfunction_interval | speed_ratios                                   |
