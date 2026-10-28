@@ -62,28 +62,31 @@ classDiagram
         class Environment {
             <<interface>>
         }
-        class Transitions {
+        class TransitionMap {
             <<interface>>
         }
 
         class ResourceMap {
             <<interface>>
         }
-        class GraphTransitions {
-        }
-        class GridTransitions {
+        class GridTransitionMap {
         }
     }
     namespace Rail {
+        class AbstractRailEnv {
+        }
         class RailEnv {
+        }
+        class GraphTransitionMap {
         }
     }
 
-    RailEnv --|> Environment
-    GridTransitions --|> Transitions
-    GraphTransitions --|> Transitions
-    Environment --> Transitions
-    Environment --> ResourceMap
+    AbstractRailEnv --|> Environment
+    RailEnv --|> AbstractRailEnv
+    GridTransitionMap --|> TransitionMap
+    GraphTransitionMap --|> TransitionMap
+    AbstractRailEnv --> TransitionMap
+    AbstractRailEnv --> ResourceMap
 ```
 
 ### Flatland Transition Maps
