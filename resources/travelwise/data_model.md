@@ -68,9 +68,9 @@ classDiagram
             configurations: Set[Coordinate] "aka. nodes aka. grid cell entry points"
             transitions: Set[Tuple[Coordinate, Coordinate]] "aka. edges aka. grid cell transition"
             apply_action_independent()
-            get_successor_coordinates()
-            get_predecessor_coordinates()
-            is_valid_coordinate()
+            get_successor_configurations()
+            get_predecessor_configurations()
+            is_valid_configuration()
         }
 
         class Station {
