@@ -34,7 +34,7 @@ This can now be accessed as `agent.state` instead of `agent.status`.
 
 ## 5. Removal of `agent.malfunction_data` and `agent.speed_data`
 
-Flatland 2 used to represent malfunctions in a dictionary `agent.malfunction_data`, this is now moved to the class `agent.malfucntion_handler` which keeps the same behvaior but refactored for better readability. 
+Flatland 2 used to represent malfunctions in a dictionary `agent.malfunction_data`, this is now moved to the class `agent.malfunction_handler` which keeps the same behavior but refactored for better readability. 
 
 Train speed and partial fractional position in cells was stored in the dictionary `agent.speed_data`, this is now moved to the class `agent.speed_counter`, which keeps the same functionality but refactored as a counter instead of fractional position.
 
