@@ -29,7 +29,6 @@ parts:
           - file: environment/environment/rewards
           - file: environment/environment/agent
           - file: environment/environment/stochasticity
-          - file: environment/environment/speed_profiles
           - file: environment/environment/Agent-Close-Following
           - file: environment/environment/graph_demo
       - file: environment/scenario_generation
@@ -103,7 +102,6 @@ parts:
   ## MISC
   - caption: Misc
     chapters:
-      - file: misc/external-resources
       - file: misc/contributing
       - file: misc/credits
 
