@@ -29,17 +29,17 @@ For the Warm-up Round and Round 1 of the NeurIPS 2020 challenge, the upper limit
 - `n_agents <= 400`
 - `malfunction_rate <= 1/50`
 
-In Round 1, these parameters [are fully revealed](../getting-started/environment-configurations)!
+In Round 1, these parameters [are fully revealed](envconfig.md)!
 
 How do I submit to the Flatland challenge?
 ---
 
-To submit your solution, you will push your code to a private repository at [https://gitlab.aicrowd.com](https://gitlab.aicrowd.com), then push a git tag corresponding to the version you'd like to submit. [Follow this this guide for more details.](../getting-started/first-submission)
+To submit your solution, you will push your code to a private repository at [https://gitlab.aicrowd.com](https://gitlab.aicrowd.com), then push a git tag corresponding to the version you'd like to submit. [Follow this this guide for more details.](first-submission.md)
 
 What are the prizes in this challenge?
 ---
 
-Four travel grants to the NeurIPS 2020 conference will be awarded to the top participants. [Read more about the prizes here](../getting-started/prize-and-metrics).
+Four travel grants to come visit us at EPFL (Switzerland), a GeForce RTX 2080 Graphics Card and 3 NVIDIA Jetson Nano Developer Kits will be awarded to the top participants. [Read more about the prizes here](prizes.md).
 
 What are the deadlines for the Flatland challenge?
 ---
@@ -49,11 +49,11 @@ Check out the deadlines on the challenge Overview page: https://www.aicrowd.com/
 How is the score of a submission computed?
 ---
 
-[Read about the evaluation metrics here](../getting-started/prize-and-metrics).
+[Read about the evaluation metrics here](eval.md).
 
 Can my agent access environment variables?
 ---
 
-Yes you can. You can access all environment variables as you please. We recommend you use a custom observation builder to do so as explained [here](../getting-started/env/custom_observations).
+Yes you can. You can access all environment variables as you please. We recommend you use a custom observation builder to do so as explained [here](../../environment/observation_builder/custom_observations.md).
 
 

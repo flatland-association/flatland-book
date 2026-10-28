@@ -77,12 +77,14 @@ parts:
       - file: challenges/neurips2020-challenge
         sections:
           - file: challenges/neurips2020/first-submission
+          - file: challenges/amld2021/prize-and-metrics
           - file: challenges/neurips2020/eval
           - file: challenges/neurips2020/envconfig
           - file: challenges/neurips2020/faq
       - file: challenges/top-challenge-solutions
 
   ## RESOURCES
+          - file: challenges/neurips2020/prizes
   - caption: Resources
     chapters:
       - file: resources/bibliography
