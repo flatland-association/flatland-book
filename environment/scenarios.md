@@ -27,7 +27,7 @@ We provide synthetic scenarios as used in the Flatland 3 Benchmark Environments 
 on [Flatland 3 Round 2 Environment Configurations](https://flatland-association.github.io/flatland-book/challenges/flatland3/envconfig.html).
 
 They can be generated on the fly using `create_envs_from_metadata()`
-in [gen_env.py](https://github.com/flatland-association/flatland-benchmarks/blob/main/benchmarks/flatland3/gen_envs.py)
+in [gen_env.py](https://github.com/flatland-association/flatland-benchmarks/blob/main/definitions/benchmarks/flatland3_benchmarks/gen_envs.py)
 from [metadata.csv](https://github.com/flatland-association/flatland-scenarios/blob/main/trajectories/malfunction_deadlock_avoidance_heuristics/metadata.csv):
 
 |     | test_id | env_id  | n_agents | x_dim | y_dim | n_cities | max_rail_pairs_in_city | n_envs_run | seed | grid_mode | max_rails_between_cities | malfunction_duration_min | malfunction_duration_max | malfunction_interval | speed_ratios                                   |
@@ -182,3 +182,7 @@ from [metadata.csv](https://github.com/flatland-association/flatland-scenarios/b
 | 147 | Test_14 | Level_7 |      425 |   158 |   158 |       41 |                      2 |         10 |   49 | False     |                        2 |                       20 |                       50 |                  540 | {1.0: 0.25, 0.5: 0.25, 0.33: 0.25, 0.25: 0.25} |
 | 148 | Test_14 | Level_8 |      425 |   158 |   158 |       41 |                      2 |         10 |   50 | False     |                        2 |                       20 |                       50 |                  540 | {1.0: 0.25, 0.5: 0.25, 0.33: 0.25, 0.25: 0.25} |
 | 149 | Test_14 | Level_9 |      425 |   158 |   158 |       41 |                      2 |         10 |   51 | False     |                        2 |                       20 |                       50 |                  540 | {1.0: 0.25, 0.5: 0.25, 0.33: 0.25, 0.25: 0.25} |
+
+Note that Test_01 uses 7 agents, as in the
+[metadata.csv.template](https://github.com/flatland-association/flatland-benchmarks/blob/main/definitions/benchmarks/flatland3_benchmarks/metadata.csv.template)
+of Flatland Benchmarks, unlike the 10 agents of Test_01 in the Flatland 3 Round 2 Environment Configurations.
