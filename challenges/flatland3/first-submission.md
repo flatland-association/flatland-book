@@ -10,7 +10,8 @@ In the following instructions, you will be using the [starter kit](https://gitla
 
 # 💪 Getting started
 
-> We recommend using `python 3.8`. If you are using Miniconda/Anaconda, you can install it using `conda install python=3.8`.
+> ⚠️ These instructions are for the Flatland 3 challenge (2021). Its starter kit requires `flatland-rl` 3.x, which is tested with Python 3.6 and 3.7;
+> current `flatland-rl` releases are not compatible with it.
 
 Clone the starter kit repository and install the dependencies.
 
@@ -18,9 +19,9 @@ Clone the starter kit repository and install the dependencies.
 git clone https://gitlab.aicrowd.com/flatland/flatland-starter-kit.git
 cd flatland-starter-kit
 
-pip install git+http://gitlab.aicrowd.com/flatland/flatland.git
-
 conda env create -f environment.yml
+conda activate flatland-rl
+pip install "flatland-rl<4"
 ```
 
 # 🛠 Preparing your submission
