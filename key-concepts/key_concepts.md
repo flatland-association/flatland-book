@@ -140,10 +140,11 @@ classDiagram
         }
     }
     namespace envs {
-        class RailEnv {
+        class AbstractRailEnv {
             step
             reset
         }
+        class RailEnv
 
         class RailGenerator {
             generate
@@ -169,16 +170,20 @@ classDiagram
     }
 
     namespace integrations {
-        class FlatlandInteractiveAI
+        class FlatlandInteractiveAICallbacks
     }
 
     namespace ml {
-        class PettingzooFlatland
+        class PettingzooFlatland {
+            wrap
+        }
+        class PettingZooParallelEnvWrapper
         class RayMultiAgentWrapper
     }
 
     namespace trajectories {
-        class Trajectory {
+        class Trajectory
+        class PolicyRunner {
             create_from_policy$
         }
     }
@@ -198,16 +203,18 @@ classDiagram
         class gymEnv["gymnasium.Env"] {
         }
     }
-    RailEnv --|> Environment
-    FlatlandInteractiveAI --|> FlatlandCallbacks
+    RailEnv --|> AbstractRailEnv
+    AbstractRailEnv --|> Environment
+    FlatlandInteractiveAICallbacks --|> FlatlandCallbacks
     DeadLockAvoidancePolicy --|> Policy
     Grid4Transitions --|> Transitions
     RailEnvTransitions --|> Grid4Transitions
     GridTransitionMap --> TransitionMap
-    PettingzooFlatland --|> PettingZooParallelEnv
+    PettingzooFlatland ..> PettingZooParallelEnvWrapper : creates
+    PettingZooParallelEnvWrapper --|> PettingZooParallelEnv
+    PettingZooParallelEnvWrapper --|> gymEnv
     RayMultiAgentWrapper --|> RllibMultiAgentEnv
     RllibMultiAgentEnv --|> gymEnv
-    PettingZooParallelEnv --|> gymEnv
     TreeObsForRailEnv --|> ObservationBuilder
     RailEnv --> "*" EnvAgent
     RailEnv --> "1" GridTransitionMap
@@ -215,7 +222,8 @@ classDiagram
     RailEnv --> "1" LineGenerator
     RailEnv --> "1" TimetableGenerator
     RailEnv --> "1" ObservationBuilder
-    PettingZooParallelEnv --> "1" RailEnv
+    PettingZooParallelEnvWrapper --> "1" RailEnv
+    PolicyRunner ..> Trajectory : creates
     RayMultiAgentWrapper --> "1" RailEnv
     TransitionMap --> "*" Transitions
     TreeObsForRailEnv --> "1" PredictionBuilder
