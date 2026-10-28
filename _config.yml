@@ -36,6 +36,10 @@ repository:
   provider: github
   branch: main
 
+# do not build the starterkit cloned by challenges/ecml2026/training_envs.ipynb as pages
+exclude_patterns:
+  - challenges/ecml2026/ecml2026-starterkit/**
+
 # https://jupyterbook.org/en/stable/content/execute.html
 execute:
   execute_notebooks: auto

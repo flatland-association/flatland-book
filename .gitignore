@@ -4,3 +4,6 @@ _build/
 .ipynb_checkpoints
 /apidocs/
 /.idea/
+# cloned and unzipped by challenges/ecml2026/training_envs.ipynb
+/challenges/ecml2026/ecml2026-starterkit/
+/challenges/ecml2026/*.pkl
