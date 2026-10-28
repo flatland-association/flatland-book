@@ -30,7 +30,7 @@ The primary metrics is different for each Round:
 - In **Round 1**, the normalized returns were averaged over all the evaluation episodes, resulting in the **mean normalized return**.
 - In **Round 2**, we add `+1.0` to the normalized return of each episode to make it positive (it is then in the range `[0.0, 1.0]`). We then sum up these normalized returns, which results in the **total normalized return**.
 
-You can read more about the [reward structure](env) in the environment documentation.
+You can read more about the [reward structure](../../environment/environment/rewards.md) in the environment documentation.
 
 ⏱ Time limits
 ---
