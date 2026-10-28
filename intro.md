@@ -95,16 +95,17 @@ approaches. The challenge is open to any methodological approach, e.g. from the 
 
 ### Tunable difficulty
 
-All environments support well-calibrated difficulty settings. While we report results using the hard difficulty setting, we make the easy difficulty setting
-available for those with limited access to compute power. Easy environments require approximately an eighth of the resources to train.
+Flatland aims at tunable difficulty, from settings that can be trained with limited compute resources to hard ones. Scenarios are configured through the
+[rail, line and timetable generators](environment/scenario_generation) and [malfunctions](environment/environment/stochasticity): grid size, number of cities
+and tracks, number of agents, speed profiles, intermediate stops, and malfunction rate and duration. This allows to scale from a single train on a small grid to
+dense traffic with disruptions. Challenges use this to define levels of increasing difficulty, see for instance the
+[ECML 2026 level configuration](challenges/ecml2026/levelconfig).
 
 ### Environment diversity
 
-In several environments, it has been observed that agents can overfit to remarkably large training sets. This evidence raises the possibility that overfitting
-pervades classic benchmarks like the Arcade Learning Environment, which has long served as a gold standard in reinforcement learning (RL). While the diversity
-between different games in an ALE is one of the benchmark’s greatest strengths, the low emphasis on generalization presents a significant drawback. In each game
-the question must be asked: are agents robustly learning a relevant skill, or are they approximately memorizing specific
-trajectories? <!-- To enable one to answer this question we provide configurable [world generators](env/level_generation). -->
+Flatland aims at environment diversity to prevent agents from overfitting to a fixed set of scenarios. Rail networks, lines and timetables are generated
+randomly from a seed, so agents can be trained and evaluated on different, unseen scenarios. This allows to test whether agents learn to manage traffic or
+merely memorize specific trajectories.
 
 🚉 Next stops
 ---
