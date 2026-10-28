@@ -13,11 +13,11 @@ This raises a number of questions:
 * 🕹️ [**Actions:**](./environment/actions) what can the agents do? Trains are agents with a limited action space (⬆️⬅️➡️⏸️⏹️)
     * ⏫ how can agents control speed? Agents have variable speed profiles
 * 👀 [**Observations:**](./observation_builder) what can each agent "see"?
-* ⏰ [**Scenario Generatior**](scenario_generation.md) which trains are there and what are they supposed to do? Agents have schedules for their origin,
+* ⏰ [**Scenario Generator**](./scenario_generation) which trains are there and what are they supposed to do? Agents have schedules for their origin,
   destination and intermediate stops
     * 🚄 How fast can trains run? Agents have multiple speed profiles
 * 🌟 [**Rewards:**](./environment/rewards) what is the metric used to evaluate the agents?
-* 🔥[**Stochasticity**](environment/stochasticity.md) how often and for how long trains will malfunction? Agents can be disrupted (in malfunction)
+* 🔥[**Stochasticity**](./environment/stochasticity) how often and for how long trains will malfunction? Agents can be disrupted (in malfunction)
 
 🚉 New concepts introduced in 4.0.5 and 4.0.6
 ---------------------------------------------
