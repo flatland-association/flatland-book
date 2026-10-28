@@ -51,16 +51,21 @@ Local grid observation
 The local grid observation has shown limited experimental results and is considered deprecated. We keep it for historical purpose, and because it may be useful when combined with other observations. Be aware that its implementation is not currently supported.  
 ```
 
-The local grid observation is very similar to the global observation, where we only replace `h` and `w` by agent specific dimensions. The agent is always
-situated at the position `(0, (w + 1)/2)` within the observation grid, and the observation grid is rotated according to the agent’s direction such that the full
-height `h` of the observation grid is in front of the agent.
+The local grid observation is similar to the global observation, but restricted to a rectangular field of view of `view_height × (2 · view_width + 1)` cells,
+configured by the constructor parameters `view_width`, `view_height` and `center`. The field of view is rotated according to the agent’s direction: the agent
+is situated at the position `(center, view_width)` within the observation grid, and the rows beyond it lie in front of the agent. With `center=0`, the agent
+only observes the cells in front of it.
 
-The initial local grid view provides the same channels as the initial global view introduced above. This observation space offers benefits over the global view,
-mostly by reducing the amount of irrelevant information in the observation space. Global navigation with this local observation would be impossible if no
-general information about the target location were given (especially when the target is outside of view). We therefore compute a distance map for every
-agent-target and provide this distance map as an additional channel:
+The observation is a tuple containing:
 
-- **Distance map:** This additional channel in the local observation grid allows for a sense of direction without the need of a global view.
+- **Transition maps:** `view_height × (2 · view_width + 1) × 16`, as in the global observation.
+- **Agent targets:** `view_height × (2 · view_width + 1) × 2`, the position of the agent's own target and the positions of the other agents' targets, if in view.
+- **Other agents:** `view_height × (2 · view_width + 1) × 4`, the one-hot direction of the other agents at their positions, if in view.
+- **Direction:** the one-hot direction of the agent itself (4 elements).
+
+This observation space offers benefits over the global view, mostly by reducing the amount of irrelevant information in the observation space. However, it
+gives no information about the target location when the target is outside of view. Also, it is only defined for agents on the map: for an agent that has not
+departed yet, `get()` fails.
 
 <img width="500" src="https://drive.google.com/uc?export=view&id=1kZzinMOs7hlPaSJJeIiaQ7lAz2erXuHx">
 
