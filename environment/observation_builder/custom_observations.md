@@ -8,7 +8,7 @@ Overview
 --------
 
 One of the main objectives of the [Flatland challenge](https://gitlab.aicrowd.com/flatland/neurips2020-flatland-baselines) is to find a suitable observation to
-solve the problems. Three observations are [provided with Flatland out of the box](observations), however it is unlikely that they will be sufficient for this
+solve the problems. Three observations are [provided with Flatland out of the box](provided_observations.md), however it is unlikely that they will be sufficient for this
 challenge.
 
 Flatland was built with as much flexibility as possible when it comes to building your custom observations. Whenever an environment needs to compute new
@@ -341,4 +341,4 @@ Going further
 ---
 
 When building your custom observation builder, you might want to aggregate and define your own features that are different from the raw environment data.
-The [next section](environment_information) explains how to access such information.
+The [next section](../environment_information.md) explains how to access such information.

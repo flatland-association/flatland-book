@@ -23,7 +23,7 @@ environment, `w` is the width of the environment and `c` is the number of channe
 initial configuration, the tuple `(transition maps, agent states, agent targets)` contains:
 
 - **Transition maps:** provides a unique value for each type of transition map and its orientation. Its dimensions is `h × w × 16` assuming 16 bits encoding of
-  transitions. Transition maps represent the movements allowed on a cell, [read more about them here](custom_observations.html#transitions-maps).
+  transitions. Transition maps represent the movements allowed on a cell, [read more about them here](../environment/transitions.ipynb).
 
 - **Agent states:** A 3D array `h × w × 5` containing:
     - **Channel 0:** direction of the self agent at its position (at its initial position before departure)
@@ -135,4 +135,4 @@ This observation is defined in [flatland.envs.observations.TreeObsForRailEnv](ht
 
 Notice how **channel 3** indicates if a possible conflict is detected. In order to predict conflicts, the tree observation relies on a predictor, which
 anticipates where agents will be in the future. We provide a stock predictor that assumes each agent just travels along its shortest path. We
-will [talk in more details about predictors](observation_builder/custom_observations.md) when introducing custom observations. 
+will [talk in more details about predictors](custom_observations.md) when introducing custom observations. 
