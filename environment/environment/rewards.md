@@ -30,7 +30,8 @@ S &= \sum_{i=1}^N g_i
 $$
 
 is the sum of all rewards $g_i$ of agent $i$. The reward $g_i$ of an agent consists of a reward at the end of the episode as well as at each timestep $t.$
-Per-timestep rewards only consist of a penalty if the train crashes, i.e., collides with another train that occupies the same cell. The collision penalty is
+Per-timestep rewards only consist of a penalty if the environment forces the train to stop, i.e. the train goes from MOVING to STOPPED without a stop action
+bringing it to zero speed: either it would collide with another train that occupies the cell it wants to enter, or its action is invalid. This collision penalty is
 proportional to the current speed $v(t)$ of the train. The reward $g_i$ of an agent $i$ is
 
 $$
@@ -65,17 +66,17 @@ The symbols are described in the table below.
 | intermediate late arrival    | $\alpha$                       | $\mathrm{A}_j$            | $\alpha_j$ | $a_j$ | latest arrival $\alpha_j$, actual arrival time $a_j$    <br/> at intermediate stop $j=2,\ldots,J-1$                                                                                                                             |
 | intermediate stop not served | $\mu$                          | $1-\mathrm{A}_j$          |            |     | intermediate stop $j$ not served, $j=2,\ldots,J-1$                                                                                                                                                                              |
 | intermediate early departure | $\delta$                       | $\Delta_j$                | $\delta_j$ | $d_j$ | earliest departure from stop $j$, actual departure time $d_j$ <br/> at intermediate stop $j=2,\ldots,J-1$                                                                                                                       |
-| collision                    | $\kappa$                       | $\mathrm{K}_t$            |            | $v(t)$ | collision at time $t$ with speed $v(t)$                                                                                                                                                                                         |
+| collision                    | $\kappa$                       | $\mathrm{K}_t$            |            | $v(t)$ | collision or invalid action forcing a stop at time $t$ with speed $v(t)$                                                                                                                                                       |
 
 The events used in the table are:
 
-| event          | description                              |
-|:---------------|:-----------------------------------------|
-| $\mathrm{A}_J$ | arrived at target $J$                    |
-| $\Delta_1$     | departed from start                      |
-| $\mathrm{A}_j$ | arrived at intermediate stop $j$         |
-| $\Delta_j$     | departed from intermediate stop $j$      |
-| $\mathrm{K}_t$ | collision at time $t$                    |
+| event          | description                                           |
+|:---------------|:------------------------------------------------------|
+| $\mathrm{A}_J$ | arrived at target $J$                                 |
+| $\Delta_1$     | departed from start                                   |
+| $\mathrm{A}_j$ | arrived at intermediate stop $j$                      |
+| $\Delta_j$     | departed from intermediate stop $j$                   |
+| $\mathrm{K}_t$ | forced stop at time $t$ (collision or invalid action) |
 
 The scheduled and actual values used in the table are:
 

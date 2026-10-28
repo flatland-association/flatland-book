@@ -73,16 +73,16 @@ Evaluation is stopped when a submission does not reach the threshold of 25% comp
 
 The factors for the [reward function](../../environment/environment/rewards.md) in this competition are:
 
-| factor                                    | value |
-| ----------------------------------------- | :---: |
-| journey not started (cancellation factor) |   5   |
-| cancellation time buffer                  |   0   |
-| delay at target                           |   1   |
-| target not reached minimum penalty        |  100  |
-| intermediate stop not served              |  50   |
-| intermediate late arrival                 |  0.5  |
-| intermediate early departure              |  0.5  |
-| collision                                 |  250  |
+| factor                                        | value |
+|-----------------------------------------------|:-----:|
+| journey not started (cancellation factor)     |   5   |
+| cancellation time buffer                      |   0   |
+| delay at target                               |   1   |
+| target not reached minimum penalty            |  100  |
+| intermediate stop not served                  |   50  |
+| intermediate late arrival                     |  0.5  |
+| intermediate early departure                  |  0.5  |
+| collision (forced stop, incl. invalid action) |  250  |
 
 This configuration is implemented using `--rewards flatland.envs.rewards.ECML2026Rewards`.
 
