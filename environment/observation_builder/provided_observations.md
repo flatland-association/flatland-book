@@ -10,7 +10,7 @@ The three provided observations are:
 - [Local grid observation](#local-grid-observation)
 - [Tree observation](#tree-observation)
 
-![stock observations](https://i.imgur.com/oo8EIYv.png)
+![stock observations](../../assets/images/oo8EIYv.png)
 
 ***Global, local and tree:** A visual summary of the three provided observations.*
 
@@ -67,7 +67,9 @@ This observation space offers benefits over the global view, mostly by reducing 
 gives no information about the target location when the target is outside of view. Also, it is only defined for agents on the map: for an agent that has not
 departed yet, `get()` fails.
 
-<img width="500" src="https://drive.google.com/uc?export=view&id=1kZzinMOs7hlPaSJJeIiaQ7lAz2erXuHx">
+```{image} ../../assets/images/local_observation_view.png
+:width: 500px
+```
 
 ***An abstract visualization of the local field of view of an agent.** The green boxes represent visible cells in the agents field of view. This field of view
 is turned as the agent’s direction changes.*
@@ -86,7 +88,7 @@ allowed at dead-ends) until a cell with multiple allowed transitions is reached.
 Here is a small example of a railway network with an agent in the top left corner. The tree observation is build by following the allowed transitions for that
 agent:
 
-![Small_Network](https://i.imgur.com/utqMx08.png)
+![Small_Network](../../assets/images/tree_observation_small_network.png)
 
 As we move along the allowed transitions we build up a tree where a new node is created at every cell where the agent has different possibilities (Switch),
 dead-end or the target is reached.
@@ -96,7 +98,7 @@ has 4 branches coming from it in the directions *Left, Forward, Right and Backwa
 is build form the example rail above. Nodes where there are no possibilities are filled with `-inf` and are not all shown here for simplicity. The tree however,
 always has the same number of nodes for a given tree depth.
 
-![Tree_Observation](https://i.imgur.com/VsUQOQz.png)
+![Tree_Observation](../../assets/images/tree_observation_tree.png)
 
 Each node is filled with information gathered along the path to the node. Currently each node contains 12 features:
 
