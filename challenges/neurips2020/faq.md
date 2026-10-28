@@ -15,8 +15,8 @@ Indeed, we know that operations research methods do not scale to the large railw
 What are the time limits for my submission?
 ---
 
-- The agent has an initial planning time of **5 minutes** for each environment. 
-- After it performed the first step, each subsequent step needs to be provided within **5 seconds**, or the submission will fail.
+- The agent has an initial planning time of **10 minutes** for each environment (5 minutes until 8 October 2020). 
+- After it performed the first step, each subsequent step needs to be provided within **10 seconds** (5 seconds until 8 October 2020), or the submission will fail.
 - If the submissions in total takes longer than 8 hours a time-out will occur.
 
 What are the evaluation parameters?
