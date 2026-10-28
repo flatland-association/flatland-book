@@ -41,7 +41,7 @@ This observation space is well suited for single-agent navigation but does not p
 participants must improve on this observation space to solve the challenge.
 
 ```{admonition} Code reference
-This observation is defined in [flatland.envs.observations.GlobalObsForRailEnv](https://github.com/flatland-association/flatland-rl/blob/main/flatland/envs/observations.py#L525)
+This observation is defined in [flatland.envs.observations.GlobalObsForRailEnv](https://github.com/flatland-association/flatland-rl/blob/v4.3.0/flatland/envs/observations.py#L528)
 ```
 
 Local grid observation
@@ -68,7 +68,7 @@ agent-target and provide this distance map as an additional channel:
 is turned as the agent’s direction changes.*
 
 ```{admonition} Code reference
-This observation is defined in [flatland.envs.observations.LocalObsForRailEnv](https://github.com/flatland-association/flatland-rl/blob/main/flatland/envs/observations.py#L604)
+This observation is defined in [flatland.envs.observations.LocalObsForRailEnv](https://github.com/flatland-association/flatland-rl/blob/v4.3.0/flatland/envs/observations.py#L605)
 ```
 
 Tree observation
@@ -125,7 +125,7 @@ Special cases:
 - In case the target node is reached, the values are `[0, 0, 0, 0, 0]`.
 
 ```{admonition} Code reference
-This observation is defined in [flatland.envs.observations.TreeObsForRailEnv](https://github.com/flatland-association/flatland-rl/blob/main/flatland/envs/observations.py#L18)
+This observation is defined in [flatland.envs.observations.TreeObsForRailEnv](https://github.com/flatland-association/flatland-rl/blob/v4.3.0/flatland/envs/observations.py#L34)
 ```
 
 Notice how **channel 4** indicates if a possible conflict is detected. In order to predict conflicts, the tree observation relies on a predictor, which

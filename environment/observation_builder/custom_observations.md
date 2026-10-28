@@ -13,7 +13,7 @@ challenge.
 
 Flatland was built with as much flexibility as possible when it comes to building your custom observations. Whenever an environment needs to compute new
 observations for each agent, it queries an object derived from the [
-`ObservationBuilder` base class](https://github.com/flatland-association/flatland-rl/blob/main/flatland/core/env_observation_builder.py#L18), which takes the
+`ObservationBuilder` base class](https://github.com/flatland-association/flatland-rl/blob/v4.3.0/flatland/core/env_observation_builder.py#L25), which takes the
 current state of the environment and returns the desired observation.
 
 We will go through 3 examples to explain how to build custom observations:
@@ -29,7 +29,7 @@ In this first example we implement all the methods necessary for an observation 
 return a vector of size 5 filled with the ID of the agent. This is a toy example and wouldn't help an actual agent to learn anything.
 
 Custom observation builders need to derive from the [
-`flatland.core.env_observation_builder.ObservationBuilder`](https://github.com/flatland-association/flatland-rl/blob/main/flatland/core/env_observation_builder.py#L18)
+`flatland.core.env_observation_builder.ObservationBuilder`](https://github.com/flatland-association/flatland-rl/blob/v4.3.0/flatland/core/env_observation_builder.py#L25)
 base class and must implement at least the method `get(self, handle)`. The environment calls `reset(self, env)` after each environment reset; the base
 class stores the environment as `self.env`. Override `reset(self, env)` and call `super().reset(env)` first if your builder needs to pre-compute data.
 
@@ -78,8 +78,8 @@ Single-agent navigation
 -----------------------
 
 Observation builders can inherit from existing concrete subclasses of [
-`ObservationBuilder`](https://github.com/flatland-association/flatland-rl/blob/main/flatland/core/env_observation_builder.py#L18). For example, it may be
-useful to extend the [`TreeObsForRailEnv`](https://github.com/flatland-association/flatland-rl/blob/main/flatland/envs/observations.py#L18) observation
+`ObservationBuilder`](https://github.com/flatland-association/flatland-rl/blob/v4.3.0/flatland/core/env_observation_builder.py#L25). For example, it may be
+useful to extend the [`TreeObsForRailEnv`](https://github.com/flatland-association/flatland-rl/blob/v4.3.0/flatland/envs/observations.py#L34) observation
 builder. A feature of this class is that it has access to the distance map of the environment: `RailEnv.reset()` resets `env.distance_map`, which computes the
 lengths of the shortest paths from all cells and orientations to the target of each agent on first access by `env.distance_map.get()`, i.e. a distance map for
 each agent.
