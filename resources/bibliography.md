@@ -314,8 +314,8 @@ arXiv preprint arXiv:2111.07876.
 ----
 
 Meier, R., Roost D. (2019).
-[Existing and novel approaches to the vehicle
-rescheduling problem (VRSP)](
+[Reinforcement Learning in a Multi-Agent System for Train
+Scheduling](
 https://www.zhaw.ch/storage/shared/upload/PA19_RLinaMultiAgentSystemforTrainScheduling.pdf
 ).
 Project thesis, Computer Science, Zurich University of Applied Sciences.
