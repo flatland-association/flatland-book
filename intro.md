@@ -72,26 +72,19 @@ You can find the Flatland competition paper on arXiv: [https://arxiv.org/abs/201
 🔀 The Vehicle Re-scheduling Problem
 ---
 
-At the core of this challenge lies the general vehicle re-scheduling problem (VRSP) proposed
-by [Li, Mirchandani and Borenstein](https://onlinelibrary.wiley.com/doi/abs/10.1002/net.20199) in 2007:
-
-> The vehicle rescheduling problem (VRSP) arises when a previously assigned trip is disrupted. A traffic accident, a medical emergency, or a breakdown of a
-> vehicle are examples of possible disruptions that demand the rescheduling of vehicle trips. The VRSP can be approached as a dynamic version of the classical
-> vehicle scheduling problem (VSP) where assignments are generated dynamically.
-
-The Flatland environment aims to address the vehicle rescheduling problem by providing a simplistic grid world environment and allowing for diverse solution
-approaches. The problems are formulated as a 2D grid environment with restricted transitions between neighboring cells to represent railway networks. On the 2D
-grid, multiple agents with different objectives must collaborate to maximize global reward.
+Flatland addresses the vehicle re-scheduling problem (VRSP): rescheduling vehicle trips after a disruption, such as a breakdown, has
+invalidated the plan. The problems are formulated as a 2D grid environment with restricted transitions between neighboring cells to represent railway
+networks, on which multiple agents with different objectives must collaborate to maximize global reward. See [Why Flatland?](getting-started/why-flatland)
+for the definition of the VRSP and the railway context.
 
 🔖 Design principles
 ---
 
 ### Real-word, high impact problem
 
-The Swiss Federal Railways (SBB) operate the densest mixed railway traffic in the world. SBB maintain and operate the biggest railway infrastructure in
-Switzerland. Today, there are more than 10,000 trains running each day, being routed over 13,000 switches and controlled by more than 32,000 signals. The
-Flatland challenge aims to address the vehicle rescheduling problem by providing a simplistic grid world environment and allowing for diverse solution
-approaches. The challenge is open to any methodological approach, e.g. from the domain of reinforcement learning or of operations research.
+Flatland was created to manage dense traffic on complex railway networks, such as the one of the Swiss Federal Railways (SBB), see
+[Why Flatland?](getting-started/why-flatland). It is open to any methodological approach, e.g. from the domain of reinforcement learning or of operations
+research.
 
 ### Tunable difficulty
 
