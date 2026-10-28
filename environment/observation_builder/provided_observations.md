@@ -18,19 +18,21 @@ Global observation
 ---
 
 The global observation is the simplest one. In this case, every agent is provided a global view of the full Flatland environment. This can be compared to the
-full, raw-pixel data used in Atari games. The size of the observation space is `h × w × c`, where `h` is the height of the environment, `w` is the width of the
-environment and `c` is the number of channels of the environment. These channels can be modified by the participants but in the initial configuration, we
-include the following `h × w` channels:
+full, raw-pixel data used in Atari games. The observation of each agent is a tuple of three arrays of size `h × w × c`, where `h` is the height of the
+environment, `w` is the width of the environment and `c` is the number of channels of the array. These channels can be modified by the participants but in the
+initial configuration, the tuple `(transition maps, agent states, agent targets)` contains:
 
 - **Transition maps:** provides a unique value for each type of transition map and its orientation. Its dimensions is `h × w × 16` assuming 16 bits encoding of
   transitions. Transition maps represent the movements allowed on a cell, [read more about them here](custom_observations.html#transitions-maps).
 
 - **Agent states:** A 3D array `h × w × 5` containing:
-    - **Channel 0:** one-hot representation of the self agent position and direction
+    - **Channel 0:** direction of the self agent at its position (at its initial position before departure)
     - **Channel 1:** other agents' positions and direction
     - **Channel 2:** self and other agents' malfunctions
     - **Channel 3:** self and other agents' fractional speeds
-    - **Channel 4:** number of other agents ready to depart from that position
+    - **Channel 4:** number of agents (including the self agent) not yet departed from that initial position
+
+  Channels 0 to 3 are `-1` where there is no agent, channel 4 is `0`.
 
 - **Agent targets:** A 3D arrays `h × w × 2` containing respectively the position of the current agent target, and the positions of the other agents' targets.
   The positions of the targets of the other agents is a simple `0`/`1` flag, therefore this observation doesn't indicate where each other agent is heading to.
