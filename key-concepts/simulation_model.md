@@ -91,14 +91,14 @@ classDiagram
 
 ### Flatland Transition Maps
 
-| Concept        | Grid                                                                | Graph                                                                                                                       |
-| -------------- | ------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| Coordinate     | Row, column, direction how cells can be entered.                    | An abstract **node** without further structure.                                                                             |
-| Transition Map | For each coordinate, which are possible successor coordinates.      | A pair of **node**s defines a directed **edge**.                                                                            |
-| Configuration  | Coordinate, next coordinate, offset, speed, malfunction_counter     | Edge, offset.                                                                                                               |
-| Resource Map   | Each `row,col=cell` is a mutually exclusively allocatable resource. | A group of edges may require the same mutually exclusively allocatable resource, reflecting common physical infrastructure. |
+| Concept        | Grid                                                                                                               | Graph                                                                                                                                                      |
+|----------------|--------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Coordinate     | Row, column, direction how cells can be entered: `((r,c),d)`.                                                      | A **node** (`str`), i.e. a cell entry pin.                                                                                                                 |
+| Transition Map | For each coordinate, which are possible successor coordinates.                                                     | A pair of **node**s defines a directed **edge**.                                                                                                           |
+| Configuration  | The coordinate `((r,c),d)` of the agent. Speed, distance and malfunction counter are kept separately in the agent. | A node.                                                                                                                                                    |
+| Resource Map   | Each `row,col=cell` is a mutually exclusively allocatable resource.                                                | Each node is mapped to a mutually exclusively allocatable resource (`GraphResourceMap`); nodes reflecting common physical infrastructure share a resource. |
 
-In Flatland 4.2.5, configurations are `((r,c),d)`; renaming to `coordinate` planned for 4.3.0.
+In Flatland 4.3.0, configurations are coordinates: `((r,c),d)` in the grid and nodes in the graph.
 
 ### Flatland Rail
 
