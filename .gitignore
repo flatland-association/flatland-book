@@ -1,6 +1,8 @@
 _build/
 /environment/environment/images/graph_to_digraph.drawio.png
+# copied from the installed flatland-rl by build.sh
 /environment/environment/graph_demo.ipynb
+/environment/environment/Agent-Close-Following.ipynb
 .ipynb_checkpoints
 /apidocs/
 /.idea/
