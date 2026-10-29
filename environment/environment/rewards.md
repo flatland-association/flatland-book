@@ -19,8 +19,8 @@ The Flatland `DefaultRewards` scoring function is designed to capture key operat
 safety.
 Punctuality and schedule adherence are rewarded based on the difference between actual and target arrival and departure times at each stop respectively,
 as well as penalties for intermediate stops not served or even journeys not started.
-Safety measures are implemented as penalties for collisions which are directly proportional to the train’s speed at impact, ensuring that high-speed operations
-are managed with extra caution.
+Safety measures are implemented as penalties for env-forced stops (collisions and invalid actions) which are directly proportional to the train’s speed at
+impact, ensuring that high-speed operations are managed with extra caution.
 
 More formally, the score
 
@@ -78,6 +78,11 @@ The events used in the table are:
 | $\mathrm{A}_j$ | stopped at intermediate stop $j$ (at one of its halting cells); running through without stopping does not count |
 | $\Delta_j$     | departed from intermediate stop $j$                                                                             |
 | $\mathrm{K}_t$ | forced stop at time $t$ (collision or invalid action)                                                           |
+
+`BaseDefaultRewards` returns the rewards per category (`DefaultPenalties`), `DefaultRewards` their sum. Since `flatland 5.0.0`, a forced stop is tracked as
+`COLLISION` if the train conflicts with another train, and as `INVALID_ACTION` if its action is invalid (today only possible facing a symmetric switch); before,
+both were tracked as `COLLISION`. Both use the same factor $\kappa$, so the totals are unchanged. A blocked train that keeps trying to move is charged at each
+denied attempt.
 
 The scheduled and actual values used in the table are:
 

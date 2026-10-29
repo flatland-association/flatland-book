@@ -35,7 +35,8 @@ See [eval.md](./eval.md) for rewards and normalized rewards definitions.
 
 ### Submission Comparison per Scenario
 
-See [eval.md](./eval.md) for the definition of the reward categories normalized score.
+See [eval.md](./eval.md) for the definition of the reward categories normalized score. As evaluated with flatland-rl 4.2.6, the collision category also
+contains forced stops due to invalid actions; flatland-rl 5.0.0 tracks them separately as `INVALID_ACTION`.
 
 ![submission comparison per scenario](./plots/submission_comparison_per_scenario_normalized.png)
 
