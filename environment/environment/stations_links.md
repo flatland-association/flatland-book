@@ -5,11 +5,11 @@ Stations and Links Data Model
 
 ## Context and Goal
 
-Currently, `RailEnv` only has a notion of lines at the agent level, i.e. at Railway Undertaking (RU) = "service" level. More precisely,
+Before 4.3.0, `RailEnv` only had a notion of lines at the agent level, i.e. at Railway Undertaking (RU) = "service" level. More precisely,
 
-* `RailEnv` does not expose stations (they come from some rail generators in the agent hints)
-* `sparse_rail_generator` internally uses outer connection points grouped by 4 directions (North, East, South, West outbound facing) where lines can start and
-  end, but does not pass this
+* `RailEnv` did not expose stations (they came from some rail generators in the agent hints)
+* `sparse_rail_generator` internally used outer connection points grouped by 4 directions (North, East, South, West outbound facing) where lines can start and
+  end, but did not pass this
   information to `RailEnv`.
 
 The goal is to extend the interfaces so rail generators (and rail env) CAN expose such information on stations and links between stations at agent-independent
@@ -21,12 +21,11 @@ i.e. at Infrastructure Manager (IM) = infrastructure/topology level.
 The logical model is as follows:
 
 * `Station`s cover a certain (disjoint) set of the infrastructure. Currently: list of cells.
-* `Station`s have `Gate` consisting of `Pin`s where `Link`s / `Fibre`s can start and end. Currently: only internally in sparse
-  rail generator.
-* `Fibre`s cover wayside infrastructure between two connection pins of two stations. Currently: only internally in sparse rail generator.
+* `Station`s have `Gate` consisting of `Pin`s where `Link`s / `Fibre`s can start and end. Currently: outer connection points of the sparse rail generator.
+* `Fibre`s cover wayside infrastructure between two connection pins of two stations. Currently: built from the inter-city lines of the sparse rail generator.
 * `Link`s bundle fibres between the same `Gate`s.
 * `Station`s have `StoppingPoint`s where trains can start and stop. Currently: list of cells.
-* A sequence of consecutive `Link`s form a `Chain`. They must end in `Gate`s linked by a `GateLink`.
+* A sequence of consecutive `Link`s form a `Chain`. They must end in `Gate`s linked by a `GateLink`. Currently: not implemented.
 
 ```mermaid
 classDiagram
@@ -87,7 +86,11 @@ classDiagram
 
 ### Implementation
 
-See [stations_links.py](https://github.com/flatland-association/flatland-rl/tree/main/flatland/envs/stations_links.py).
+See [stations_links.py](https://github.com/flatland-association/flatland-rl/tree/main/flatland/envs/stations_links.py), which implements `Pin`, `Gate`,
+`StoppingPoint`, `Station`, `Fibre`, `Link` and `StationsLinks` (`Chain` and `GateLink` are not implemented yet).
+
+`sparse_rail_generator` returns a `StationsLinks` object in its optionals under the key `stations_links`. `RailEnv.reset()` exposes it as
+`env.stations_links`, which is `None` if the rail generator does not provide it.
 
 
 ## Terminology mapping to `sparse_rail_gen`

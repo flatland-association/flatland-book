@@ -13,11 +13,11 @@ This raises a number of questions:
 * 🕹️ [**Actions:**](./environment/actions) what can the agents do? Trains are agents with a limited action space (⬆️⬅️➡️⏸️⏹️)
     * ⏫ how can agents control speed? Agents have variable speed profiles
 * 👀 [**Observations:**](./observation_builder) what can each agent "see"?
-* ⏰ [**Scenario Generatior**](scenario_generation.md) which trains are there and what are they supposed to do? Agents have schedules for their origin,
+* ⏰ [**Scenario Generator**](./scenario_generation) which trains are there and what are they supposed to do? Agents have schedules for their origin,
   destination and intermediate stops
     * 🚄 How fast can trains run? Agents have multiple speed profiles
 * 🌟 [**Rewards:**](./environment/rewards) what is the metric used to evaluate the agents?
-* 🔥[**Stochasticity**](environment/stochasticity.md) how often and for how long trains will malfunction? Agents can be disrupted (in malfunction)
+* 🔥[**Stochasticity**](./environment/stochasticity) how often and for how long trains will malfunction? Agents can be disrupted (in malfunction)
 
 🚉 New concepts introduced in 4.0.5 and 4.0.6
 ---------------------------------------------
@@ -42,7 +42,7 @@ A penalty can be configured to reward function penalizing if a train enters a ce
 * Support speed changes in `SpeedCounter`.
 * reinterpret actions (configuration whether to keep current behaviour):
     * `MOVE_FORWARD` increase speed (delta configurable)
-    * `STOP_MOVING` decrease speed (delta configurable); set to STOPPING state if speed zero is reached.
+    * `STOP_MOVING` decrease speed (delta configurable); set to `STOPPED` state if speed zero is reached.
 * configurable penalty if trains "crash" (if the env needs to force-stop-them), penalty proportional to train's speed.
 * extract reward handling to separate (testable) class
 
@@ -81,6 +81,6 @@ In particular, Diamond crossing can be defined to be level-free, which allows tw
 
 #### Changes
 
-* Add list of cells which allow for level-free crossings if agents move in opposite directions.
+* Add list of cells which allow for level-free crossings if agents move perpendicular to each other (one horizontal, the other vertical).
 * Add `p_level_free` in rail gen to sample percentage of level free diamond-crossings from generated diamond crossings.
 

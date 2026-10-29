@@ -10,6 +10,7 @@ The `Rewards` interface has the following methods:
 * `end_of_episode_reward`: Handles end-of-episode reward for a particular agent.
 * `cumulate`: Cumulate multiple rewards to one.
 * `empty`: Return empty initial value neutral for the cumulation.
+* `normalize`: Return normalized cumulated rewards (can be `None` for some rewards).
 
 Default Rewards
 ---------------
@@ -30,7 +31,8 @@ S &= \sum_{i=1}^N g_i
 $$
 
 is the sum of all rewards $g_i$ of agent $i$. The reward $g_i$ of an agent consists of a reward at the end of the episode as well as at each timestep $t.$
-Per-timestep rewards only consist of a penalty if the train crashes, i.e., collides with another train that occupies the same cell. The collision penalty is
+Per-timestep rewards only consist of a penalty if the environment forces the train to stop, i.e. the train goes from MOVING to STOPPED without a stop action
+bringing it to zero speed: either it would collide with another train that occupies the cell it wants to enter, or its action is invalid. This collision penalty is
 proportional to the current speed $v(t)$ of the train. The reward $g_i$ of an agent $i$ is
 
 $$
@@ -41,7 +43,7 @@ g_i = &
 % journey not started:
 + \underbrace{(1 - \Delta_1) \cdot \phi \cdot (-(p + \pi))}_{\text{journey not started}}
 % target not reached:
-+ \underbrace{(1 - \mathrm{A}_J) \cdot \min\{-\nu, -d\}}_{\text{target not reached}}\\
++ \underbrace{(1 - \mathrm{A}_J) \cdot \min\{-\nu, \alpha_J - T - d\}}_{\text{target not reached}}\\
 & + \sum_{j=2}^{J-1} \Big[
 % intermediate late arrival
 \underbrace{\mathrm{A}_j \cdot \alpha \cdot \min \{\alpha_j - a_j,0\}}_{\text{late arrival}}
@@ -54,24 +56,58 @@ g_i = &
 \end{aligned}
 $$
 
-where $J$ is the number of stops (including the departure at the start, as well as the target) and $T$ is the number of timesteps of the episode.
+where $J$ is the number of stops (including the departure at the start, as well as the target) and $T$ is the maximum number of timesteps of the episode (`max_episode_steps`).
 The symbols are described in the table below.
 
-|                              | penalty factor <br/>($\geq 0$) | event <br/> $\in \{0,1\}$ | scheduled  | actual     | description                                                                                               |
-|:-----------------------------|--------------------------------|---------------------------|------------|------------|-----------------------------------------------------------------------------------------------------------|
-| delay at target              | 1                              | $\mathrm{A}_J$            | $\alpha_J$ | $a_J$      | $\mathrm{A}_J$ latest arrival and $a_J$ actual arrival at target $J$                                      |
-| journey not started          | $\phi$, $\pi$                  | $1-\Delta_1$              |            | $p$        | cancellation factor $\phi$ and buffer $\pi$,    <br/> $p$ is the shortest path from start to target       |
-| target not reached           | 1                              | $1-\mathrm{A}_J$          |            | $d$, $\nu$ | time $d$ remaining on shortest path to target with maximum speed for corresponding train category, or minimum penalty for target not reached $\nu$ if $d < \nu$    |
-| intermediate late arrival    | $\alpha$                       | $\mathrm{A}_j$            | $\alpha_j$ | $a_j$      | latest arrival $\mathrm{A}_j$, actual arrival time $a_j$    <br/> at intermediate stop $j=2,\ldots,J-1$   |
-| intermediate stop not served | $\mu$                          | $1-\mathrm{A}_j$          |            |            | intermediate stop $j$ not served, $j=2,\ldots,J-1$                                                        |
-| intermediate early departure | $\delta$                       | $\Delta_j$                | $\delta_j$ | $d_j$      | earliest departure from stop $j$, actual departure time $d_j$ <br/> at intermediate stop $j=2,\ldots,J-1$ |
-| collision                    | $\kappa$                       | $\mathrm{K}_t$            |            | $v(t)$     | collision at time $t$ with speed $v(t)$                                                                   |
+|                              | penalty factor <br/>($\geq 0$) | event <br/> $\in \{0,1\}$ | scheduled  | actual | description                                                                                                                                                                                                                     |
+|:-----------------------------|--------------------------------|---------------------------|------------|-----|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| delay at target              | 1                              | $\mathrm{A}_J$            | $\alpha_J$ | $a_J$ | $\alpha_J$ latest arrival and $a_J$ actual arrival at target $J$                                                                                                                                                                |
+| journey not started          | $\phi$, $\pi$                  | $1-\Delta_1$              |            | $p$ | cancellation factor $\phi$ and buffer $\pi$,    <br/> $p$ is the shortest path from start to target                                                                                                                             |
+| target not reached           | 1                              | $1-\mathrm{A}_J$          | $\alpha_J$ | $d$ | projected delay $\alpha_J - T - d$ at the end of the episode, with time $d$ remaining on shortest path to target with maximum speed for corresponding train category; at least the minimum penalty $\nu$ for target not reached |
+| intermediate late arrival    | $\alpha$                       | $\mathrm{A}_j$            | $\alpha_j$ | $a_j$ | latest arrival $\alpha_j$, actual arrival time $a_j$    <br/> at intermediate stop $j=2,\ldots,J-1$                                                                                                                             |
+| intermediate stop not served | $\mu$                          | $1-\mathrm{A}_j$          |            |     | intermediate stop $j$ not served (not stopped at), $j=2,\ldots,J-1$                                                                                                                                                             |
+| intermediate early departure | $\delta$                       | $\Delta_j$                | $\delta_j$ | $d_j$ | earliest departure from stop $j$, actual departure time $d_j$ <br/> at intermediate stop $j=2,\ldots,J-1$                                                                                                                       |
+| collision                    | $\kappa$                       | $\mathrm{K}_t$            |            | $v(t)$ | collision or invalid action forcing a stop at time $t$ with speed $v(t)$                                                                                                                                                       |
+
+The events used in the table are:
+
+| event          | description                                                                                                     |
+|:---------------|:----------------------------------------------------------------------------------------------------------------|
+| $\mathrm{A}_J$ | arrived at target $J$                                                                                           |
+| $\Delta_1$     | departed from start                                                                                             |
+| $\mathrm{A}_j$ | stopped at intermediate stop $j$ (at one of its halting cells); running through without stopping does not count |
+| $\Delta_j$     | departed from intermediate stop $j$                                                                             |
+| $\mathrm{K}_t$ | forced stop at time $t$ (collision or invalid action)                                                           |
+
+The scheduled and actual values used in the table are:
+
+| scheduled  | actual | description                                                             |
+|:-----------|:-------|:------------------------------------------------------------------------|
+| $\alpha_J$ | $a_J$  | latest / actual arrival at target                                       |
+| $\alpha_j$ | $a_j$  | latest / actual arrival at intermediate stop $j$                        |
+| $\delta_j$ | $d_j$  | earliest / actual departure from intermediate stop $j$                  |
+| $p$        |        | time on the shortest path from the scheduled start to target            |
+|            | $d$    | time remaining on the shortest path to target at the end of the episode |
+|            | $v(t)$ | speed at time $t$                                                       |
+
+The constants used in the table are the penalty factors and parameters of `DefaultRewards` (with their defaults) and the episode length:
+
+| constant   | parameter                                     | default | description                                     |
+|:-----------|:----------------------------------------------|:--------|:------------------------------------------------|
+| $\phi$     | `cancellation_factor`                         | 1.0     | penalty factor for journey not started          |
+| $\pi$      | `cancellation_time_buffer`                    | 0.0     | time buffer for journey not started             |
+| $\nu$      | `target_not_reached_minimum_penalty`          | 0.0     | minimum penalty for target not reached          |
+| $\alpha$   | `intermediate_late_arrival_penalty_factor`    | 0.2     | penalty factor for intermediate late arrival    |
+| $\mu$      | `intermediate_not_served_penalty`             | 1.0     | penalty for intermediate stop not served        |
+| $\delta$   | `intermediate_early_departure_penalty_factor` | 0.5     | penalty factor for intermediate early departure |
+| $\kappa$   | `collision_factor`                            | 0.0     | penalty factor for collision                    |
+| $T$        | `max_episode_steps` of the env                |         | maximum number of time steps of the episode     |
 
 Note that the simulation enforces that agents cannot start earlier than $\delta_1$ at their start. On the other hand, early departure at intermediate stops is
 not enforced by the simulation, but will be penalized by the rewards function.
 Also note that order of intermediate stops is also not enforced by the simulation in case of overlapping time windows.
 
-To  to compare results between environments of different dimensions and different number of agents, the rward can be normalized, such that the normalized reward is in the range $[0.0, 1.0]$. For each agent there is a maximum penalty set at ```- max_episode_steps```. This guarantees normalization regardless of the parametrization of the rewards.
+To compare results between environments of different dimensions and different number of agents, the reward can be normalized, such that the normalized reward is in the range $[0.0, 1.0]$. For each agent there is a maximum penalty set at ```- max_episode_steps```. This guarantees normalization regardless of the parametrization of the rewards.
 
 ```{admonition} Code reference
 The reward is calculated in [envs/rewards.py](https://github.com/flatland-association/flatland-rl/blob/main/flatland/envs/rewards.py)

@@ -12,6 +12,9 @@ The instructions for the local evaluator assume that you have the `flatland-rl` 
 
 Here is the same process explained in brief just for getting the local evaluator running.
 
+> ⚠️ These instructions are for the Flatland 3 challenge (2021). Its starter kit requires `flatland-rl` 3.x, which is tested with Python 3.6 and 3.7;
+> current `flatland-rl` releases are not compatible with it.
+
 ### Register 
 
 Sign up on AIcrowd and Click on `Participate` on the [challenge page](https://www.aicrowd.com/challenges/flatland-3).
@@ -36,11 +39,11 @@ After that, you can now run the following:
 ```bash
 $ conda env create -f environment.yml # creates the flatland-rl environment
 $ conda activate flatland-rl # activates it
-$ pip install -U flatland-rl
+$ pip install "flatland-rl<4"
 ```
 
 ```{note}
-Flatland is tested with Python 3.6 and 3.7 on modern versions of macOS and Linux. We are unable to support Windows completely at this time. WSL is known to work but you may encounter problems with graphical rendering. Your [contribution is welcome](../../contributing.md) if you can help with this!
+Flatland 3 is tested with Python 3.6 and 3.7 on modern versions of macOS and Linux. We are unable to support Windows completely at this time. WSL is known to work but you may encounter problems with graphical rendering. Your [contribution is welcome](../../misc/contributing.md) if you can help with this!
 ```
 
 ✅ Test your local setup
