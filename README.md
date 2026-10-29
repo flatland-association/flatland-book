@@ -6,6 +6,8 @@ the [Flatland-RL](https://github.com/flatland-association/flatland-rl/) project.
 
 # Installation
 
+The book is built with Python 3.12, see `.github/workflows/checks.yml`.
+
 ```shell
 git clone https://github.com/flatland-association/flatland-book.git 
 
