@@ -34,6 +34,7 @@ In particular, trains have a speed that can be lower than the current max speed.
 The simulation updates the train's speed counter accordingly. Reinterpret `DO_NOTHING` as keep running, `STOP_MOVING` as decelerate and `MOVE_FORWARD` as
 accelerate.
 Configuration sets the acceleration/braking delta or the old behaviour.
+Since `flatland 5.0.0`, speed changes act from the next step, see [Actions](./environment/actions).
 A penalty can be configured to reward function penalizing if a train enters a cell already occupied.
 
 #### Changes
