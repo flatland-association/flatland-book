@@ -18,7 +18,7 @@ Flatland is an open-source toolkit to develop and compare solutions for this pro
 ⚡ Quick start
 ---
 
-Flatland is easy to use whether you’re a human or an AI:
+Flatland is easy to use whether you’re a human or an AI (Python 3.11 or later, see [Installation](getting-started/installation)):
 
 ```console
 $ pip install flatland-rl
