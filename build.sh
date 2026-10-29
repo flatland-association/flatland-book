@@ -15,6 +15,8 @@ fi
 cp ${FLATLAND_MODULE_PATH}/../notebooks/Agent-Close-Following.ipynb environment/environment
 
 
+# remove stubs of modules no longer in the installed flatland-rl (apidocs/ is generated, see .gitignore)
+rm -rf apidocs
 sphinx-apidoc --force -a -e -o apidocs ${FLATLAND_MODULE_PATH}  -H "Flatland ${FLATLAND_MODULE_VERSION} API Reference" --tocfile 'index'
 
 # tweak mermaid directives for sphinx, see https://sphinxcontrib-mermaid-demo.readthedocs.io/en/latest/index.html
