@@ -128,7 +128,8 @@ Missing values are handled as follow:
 
 Special cases:
 
-- In case of the root node, the values are `[0, 0, 0, 0, distance from agent to target, own malfunction, own speed]`
+- In case of the root node, the values are `[0, 0, 0, 0, distance from agent to target, own malfunction, own speed]`; the own speed is 0 while the agent is
+  off the map
 - In case the target node is reached, the values are `[0, 0, 0, 0, 0]`.
 
 ```{admonition} Code reference
