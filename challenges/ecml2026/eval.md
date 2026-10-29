@@ -10,10 +10,9 @@ their state-of-the art algorithms
 ## ⚖ Evaluation metrics
 
 > The competition was evaluated with flatland-rl 4.2.6, as pinned in the
-> [starterkit](https://github.com/flatland-association/ecml2026-starterkit). flatland-rl 4.3.0 changed the reward semantics described below: no collision
-> penalty for stops issued by the controller ([#452](https://github.com/flatland-association/flatland-rl/pull/452)), intermediate stops served at any halting
-> cell of the station ([#453](https://github.com/flatland-association/flatland-rl/pull/453)) and the normalization
-> ([#457](https://github.com/flatland-association/flatland-rl/pull/457)). Scores computed with 4.3.0 can therefore differ from the published ones.
+> [starterkit](https://github.com/flatland-association/ecml2026-starterkit), and the reward behaviour described below is that of flatland-rl 4.2.6.
+> From flatland-rl 4.3.0 on, the reward behaviour changed due to fixes (see the [flatland-rl changelog](https://github.com/flatland-association/flatland-rl/blob/main/CHANGELOG.md#430-2026-08-10)), so scores computed with later
+> versions can differ from the published ones.
 
 ### Normalized Episode Rewards
 
@@ -77,7 +76,9 @@ Evaluation is stopped when a submission does not reach the threshold of 25% comp
 
 ### Factors in reward function
 
-The factors for the [reward function](../../environment/environment/rewards.md) in this competition are:
+The factors for the [reward function](../../environment/environment/rewards.md) in this competition are (as implemented by
+[`ECML2026Rewards` in flatland-rl 4.2.6](https://github.com/flatland-association/flatland-rl/blob/v4.2.6/flatland/envs/rewards.py#L371); the reward
+function page describes the current flatland-rl version):
 
 | factor                                        | value |
 |-----------------------------------------------|:-----:|

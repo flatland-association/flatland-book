@@ -1,3 +1,4 @@
 jupyter-book<2.0
 sphinxcontrib-mermaid
+# TODO require flatland-rl>=5 once 5.0.0 is released on PyPI, so that a too old Python fails at install instead of building the docs for 4.x
 flatland-rl

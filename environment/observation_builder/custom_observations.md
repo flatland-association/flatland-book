@@ -111,8 +111,8 @@ class SingleAgentNavigationObs(TreeObsForRailEnv):
 
     def __init__(self):
         super().__init__(max_depth=0)
-        # We set max_depth=0 in because we only need to look at the current
-        # position of the agent to decide what direction is shortest.
+        # We set max_depth=0 in because we only need to look at the next
+        # entry point of the agent to decide what direction is shortest.
 
     def reset(self, env):
         # Nothing to pre-compute; the base class stores the env as self.env.
@@ -122,11 +122,12 @@ class SingleAgentNavigationObs(TreeObsForRailEnv):
         # Here we access agent information from the environment.
         # Information from the environment can be accessed but not changed!
         agent = self.env.agents[handle]
-        # The configuration is ((row, column), direction); off the map, use the one at which the agent enters the map.
-        configuration = agent.current_configuration if agent.current_configuration is not None else agent.initial_configuration
-        position, direction = configuration
+        # Entry points are ((row, column), direction). Since flatland 5.0.0, actions are applied at cell entry: the action decides how
+        # the agent leaves the cell it enters next, i.e. its next entry point; off the map, the one at which it enters the map.
+        entry_point = agent.next_entry_point if agent.next_entry_point is not None else agent.initial_entry_point
+        position, direction = entry_point
 
-        possible_transitions = self.env.rail.get_transitions(configuration)
+        possible_transitions = self.env.rail.get_transitions(entry_point)
         num_transitions = np.count_nonzero(possible_transitions)
 
         # Start from the current orientation, and see which transitions are available;
@@ -189,8 +190,9 @@ for step in range(100):
     time.sleep(0.1)
 ```
 
-The code sample above is available in [
-`custom_observation_example_02_SingleAgentNavigationObs.py`](https://github.com/flatland-association/flatland-rl/blob/main/examples/custom_observation_example_02_SingleAgentNavigationObs.py).
+The code sample above is based on [
+`custom_observation_example_02_SingleAgentNavigationObs.py`](https://github.com/flatland-association/flatland-rl/blob/main/examples/custom_observation_example_02_SingleAgentNavigationObs.py),
+which still computes the directions from the current cell and thus applies them one cell late since `flatland 5.0.0`.
 
 Using predictors and rendering observations
 -------------------------------------------
