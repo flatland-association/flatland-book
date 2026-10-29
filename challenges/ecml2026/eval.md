@@ -10,12 +10,9 @@ their state-of-the art algorithms
 ## ⚖ Evaluation metrics
 
 > The competition was evaluated with flatland-rl 4.2.6, as pinned in the
-> [starterkit](https://github.com/flatland-association/ecml2026-starterkit). flatland-rl 4.3.0 changed the reward semantics described below: no collision
-> penalty for stops issued by the controller ([#452](https://github.com/flatland-association/flatland-rl/pull/452)), intermediate stops served at any halting
-> cell of the station ([#453](https://github.com/flatland-association/flatland-rl/pull/453)) and the normalization
-> ([#457](https://github.com/flatland-association/flatland-rl/pull/457)). Scores computed with 4.3.0 can therefore differ from the published ones.
-> Since flatland-rl 5.0.0, forced stops due to an invalid action are a category of their own (`INVALID_ACTION`) instead of being counted as `COLLISION`
-> ([#508](https://github.com/flatland-association/flatland-rl/pull/508)).
+> [starterkit](https://github.com/flatland-association/ecml2026-starterkit), and the reward behaviour described below is that of flatland-rl 4.2.6.
+> From flatland-rl 4.3.0 on, the reward behaviour changed due to fixes (see the [flatland-rl changelog](https://github.com/flatland-association/flatland-rl/blob/main/CHANGELOG.md#430-2026-08-10)), so scores computed with later
+> versions can differ from the published ones.
 
 ### Normalized Episode Rewards
 
