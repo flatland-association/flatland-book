@@ -122,11 +122,11 @@ class SingleAgentNavigationObs(TreeObsForRailEnv):
         # Here we access agent information from the environment.
         # Information from the environment can be accessed but not changed!
         agent = self.env.agents[handle]
-        # The configuration is ((row, column), direction); off the map, use the one at which the agent enters the map.
-        configuration = agent.current_configuration if agent.current_configuration is not None else agent.initial_configuration
-        position, direction = configuration
+        # The entry point is ((row, column), direction); off the map, use the one at which the agent enters the map.
+        entry_point = agent.current_entry_point if agent.current_entry_point is not None else agent.initial_entry_point
+        position, direction = entry_point
 
-        possible_transitions = self.env.rail.get_transitions(configuration)
+        possible_transitions = self.env.rail.get_transitions(entry_point)
         num_transitions = np.count_nonzero(possible_transitions)
 
         # Start from the current orientation, and see which transitions are available;
