@@ -29,8 +29,8 @@ Agents controlled in rail env are vehicles, agents controlled in the passenger e
 ```mermaid
 classDiagram
     direction LR
-    note for PassengerEnv "Agents reflect passengers and configurations represent passenger locations and policies drive passengers; TODO: what are the actions"
-    note for RailEnv "Agents reflect trains/ships/etc. Configurations can be graph nodes or grid cell entry points (r,c,d)."
+    note for PassengerEnv "Agents reflect passengers and entry points represent passenger locations and policies drive passengers; TODO: what are the actions"
+    note for RailEnv "Agents reflect trains/ships/etc. Entry points can be graph nodes or grid cell entry points ((r,c),d)."
     note for TransitionMap "Topology"
     note for Line "Services in Space; aka. Journey for passengers"
     note for Timetable "Services in Space and Time; aka. Initial Itinerary for passengers"
@@ -41,7 +41,7 @@ classDiagram
     PassengerEnv --|> "inheritance" RailEnv
     PassengerEnv --> "passengers use trains, ships etc." RailEnv
     StoppingPoint "1.." --> "1" Station
-    StoppingPoint "0,1" --> "1" Coordinate
+    StoppingPoint "0,1" --> "1" EntryPoint
     Line "1" --> "1.." LineFlexibleStoppingPoint
     LineFlexibleStoppingPoint "1.." --> "1.." StoppingPoint
     FlatlandPolicy --> RailEnv
@@ -65,12 +65,13 @@ classDiagram
         }
 
         class TransitionMap {
-            configurations: Set[Coordinate] "aka. nodes aka. grid cell entry points"
-            transitions: Set[Tuple[Coordinate, Coordinate]] "aka. edges aka. grid cell transition"
+            entry_points: Set[EntryPoint] "aka. nodes aka. grid cell entry points"
+            transitions: Set[Tuple[EntryPoint, EntryPoint]] "aka. edges aka. grid cell transition"
             apply_action_independent()
-            get_successor_configurations()
-            get_predecessor_configurations()
-            is_valid_configuration()
+            get_successor_entry_points()
+            get_predecessor_entry_points()
+            is_successor()
+            is_valid_entry_point()
         }
 
         class Station {
@@ -91,8 +92,8 @@ classDiagram
 
         class AgentTimetable {
             line: Line
-            initial(): Configuration
-            targets(): Set[Configuration]
+            initial(): EntryPoint
+            targets(): Set[EntryPoint]
             timetable: Map[LineFlexibleStop, AgentTimetableItem]
         }
 
@@ -107,13 +108,13 @@ classDiagram
         }
 
         class EnvAgent {
-            current(): Optional[Configuration]
-            next_configuration(): Optional[Configuration]
-            offset: Fraction
+            current_entry_point: Optional[EntryPoint]
+            next_entry_point: Optional[EntryPoint]
+            distance: Fraction
             timetable: AgentTimeTable
             next_stop(): LineFlexibleStop
         }
-        class Coordinate
+        class EntryPoint
     }
     namespace TravelWise {
         class PassengerEnv {
