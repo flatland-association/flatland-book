@@ -43,7 +43,8 @@ A penalty can be configured to reward function penalizing if a train enters a ce
 * reinterpret actions (configuration whether to keep current behaviour):
     * `MOVE_FORWARD` increase speed (delta configurable)
     * `STOP_MOVING` decrease speed (delta configurable); set to `STOPPED` state if speed zero is reached.
-* configurable penalty if trains "crash" (if the env needs to force-stop-them), penalty proportional to train's speed.
+* configurable penalty if trains "crash" (if the env needs to force-stop-them), penalty proportional to train's speed. Since `flatland 5.0.0`, force-stops
+  due to an invalid action are tracked separately (`INVALID_ACTION`), see [Rewards](environment/rewards).
 * extract reward handling to separate (testable) class
 
 ### ⏰📉 Multi-stop Schedules (w/o alternatives/routing flexibility)
