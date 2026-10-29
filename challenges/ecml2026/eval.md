@@ -79,7 +79,9 @@ Evaluation is stopped when a submission does not reach the threshold of 25% comp
 
 ### Factors in reward function
 
-The factors for the [reward function](../../environment/environment/rewards.md) in this competition are:
+The factors for the [reward function](../../environment/environment/rewards.md) in this competition are (as implemented by
+[`ECML2026Rewards` in flatland-rl 4.2.6](https://github.com/flatland-association/flatland-rl/blob/v4.2.6/flatland/envs/rewards.py#L371); the reward
+function page describes the current flatland-rl version):
 
 | factor                                        | value |
 |-----------------------------------------------|:-----:|
