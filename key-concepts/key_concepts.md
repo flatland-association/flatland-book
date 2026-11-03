@@ -120,6 +120,9 @@ classDiagram
         class PredictionBuilder
         class TransitionMap
         class GridTransitionMap
+        class ResourceMap
+        class GridResourceMap
+        class GraphResourceMap
     }
     namespace callbacks {
         class FlatlandCallbacks {
@@ -140,11 +143,13 @@ classDiagram
         }
     }
     namespace envs {
-        class AbstractRailEnv {
+        class AbstractRailEnv~TransitionMapT, ResourceMapT, EntryPointT~ {
             step
             reset
         }
         class RailEnv
+        class GraphRailEnv
+        class MotionCheck
 
         class RailGenerator {
             generate
@@ -204,12 +209,16 @@ classDiagram
         }
     }
     RailEnv --|> AbstractRailEnv
+    GraphRailEnv --|> AbstractRailEnv
     AbstractRailEnv --|> Environment
     FlatlandInteractiveAICallbacks --|> FlatlandCallbacks
     DeadLockAvoidancePolicy --|> Policy
     Grid4Transitions --|> Transitions
     RailEnvTransitions --|> Grid4Transitions
-    GridTransitionMap --> TransitionMap
+    GridTransitionMap --|> TransitionMap
+    GraphTransitionMap --|> TransitionMap
+    GridResourceMap --|> ResourceMap
+    GraphResourceMap --|> ResourceMap
     PettingzooFlatland ..> PettingZooParallelEnvWrapper : creates
     PettingZooParallelEnvWrapper --|> PettingZooParallelEnv
     PettingZooParallelEnvWrapper --|> gymEnv
@@ -218,6 +227,10 @@ classDiagram
     TreeObsForRailEnv --|> ObservationBuilder
     RailEnv --> "*" EnvAgent
     RailEnv --> "1" GridTransitionMap
+    RailEnv --> "1" GridResourceMap
+    GraphRailEnv --> "1" GraphTransitionMap
+    GraphRailEnv --> "1" GraphResourceMap
+    AbstractRailEnv --> "1" MotionCheck : resource_check
     RailEnv --> "1" RailGenerator
     RailEnv --> "1" LineGenerator
     RailEnv --> "1" TimetableGenerator
@@ -228,6 +241,9 @@ classDiagram
     TransitionMap --> "*" Transitions
     TreeObsForRailEnv --> "1" PredictionBuilder
 ```
+
+`RailEnv` (grid) and `GraphRailEnv` (graph) share the `step()` implementation of `AbstractRailEnv`, which is generic in the transition map, the resource
+map and the entry point type, see [Flatland Data and Simulation Model](simulation_model).
 
 Runtime View RailEnv Step
 -------------------------
