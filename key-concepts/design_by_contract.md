@@ -1,10 +1,14 @@
 # Design by Contract
 
-Design by contract specifies a routine by its preconditions (what holds before it runs), its postconditions (what it guarantees afterwards) and its
-invariants (what holds before and after every call). Since `flatland 5.0.0`, `RailEnv.step()` follows such a contract: the new entry points, speed and
-distance of each agent are a function of its pre-step values, its action and the conflict resolution between all agents. This page summarizes what you can
-rely on in each step. The steps (1)-(15) refer to the [Runtime View RailEnv Step](key_concepts). The branch-by-branch contract of the implementation is in
-[design_by_contract.md](https://github.com/flatland-association/flatland-rl/blob/main/design_by_contract.md) in flatland-rl.
+Design by Contract (DbC) is a software correctness discipline introduced by Bertrand Meyer in the mid-1980s with the Eiffel programming language,
+addressing the problem of specifying precisely - via preconditions, postconditions and invariants - what a caller must guarantee before invoking a
+routine and what the routine guarantees in return, so a broken assumption is caught exactly where it occurs rather than surfacing later as an
+unrelated-looking symptom.
+
+Since `flatland 5.0.0`, `RailEnv.step()` follows such a contract: the new entry points, speed and distance of each agent are a function of its pre-step
+values, its action and the conflict resolution between all agents. This page summarizes what you can rely on in each step. The steps (1)-(15) refer to
+the [Runtime View RailEnv Step](key_concepts). The sections "Branch contract of the candidate methods" and "Notation" below give the branch-by-branch
+contract of the implementation and its mathematical notation.
 
 ## Invariants
 
@@ -79,12 +83,6 @@ Once accepted, `handle_done_state` (14) sets `agent.target_entry_point` if the a
 `remove_agents_at_target` is set.
 
 ## Branch contract of the candidate methods
-
-Design by Contract (DbC) is a software correctness discipline introduced by Bertrand Meyer in the mid-1980s with
-the Eiffel programming language, addressing the problem of specifying precisely - via preconditions,
-postconditions and invariants - what a caller must guarantee before invoking a routine and what the routine
-guarantees in return, so a broken assumption is caught exactly where it occurs rather than surfacing later as an
-unrelated-looking symptom.
 
 Branch-by-branch comparison of `AbstractRailEnv._candidate_entry_points()`, `_candidate_speed()` and
 `_candidate_distance()` (`flatland/envs/rail_env.py`). All three are pure, pre-step-only derivations of this
@@ -267,125 +265,177 @@ pre- and post-step values together. `action_required` (`rail_env.py`) takes a pa
 own docstring for that pre-existing naming mismatch. `SpeedCounter.is_cell_entry` itself isn't consulted by any
 production control flow at the time of writing - only asserted on directly by `tests/test_speed_counter.py`.
 
-## Table 4 — code ↔ LaTeX mathematical notation
+## Notation
 
-Tables 4a-4e formalize the collect/distribute phases in mathematical notation (superscript `t`/`t+1`
-for pre-/post-step, subscript `i` for agent, `~` for an as-yet-unaccepted candidate), mapping every
-symbol back to the code identifier (and, where one already exists, the row/term of Tables 1-3 above) it
-denotes. "Notes" points back into this file where the term is already documented, or says so explicitly
-when Table 4a-4e's own notation introduces a symbol this file doesn't otherwise name.
-
-**Scope of Table 4c/4a's position/done formulae (relevant to several "Notes" below):** Table 4c's collect-phase
-position candidate and Table 4a's `dones`/`\theta` bookkeeping only model `remove_agents_at_target=True` - a DONE
-agent's position is always given as `(\bot,\bot)`, which only matches code when the agent has actually been
-removed from the map. Under `remove_agents_at_target=False` (parked at target, never removed - Table 1's
-Target reached row, Table 3's Accepted-ends-up-on-map row), a DONE agent's `current_entry_point` stays its
-resolved target entry point, not `None`. Table 4c's formula doesn't need a second branch for that case - it's
-simply out of scope - so this is a scope note for L3 (keep the single `remove_agents_at_target=True`-shaped
-branch when rewriting the LaTeX, not an error to "fix" by adding a branch), not a mismatch between code and
-Table 4c.
+The same contract in mathematical notation$\newcommand{\action}{a}$, for agent $i$ in the step from $t$ to $t+1$, i.e. the step to `elapsed_steps`
+$= t+1$: superscript $t$/$t+1$ for pre-/post-step values, subscript $i$ for the agent, a tilde for an as-yet-unaccepted candidate, and $\bot$ for
+`None`. Tables 4a-4e map every symbol back to the code identifier and, where one exists, the row or term of Tables 1-3 above it denotes.
 
 ### Table 4a - base quantities
 
-| Code                                                                 | Math notation                          | Notes                                                                                                          |
-|-----------------------------------------------------------------------|-----------------------------------------|------------------------------------------------------------------------------------------------------------------|
-| *(the RL policy/controller calling `env.step(action_dict)`)*           | `ctrl`                                  | Not a code identifier - the external caller supplying `action_dict`, outside `AbstractRailEnv` entirely            |
-| `action` (param of all 3 `_candidate_` methods); `action_dict[agent.handle]` (in `collect()`) | `\action_i^t`                           | n/a - not in Tables 1-3 by this name, but every branch condition in Table 2a/2b is defined in terms of it        |
-| `agent_transition_data.done` (equivalently `self.dones[i_agent]` after `handle_done_state()`) | `i \in dones^t`                          | Table 2a, `done`                                                                                                |
-| `self.dones` (dict keyed by agent handle, plus `"__all__"`)            | `dones^t` (the set itself)               | New term - Table 2a/2b's `done` is the per-agent membership test, not the aggregate set                          |
-| `agent.target_entry_point is not None`                                 | `\theta_i^t` (persistent target-reached flag) | New term - code has no separate flag distinct from `done`/`agent.target_entry_point`. Only matches under `remove_agents_at_target=True` (see the scope note above and Table 4e) - out of scope, not a bug, for L3 |
-| `in_malfunction` (param); `agent.malfunction_handler.in_malfunction`   | `m_i^{t} \not= \bot`                     | Table 2a, `in_malfunction`. Table 4b's speed equation used `m_i^{t+1}` here while Table 4c's position equation used `m_i^t` for this same shared parameter - `m_i^{t+1}` isn't defined until Table 4e's distribute-phase malfunction-counter equation runs, so `m_i^t` (matching Table 4c's convention) is correct, as already reflected in the row above (L3) |
-| `agent.malfunction_handler.malfunction_down_counter`                   | `m_i^t` (the counter value itself)       | New term - Table 2a only names the boolean `in_malfunction`, not the underlying counter                          |
-| `off_map` (param); `current_entry_point is None`                       | `c_i^t = \bot`                           | Table 2a, `off_map`                                                                                             |
-| `current_entry_point`, `next_entry_point` (params)                     | `c_i^t = (p, p')`                         | Table 2a, `off_map` definition context; Table 1 header                                                          |
-| `agent.old_entry_point`                                                | (no separate symbol - reads the same `c_i^t = \bot` test as `off_map` above) | Table 3's own prose note; the pre-step snapshot (13) reads to tell "off map going into this step" apart, distinct from `off_map` only as an implementation detail (captured before (12) mutates anything), not in meaning |
-| `cell_exit` (param of `_candidate_entry_points` only - dead param removed from `_candidate_speed`/`_candidate_distance`); `cached_cell_exit(max_speed, speed, distance)` (`step_utils/speed_counter.py`) | `d_i^{t}+{s_i^{t}} \geq \lVert c_i^t \rVert` (the inline boundary test - the `speed > 0` guard has no separate symbol; already scoped on-map by every consumer below, so unaffected by `cached_cell_exit`'s off-map convention) | Table 2a, `cell_exit` - `cached_cell_exit` returns `True` off map (unlike `cellExit_i^t` above, which is scoped on-map only), but this is inert: every branch reading `cellExit_i^t` already conjoins `c_i^t \not= \bot`, matching Table 2a's own note that `cell_exit`'s off-map value is never read bare |
-| `target_reached` (param of all 3 `_candidate_` methods)                | `\tau(p',\action_i^t) \in targets_i` (combined with `\neg off\_map \wedge cell\_exit` per Table 2b) | Table 2b, `target_reached` - shared, see Table 4c's own Target reached row for `_candidate_entry_points`' richer from-scratch derivation |
-| `transition_invalid` (named local in `collect()`; passed directly only to `_candidate_entry_points` - see Table 4c) | `\tau(p',\action_i^t) = \bot`             | Table 2a, `transition_invalid`                                                                                  |
-| `action_invalid_on_rail` (param of `_candidate_entry_points` only)      | no separate symbol - Table 4c's formula always uses the raw `\tau(p',\action_i^t)=\bot` test, without an on-map narrowing | Table 2b, `action_invalid_on_rail` - new term relative to Table 4c                                              |
-| `invalid_action_at_cell_exit` (param of all 3 `_candidate_` methods; `action_invalid_on_rail and cell_exit`) | Table 4b/4d's "(invalid action)" branch condition, `\tau(p',\action_i^t)=\bot \text{ and } d_i^t+s_i^t\geq\lVert c_i^t\rVert`, repeated inline in the speed/distance equations rather than named | Table 2b, `invalid_action_at_cell_exit` - see Table 4c's own note: Table 4c's position equation has no corresponding branch at all (flag for L3) |
-| `stay_off_map` (param of `_candidate_speed`/`_candidate_distance`; `candidate_entry_point is None`) | no separate symbol - Table 4c's position equation has a "stay off map" value case (`\tilde c_i^{t+1}=(\bot,\bot)`, via its map-entry branch's negation) rather than a named boolean reused by Table 4b/4d's other two equations | Table 2b, `stay_off_map`                                                                                        |
-| `remove_agents_at_target` (param of `_candidate_distance`; constructor attr)                                    | implicit - see the scope note above; every Table 4a/4c/4e branch that clears position/`\theta` to done assumes this is always `True` | Not in Tables 1-3 by a dedicated row - central to Table 3's two "Accepted" rows and the scope note above         |
-| `speed` (param); `agent.speed_counter.speed`                           | `s_i^t`                                  | Table 2a, `stopped` (`speed == 0`) uses this                                                                    |
-| `distance` (param); `agent.speed_counter.distance`                     | `d_i^t`                                  | Table 2a, `cell_exit` uses this                                                                                 |
-| `SEGMENT_LENGTH` (`flatland.envs.step_utils.speed_counter`)            | `\lVert c_i^t \rVert`                    | Table 2a, `cell_exit` definition                                                                                |
-| `stopped` (param); `speed == 0`                                        | `s_i^t = 0`                              | Table 2a, `stopped`                                                                                             |
-| `agent_max_speed` (param); `agent.speed_counter.max_speed`             | `v_{\text{max},i}`                       | New term - not named in Tables 1-3, only used inline in their formula column                                    |
-| `acceleration_delta` (constructor attr / param)                        | `\Delta{}v_a`                            | New term                                                                                                        |
-| `braking_delta` (constructor attr / param)                             | `\Delta{}v_b`                            | New term                                                                                                        |
-| `RailEnvActions.MOVE_LEFT` / `MOVE_FORWARD` / `MOVE_RIGHT`; `RailEnvActions.is_moving_action(action)` (`movement_action_given`) | `\action_i^t \in \{\text{L},\text{F},\text{R}\}` | Table 2b, `required_action_invalid_or_not_required_or_no_movement` uses `movement_action_given`                |
-| `RailEnvActions.MOVE_FORWARD`                                          | `\action_i = \text{F}`                   | Table 1, "Acceleration or start moving"                                                                         |
-| `RailEnvActions.STOP_MOVING`                                           | `\action_i = \text{S}`                   | Table 1, "Braking"                                                                                              |
-| `initial_entry_point` (param); `agent.initial_entry_point`             | `p_{i,1,1}`                              | Table 1, "Map entry" row                                                                                        |
-| `earliest_departure` (param); `agent.earliest_departure`               | `e_{i,1,1}`                              | Table 2b, `ready_to_depart`                                                                                     |
-| `self._elapsed_steps + 1` (the step about to be taken)                 | `t+1`                                    | Table 2b, `ready_to_depart` (`elapsed_steps`)                                                                   |
-| `agent.targets`                                                        | `targets_i`                              | Table 2b, `target_reached`                                                                                      |
-| `candidate_entry_point_independent` (`self.rail.apply_action_independent(...)`) | `\tau(p', \action_i^t)` (transition function, general form) | Table 2a, `transition_invalid`                                                     |
+| Code                                                                                                     | Math notation                                                                                                                 | Notes                                                                                                                                                                                                 |
+|----------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| *(the RL policy/controller calling `env.step(action_dict)`)*                                             | $\mathit{ctrl}$                                                                                                               | Not a code identifier - the external caller supplying `action_dict`, outside `AbstractRailEnv` entirely                                                                                               |
+| `action` (param of all 3 `_candidate_` methods); `action_dict[agent.handle]` (in `collect()`)            | $\action_i^t$, `DO_NOTHING` if missing                                                                                        | Not in Tables 1-3 by this name, but every branch condition in Table 2a/2b is defined in terms of it                                                                                                   |
+| `RailEnvActions.MOVE_LEFT` / `MOVE_FORWARD` / `MOVE_RIGHT`; `RailEnvActions.is_moving_action(action)`     | $\action_i^t \in \{\text{L},\text{F},\text{R}\}$                                                                              | Table 2b, `required_action_invalid_or_not_required_or_no_movement` uses `movement_action_given`                                                                                                       |
+| `RailEnvActions.MOVE_FORWARD`                                                                            | $\action_i^t = \text{F}$                                                                                                      | Table 1, "Acceleration or start moving"                                                                                                                                                               |
+| `RailEnvActions.STOP_MOVING`                                                                             | $\action_i^t = \text{S}$                                                                                                      | Table 1, "Braking"                                                                                                                                                                                    |
+| `agent_transition_data.done` (equivalently `self.dones[i_agent]` after `handle_done_state()`)            | $i \in dones^t$                                                                                                               | Table 2a, `done`                                                                                                                                                                                      |
+| `self.dones` (dict keyed by agent handle, plus `"__all__"`)                                              | $dones^t$ (the set itself)                                                                                                    | New term - Table 2a/2b's `done` is the per-agent membership test, not the aggregate set                                                                                                               |
+| `agent.target_entry_point`                                                                               | $\theta_i^t$ (persistent target-reached flag), $\bot$ while not done                                                          | New term - code has no separate flag distinct from `done`/`agent.target_entry_point`: $i \in dones^t \iff \theta_i^t \neq \bot$                                                                       |
+| `agent.malfunction_handler.malfunction_down_counter`                                                     | $m_i^t$ (the counter value itself, $\bot$ for `0`)                                                                            | New term - Table 2a only names the boolean `in_malfunction`, not the underlying counter. Read after (1) and (2) of this step                                                                           |
+| `in_malfunction` (param); `agent.malfunction_handler.in_malfunction`                                     | $m_i^t \neq \bot$                                                                                                             | Table 2a, `in_malfunction`                                                                                                                                                                            |
+| `current_entry_point`, `next_entry_point` (params)                                                       | $c_i^t = (p, p')$                                                                                                             | Table 2a, `off_map` definition context; Table 1 header                                                                                                                                                |
+| `off_map` (param); `current_entry_point is None`                                                         | $c_i^t = \bot$                                                                                                                | Table 2a, `off_map`                                                                                                                                                                                   |
+| `agent.old_entry_point`                                                                                  | no separate symbol - reads the same $c_i^t = \bot$ test as `off_map` above                                                    | Table 3's own prose note; the pre-step snapshot (13) reads to tell "off map going into this step" apart, distinct from `off_map` only as an implementation detail (captured before (12) mutates anything), not in meaning |
+| `speed` (param); `agent.speed_counter.speed`                                                             | $s_i^t$                                                                                                                       | Table 2a, `stopped` (`speed == 0`) uses this                                                                                                                                                          |
+| `distance` (param); `agent.speed_counter.distance`                                                       | $d_i^t$                                                                                                                       | Table 2a, `cell_exit` uses this                                                                                                                                                                       |
+| `SEGMENT_LENGTH` (`flatland.envs.step_utils.speed_counter`)                                              | $\lVert c_i^t \rVert$ (`1`)                                                                                                   | Table 2a, `cell_exit` definition                                                                                                                                                                      |
+| `stopped` (param); `speed == 0`                                                                          | $s_i^t = 0$                                                                                                                   | Table 2a, `stopped`                                                                                                                                                                                   |
+| `cell_exit`; `cached_cell_exit(max_speed, speed, distance)` (`step_utils/speed_counter.py`)              | $\mathit{cellExit}_i^t := c_i^t \neq \bot \wedge s_i^t > 0 \wedge d_i^t + s_i^t \geq \lVert c_i^t \rVert$                     | Table 2a, `cell_exit` - `cached_cell_exit` returns `True` off map, unlike $\mathit{cellExit}_i^t$, which is scoped on map. This is inert: Table 2a notes that `cell_exit`'s off-map value is never read bare |
+| `agent_max_speed` (param); `agent.speed_counter.max_speed`                                               | $v_{\text{max},i}$                                                                                                            | New term - not named in Tables 1-3, only used inline in their formula column                                                                                                                          |
+| `acceleration_delta` (constructor attr / param)                                                          | $\Delta{}v_a$                                                                                                                 | New term                                                                                                                                                                                              |
+| `braking_delta` (constructor attr / param)                                                               | $\Delta{}v_b$ (negative)                                                                                                      | New term                                                                                                                                                                                              |
+| `initial_entry_point` (param); `agent.initial_entry_point`                                               | $p_{i,1,1}$                                                                                                                   | Table 1, "Map entry" row                                                                                                                                                                              |
+| `earliest_departure` (param); `agent.earliest_departure`                                                 | $e_{i,1,1}$                                                                                                                   | Table 2b, `ready_to_depart`                                                                                                                                                                           |
+| `self._elapsed_steps` in `collect()`, already incremented at the start of `step()`                       | $t+1$                                                                                                                         | Table 2b, `ready_to_depart` (`elapsed_steps`)                                                                                                                                                         |
+| `agent.targets`                                                                                          | $targets_i$                                                                                                                   | Table 2b, `target_reached`                                                                                                                                                                            |
+| `remove_agents_at_target` (param of `_candidate_distance`; constructor attr)                             | $\mathit{removeAtTarget}$                                                                                                     | Not in Tables 1-3 by a dedicated row - central to Table 3's two "Accepted" rows; Table 1's Target reached row is the one collect branch that reads it                                                  |
+| `candidate_entry_point_independent` (`self.rail.apply_action_independent(...)`)                          | $\tau(p', \action_i^t)$ on map, $\tau(p_{i,1,1}, \action_i^t)$ off map (transition function, general form $\tau(q, \action)$) | Table 2a, `transition_invalid`                                                                                                                                                                        |
+| `transition_invalid` (named local in `collect()`)                                                        | $\tau(p',\action_i^t) = \bot$ (off map: $\tau(p_{i,1,1},\action_i^t) = \bot$)                                                 | Table 2a, `transition_invalid`                                                                                                                                                                        |
+| `action_invalid_on_rail` (param of `_candidate_entry_points` only)                                       | no separate symbol - $c_i^t \neq \bot \wedge \tau(p',\action_i^t) = \bot$                                                     | Table 2b, `action_invalid_on_rail`                                                                                                                                                                    |
+| `invalid_action_at_cell_exit` (param of all 3 `_candidate_` methods; `action_invalid_on_rail and cell_exit`) | $\mathit{cellExit}_i^t \wedge \tau(p',\action_i^t) = \bot$, repeated inline in the three candidate equations rather than named | Table 2b, `invalid_action_at_cell_exit`                                                                                                                                                               |
+| `target_reached` (param of all 3 `_candidate_` methods)                                                  | $\mathit{cellExit}_i^t \wedge p' \in targets_i$                                                                               | Table 2b, `target_reached` - shared, read from `next_entry_point`                                                                                                                                     |
+| `stay_off_map` (param of `_candidate_speed`/`_candidate_distance`; `candidate_entry_point is None`)       | no separate symbol - $\tilde c_i^{t+1} = \bot$                                                                                | Table 2b, `stay_off_map`                                                                                                                                                                              |
 
-### Table 4b - Step Collect Phase: speed candidate (`_candidate_speed`)
+### Collect phase
 
-| Code                                                                 | Math notation                          | Notes                                             |
-|-----------------------------------------------------------------------|------------------------------------------|-----------------------------------------------------|
-| `candidate_speed`; `agent_transition_data.candidate_speed`             | `\tilde{s}_i^{t+1}`                       | Table 1, `_candidate_speed` column                |
-| `target_reached`, `stay_off_map` (params)                               | see Table 4a - shared across all 3 `_candidate_` methods, not speed-specific | Table 4a                                          |
-| `ZERO_FRACTION`, `invalid_action_at_cell_exit` branch                   | `0` elif `\tau(p',\action_i^t) = \bot` and `d_i^t+s_i^t \geq \lVert c_i^t \rVert` (invalid action) | Table 1, "Invalid action at cell exit" row (`_candidate_speed` column); Table 4a's `invalid_action_at_cell_exit` row - `cell_exit` itself isn't a parameter here (dead param removed, see Table 4a), only the already-derived `invalid_action_at_cell_exit` |
-| `SpeedCounter.speed_after_acceleration(speed, agent_max_speed, acceleration_delta)` | `\min\{s_i^{t}+\Delta{}v_a,v_{\text{max},i}\}` | referenced in `flatland/envs/step_utils/speed_counter.py`, not this file      |
-| `_cap_speed(agent_max_speed, acceleration_delta)`                       | `\min\{\Delta{}v_a,v_{\text{max},i}\}`    | Table 1, "Map entry" row (`_candidate_speed` column) |
-| `SpeedCounter.speed_after_braking(speed, braking_delta)`                | `\max\{s_i^{t}+\Delta{}v_b,0\}`           | referenced in `speed_counter.py`, not this file   |
-| `speed` (unchanged, default/keep-moving-mid-cell branch)                | `s_i^{t}` (else branch)                  | Table 1, "Default"/"Stopped" rows                 |
+`AbstractRailEnv.collect()` computes the candidates in `_candidate_entry_points()`, `_candidate_speed()` and `_candidate_distance()` (steps (3)-(7)).
+The cases are tried from top to bottom, with $\tau = \tau(p', \action_i^t)$ on map and $\tau = \tau(p_{i,1,1}, \action_i^t)$ off map:
 
-### Table 4c - Step Collect Phase: position candidate (`_candidate_entry_points`)
+$$
+\tilde c_i^{t+1} =
+\begin{cases}
+c_i^t & i \in dones^t \quad \text{(done)} \\
+(p', \tau) & \mathit{cellExit}_i^t \wedge p' \in targets_i \quad \text{(target reached)} \\
+c_i^t & m_i^t \neq \bot \quad \text{(malfunction)} \\
+(p_{i,1,1}, \tau) & c_i^t = \bot \wedge e_{i,1,1} \leq t+1 \wedge \action_i^t \in \{\text{L},\text{F},\text{R}\} \wedge \tau \neq \bot \quad \text{(map entry)} \\
+\bot & c_i^t = \bot \quad \text{(stay off map)} \\
+c_i^t & \mathit{cellExit}_i^t \wedge \tau = \bot \quad \text{(invalid action at cell exit)} \\
+(p', \tau) & \mathit{cellExit}_i^t \quad \text{(cell transition)} \\
+c_i^t & \text{otherwise (mid-cell)}
+\end{cases}
+$$
 
-| Code                                                                 | Math notation                          | Notes                                             |
-|-----------------------------------------------------------------------|------------------------------------------|-----------------------------------------------------|
-| `(candidate_entry_point, candidate_next_entry_point)` (return value)   | `\tilde{c}_i^{t+1}`                       | Table 1, `_candidate_entry_points` column         |
-| `(current_entry_point, next_entry_point)` (unchanged, done branch)     | `(\bot,\bot)`                             | Scoped to `remove_agents_at_target=True` (see the scope note above) - a DONE agent's `current_entry_point` is already `None` by then (set by `handle_done_state()` the step it first reached DONE), so "unchanged" and `(\bot,\bot)` coincide; out of scope, not a bug, under `remove_agents_at_target=False`. See Table 1's own Done row |
-| `(initial_entry_point, candidate_entry_point_independent)`             | `(p_{i,1,1}, \tau(p_{i,1,1}, \action_i^t))` | Table 1, "Map entry" row                        |
-| `(next_entry_point, candidate_entry_point_independent)`, target-reached branch | `(\bot,\bot)`                             | Scoped to `remove_agents_at_target=True` (see the scope note above) - `_candidate_entry_points` itself always returns the resolved position here, and the `(None, None)` clearing only happens in the distribute phase (Table 3) when `remove_agents_at_target`; out of scope, not a bug, under `remove_agents_at_target=False`. See Table 1's Target reached row |
-| `(next_entry_point, candidate_entry_point_independent)`, on-map cell transition branch | `(p',\tau(p',\action_i^t))`      | Table 1, "On-map cell transition" row             |
-| `(current_entry_point, next_entry_point)` (unchanged, invalid action at cell exit branch) | no corresponding branch - see the gap noted below | Table 1, "Invalid action at cell exit" row (`_candidate_entry_points` column); Table 4a's `invalid_action_at_cell_exit`/`transition_invalid` rows |
-| `(current_entry_point, next_entry_point)` (unchanged, default/stay branches) | `c_i^{t}` (else branch)             | Table 1, "Default" row                            |
+$$
+\tilde s_i^{t+1} =
+\begin{cases}
+0 & \text{done, target reached, malfunction, stay off map or invalid action at cell exit} \\
+\min\{\Delta{}v_a, v_{\text{max},i}\} & \text{map entry} \\
+\min\{s_i^t + \Delta{}v_a, v_{\text{max},i}\} & \action_i^t = \text{F} \vee (s_i^t = 0 \wedge \action_i^t \in \{\text{L},\text{F},\text{R}\}) \\
+\max\{s_i^t + \Delta{}v_b, 0\} & \action_i^t = \text{S} \\
+s_i^t & \text{otherwise}
+\end{cases}
+$$
 
-Gap (for L3, distinct from the `remove_agents_at_target` scope note above): Table 4c's position equation has no
-"invalid action" branch at all. Its "cell transition" branch (`(p',\tau(p',\action_i^t))` when
-`c_i^t\not=(\bot,\bot)` and `d_i^t+\tilde s_i^{t+1}\geq\lVert c_i^t\rVert`) doesn't exclude
-`\tau(p',\action_i^t)=\bot` the way `on_map_cell_transition`'s own `not action_invalid_on_rail` does in code
-(Table 2b) - so as written, a denied/invalid transition at a cell boundary would fall into "cell transition" and
-set the next entry point to `\bot` instead of being denied and keeping `(current_entry_point, next_entry_point)`
-unchanged, as code's Invalid action at cell exit branch does (Table 1). Table 4b/4d's speed and distance
-equations both already have their own explicit "(invalid action)" branch - only Table 4c's position equation is
-missing one.
+$$
+\tilde d_i^{t+1} =
+\begin{cases}
+\min\{d_i^t + s_i^t, \lVert c_i^t \rVert\} & \text{done, invalid action at cell exit, or target reached} \wedge \neg\mathit{removeAtTarget} \\
+\bot & \text{target reached} \wedge \mathit{removeAtTarget} \text{, or stay off map} \\
+d_i^t & \text{malfunction, or } s_i^t = 0 \\
+0 & \text{map entry} \\
+(d_i^t + s_i^t) \bmod \lVert c_i^t \rVert & \text{otherwise (cell transition or mid-cell)}
+\end{cases}
+$$
 
-### Table 4d - Step Collect Phase: distance candidate (`_candidate_distance`)
+#### Table 4b - Step Collect Phase: speed candidate (`_candidate_speed`)
 
-| Code                                                                 | Math notation                          | Notes                                             |
-|-----------------------------------------------------------------------|------------------------------------------|-----------------------------------------------------|
-| `candidate_distance`; `agent_transition_data.candidate_distance`       | `\tilde{d}_i^{t+1}`                       | Table 1, `_candidate_distance` column             |
-| `target_reached`, `stay_off_map` (params)                               | see Table 4a - shared across all 3 `_candidate_` methods, not distance-specific | Table 4a - `cell_exit` itself isn't a parameter here (dead param removed) |
-| `remove_agents_at_target` (param)                                       | implicit - see the scope note above       | Table 4a's `remove_agents_at_target` row; Table 1's Target reached row is the one branch that actually reads it |
-| `SpeedCounter.distance_without_crossing(distance, speed)`, `invalid_action_at_cell_exit` branch | `\min(d_i^{t} + s_i^t, \lVert c_i^t \rVert)` (the "(invalid action)" branch) | referenced in `speed_counter.py`, not this file; Table 1's Done/Invalid-action rows both return this; Table 4a's `invalid_action_at_cell_exit` row |
-| `SpeedCounter.distance_after_crossing(distance, speed)`                 | `d_i^{t} + s_i^t \mod \lVert c_i^t \rVert`  | referenced in `speed_counter.py`, not this file; Table 1's Default row                              |
+| Code                                                                                | Math notation                                                                                       | Notes                                                                                                                                                                  |
+|-------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `candidate_speed`; `agent_transition_data.candidate_speed`                          | $\tilde{s}_i^{t+1}$                                                                                 | Table 1, `_candidate_speed` column                                                                                                                                     |
+| `target_reached`, `stay_off_map` (params)                                           | see Table 4a - shared across all 3 `_candidate_` methods, not speed-specific                        | Table 4a                                                                                                                                                               |
+| `ZERO_FRACTION`, `invalid_action_at_cell_exit` branch                               | $0$ if $\mathit{cellExit}_i^t \wedge \tau(p',\action_i^t) = \bot$ (invalid action at cell exit)     | Table 1, "Invalid action at cell exit" row (`_candidate_speed` column); Table 4a's `invalid_action_at_cell_exit` row - `cell_exit` itself isn't a parameter here (dead param removed, see Table 2a), only the already-derived `invalid_action_at_cell_exit` |
+| `SpeedCounter.speed_after_acceleration(speed, agent_max_speed, acceleration_delta)` | $\min\{s_i^{t}+\Delta{}v_a,v_{\text{max},i}\}$                                                      | `flatland/envs/step_utils/speed_counter.py`                                                                                                                            |
+| `_cap_speed(agent_max_speed, acceleration_delta)`                                   | $\min\{\Delta{}v_a,v_{\text{max},i}\}$                                                              | Table 1, "Map entry" row (`_candidate_speed` column)                                                                                                                   |
+| `SpeedCounter.speed_after_braking(speed, braking_delta)`                            | $\max\{s_i^{t}+\Delta{}v_b,0\}$                                                                     | `speed_counter.py`                                                                                                                                                     |
+| `speed` (unchanged, default/keep-moving-mid-cell branch)                            | $s_i^{t}$ (otherwise)                                                                               | Table 1, "Default"/"Stopped" rows                                                                                                                                      |
 
-Mismatch (unrelated to the `remove_agents_at_target` scope note above, for L3): Table 4d's distance formula has
-only two cases - invalid action (`\min(d+s, \lVert c \rVert)`) and "valid action" (`d+s \mod \lVert c \rVert`),
-with a comment claiming the valid-action case "covers malfunction, done, target reached, off map" too. None of
-those four actually reduce to `d+s \mod \lVert c \rVert` in code (Table 1): Done and Invalid action both return
-`distance_without_crossing` (`\min(d+s, \lVert c \rVert)` - Table 4d's *other* branch, not this one);
-Malfunction returns `distance` unchanged (no `+s` at all); Map entry returns `0`; Target reached returns either
-`None` (`remove_agents_at_target`) or `distance_without_crossing`. Table 4d's two-case split doesn't yet cover
-these the way its own comment claims.
+#### Table 4c - Step Collect Phase: position candidate (`_candidate_entry_points`)
 
-### Table 4e - Step Distribute Phase: accept/reject
+| Code                                                                                           | Math notation                                       | Notes                                                                                                                                                                                                 |
+|------------------------------------------------------------------------------------------------|-----------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `(candidate_entry_point, candidate_next_entry_point)` (return value)                           | $\tilde{c}_i^{t+1}$                                 | Table 1, `_candidate_entry_points` column                                                                                                                                                             |
+| `(current_entry_point, next_entry_point)` (unchanged, done branch)                             | $c_i^t$                                             | Table 1, Done row. With `remove_agents_at_target`, a DONE agent's `current_entry_point` is already `None` by then (set by `handle_done_state()` the step it first reached DONE), so $c_i^t = \bot$     |
+| `(next_entry_point, candidate_entry_point_independent)`, target-reached branch                 | $(p',\tau(p',\action_i^t))$                         | Table 1, Target reached row. `_candidate_entry_points` always returns the resolved position here; the clearing to `(None, None)` only happens in the distribute phase (Table 3) when `remove_agents_at_target` |
+| `(initial_entry_point, candidate_entry_point_independent)`                                     | $(p_{i,1,1}, \tau(p_{i,1,1}, \action_i^t))$         | Table 1, "Map entry" row                                                                                                                                                                              |
+| `(current_entry_point, next_entry_point)` = `(None, None)` (stay off map branch)               | $\bot$                                              | Table 1, "Stay off map" row                                                                                                                                                                           |
+| `(current_entry_point, next_entry_point)` (unchanged, invalid action at cell exit branch)      | $c_i^t$ if $\mathit{cellExit}_i^t \wedge \tau(p',\action_i^t) = \bot$ | Table 1, "Invalid action at cell exit" row (`_candidate_entry_points` column); Table 4a's `invalid_action_at_cell_exit`/`transition_invalid` rows. It comes before the cell transition case, so an invalid transition at a cell boundary is denied rather than setting the next entry point to $\bot$ |
+| `(next_entry_point, candidate_entry_point_independent)`, on-map cell transition branch         | $(p',\tau(p',\action_i^t))$                         | Table 1, "On-map cell transition" row                                                                                                                                                                 |
+| `(current_entry_point, next_entry_point)` (unchanged, default branch)                          | $c_i^{t}$ (otherwise)                               | Table 1, "Default" row                                                                                                                                                                                |
 
-| Code                                                                 | Math notation                          | Notes                                             |
-|-----------------------------------------------------------------------|------------------------------------------|-----------------------------------------------------|
-| `resource_check`; `self.resource_check.check_resource(i_agent)`        | `\mu(\tilde{c}_i^{t+1}, \action_i^t) = \top` | Table 3, `Condition` column                       |
-| `agent.speed_counter.speed` (post `.set()`)                             | `s_i^{t+1}`                               | Table 3, `Speed` column                           |
-| `(agent.current_entry_point, agent.next_entry_point)` (post-update)     | `c_i^{t+1}`                               | Table 3, `Entry points` column                    |
-| `agent.speed_counter.distance` (post `.set()`)                          | `d_i^{t+1}`                               | Table 3, `Distance` column                        |
-| — (no code equivalent - see Table 4a's `\theta_i^t` row)                | `\theta_i^{t+1}`                          | Scoped to `remove_agents_at_target=True` (see the scope note above) - this table derives `dones^{t+1}` from a `\theta` transition; code just re-reads `agent.target_entry_point is not None` directly (Table 2a's `done`), there is no separate persistent flag or transition rule. Out of scope, not a bug, under `remove_agents_at_target=False` |
-| `self.dones[agent.handle] = True` (in `handle_done_state()`)            | `dones^{t+1}`                             | Table 2a, `done` (per-agent); see Table 4a for the aggregate-set caveat |
-| `MalfunctionHandler.update_counter()` (`if counter > 0: counter -= 1`, else stays `0`) | `m_i^{t+1}` (`\bot` if `m_i^t=\bot` or `m_i^t=1` else `m_i^t-1`, treating `\bot` as `0`) | New term - not in Tables 1-3, which only ever read the derived boolean `in_malfunction`, never the raw counter (see Table 4a's `m_i^t` row) |
-| `ZERO_FRACTION` (forced, on-map candidate discarded)                    | `0` (`s_i^{t+1}` else branch)              | Table 3, "Denied on-map crossing" row (`Speed` column)                          |
-| `SpeedCounter.distance_without_crossing(agent_transition_data.distance, agent_transition_data.speed)` (on-map candidate discarded) | `\min(\tilde d_i^{t} + \tilde s_i^t, \lVert c_i^t \rVert)` (`d_i^{t+1}` else branch) | Table 3, "Denied on-map crossing" row (`Distance` column) - N.B. this row's else branch reads `\tilde d_i^{t}/\tilde s_i^t` (candidates from the *previous* step, no tilde-superscript bump), likely a `t` vs. `t+1` typo relative to the rest of the equation set - flag for L3 |
-| `(current_entry_point, next_entry_point)` (unchanged, resource check denied) | `c_i^{t}` (`c_i^{t+1}` else branch)         | Table 3, "Denied on-map crossing"/"Denied map entry" rows (`Entry points` column) |
+#### Table 4d - Step Collect Phase: distance candidate (`_candidate_distance`)
+
+| Code                                                                                          | Math notation                                                      | Notes                                                                                                                                       |
+|-----------------------------------------------------------------------------------------------|--------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------|
+| `candidate_distance`; `agent_transition_data.candidate_distance`                              | $\tilde{d}_i^{t+1}$                                                | Table 1, `_candidate_distance` column                                                                                                       |
+| `target_reached`, `stay_off_map` (params)                                                     | see Table 4a - shared across all 3 `_candidate_` methods, not distance-specific | Table 4a - `cell_exit` itself isn't a parameter here (dead param removed)                                                      |
+| `remove_agents_at_target` (param)                                                             | $\mathit{removeAtTarget}$                                          | Table 4a's `remove_agents_at_target` row; Table 1's Target reached row is the one branch that actually reads it                             |
+| `SpeedCounter.distance_without_crossing(distance, speed)`                                     | $\min\{d_i^{t} + s_i^t, \lVert c_i^t \rVert\}$                     | `speed_counter.py`; Table 1's Done, Invalid action at cell exit and (without removal) Target reached rows return this                        |
+| `distance` (unchanged, malfunction and stopped branches)                                      | $d_i^t$                                                            | Table 1's Malfunction and Stopped rows                                                                                                      |
+| `0` (map entry branch)                                                                        | $0$                                                                | Table 1's Map entry row                                                                                                                     |
+| `None` (target reached with removal, stay off map)                                            | $\bot$                                                             | Table 1's Target reached and Stay off map rows                                                                                              |
+| `SpeedCounter.distance_after_crossing(distance, speed)`                                       | $(d_i^{t} + s_i^t) \bmod \lVert c_i^t \rVert$                      | `speed_counter.py`; Table 1's Default row (cell transition or mid-cell)                                                                    |
+
+### Distribute phase
+
+`AbstractRailEnv.distribute()` accepts or discards the candidates (steps (11)-(13)), where $\mu_i := \mu(\tilde c_i^{t+1}, \action_i^t) = \top$ means the
+candidate is granted by the resource check (10), $\tilde p$ is the candidate current entry point, and
+$R_i := \mathit{removeAtTarget} \wedge (i \in dones^t \vee \tilde p \in targets_i)$ means the agent is removed at its target:
+
+$$
+c_i^{t+1} =
+\begin{cases}
+\tilde c_i^{t+1} & \mu_i \wedge \neg R_i \\
+\bot & \mu_i \wedge R_i \\
+c_i^t & \neg \mu_i
+\end{cases}
+$$
+
+$$
+s_i^{t+1} =
+\begin{cases}
+\tilde s_i^{t+1} & \mu_i \wedge \neg R_i \wedge \tilde c_i^{t+1} \neq \bot \\
+\bot & \mu_i \wedge (R_i \vee \tilde c_i^{t+1} = \bot) \\
+0 & \neg \mu_i \wedge c_i^t \neq \bot \\
+\bot & \neg \mu_i \wedge c_i^t = \bot
+\end{cases}
+$$
+
+$$
+d_i^{t+1} =
+\begin{cases}
+\tilde d_i^{t+1} & \mu_i \\
+\min\{d_i^t + s_i^t, \lVert c_i^t \rVert\} & \neg \mu_i
+\end{cases}
+$$
+
+with $\min\{\bot + \bot, \lVert c_i^t \rVert\} = \bot$ off map. `handle_done_state()` (14) sets $\theta_i^{t+1}$ to the new current entry point when it is
+one of $targets_i$, and $\theta_i^{t+1} = \theta_i^t$ otherwise, so that $i \in dones^{t+1} \iff \theta_i^{t+1} \neq \bot$; with $\mathit{removeAtTarget}$, it
+then removes the agent ($c_i^{t+1} = \bot$ above). The malfunction counter is decremented at the start of the next step (1),
+$m_i^{t+1} = \bot$ if $m_i^t = \bot$ or $m_i^t = 1$, else $m_i^t - 1$, before the effects generator may start a new malfunction (2).
+
+#### Table 4e - Step Distribute Phase: accept/reject
+
+| Code                                                                                                                                   | Math notation                                                                       | Notes                                                                                                                                                                                                                  |
+|----------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `resource_check`; `self.resource_check.check_resource(i_agent)`                                                                        | $\mu(\tilde{c}_i^{t+1}, \action_i^t) = \top$                                        | Table 3, `Condition` column                                                                                                                                                                                            |
+| `agent.speed_counter.speed` (post `.set()`)                                                                                            | $s_i^{t+1}$                                                                         | Table 3, `Speed` column                                                                                                                                                                                                |
+| `(agent.current_entry_point, agent.next_entry_point)` (post-update)                                                                    | $c_i^{t+1}$                                                                         | Table 3, `Entry points` column                                                                                                                                                                                         |
+| `agent.speed_counter.distance` (post `.set()`)                                                                                         | $d_i^{t+1}$                                                                         | Table 3, `Distance` column                                                                                                                                                                                             |
+| `agent.target_entry_point` (set in `handle_done_state()`)                                                                              | $\theta_i^{t+1}$                                                                    | No separate persistent flag or transition rule in code: `handle_done_state()` sets `agent.target_entry_point`, and `done` re-reads `agent.target_entry_point is not None` directly (Table 2a)                           |
+| `self.dones[agent.handle] = True` (in `handle_done_state()`)                                                                           | $dones^{t+1}$                                                                       | Table 2a, `done` (per-agent); see Table 4a for the aggregate set                                                                                                                                                       |
+| `MalfunctionHandler.update_counter()` (`if counter > 0: counter -= 1`, else stays `0`)                                                 | $m_i^{t+1}$ ($\bot$ if $m_i^t=\bot$ or $m_i^t=1$, else $m_i^t-1$, treating $\bot$ as $0$) | New term - not in Tables 1-3, which only ever read the derived boolean `in_malfunction`, never the raw counter (see Table 4a's $m_i^t$ row). Runs at the start of the next step (1)                                     |
+| `ZERO_FRACTION` (forced, on-map candidate discarded)                                                                                   | $0$ ($s_i^{t+1}$, $\neg \mu_i \wedge c_i^t \neq \bot$)                              | Table 3, "Denied on-map crossing" row (`Speed` column)                                                                                                                                                                 |
+| `SpeedCounter.distance_without_crossing(agent_transition_data.distance, agent_transition_data.speed)` (on-map candidate discarded)     | $\min\{d_i^{t} + s_i^t, \lVert c_i^t \rVert\}$ ($d_i^{t+1}$, $\neg \mu_i$)          | Table 3, "Denied on-map crossing" row (`Distance` column) - from the pre-step distance and speed, not from the candidates                                                                                               |
+| `(current_entry_point, next_entry_point)` (unchanged, resource check denied)                                                           | $c_i^{t}$ ($c_i^{t+1}$, $\neg \mu_i$)                                               | Table 3, "Denied on-map crossing"/"Denied map entry" rows (`Entry points` column)                                                                                                                                      |
