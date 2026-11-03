@@ -12,6 +12,28 @@ The `Rewards` interface has the following methods:
 * `empty`: Return empty initial value neutral for the cumulation.
 * `normalize`: Return normalized cumulated rewards (can be `None` for some rewards).
 
+The env calls `step_reward(agent, agent_transition_data, distance_map, elapsed_steps)` for each agent at the end of each step, after it has updated the
+agent's entry points, speed and distance: `agent.current_entry_point` is the agent's entry point after the step and `agent.old_entry_point` the one
+before. `agent_transition_data` (`AgentTransitionData`) tells a custom reward what happened to the agent in this step:
+
+| field                                                 | description                                                                                                                                                                          |
+|:------------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `action`                                              | The action as given to `step()` (`DO_NOTHING` if none was given), before any validity check.                                                                                         |
+| `action_valid`                                        | Whether the action is valid: always inside a cell; at the end of a cell only if it leads to a valid transition (an invalid action is today only possible facing a symmetric switch). |
+| `resource_check`                                      | Whether the resource check (`env.resource_check`) granted the agent's move, i.e. no conflict with another agent. The move is allowed if `action_valid and resource_check`.           |
+| `speed`, `distance`                                   | Speed and distance before the step, `None` while the agent was off the map.                                                                                                          |
+| `candidate_speed`, `candidate_distance`               | Speed and distance the env computed for after the step; on the step the agent enters the map, `candidate_speed` is its entry speed.                                                  |
+| `candidate_entry_point`, `candidate_next_entry_point` | Entry points the agent moves to if its move is allowed.                                                                                                                              |
+| `is_cell_exit`                                        | Whether the agent was at the end of its cell before the step.                                                                                                                        |
+| `done`                                                | Whether the agent had already arrived at its target before this step.                                                                                                                |
+
+These fields do not depend on `agent.state`, so a reward computed from them works with and without the state machine (see [Agent](agent)). For
+example, `BaseDefaultRewards` charges a forced stop only for a train that was moving before the step (`speed > 0`) and is stopped by the env, and it
+tells the two causes apart by `action_valid` (`INVALID_ACTION`) and `resource_check` (`COLLISION`).
+
+`end_of_episode_reward(agent, distance_map, elapsed_steps)` is called once per agent when the episode ends (all agents done or `max_episode_steps`
+reached).
+
 Default Rewards
 ---------------
 
@@ -83,6 +105,19 @@ The events used in the table are:
 `COLLISION` if the train conflicts with another train, and as `INVALID_ACTION` if its action is invalid (today only possible facing a symmetric switch); before,
 both were tracked as `COLLISION`. Both use the same factor $\kappa$, so the totals are unchanged. A blocked train that keeps trying to move is charged at each
 denied attempt.
+
+The categories correspond to the terms of $g_i$ as follows:
+
+| category (`DefaultPenalties`)        | term                             |
+|:-------------------------------------|:---------------------------------|
+| `COLLISION`, `INVALID_ACTION`        | collision                        |
+| `TARGET_LATE_ARRIVAL`                | delay at target                  |
+| `CANCELLATION`                       | journey not started              |
+| `TARGET_NOT_REACHED`                 | target not reached (incl. $\nu$) |
+| `INTERMEDIATE_LATE_ARRIVAL`          | late arrival                     |
+| `INTERMEDIATE_NOT_SERVED`            | stop not served                  |
+| `INTERMEDIATE_EARLY_DEPARTURE`       | early departure                  |
+| `TARGET_NOT_REACHED_MINIMUM_PENALTY` | not used, always 0               |
 
 The scheduled and actual values used in the table are:
 
