@@ -327,6 +327,34 @@ wrapper (`RailEnvStateMachineWrapper`) that updates `agent.state` after `step()`
 | get_observations                                   | Call observation builder for all agents.                                                                                                                                                                                                                                                                                                                                                               |
 | get_info_dict                                      | Prepare infos for all agents.                                                                                                                                                                                                                                                                                                                                                                          |
 
+Resource Check
+--------------
+
+The resource check (`env.resource_check`, a `MotionCheck`) resolves the conflicts between the agents' candidates in one go, independent of the order in
+which the agents are processed. In the collect phase, each agent registers two resources with `add_agent`: the resource it holds on its current edge
+(current and next entry point) and the resource it would hold on its candidate edge. The resource map maps an edge to the resource at its from entry
+point, i.e. the cell (or cell and axis at level-free crossings) in the grid, or the node's resource in the graph. `find_conflicts` then decides which
+candidates are granted, and `check_resource` returns the decision per agent in the distribute phase:
+
+- An agent that keeps its resource (inside a cell, or not moving on) or that has no resource to acquire (off map and not departing) is always granted.
+- Two agents that want to swap their resources (head-on) are both denied.
+- Of several agents that want the same resource, the one with the lowest handle is granted; if the resource is held by an agent that does not leave
+  it, all of them are denied.
+- A denied agent keeps its resource, which can in turn block the agents behind it.
+
+Agents can follow each other closely: an agent can enter the resource that another agent leaves in the same step, so a chain of agents moves
+together as long as its first agent moves. A cycle of three or more agents moving on in the same direction is granted as well; only a swap of two agents
+is denied.
+
+A train that is stopped or in a malfunction and is given a moving action restarts optimistically: as distance advances by the speed before the step, it
+does not cross into the next cell in this step and only registers its current resource again, which is always granted. The train gets its new speed
+(and is `MOVING` for the state machine). The resource check for the crossing happens in the next step: if the next cell is still occupied then, the
+train is stopped again (speed 0, at the end of its cell). Given a moving action in every step, a blocked train thus alternates between restarting
+and being stopped, without progress, until the next cell is free.
+
+The notebook [Agent Close Following](../environment/environment/Agent-Close-Following) shows the conflict resolution of `MotionCheck` in detail. There,
+a self-loop marks an agent that keeps its resource; this includes a train that restarts optimistically.
+
 Runtime View Env Reset
 ----------------------
 
