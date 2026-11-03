@@ -327,6 +327,68 @@ wrapper (`RailEnvStateMachineWrapper`) that updates `agent.state` after `step()`
 | get_observations                                   | Call observation builder for all agents.                                                                                                                                                                                                                                                                                                                                                               |
 | get_info_dict                                      | Prepare infos for all agents.                                                                                                                                                                                                                                                                                                                                                                          |
 
+Runtime View RailEnv Step (Methods)
+-----------------------------------
+
+The same step, with each box a method of `flatland/envs/rail_env.py` (or of the component it calls). The pre- and postcondition checks only run if
+`check_step_pre_post_conditions` is set. The state machine update only runs if the env is wrapped with `RailEnvStateMachineWrapper`.
+
+Notation: [Mermaid Flowchart](https://mermaid.js.org/syntax/flowchart.html)
+
+```mermaid
+flowchart TD
+    subgraph wrapper [RailEnvStateMachineWrapper.step, optional]
+        direction TB
+        subgraph step ["AbstractRailEnv.step(action_dict)"]
+            direction TB
+            start(("&nbsp;")) --> m_pre["_check_pre_post_invariants()"]
+            m_pre --> m_clear["clear_rewards_dict()"]
+            m_clear --> m_malf["agent.malfunction_handler.update_counter()<br/>(all agents)"]
+            m_malf --> m_eff_start["effects_generator.on_episode_step_start(env)"]
+            m_eff_start --> m_snapshot["_capture_pre_step_snapshot(action_dict)<br/>calls rail.apply_action_independent()"]
+            m_snapshot --> collect_loop{more agents?}
+            subgraph collect_ ["collect(agent, action, candidate_entry_point_independent)"]
+                direction TB
+                m_cand_ep["_candidate_entry_points()"] --> m_cand_speed["_candidate_speed()"]
+                m_cand_speed --> m_cand_dist["_candidate_distance()"]
+                m_cand_dist --> m_get_resource["resource_map.get_resource()<br/>(current and candidate edge)"]
+            end
+            collect_loop -->|yes| m_cand_ep
+            m_get_resource --> m_add_agent["resource_check.add_agent()"]
+            m_add_agent --> collect_loop
+            collect_loop -->|no| m_find_conflicts["resource_check.find_conflicts()"]
+            m_find_conflicts --> distribute_loop{more agents?}
+            subgraph distribute_ ["distribute(agent, agent_transition_data)"]
+                direction TB
+                m_check_resource["resource_check.check_resource()"] --> m_speed_set["agent.speed_counter.set()"]
+                m_speed_set --> m_done["handle_done_state()"]
+                m_done --> m_reward["rewards.step_reward()<br/>rewards.cumulate()"]
+            end
+            distribute_loop -->|yes| m_check_resource
+            m_reward --> distribute_loop
+            distribute_loop -->|no| m_end["end_of_episode_update()"]
+            m_end --> m_eff_end["effects_generator.on_episode_step_end(env)"]
+            m_eff_end --> m_post["_check_pre_post_invariants()<br/>_check_speed_distance_speedup_postconditions()<br/>_check_position_update_postconditions()"]
+            m_post --> m_obs["_get_observations()"]
+            m_obs --> m_info["get_info_dict()"]
+        end
+        m_info --> m_sm["_update_state_machine_after_step()"]
+        m_sm --> end_((("&nbsp;")))
+    end
+    style m_find_conflicts fill: #ffe, stroke: #333, stroke-width: 1px, color: black
+    style m_check_resource fill: #ffe, stroke: #333, stroke-width: 1px, color: black
+    style m_add_agent fill: #ffe, stroke: #333, stroke-width: 1px, color: black
+    style m_malf fill: #fcc, stroke: #000, stroke-width: 1px, color: black
+    style m_speed_set fill: #fcc, stroke: #000, stroke-width: 1px, color: black
+    style m_obs fill: #90ee90, stroke: #000, stroke-width: 1px, color: black
+```
+
+`_candidate_entry_points`, `_candidate_speed` and `_candidate_distance` are static methods: they compute the candidate from the pre-step values of the
+agent (entry points, speed, distance, malfunction, earliest departure) and the action only, without looking at other agents. `collect` returns the
+resource the agent holds on its current edge and the one it would hold on its candidate edge. `distribute` takes the candidate entry points if
+`check_resource` grants them and sets the speed and distance with `speed_counter.set`. See [Design by Contract](design_by_contract) for the
+pre- and postconditions of these methods.
+
 Resource Check
 --------------
 
