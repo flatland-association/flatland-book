@@ -439,3 +439,30 @@ $m_i^{t+1} = \bot$ if $m_i^t = \bot$ or $m_i^t = 1$, else $m_i^t - 1$, before th
 | `ZERO_FRACTION` (forced, on-map candidate discarded)                                                                                   | $0$ ($s_i^{t+1}$, $\neg \mu_i \wedge c_i^t \neq \bot$)                              | Table 3, "Denied on-map crossing" row (`Speed` column)                                                                                                                                                                 |
 | `SpeedCounter.distance_without_crossing(agent_transition_data.distance, agent_transition_data.speed)` (on-map candidate discarded)     | $\min\{d_i^{t} + s_i^t, \lVert c_i^t \rVert\}$ ($d_i^{t+1}$, $\neg \mu_i$)          | Table 3, "Denied on-map crossing" row (`Distance` column) - from the pre-step distance and speed, not from the candidates                                                                                               |
 | `(current_entry_point, next_entry_point)` (unchanged, resource check denied)                                                           | $c_i^{t}$ ($c_i^{t+1}$, $\neg \mu_i$)                                               | Table 3, "Denied on-map crossing"/"Denied map entry" rows (`Entry points` column)                                                                                                                                      |
+
+## Checking the contract at runtime
+
+`RailEnv(check_step_pre_post_conditions=True)`, the default, lets `step()` check its contract in every step (`GraphRailEnv` runs the same checks, on by
+default):
+
+| when                         | what is checked                                                                                                                                                                                    |
+|------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| at the start of `step()`     | the invariants above, for the state left behind by the previous step                                                                                                                               |
+| in the collect phase         | each candidate is off map or on map: both entry points `None`, or the next one a successor of the current one                                                                                      |
+| at the end of `step()`       | the invariants again, and the postconditions: the new entry points, speed and distance of each agent are the ones the tables above give for its pre-step values, its action and the resource check |
+| `RailEnvStateMachineWrapper` | in addition, after the state machine update: `agent.state` equals `agent.derived_state(...)`, and, unless done, the agent is in a malfunction state exactly when it is in malfunction              |
+
+A violation raises an `AssertionError`. This catches a broken state early, e.g. when a custom effects generator or another hook modifies the agents
+between steps. The checks are plain `assert` statements, so they are also skipped when Python runs with `-O`.
+
+The checks recompute the candidates of all agents, which makes `step()` slower. For training and other performance-sensitive runs, turn them off, either in
+the constructor or on an existing env, e.g. one created by `env_generator()`, loaded with `RailEnvPersister.load_new()` or a `GraphRailEnv`, which do not
+take the flag:
+
+```python
+env = RailEnv(..., check_step_pre_post_conditions=False)
+# or
+env.check_step_pre_post_conditions = False
+```
+
+Turning the checks off does not change the simulation: the same actions lead to the same entry points, speeds and distances.
