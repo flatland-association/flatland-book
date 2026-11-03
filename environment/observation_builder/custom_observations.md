@@ -84,6 +84,19 @@ builder. A feature of this class is that it has access to the distance map of th
 lengths of the shortest paths from all cells and orientations to the target of each agent on first access by `env.distance_map.get()`, i.e. a distance map for
 each agent.
 
+Besides the array returned by `get()`, the distance map offers two functions on entry points:
+
+- `env.distance_map.geometric_distance(entry_point, handle)`: the minimum number of cells to cross from `entry_point` to any of the targets of agent
+  `handle`, following the rail; on the grid, this is `env.distance_map.get()[handle, row, column, direction]`. Since `flatland 5.0.0`, it replaces
+  `get_agent_distance`.
+- `env.distance_map.eta(entry_point, handle, elapsed_steps, earliest_departure, speed, max_speed, acceleration_delta, distance=0)`: the earliest
+  time of arrival, i.e. the step at which agent `handle` reaches a target if it follows the shortest path from `entry_point` unhindered and is given
+  `MOVE_FORWARD` in every step. It accounts for the acceleration from `speed` to `max_speed` and for the `distance` already travelled in the cell of
+  `entry_point`; pass the agent's `current_entry_point`, `speed_counter.speed` and `speed_counter.distance` while it is on the map. Off the map, pass
+  `speed=None`: the agent then departs from a standing start in step `max(earliest_departure, 1)`. The result is a lower bound and can be a fraction,
+  e.g. `63/2` for an agent that arrives in step 32. Turning with `MOVE_LEFT` or `MOVE_RIGHT` does not accelerate, so such an agent arrives later.
+  `eta` is new in `flatland 5.0.0`.
+
 In this example we exploit these distance maps by implementing an observation builder that shows the current shortest path for each agent
 as a one-hot observation vector of length 3, whose components represent the possible directions an agent can take (`LEFT`, `FORWARD`, `RIGHT`). All values of
 the observation vector are set to `0` except for the shortest direction where it is set to `1`.
