@@ -19,6 +19,7 @@ parts:
       - file: key-concepts/key_concepts
         sections:
           - file: key-concepts/simulation_model
+          - file: key-concepts/design_by_contract
           - file: key-concepts/persistence
 
 
