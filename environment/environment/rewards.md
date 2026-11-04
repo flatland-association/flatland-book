@@ -43,7 +43,7 @@ g_i = &
 % journey not started:
 + \underbrace{(1 - \Delta_1) \cdot \phi \cdot (-(p + \pi))}_{\text{journey not started}}
 % target not reached:
-+ \underbrace{(1 - \mathrm{A}_J) \cdot \min\{-\nu, \alpha_J - T - d\}}_{\text{target not reached}}\\
++ \underbrace{(1 - \mathrm{A}_J) \cdot \min\{-\nu, \alpha_J - T - r\}}_{\text{target not reached}}\\
 & + \sum_{j=2}^{J-1} \Big[
 % intermediate late arrival
 \underbrace{\mathrm{A}_j \cdot \alpha \cdot \min \{\alpha_j - a_j,0\}}_{\text{late arrival}}
@@ -63,7 +63,7 @@ The symbols are described in the table below.
 |:-----------------------------|--------------------------------|---------------------------|------------|-----|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | delay at target              | 1                              | $\mathrm{A}_J$            | $\alpha_J$ | $a_J$ | $\alpha_J$ latest arrival and $a_J$ actual arrival at target $J$                                                                                                                                                                |
 | journey not started          | $\phi$, $\pi$                  | $1-\Delta_1$              |            | $p$ | cancellation factor $\phi$ and buffer $\pi$,    <br/> $p$ is the shortest path from start to target                                                                                                                             |
-| target not reached           | 1                              | $1-\mathrm{A}_J$          | $\alpha_J$ | $d$ | projected delay $\alpha_J - T - d$ at the end of the episode, with time $d$ remaining on shortest path to target with maximum speed for corresponding train category; at least the minimum penalty $\nu$ for target not reached |
+| target not reached           | 1                              | $1-\mathrm{A}_J$          | $\alpha_J$ | $r$ | projected delay $\alpha_J - T - r$ at the end of the episode, with time $r$ remaining on shortest path to target with maximum speed for corresponding train category; at least the minimum penalty $\nu$ for target not reached |
 | intermediate late arrival    | $\alpha$                       | $\mathrm{A}_j$            | $\alpha_j$ | $a_j$ | latest arrival $\alpha_j$, actual arrival time $a_j$    <br/> at intermediate stop $j=2,\ldots,J-1$                                                                                                                             |
 | intermediate stop not served | $\mu$                          | $1-\mathrm{A}_j$          |            |     | intermediate stop $j$ not served (not stopped at), $j=2,\ldots,J-1$                                                                                                                                                             |
 | intermediate early departure | $\delta$                       | $\Delta_j$                | $\delta_j$ | $d_j$ | earliest departure from stop $j$, actual departure time $d_j$ <br/> at intermediate stop $j=2,\ldots,J-1$                                                                                                                       |
@@ -87,7 +87,7 @@ The scheduled and actual values used in the table are:
 | $\alpha_j$ | $a_j$  | latest / actual arrival at intermediate stop $j$                        |
 | $\delta_j$ | $d_j$  | earliest / actual departure from intermediate stop $j$                  |
 | $p$        |        | time on the shortest path from the scheduled start to target            |
-|            | $d$    | time remaining on the shortest path to target at the end of the episode |
+|            | $r$    | time remaining on the shortest path to target at the end of the episode |
 |            | $v(t)$ | speed at time $t$                                                       |
 
 The constants used in the table are the penalty factors and parameters of `DefaultRewards` (with their defaults) and the episode length:
