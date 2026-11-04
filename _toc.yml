@@ -12,6 +12,7 @@ parts:
       - file: getting-started/installation
       - file: getting-started/The_Rail_Environment
       - file: getting-started/why-flatland
+      - file: getting-started/railway_features
 
   ## KEY CONCEPTS
   - caption: Key concepts
@@ -19,6 +20,7 @@ parts:
       - file: key-concepts/key_concepts
         sections:
           - file: key-concepts/simulation_model
+          - file: key-concepts/design_by_contract
           - file: key-concepts/persistence
 
 
@@ -29,6 +31,7 @@ parts:
         sections:
           - file: environment/environment/transitions
           - file: environment/environment/actions
+          - file: environment/environment/speed_profiles
           - file: environment/environment/rewards
           - file: environment/environment/agent
           - file: environment/environment/stochasticity
