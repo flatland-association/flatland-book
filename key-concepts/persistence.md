@@ -80,7 +80,9 @@ if __name__ == '__main__':
 
 ### Environment Configuration
 
-Defines the environment, so if we control the seed, exactly the same env with same state comes out:
+Defines the environment, so if we control the seed, exactly the same env with same state comes out.
+Here, *configuration* means the constructor and generator arguments that define an environment, not the configuration of an agent
+(its position and direction) as in the [simulation model](simulation_model.md):
 
 ```python
 from ... import Persistable
@@ -119,7 +121,7 @@ if __name__ == '__main__':
   "kwargs": {
     "acceleration_delta": 1.0,
     "braking_delta": -1.0,
-    "observation_builder": {
+    "obs_builder_object": {
       "cls": "...",
       "kwargs": {}
     }

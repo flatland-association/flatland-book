@@ -10,4 +10,4 @@ which motivates us look into rl for faster solutions.
 Baselines:
 
 * 🧲 [shortest path deadlock avoidance](https://github.com/flatland-association/flatland-baselines/tree/main/flatland_baselines/deadlock_avoidance_heuristic).
-  👏Thanks to [aiAdrian](https://github.com/aiAdrian/flatland-benchmarks-f3-starterkit/tree/DeadLockAvoidancePolicy) for contributing!
+  👏Thanks to [aiAdrian](https://github.com/aiAdrian) for contributing!

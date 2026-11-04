@@ -28,7 +28,7 @@ The primary metrics is different for each Round:
 - In **Round 1**, the normalized returns were averaged over all the evaluation episodes, resulting in the **mean normalized return**.
 - In **Round 2**, we add `+1.0` to the normalized return of each episode to make it positive (it is then in the range `[0.0, 1.0]`). We then sum up these normalized returns, which results in the **total normalized return**.
 
-You can read more about the [reward structure](env) in the environment documentation.
+You can read more about the [reward structure](../../environment/environment/rewards.md) in the environment documentation.
 
 ⏱ Time limits
 ---
@@ -39,6 +39,6 @@ The agents have to act within **time limits**:
 - Beyond that point, the agents have 10 seconds per time step to indicate their next actions, no matter the number of agents.
 - The full evaluation must finish in 8 hours.
 
-If the agents fail to act in time during either the initial planning or during any time step, the current episode will receive a score of -1.0. The evaluation will then continue from the following episode. Your submission should catch the `TimeoutException` exception when performing a step (`env_step()`) in case a timeout error occurs. If a timeout occurs, you should reset the environment (`env_create()`) before continuing further. See the starter kit for [a concrete example](https://gitlab.aicrowd.com/flatland/neurips2020-flatland-starter-kit/blob/master/run.py#L184).
+If the agents fail to act in time during either the initial planning or during any time step, the current episode will receive a normalized return of -1.0 (0.0 after adding +1.0 in Round 2). The evaluation will then continue from the following episode. Your submission should catch the `TimeoutException` exception when performing a step (`env_step()`) in case a timeout error occurs. If a timeout occurs, you should reset the environment (`env_create()`) before continuing further. See the starter kit for [a concrete example](https://gitlab.aicrowd.com/flatland/neurips2020-flatland-starter-kit/blob/master/run.py#L184).
 
 The agents are evaluated in a container with access to 4 CPU cores (4 hyper-threads of an Intel Xeon E5 v3 at 2.3 GHz base, 3.8 GHz single core max turbo) and 15 GB of main memory. It is also possible to get access to a GPU, contact the organizers if your approach could take advantage of one.

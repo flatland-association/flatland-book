@@ -10,11 +10,9 @@ The Flatland environment was created to solve a real world problem:
 
 The Swiss Federal Railways (SBB) operate the densest mixed railway traffic in the world. SBB maintain and operate the biggest railway infrastructure in Switzerland. Today, there are more than 10,000 trains running each day, being routed over 13,000 switches and controlled by more than 32,000 signals. Each day 1.2 million passengers and almost half of Switzerland’s volume of transported goods are transported on this railway network. Due to the growing demand for mobility, SBB needs to increase the transportation capacity of the network by approximately 30% in the future.
 
-The increase in transport capacity can be achieved through different measures, such as [denser train schedules, investments in new infrastructure, and/or investments in new rolling stock](https://smartrail40.ch/index.asp?inc=&lang=en). However, SBB currently lack suitable technologies and tools to quantitatively assess these different measures.
+The increase in transport capacity can be achieved through different measures, such as denser train schedules, investments in new infrastructure, and/or investments in new rolling stock. However, SBB currently lack suitable technologies and tools to quantitatively assess these different measures.
 
 A promising solution to this dilemma is a complete railway simulation that efficiently evaluates the consequences of infrastructure changes or schedule adaptations for network stability and traffic flow. A complete railway simulation consists of a full dynamical physics simulation as well as an automated traffic management system.
-
-<img src="" width="250" />
 
  ![Flatland](https://s3.eu-central-1.amazonaws.com/aicrowd-static/SBB/images/Flatland_Preview.svg)
  

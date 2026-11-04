@@ -5,6 +5,9 @@ In this challenge, the configuration of all of the evaluation environments is di
 
 ## AMLD 2021
 
+> The [AIcrowd challenge page](https://www.aicrowd.com/challenges/flatland-amld-2021) lists a Warm-Up Round. This page was adapted from the
+> NeurIPS 2020 challenge, hence the references to Round 1 and Round 2 below.
+
 ### Warm-Up Round
 
 **Your submission has to solve as many environments as possible in 8 hours.** The number of environments is such that it is not possible to solve them all in 8 hours (if anyone manages to reach the end, we'll just generate more 😉).

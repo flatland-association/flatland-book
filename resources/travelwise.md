@@ -22,15 +22,17 @@ The Flatland framework represents a systemic view of a given infrastructure map 
 
 The Travel Wise extensions to the Flatland framework enable to simulate passenger journeys using multiple (different) modes of transportation with corresponding transfers between the different legs of the journey. On such a journey, different milestones are passed. Passing these milestones triggers communication with a top-layer. This communication layer is the Travel Wise solution (cf. [Travel Wise project](https://travelwise-project.eu/)) and is above and outside Flatland. Travel Wise extensions to Flatland include definition of milestones, the information collected at these events and an implementation to send out these messages to the external layer.
 
-These extensions are realized using a graph representation of the **infrastructure** as a **ground level**. On this level, the agents are trains, buses, plains, etc. (_walkway_ is also considered a mode of transportation). As a first implementation, agents on this level run "on auto-pilot" and have no notion of passengers, cargo or capacities.
+These extensions are realized using a graph representation of the **infrastructure** as a **ground level**. On this level, the agents are trains, buses, planes, etc. (_walkway_ is also considered a mode of transportation). As a first implementation, agents on this level run "on auto-pilot" and have no notion of passengers, cargo or capacities.
 
-On the **passenger level**, the agents are groups of people (N=1..n) referred to as _passenger_. Each passenger has its own passenger graph on this level corresponding to a subgraph of the infrastucture graph (see below).
+On the **passenger level**, the agents are groups of people (N=1..n) referred to as _passenger_. Each passenger has its own passenger graph on this level corresponding to a subgraph of the infrastructure graph (see below).
 
 ![Two Layers](./travelwise/two-layers.drawio.png)
 
-A passener, therefore, _hops down on_ a vehicle running on the infrastructure layer. On each node of the graph where a transfer is possible (stations, stops, airports,...) the passenger _hops back up_ and _sees_ the possible paths on its own graph.
+A passenger, therefore, _hops down on_ a vehicle running on the infrastructure layer. On each node of the graph where a transfer is possible (stations, stops, airports,...) the passenger _hops back up_ and _sees_ the possible paths on its own graph.
 
 ### Environments
+
+The environments described in this section are planned; they are not implemented in flatland-rl yet.
 
 The infrastructure layer corresponds to a generalized version of the `RailEnv` named `InfrastructureEnv`. It is a graph representation of the infrastructure with different transportation modes as properties of the edges. An edge that can only be travelled by foot, i.e. a walkway, is also included in the infrastructure graph.
 

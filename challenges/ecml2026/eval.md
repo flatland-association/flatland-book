@@ -9,6 +9,12 @@ their state-of-the art algorithms
 
 ## ⚖ Evaluation metrics
 
+> The competition was evaluated with flatland-rl 4.2.6, as pinned in the
+> [starterkit](https://github.com/flatland-association/ecml2026-starterkit). flatland-rl 4.3.0 changed the reward semantics described below: no collision
+> penalty for stops issued by the controller ([#452](https://github.com/flatland-association/flatland-rl/pull/452)), intermediate stops served at any halting
+> cell of the station ([#453](https://github.com/flatland-association/flatland-rl/pull/453)) and the normalization
+> ([#457](https://github.com/flatland-association/flatland-rl/pull/457)). Scores computed with 4.3.0 can therefore differ from the published ones.
+
 ### Normalized Episode Rewards
 
 The primary metrics uses the **normalized return** from your agents - the higher the better.
@@ -56,7 +62,10 @@ regardless of the total reward.
 
 The episodes finish when all the trains have reached their target, or when the maximum number of time steps is reached. Therefore:
 
-- The **minimum possible value** (i.e. worst possible) is 0.0, which occurs if none of the agents reach their goal during the episode.
+- The **minimum possible value** (i.e. worst possible) is 0.0, which occurs if every agent accumulates a total penalty of at least `max_episode_steps`
+  (penalties beyond `max_episode_steps` per agent are not counted, see the code above). Agents not reaching their goal do not necessarily lead to the
+  minimum: e.g. the penalty for an agent that never departs is proportional to its travel time on the shortest path, which is usually less than
+  `max_episode_steps`.
 - The **maximum possible value** (i.e. best possible) is 1.0, which would occur if all the agents would reach their targets and intermediate stops on time, i.e.
   not receive any penalty.
 
@@ -70,16 +79,16 @@ Evaluation is stopped when a submission does not reach the threshold of 25% comp
 
 The factors for the [reward function](../../environment/environment/rewards.md) in this competition are:
 
-| factor                                    | value |
-| ----------------------------------------- | :---: |
-| journey not started (cancellation factor) |   5   |
-| cancellation time buffer                  |   0   |
-| delay at target                           |   1   |
-| target not reached minimum penalty        |  100  |
-| intermediate stop not served              |  50   |
-| intermediate late arrival                 |  0.5  |
-| intermediate early departure              |  0.5  |
-| collision                                 |  250  |
+| factor                                        | value |
+|-----------------------------------------------|:-----:|
+| journey not started (cancellation factor)     |   5   |
+| cancellation time buffer                      |   0   |
+| delay at target                               |   1   |
+| target not reached minimum penalty            |  100  |
+| intermediate stop not served                  |   50  |
+| intermediate late arrival                     |  0.5  |
+| intermediate early departure                  |  0.5  |
+| collision (forced stop, incl. invalid action) |  250  |
 
 This configuration is implemented using `--rewards flatland.envs.rewards.ECML2026Rewards`.
 
@@ -93,7 +102,7 @@ The agents have to act within **time limits**:
 The agents are evaluated in a container with **resource limits**
 
 - 4 CPU cores
-- 15 GB of main memory.
+- 15 GiB of main memory.
 
 We do not provide GPUs.
 
@@ -109,8 +118,8 @@ We do not provide GPUs.
 | `ORCHESTRATION_JOB_ACTIVE_DEADLINE_SECONDS` | `28800` (8h)                                                                             | Failure/cleanup                | all scenarios, including technical overhead for starting pods for orchestration and evaluation                                                        |
 | `TOTAL_RUNNING_TIME_LIMIT`                  | `18000` (5h)                                                                             | Success with termination cause | all scenarios, excluding technical overhead for starting pods and running offline trajectory evaluation; results do not include the overlong scenario |
 | `PERCENTAGE_COMPLETE_THRESHOLD`             | `0.25` (25%)                                                                             | Success with termination cause | `Mean percentage of done agents during the last test was too low`; results do include the test, but stop after the test.                              |
-| `ORCHESTRATION_JOB_K8S_RESOURCE_ALLOCATION` | `{"requests": {"memory": "5Gi", "cpu": "1"}, "limits": {"memory": "5Gi", "cpu": "1"}}`   | Failure                        | resource limits for pod running the submission                                                                                                        |
-| `K8S_RESOURCE_ALLOCATION`                   | `{"requests": {"memory": "15Gi", "cpu": "4"}, "limits": {"memory": "15Gi", "cpu": "4"}}` | Failure                        | resource limits for pod running the submission                                                                                                        |
+| `ORCHESTRATION_JOB_K8S_RESOURCE_ALLOCATION` | `{"requests": {"memory": "5Gi", "cpu": "1"}, "limits": {"memory": "5Gi", "cpu": "1"}}`   | Failure                        | resource limits for the orchestration job pod, one per submission, which runs the submission's scenario pods and evaluates their trajectories         |
+| `K8S_RESOURCE_ALLOCATION`                   | `{"requests": {"memory": "15Gi", "cpu": "4"}, "limits": {"memory": "15Gi", "cpu": "4"}}` | Failure                        | resource limits for the submission pod, one per scenario                                                                                              |
 
 [^1]: see [implementation](https://github.com/flatland-association/flatland-benchmarks/pull/594/changes)
 
@@ -120,7 +129,7 @@ trains have to reach their destination. Constraints to ensure a level playing fi
 - 30 minutes per scenario limit
 - 5 hours per submission limit
 - 2 daily submissions limit
-- computation resources for all submissions: 4 CPU cores with 15 GB of memory
+- computation resources for all submissions: 4 CPU cores with 15 GiB of memory
 
 Failing to satisfy the success rate or time constraint requirement results in the termination of the submission, leaving the summed score as up to this point.
 

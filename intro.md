@@ -1,7 +1,7 @@
 Welcome to Flatland
 ===
 
-![Flatland](./_images/9cNtWjs.gif)
+![Flatland](assets/images/9cNtWjs.gif)
 
 Flatland tackles a major problem in the transportation world:
 
@@ -27,13 +27,13 @@ $ python <<EOF # random agent
 import numpy as np
 from flatland.envs.rail_env import RailEnv
 env = RailEnv(width=30, height=30)
-obs = env.reset()
+obs, info = env.reset()
 while True:
     obs, rew, done, info = env.step({
             0: np.random.randint(0, 5),
             1: np.random.randint(0, 5)
         })
-    if done:
+    if done["__all__"]:
         break
 EOF
 ```
@@ -72,44 +72,38 @@ You can find the Flatland competition paper on arXiv: [https://arxiv.org/abs/201
 🔀 The Vehicle Re-scheduling Problem
 ---
 
-At the core of this challenge lies the general vehicle re-scheduling problem (VRSP) proposed
-by [Li, Mirchandani and Borenstein](https://onlinelibrary.wiley.com/doi/abs/10.1002/net.20199) in 2007:
-
-> The vehicle rescheduling problem (VRSP) arises when a previously assigned trip is disrupted. A traffic accident, a medical emergency, or a breakdown of a
-> vehicle are examples of possible disruptions that demand the rescheduling of vehicle trips. The VRSP can be approached as a dynamic version of the classical
-> vehicle scheduling problem (VSP) where assignments are generated dynamically.
-
-The Flatland environment aims to address the vehicle rescheduling problem by providing a simplistic grid world environment and allowing for diverse solution
-approaches. The problems are formulated as a 2D grid environment with restricted transitions between neighboring cells to represent railway networks. On the 2D
-grid, multiple agents with different objectives must collaborate to maximize global reward.
+Flatland addresses the vehicle re-scheduling problem (VRSP): rescheduling vehicle trips after a disruption, such as a breakdown, has
+invalidated the plan. The problems are formulated as a 2D grid environment with restricted transitions between neighboring cells to represent railway
+networks, on which multiple agents with different objectives must collaborate to maximize global reward. See [Why Flatland?](getting-started/why-flatland)
+for the definition of the VRSP and the railway context.
 
 🔖 Design principles
 ---
 
 ### Real-word, high impact problem
 
-The Swiss Federal Railways (SBB) operate the densest mixed railway traffic in the world. SBB maintain and operate the biggest railway infrastructure in
-Switzerland. Today, there are more than 10,000 trains running each day, being routed over 13,000 switches and controlled by more than 32,000 signals. The
-Flatland challenge aims to address the vehicle rescheduling problem by providing a simplistic grid world environment and allowing for diverse solution
-approaches. The challenge is open to any methodological approach, e.g. from the domain of reinforcement learning or of operations research.
+Flatland was created to manage dense traffic on complex railway networks, such as the one of the Swiss Federal Railways (SBB), see
+[Why Flatland?](getting-started/why-flatland). It is open to any methodological approach, e.g. from the domain of reinforcement learning or of operations
+research.
 
 ### Tunable difficulty
 
-All environments support well-calibrated difficulty settings. While we report results using the hard difficulty setting, we make the easy difficulty setting
-available for those with limited access to compute power. Easy environments require approximately an eighth of the resources to train.
+Flatland aims at tunable difficulty, from settings that can be trained with limited compute resources to hard ones. Scenarios are configured through the
+[rail, line and timetable generators](environment/scenario_generation) and [malfunctions](environment/environment/stochasticity): grid size, number of cities
+and tracks, number of agents, speed profiles, intermediate stops, and malfunction rate and duration. This allows to scale from a single train on a small grid to
+dense traffic with disruptions. Challenges use this to define levels of increasing difficulty, see for instance the
+[ECML 2026 level configuration](challenges/ecml2026/levelconfig).
 
 ### Environment diversity
 
-In several environments, it has been observed that agents can overfit to remarkably large training sets. This evidence raises the possibility that overfitting
-pervades classic benchmarks like the Arcade Learning Environment, which has long served as a gold standard in reinforcement learning (RL). While the diversity
-between different games in an ALE is one of the benchmark’s greatest strengths, the low emphasis on generalization presents a significant drawback. In each game
-the question must be asked: are agents robustly learning a relevant skill, or are they approximately memorizing specific
-trajectories? <!-- To enable one to answer this question we provide configurable [world generators](env/level_generation). -->
+Flatland aims at environment diversity to prevent agents from overfitting to a fixed set of scenarios. Rail networks, lines and timetables are generated
+randomly from a seed, so agents can be trained and evaluated on different, unseen scenarios. This allows to test whether agents learn to manage traffic or
+merely memorize specific trajectories.
 
 🚉 Next stops
 ---
 
-- [Step by step introduction to Flatland](key-concepts/env.md)
+- [Step by step introduction to Flatland](key-concepts/key_concepts.md)
 - [Take part in the Flatland Benchmarks](challenges/flatland-benchmarks)
 - [Contribute to Flatland](misc/contributing)
 - [Sponsor a Challenge](mailto:contact@flatland-association.org)
