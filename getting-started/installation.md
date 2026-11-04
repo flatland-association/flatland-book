@@ -34,5 +34,6 @@ Troubleshooting:
   environments that do not build from source, e.g. with `pip install --only-binary=:all:`.
 - On Apple Silicon with an x86_64 Python (e.g. x86_64 conda under Rosetta 2), importing Flatland can fail with an `incompatible architecture` error, see
   the [known issue in the flatland-rl README](https://github.com/flatland-association/flatland-rl#known-issue-architecture-mismatched-cython-extensions-on-apple-silicon).
+
 To install from source and run the tests, follow the
 [flatland-rl contribution guide](https://github.com/flatland-association/flatland-rl/blob/main/CONTRIBUTING.md).
