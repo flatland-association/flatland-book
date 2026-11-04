@@ -12,6 +12,7 @@ parts:
       - file: getting-started/installation
       - file: getting-started/The_Rail_Environment
       - file: getting-started/why-flatland
+      - file: getting-started/railway_features
 
   ## KEY CONCEPTS
   - caption: Key concepts
