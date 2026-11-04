@@ -24,7 +24,7 @@ before. `agent_transition_data` (`AgentTransitionData`) tells a custom reward wh
 | `speed`, `distance`                                   | Speed and distance before the step, `None` while the agent was off the map.                                                                                                          |
 | `candidate_speed`, `candidate_distance`               | Speed and distance the env computed for after the step; on the step the agent enters the map, `candidate_speed` is its entry speed.                                                  |
 | `candidate_entry_point`, `candidate_next_entry_point` | Entry points the agent moves to if its move is allowed.                                                                                                                              |
-| `is_cell_exit`                                        | Whether the agent was at the end of its cell before the step.                                                                                                                        |
+| `is_cell_exit`                                        | Whether the agent, at its speed before the step, reaches the end of its cell in this step (speed > 0 and distance + speed ≥ 1); `True` while off the map.                            |
 | `done`                                                | Whether the agent had already arrived at its target before this step.                                                                                                                |
 
 These fields do not depend on `agent.state`, so a reward computed from them works with and without the state machine (see [Agent](agent)). For
