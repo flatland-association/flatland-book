@@ -158,10 +158,9 @@ single largest branch across every profiled scenario (42-87% of calls), so it's 
 `done` rather than last among the off-map-only branches - purely a performance reordering, not a
 semantic one (see the note above: every condition is self-contained, so this order is cosmetic).
 
-Each method's final branch (`keep moving mid-cell`) is an explicit `if`, not an implicit `else` - its
-condition is the exact logical complement of every branch above it, followed by a
-`raise ValueError(...)` that is unreachable by construction (the branches are exhaustive as well as
-disjoint).
+Each method's final branch (`invalid action at cell exit`) is an explicit `if`, not an implicit `else`,
+followed by a `raise ValueError(...)` that is unreachable by construction (the branches are exhaustive as
+well as disjoint).
 
 ### Table 2a — preconditions
 
