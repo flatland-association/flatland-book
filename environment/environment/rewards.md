@@ -32,7 +32,7 @@ $$
 
 is the sum of all rewards $g_i$ of agent $i$. The reward $g_i$ of an agent consists of a reward at the end of the episode as well as at each timestep $t.$
 Per-timestep rewards only consist of a penalty if the environment forces the train to stop, i.e. the train goes from MOVING to STOPPED without a stop action
-bringing it to zero speed: either it wants to enter a cell another train already occupies (potential collision) , or its action is invalid. This collision penalty is
+bringing it to zero speed: either it wants to enter a cell another train already occupies (potential collision), or its action is invalid. This collision penalty is
 proportional to the current speed $v(t)$ of the train. The reward $g_i$ of an agent $i$ is
 
 $$
