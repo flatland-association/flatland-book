@@ -29,7 +29,7 @@ Agents controlled in rail env are vehicles, agents controlled in the passenger e
 ```mermaid
 classDiagram
     direction LR
-    note for PassengerEnv "Agents reflect passengers and entry points represent passenger locations and policies drive passengers; TODO: what are the actions"
+    note for PassengerEnv "Agents reflect passengers and entry points represent passenger locations and policies drive passengers. Actions: WAIT (keep waiting or riding), HOP_ON a given vehicle, HOP_OFF the vehicle ridden at its current entry point"
     note for RailEnv "Agents reflect trains/ships/etc. Entry points can be graph nodes or grid cell entry points ((r,c),d)."
     note for TransitionMap "Topology"
     note for Line "Services in Space; aka. Journey for passengers"
