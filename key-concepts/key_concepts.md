@@ -45,6 +45,86 @@ railEnv:R -- L:interactiveAI
 interactiveAI:R -- L:operator
 ```
 
+Agent-Environment Interaction
+-----------------------------
+
+Flatland uses the standard terms of reinforcement learning, as in Sutton and Barto's agent-environment interface
+([Reinforcement Learning: An Introduction](http://incompleteideas.net/book/the-book-2nd.html), section 3.1): at each time step, the agent observes
+the environment and selects an action; the environment responds with a new observation and a reward. An episode runs from `reset()` until the
+environment is done. Flatland follows RLlib's [multi-agent environments](https://docs.ray.io/en/latest/rllib/multi-agent-envs.html), where each
+train is an agent: flatland-rl's `Environment` (`flatland/core/env.py`) is adapted from RLlib's [`MultiAgentEnv`](https://docs.ray.io/en/latest/rllib/package_ref/env/multi_agent_env.html), and its `Policy`
+(`flatland/core/policy.py`) loosely corresponds to RLlib's [`RLModule`](https://docs.ray.io/en/latest/rllib/rl-modules.html), but is much simpler (see their docstrings). `RayMultiAgentWrapper`
+(`flatland/ml/ray`) wraps a `RailEnv` as an RLlib `MultiAgentEnv`.
+
+| Sutton and Barto                      | Flatland                                                             | RLlib                                                                                                            |
+|:--------------------------------------|:---------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------|
+| agent                                 | agent (train), identified by its handle                              | agent                                                                                                            |
+| environment                           | environment (`RailEnv`, `GraphRailEnv`)                              | environment (`MultiAgentEnv`)                                                                                    |
+| state $S_t$ (observation, if partial) | observation, built by the `ObservationBuilder`                       | observation                                                                                                      |
+| action $A_t$                          | action (`RailEnvActions`)                                            | action                                                                                                           |
+| reward $R_{t+1}$                      | reward (`Rewards`)                                                   | reward                                                                                                           |
+| policy $\pi$                          | policy (`Policy`)                                                    | policy (`RLModule`)                                                                                              |
+| time step $t$                         | step (`elapsed_steps`)                                               | timestep                                                                                                         |
+| episode, terminal state               | episode, `dones`                                                     | episode, terminated and truncated                                                                                |
+| -                                     | runner, e.g. `PolicyRunner`; the episode is recorded as `Trajectory` | [`EnvRunner`](https://docs.ray.io/en/latest/rllib/package_ref/env/env_runner.html), running the interaction loop |
+
+The runner resets the environment, then passes the observations and infos to the policy and the policy's actions to the environment's
+`step()`, until `dones["__all__"]` is set. One policy acts for all agents.
+
+Notation: [Mermaid Flowchart](https://mermaid.js.org/syntax/flowchart.html)
+
+```mermaid
+flowchart LR
+    subgraph env ["Environment (RailEnv or GraphRailEnv)"]
+        direction TB
+        t0["agent 0 (train)"]
+        t1["agent 1 (train)"]
+        tn["agent n-1 (train)"]
+        obs_builder["ObservationBuilder<br/>(owns a PredictionBuilder)"]
+        rewards["Rewards"]
+    end
+    runner["Runner<br/>(e.g. PolicyRunner)"]
+    policy["Policy<br/>act_many(handles, observations, infos)"]
+    runner -- "reset(), step(action_dict)" --> env
+    env -- "observations, rewards,<br/>dones, infos" --> runner
+    runner -- "handles, observations, infos" --> policy
+    policy -- "action_dict<br/>{handle: action}" --> runner
+    t0 -.-> policy
+    t1 -.-> policy
+    tn -.-> policy
+```
+
+Responsibilities:
+
+* The environment's `step()` takes the agents' actions, updates the environment's state and returns observations, rewards, dones and infos. It
+  never runs the policy of its own agents. The environment applies an action if it is physically feasible and ignores it otherwise. Deciding what
+  to do, e.g. respecting the earliest departure, is the policy's job; the rewards may penalize bad decisions.
+* Observations are built by the `ObservationBuilder`, which is part of the environment and may read it directly. Predictions about other agents
+  come from a `PredictionBuilder` owned by the observation builder, not by the environment.
+* Observations hold dynamic data only (positions, predictions). If every agent observes the same data, e.g. the positions of all trains, the
+  observation builder builds it once per step and all agents' observations refer to this one object; copying it into each observation would
+  grow with the square of the number of agents. The object is read-only, so that no policy can change what another agent observes.
+* Infos hold the data for deciding (`action_required`, `state`, `speed` and `malfunction` per agent) and the static data, which does not change
+  during an episode (map, timetables). The static data is not part of the observations: the infos refer to it as one read-only object. The runner
+  passes the infos to `act_many()`.
+* A policy acts on its observations and infos, and does not reach into the environment. `FullEnvObservation` (the environment itself as
+  observation) is a convenience.
+
+Commonalities and differences with RLlib:
+
+| Aspect                           | Flatland `Environment`                                                                                                                                                                                                                                                                                                                                                                                                           | RLlib `MultiAgentEnv`                                                                                                                                                                                                                            |
+|:---------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Agent ids                        | Integer handles `0..n-1` (strings in `RayMultiAgentWrapper`).                                                                                                                                                                                                                                                                                                                                                                    | Any id, e.g. strings.                                                                                                                                                                                                                            |
+| `reset()`                        | Returns observations and infos. Observations are keyed by handle: `{0: obs_0, 1: obs_1}`.                                                                                                                                                                                                                                                                                                                                        | Same, keyed by agent id: `{"agent_1": obs_1, "agent_2": obs_2}`.                                                                                                                                                                                 |
+| `step()`                         | Returns observations, rewards, dones and infos. Rewards are keyed by handle: `{0: -1.0, 1: 0.0}`.                                                                                                                                                                                                                                                                                                                                | Returns observations, rewards, terminateds, truncateds and infos, keyed by agent id.                                                                                                                                                             |
+| `dones`                          | `{0: True, 1: False, "__all__": False}`: an agent is done once it has arrived. `"__all__"` is set when all agents have arrived or at `max_episode_steps`, which sets all agents done.                                                                                                                                                                                                                                            | Two dicts, terminateds and truncateds, each `{"agent_1": False, "__all__": False}`: terminated once an agent reaches a terminal state, truncated when the episode is cut off, e.g. by a time limit. `"__all__"` ends the episode for all agents. |
+| Simultaneous or sequential moves | Simultaneous moves, as in a Markov game, also called stochastic game ([Littman 1994](https://mlanthology.org/icml/1994/littman1994icml-markov)): all agents get observations and may act in every step. `action_required` in the infos says which train has to decide. [PettingZoo](https://pettingzoo.farama.org/) calls this the [Parallel API](https://pettingzoo.farama.org/api/parallel/) (`PettingZooParallelEnvWrapper`). | Simultaneous or sequential (turn-based) moves: only agents with an observation in the dict act in the next step. PettingZoo calls the sequential form the [Agent Environment Cycle (AEC) API](https://pettingzoo.farama.org/api/aec/).           |
+| `infos`                          | Keyed by info, then by handle: `{"action_required": {0: True, 1: False}, "malfunction": {0: 0, 1: 3}, "speed": {0: 1.0, 1: 0.0}, "state": {0: TrainState.MOVING, 1: TrainState.MALFUNCTION}}`. `RayMultiAgentWrapper` converts it to RLlib's layout.                                                                                                                                                                             | Keyed by agent id, then by info: `{"agent_1": {...}, "agent_2": {...}, "__common__": {...}}`, with `"__common__"` for data shared by all agents.                                                                                                 |
+| Policies                         | One policy for all agents (`act_many()`); a policy that needs different behaviour per agent does the mapping itself.                                                                                                                                                                                                                                                                                                             | Several policies; a mapping function maps each agent to one of them.                                                                                                                                                                             |
+| Training                         | Flatland does not train: `Policy` is used for evaluation. Training goes through the RLlib and PettingZoo wrappers.                                                                                                                                                                                                                                                                                                               | RLlib trains the policies.                                                                                                                                                                                                                       |
+| Callbacks                        | `EffectsGenerator.on_episode_start()`, `on_episode_step_start()` and `on_episode_step_end()` modify the environment, e.g. for malfunctions.                                                                                                                                                                                                                                                                                      | [`RLlibCallback`](https://docs.ray.io/en/latest/rllib/rllib-callback.html)`.on_episode_start()`, `on_episode_step()` observe the episode; Flatland's names follow them.                                                                          |
+| Episode records                  | `Trajectory`, as tables, see [Evaluation](../environment/evaluation).                                                                                                                                                                                                                                                                                                                                                            | [`MultiAgentEpisode`](https://docs.ray.io/en/latest/rllib/package_ref/env/multi_agent_episode.html), as dicts.                                                                                                                                   |
+
 High-Level Runtime View
 -----------------------
 
