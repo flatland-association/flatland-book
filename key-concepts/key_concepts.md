@@ -68,8 +68,8 @@ train is an agent: flatland-rl's `Environment` (`flatland/core/env.py`) is adapt
 | episode, terminal state               | episode, `dones`                                                     | episode, terminated and truncated                                                                                |
 | -                                     | runner, e.g. `PolicyRunner`; the episode is recorded as `Trajectory` | [`EnvRunner`](https://docs.ray.io/en/latest/rllib/package_ref/env/env_runner.html), running the interaction loop |
 
-The runner resets the environment, then passes the observations and infos to the policy and the policy's actions to the environment's
-`step()`, until `dones["__all__"]` is set. One policy acts for all agents.
+The runner resets the environment, then passes the observations (and, with [flatland-rl PR #528](https://github.com/flatland-association/flatland-rl/pull/528), planned for 5.0.1, the
+infos) to the policy and the policy's actions to the environment's `step()`, until `dones["__all__"]` is set. One policy acts for all agents.
 
 Notation: [Mermaid Flowchart](https://mermaid.js.org/syntax/flowchart.html)
 
@@ -84,10 +84,10 @@ flowchart LR
         rewards["Rewards"]
     end
     runner["Runner<br/>(e.g. PolicyRunner)"]
-    policy["Policy<br/>act_many(handles, observations, infos)"]
+    policy["Policy<br/>act_many(handles, observations)"]
     runner -- "reset(), step(action_dict)" --> env
     env -- "observations, rewards,<br/>dones, infos" --> runner
-    runner -- "handles, observations, infos" --> policy
+    runner -- "handles, observations<br/>(infos with PR #528)" --> policy
     policy -- "action_dict<br/>{handle: action}" --> runner
     t0 -.-> policy
     t1 -.-> policy
@@ -105,9 +105,10 @@ Responsibilities:
 * Observations hold dynamic data only (positions, predictions). If every agent observes the same data, e.g. the positions of all trains, the
   observation builder builds it once per step and all agents' observations refer to this one object; copying it into each observation would
   grow with the square of the number of agents. The object is read-only, so that no policy can change what another agent observes.
-* Infos hold the data for deciding (`action_required`, `state`, `speed` and `malfunction` per agent) and the static data, which does not change
-  during an episode (map, timetables). The static data is not part of the observations: the infos refer to it as one read-only object. The runner
-  passes the infos to `act_many()`.
+* Infos hold the data for deciding (`action_required`, `state`, `speed` and `malfunction` per agent). With
+  [flatland-rl PR #528](https://github.com/flatland-association/flatland-rl/pull/528), planned for 5.0.1, they also hold the static data, which does not change during an
+  episode (map, timetables): the static data is not part of the observations, the infos refer to it as one read-only object, and the runner
+  passes the infos to `act_many()`. Up to 5.0.0, `PolicyRunner` passes the observations only.
 * A policy acts on its observations and infos, and does not reach into the environment. `FullEnvObservation` (the environment itself as
   observation) is a convenience.
 
