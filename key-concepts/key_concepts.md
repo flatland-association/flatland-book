@@ -98,7 +98,8 @@ Responsibilities:
 
 * The environment's `step()` takes the agents' actions, updates the environment's state and returns observations, rewards, dones and infos. It
   never runs the policy of its own agents. The environment applies an action if it is physically feasible and ignores it otherwise. Deciding what
-  to do, e.g. respecting the earliest departure, is the policy's job; the rewards may penalize bad decisions.
+  to do, e.g. which route to take, is the policy's job; the rewards may penalize bad decisions. The earliest departure at the origin is the one
+  exception: `step()` still enforces it, see [flatland-rl issue #559](https://github.com/flatland-association/flatland-rl/issues/559).
 * Observations are built by the `ObservationBuilder`, which is part of the environment and may read it directly. Predictions about other agents
   come from a `PredictionBuilder` owned by the observation builder, not by the environment.
 * Observations hold dynamic data only (positions, predictions). If every agent observes the same data, e.g. the positions of all trains, the
