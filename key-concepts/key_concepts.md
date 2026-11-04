@@ -384,7 +384,8 @@ flowchart TD
 
 Numbers in brackets refer to the phase comments in `AbstractRailEnv.step()`, `collect()` and `distribute()` in `flatland/envs/rail_env.py`.
 `step()` first lets every agent propose a candidate (collect), then resolves the conflicts between all candidates, and then accepts or discards
-each agent's candidate (distribute). `step()` neither reads nor writes `agent.state`: there is no action preprocessing and no state machine step in it.
+each agent's candidate (distribute). `step()` does not write `agent.state`, and its control flow does not depend on it (it reads it only for a warning
+message): there is no action preprocessing and no state machine step in it.
 The behaviour follows from the entry points, speed, distance, malfunction counter and earliest departure of the agent. The state machine is an optional
 wrapper (`RailEnvStateMachineWrapper`) that updates `agent.state` after `step()`, see [Agents and State Machine](../environment/environment/agent).
 
