@@ -40,6 +40,8 @@ exclude_patterns:
   # repository docs, not book pages
   - README.md
   - CONTRIBUTING.md
+  # PR plans with their screenshots, not book pages
+  - docs/plans/**
   # do not build the starterkit cloned by challenges/ecml2026/training_envs.ipynb as pages
   - challenges/ecml2026/ecml2026-starterkit/**
 
