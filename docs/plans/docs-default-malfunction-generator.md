@@ -46,6 +46,38 @@ Describes the default malfunction generator `ParamMalfunctionGen` (as in flatlan
 - **Build:** the plotting cell doesn't import flatland, and the whole notebook runs against the book's current flatland-rl 4.3.0.
 - **Follow-up in flatland-rl (not in this PR):** the drawn duration is one step longer than its docstrings say ("duration uniformly in [min_duration, max_duration]"). Either the code or the docstrings need fixing.
 
+## 9. Decisions
+
+### 9.3 Code Review Findings
+
+PR [#43](https://github.com/flatland-association/flatland-book/pull/43), based on `main` 511f309. Line numbers refer to fadae79. PR review comments (1-2) were added on 2026-11-11. In Fixed, ✅ marks a finding fixed on the branch, ⏭️ one taken over by a follow-up, `⚠️` one resolved on GitHub without a code change and without a reason, and ❌ next to ✅ one fixed in the code whose PR comment is not resolved on GitHub yet. "resolved" in Source marks threads resolved and checkboxes ticked on GitHub.
+
+| Fixed | ID | Source | Category | Severity | Finding | Commit message |
+|---|---|---|---|---|---|---|
+| ✅ ❌ | 1 | [PR comment](https://github.com/flatland-association/flatland-book/pull/43#discussion_r4512106228) | docs | low | `environment/environment/stochasticity.ipynb:205`: the link `[Speed Profiles](speed_profiles)` in the caption of the timeline plots leads nowhere. Its target `environment/environment/speed_profiles.ipynb` only comes with #42 (open), and a link without the file extension does not resolve in GitHub's or an IDE's notebook view, only in the built book. Fixed in cc5f649 (S4): the link is now `speed_profiles.ipynb`; in the book it works once #42 is merged. | docs(stochasticity): link the Speed Profiles page by its file name. |
+| ✅ ❌ | 2 | [PR comment](https://github.com/flatland-association/flatland-book/pull/43#discussion_r4512243243) | design | medium | `environment/environment/stochasticity.ipynb:497`: the reviewer asks whether it is the right design that resetting an env with the same seed gives different malfunctions, as this is not reproducible. The text describes flatland-rl as it is: `ParamMalfunctionGen` keeps its block of random numbers and `_rand_idx` across `env.reset()`. The design can only change in flatland-rl; it is tracked in [flatland-rl#564](https://github.com/flatland-association/flatland-rl/issues/564). Fixed in e9410ea (S5): the page marks it as a bug, to be fixed in flatland-rl 5.0.0, and links flatland-rl#564. | docs(stochasticity): mark the malfunctions not reproduced on reset as a bug to be fixed in flatland-rl 5.0.0. |
+
+**Issue references:** the PR closes no issue, and the `main..HEAD` diff references none (only PR #42 and #43, in the plan).
+
+## 11. Execution plan and status
+
+### 11.1 Steps
+
+#### Phase 1: document the default malfunction generator ✅
+
+| ID | Findings | Step | Category | Severity | Commit message | Commit(s) | Needs | Blocked by |
+|---|---|---|---|---|---|---|---|---|
+| S1 | - | Describe the default malfunction generator: parameters, per-step behaviour, resulting process, expected values, what is not guaranteed; note on the 4.3.0 vs 5.0.0 differences; timeline diagram. | docs | medium | docs(stochasticity): describe the default malfunction generator. | 7102615 | - | - |
+| S2 | - | Add the plan with rendered screenshots of the changed cells; keep the plans folder out of the book build. | docs | low | docs(plans): add the plan and screenshots for the default malfunction generator docs. | 98a6a5a | - | - |
+| S3 | - | Add the malfunction duration semantics in a warning box, extend the 4.3.0 vs 5.0.0 note, add the edge cases and the 4.3.0 timeline. | docs | medium | docs(stochasticity): add malfunction duration semantics, edge cases and the 4.3.0 timeline. | fadae79 | - | - |
+
+#### Phase 2: review findings ✅
+
+| ID | Findings | Step | Category | Severity | Commit message | Commit(s) | Needs | Blocked by |
+|---|---|---|---|---|---|---|---|---|
+| S4 | 1 | Write the link to Speed Profiles as `speed_profiles.ipynb`, so it also resolves in GitHub's notebook view. It works in the book only once #42 is merged. | docs | low | docs(stochasticity): link the Speed Profiles page by its file name. | cc5f649 | - | - |
+| S5 | 2 | In "What is not guaranteed", mark that a reset with the same seed does not reproduce the malfunctions as a bug, to be fixed in flatland-rl 5.0.0, and link [flatland-rl#564](https://github.com/flatland-association/flatland-rl/issues/564). | design | medium | docs(stochasticity): mark the malfunctions not reproduced on reset as a bug to be fixed in flatland-rl 5.0.0. | e9410ea | - | - |
+
 ## Screenshots
 
 The changed and added cells, as rendered by jupyter-book against flatland-rl 4.3.0:
