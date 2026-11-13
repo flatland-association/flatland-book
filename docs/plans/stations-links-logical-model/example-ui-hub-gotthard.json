@@ -1,0 +1,71 @@
+{
+  "version": "2.0.0",
+  "binding": "graph-geo",
+  "extensions_used": { "flatland-ui-hub": null },
+  "stations": {
+    "GD": {
+      "name": "GD",
+      "display_name": "Arth-Goldau",
+      "gates": {},
+      "stopping_points": [],
+      "placement": { "position": [47.04904, 8.54945], "orientation": 87.6 },
+      "extensions": { "flatland-ui-hub": { "kmBG": 8.864, "route": "north", "basis": "sbb-open-data:linie-mit-betriebspunkten" } }
+    },
+    "STNS": {
+      "name": "STNS",
+      "display_name": "Steinen Nord (Spw)",
+      "kind": "crossover",
+      "gates": {},
+      "stopping_points": [],
+      "placement": { "position": [47.05045, 8.60009], "orientation": 92.0 },
+      "extensions": {
+        "flatland-ui-hub": { "kmBG": 13.223, "route": "north", "basis": "sbb-open-data:linie-mit-betriebspunkten" }
+      }
+    },
+    "SCHW": {
+      "name": "SCHW",
+      "display_name": "Schwyz",
+      "gates": {},
+      "stopping_points": [],
+      "placement": { "position": [47.0264, 8.63215], "orientation": 177.9 },
+      "extensions": {
+        "flatland-ui-hub": { "kmBG": 17.007, "route": "north", "basis": "sbb-open-data:linie-mit-betriebspunkten" }
+      }
+    },
+    "RYAB": {
+      "name": "RYAB",
+      "display_name": "Rynacht (Abzw)",
+      "kind": "junction",
+      "gates": {},
+      "stopping_points": [],
+      "placement": { "position": [46.8434, 8.6429], "orientation": 165.7 },
+      "extensions": {
+        "flatland-ui-hub": { "kmBG": 38.95, "kmGBT": 0.0, "route": "north", "basis": "sbb-open-data:linie-mit-betriebspunkten" }
+      }
+    },
+    "SED": {
+      "name": "SED",
+      "display_name": "Sedrun SMF",
+      "kind": "crossover",
+      "gates": {},
+      "stopping_points": [],
+      "placement": { "position": [46.66585, 8.7702], "orientation": 161.5 },
+      "extensions": {
+        "flatland-ui-hub": { "kmGBT": 21.549, "route": "GBT", "basis": "sbb-open-data:linie-mit-betriebspunkten (line 595)" }
+      }
+    },
+    "CAOS": {
+      "name": "CAOS",
+      "display_name": "Castione Officine (Stas)",
+      "kind": "flatland-ui-hub:loop",
+      "gates": {},
+      "stopping_points": [],
+      "placement": { "position": [46.2277, 9.04095], "orientation": 164.3 },
+      "extensions": {
+        "flatland-ui-hub": { "kmBG": 146.992, "route": "south", "basis": "sbb-open-data:linie-mit-betriebspunkten" }
+      }
+    }
+  },
+  "links": [],
+  "gate_links": []
+}

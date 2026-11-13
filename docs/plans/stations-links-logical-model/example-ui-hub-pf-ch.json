@@ -1,0 +1,66 @@
+{
+  "version": "2.0.0",
+  "binding": "grid",
+  "extensions_used": { "flatland-ui-hub": null },
+  "stations": {
+    "WN": {
+      "name": "WN",
+      "display_name": "Weesen",
+      "gates": {},
+      "stopping_points": [
+        { "name": "WN.0", "node": [0, 87], "extensions": { "flatland-ui-hub": { "track": 1 } } },
+        { "name": "WN.1", "node": [2, 87], "extensions": { "flatland-ui-hub": { "track": 2 } } },
+        { "name": "WN.2", "node": [4, 87], "extensions": { "flatland-ui-hub": { "track": 3 } } }
+      ],
+      "placement": { "position": [2, 87], "orientation": 90.0 }
+    },
+    "MH": {
+      "name": "MH",
+      "display_name": "Mühlehorn",
+      "gates": {},
+      "stopping_points": [],
+      "placement": { "position": [1, 95], "orientation": 90.0 }
+    },
+    "TIEF": {
+      "name": "TIEF",
+      "display_name": "Tiefenwinkel",
+      "gates": {},
+      "stopping_points": [],
+      "placement": { "position": [1, 102], "orientation": 90.0 }
+    },
+    "MG": {
+      "name": "MG",
+      "display_name": "Murg",
+      "gates": {},
+      "stopping_points": [],
+      "placement": { "position": [1, 105], "orientation": 90.0 }
+    },
+    "UNT": {
+      "name": "UNT",
+      "display_name": "Unterterzen",
+      "gates": {},
+      "stopping_points": [],
+      "placement": { "position": [1, 110], "orientation": 90.0 }
+    },
+    "MOLS": {
+      "name": "MOLS",
+      "display_name": "Mols",
+      "gates": {},
+      "stopping_points": [],
+      "placement": { "position": [1, 115], "orientation": 90.0 }
+    },
+    "WAL": {
+      "name": "WAL",
+      "display_name": "Walenstadt",
+      "gates": {},
+      "stopping_points": [
+        { "name": "WAL.0", "node": [0, 124], "extensions": { "flatland-ui-hub": { "track": 1 } } },
+        { "name": "WAL.1", "node": [2, 124], "extensions": { "flatland-ui-hub": { "track": 2 } } },
+        { "name": "WAL.2", "node": [4, 124], "extensions": { "flatland-ui-hub": { "track": 3 } } }
+      ],
+      "placement": { "position": [2, 124], "orientation": 90.0 }
+    }
+  },
+  "links": [],
+  "gate_links": []
+}
