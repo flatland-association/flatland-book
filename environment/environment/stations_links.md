@@ -27,6 +27,27 @@ The logical model is as follows:
 * `Station`s have `StoppingPoint`s where trains can start and stop. Currently: list of cells.
 * A sequence of consecutive `Link`s form a `Chain`. They must end in `Gate`s linked by a `GateLink`. Currently: not implemented.
 
+**Definition: gate and pin.**
+
+* A **route** is a sequence of transitions the transition map allows, each starting where the previous one ends: a
+  path a train can drive.
+* A **pin** of a station is a cell of the station (its `edges`) with a transition to a cell outside it: where a
+  track leaves the station. The pins are **all** of them: every transition from the station to outside starts at a
+  pin of one of its gates. A boundary cell without such a transition (e.g. a platform's end) is no pin.
+* A pin `p` **links to** a pin `q` when some route leaving the station at `p` meets `q` as the first pin after `p`.
+  `q` may lie in any station, also in `p`'s own, when the line loops back. A pin links to a gate when it links to one
+  of the gate's pins.
+* A **gate** is a set of pins on one side of one station. The gates are the **coarsest** grouping of each side's pins
+  in which all pins of a gate link to the same set of gates (the corridor rule).
+  * Each pin links to *some* pin of every one of these gates, not necessarily every pin: two parallel tracks between
+    `A` and `B` count once.
+  * The pins of a gate need not be adjacent: other pins, or no track, may lie between them.
+  * The gates are found by starting from the sides, splitting each gate by the gates its pins link to, and repeating
+    until nothing changes. The result is unique and does not depend on the order of the splits.
+* **Not part of the definition:** which pin links to which pin, on the line and inside the station. Whether the routes
+  between two gates run as parallel tracks, are joined by crossovers, or fork and join on the way does not matter for
+  the gates; the fibres of the `Link` between the two gates record which pins connect.
+
 ```mermaid
 classDiagram
     namespace Links {
@@ -84,7 +105,7 @@ classDiagram
 
 ```
 
-Assumption, not checked by `StationsLinks`; every producer must ensure it:
+Assumptions, not checked by `StationsLinks`; every producer must ensure them:
 
 * **Unique names:** `Link.from_gate`/`to_gate` and `Fibre.from_pin`/`to_pin` refer to gates and pins by name, so a
   reader looks them up by name across all stations: every gate and every pin needs a name that is unique across all
@@ -92,6 +113,8 @@ Assumption, not checked by `StationsLinks`; every producer must ensure it:
   [Deriving information from the structure](#deriving-information-from-the-structure)) do this by qualifying names
   with the station's name, which is unique and contains no `.`: `<station>.<gate>` and `<station>.<gate>.<index>`
   (stopping points `<station>.<index>`).
+* **Complete pins and the corridor rule:** a producer's gates follow the definition above. See
+  [Limitations](#limitations) for where 4.3.0's producers do not yet.
 
 ### Implementation
 
@@ -121,8 +144,8 @@ See [stations_links.py](https://github.com/flatland-association/flatland-rl/tree
 | `Station` | Station: Bahnhof (Stationsanlage) or Haltestelle; Dienststelle (service point) | Station: "Oberbegriff für Bahnhof, Bahnhaltestelle, …"; Stationsanlage (Bahnhof): "Innerhalb der Einfahrsignale vorhandene Gleisanlage und daran angeschlossene übrige Gleise. Fehlen Einfahrsignale, so bilden die Einfahrweichen die Grenzen"; Haltestelle: "Die Anlage für den Publikumsverkehr, ohne Möglichkeit für die Regelung des Zugverkehrs; unmittelbare Umgebung eines Haltepunktes, inklusive Gleise, Bauten und weitere Einrichtungen" ([IVT ETH glossary](https://archiv.ivt.ethz.ch/oev/glossar/)). A Flatland station with switches is a Stationsanlage, bounded by its entry switches, where its gates and pins lie; one without switches is a Haltestelle. In the Swiss master data, a stop is a service point (Dienststelle) relevant for boarding and alighting, holding its Haltekanten. |
 | station area (`Station.edges`; no area field) | Haltestellenbereich / Stationsanlage, opposite the freie Strecke | Einfahrsignal: "Das Signal, das die Grenze zwischen der Strecke und dem Bahnhof bildet (Hauptsignal zur Sicherung der Fahrt von der freien Strecke in den Haltestellenbereich)"; Ausfahrsignal: "… (Hauptsignal zur Sicherung der Fahrt vom Haltestellenbereich auf die freie Strecke)"; Stationsanlage: "Innerhalb der Einfahrsignale vorhandene Gleisanlage und daran angeschlossene übrige Gleise. Fehlen Einfahrsignale, so bilden die Einfahrweichen die Grenzen" ([IVT ETH glossary](https://archiv.ivt.ethz.ch/oev/glossar/)). Flatland has no signals: the area is the cells in `edges` (in `sparse_rail_generator` the city's tracks and pins; an editor may keep the drawn rectangle itself), closest to the case without entry signals. A Flatland station may leave out a through track inside its boundary that has no switch to its platforms, which a Stationsanlage includes. The [Swiss service point master data](https://opentransportdata.swiss/de/cookbook/masterdata-cookbook/servicepoints/) have no area concept: service points and boarding places are points with coordinates. |
 | `Link` / `Fibre` | freie Strecke (open line between stations) | The track between the Ausfahrsignal of one station and the Einfahrsignal of the next ([IVT ETH glossary](https://archiv.ivt.ethz.ch/oev/glossar/), see the station area row); a fibre is one track of it, a link the tracks between the same two gates. |
-| `Gate` | the side of a Kopf (station throat) towards the line | Kopf: "In einem einfachen Bahnhof haben wir zwei Seiten mit Weichenzonen. Diese befinden sich beidseitig der Bahnsteige und sie scheinen einen Bahnhof abzuschliessen. […] den Bereich nennt man Kopf, der mit einer Richtungsangabe ergänzt wird. So gibt es zum Beispiel einen „Nordkopf“, oder einen „Kopf Seite Himmelreich“" ([lokifahrer.ch, Gleisanlage](https://www.lokifahrer.ch/Lukmanier/Infra/Bahnhof-Depot-Co/Gleisanlage.htm)). A Kopf is the whole switch zone; its switches belong to the Flatland station's `edges`, and the gate is only its outer boundary, where the tracks leave towards the line. The gate key (`N`, `E`, `S`, `W`) names the side, as "Nordkopf" does. |
-| `Pin` | a track crossing the station boundary towards the line | The boundary is the entry signal ("Einfahrsignal: Das Signal, das die Grenze zwischen der Strecke und dem Bahnhof bildet"), or without entry signals the entry switches ("Fehlen Einfahrsignale, so bilden die Einfahrweichen die Grenzen", [IVT ETH glossary](https://archiv.ivt.ethz.ch/oev/glossar/)); Einfahrweiche: "die erste Weiche eines Bahnhofes, die der einfahrende Zug von der Spitze her befährt" ([lokifahrer.ch, Gleisanlage](https://www.lokifahrer.ch/Lukmanier/Infra/Bahnhof-Depot-Co/Gleisanlage.htm)). A pin is the cell where one track leaves the station's area, outside its first switch. |
+| `Gate` | the side of a Kopf (station throat) towards the line | Kopf: "In einem einfachen Bahnhof haben wir zwei Seiten mit Weichenzonen. Diese befinden sich beidseitig der Bahnsteige und sie scheinen einen Bahnhof abzuschliessen. […] den Bereich nennt man Kopf, der mit einer Richtungsangabe ergänzt wird. So gibt es zum Beispiel einen „Nordkopf“, oder einen „Kopf Seite Himmelreich“" ([lokifahrer.ch, Gleisanlage](https://www.lokifahrer.ch/Lukmanier/Infra/Bahnhof-Depot-Co/Gleisanlage.htm)). A Kopf is the whole switch zone; its switches belong to the Flatland station's `edges`, and the gate is only its outer boundary, where the tracks leave towards the line. The gate key (`N`, `E`, `S`, `W`) names the side, as "Nordkopf" does. A gate groups the pins of one side that lead along the line to the same gates (the corridor rule, see [Logical Model](#logical-model)); where a side's tracks lead to different places, the side has several gates (`N1`, `N2`, …). |
+| `Pin` | a track crossing the station boundary towards the line | The boundary is the entry signal ("Einfahrsignal: Das Signal, das die Grenze zwischen der Strecke und dem Bahnhof bildet"), or without entry signals the entry switches ("Fehlen Einfahrsignale, so bilden die Einfahrweichen die Grenzen", [IVT ETH glossary](https://archiv.ivt.ethz.ch/oev/glossar/)); Einfahrweiche: "die erste Weiche eines Bahnhofes, die der einfahrende Zug von der Spitze her befährt" ([lokifahrer.ch, Gleisanlage](https://www.lokifahrer.ch/Lukmanier/Infra/Bahnhof-Depot-Co/Gleisanlage.htm)). A pin is the cell where one track leaves the station's area, outside its first switch. Every track leaving the area has one. |
 | (no counterpart) | Gleisgruppe (track group) | "Die Gleisgruppe umfasst immer ein paar Geleise. Jedoch nicht die dazwischen liegenden Weichen, welche aber zum Gleisfeld gehören" ([lokifahrer.ch, Gleisanlage](https://www.lokifahrer.ch/Lukmanier/Infra/Bahnhof-Depot-Co/Gleisanlage.htm)); named by letter or number, e.g. track A1 of group A. In the Swiss master data the corresponding element is the Bereich, which groups Haltekanten (e.g. to a Perron). The model has no group of tracks; it is not a gate, which lies at the station boundary, not among its tracks. |
 
 ## Deriving information from the structure
@@ -141,7 +164,7 @@ Everything else can be derived:
 | What | How to derive it | In `sparse_rail_generator` | In the drawing tool |
 |---|---|---|---|
 | A station's name | Its key in `StationsLinks.stations` (and `Station.name`). | `A`, `B`, …, `Z`, `AA`, `AB`, … by city index. | The name the user gives the station, else its id; names must be unique and contain no `.`. |
-| A gate's side | The direction in which the tracks at its pins leave the station: a transition from the pin's cell into a cell that is not in the station's `edges`. The gate's key states the same side (`N`, `E`, `S`, `W`); there is at most one gate per side. | Two gates per city, on the two sides along its orientation, each holding all outer connection points of that side. Named `<station>.<side>`, e.g. `A.E`. | The user draws a rectangle, the station area. A pin is a cell of the station's tracks where a track leaves the area; a gate is a run of adjacent pins on one side, keyed by the side, numbered along the border (`E1`, `E2`, …) when a side has several. Without an area, a station has no gates. |
+| A gate's side | The direction in which the tracks at its pins leave the station: a transition from the pin's cell into a cell that is not in the station's `edges`. The gate's key states the same side (`N`, `E`, `S`, `W`); a side split by the corridor rule has several gates (`N1`, `N2`, …). | Two gates per city, on the two sides along its orientation, each holding all outer connection points of that side. Named `<station>.<side>`, e.g. `A.E`. | The user draws a rectangle, the station area. A pin is a cell of the station's tracks where a track leaves the area; a gate is a run of adjacent pins on one side, keyed by the side, numbered along the border (`E1`, `E2`, …) when a side has several. Without an area, a station has no gates. |
 | The order of a gate's pins | Sort the pins' cells along the side: by column on `N` and `S`, by row on `E` and `W`. | The pin's index is that order; named `<gate>.<index>`, e.g. `A.E.0`, `A.E.1`. | The same order: along the side, by column on `N` and `S`, by row on `E` and `W`; named `<gate>.<index>`. |
 | A station's tracks | The rows (gates on `E`/`W`) or columns (gates on `N`/`S`) of the station's `edges` that hold straight track along that axis. | The city's parallel tracks between its two gates. | Not exported as such; `edges` are the cells connected to the station's platform cells by track inside the area (a through track without a switch to them is left out), or only the platform cells without an area. |
 | The track of a stopping point, and its number | The track through its cell; numbered by position across the axis. | One stopping point per track, at the track's middle cell; its index is the track number; named `<station>.<index>`, e.g. `A.1` for track 1 of `A`. | One stopping point per platform cell the user marks, numbered in row-major order, so a platform longer than one cell has several stopping points on one track; named `<station>.<index>`. |
@@ -176,6 +199,14 @@ carries `city_position`, the station's middle platform cell, which is not deriva
   cell, inside `edges`; which of them are platform cells, i.e. where a train may stop and how long the platform is,
   is not in the model (`sparse_rail_generator` has no platforms beyond the stop cell).
 * A station's `edges` are the cells of its tracks inside the city plus its pins.
+
+**Checking a producer's gates.** For every pin, follow the rail outward from it, over every route, up to the first
+pin each route meets; the gates of the pins met are the gates the pin links to. Then start from the sides (or from
+the producer's gates, which must come out unchanged), split each gate by the sets of gates its pins link to, and
+repeat until nothing changes. The producer's gates satisfy the definition when the result equals them. On
+`sparse_rail_generator` (810 envs over 30 seeds, 3/5/8 cities and 1–3 rail pairs and rails between cities, 60x60)
+1,075 of 8,640 gates fail, and the split gives 9,903 gates; on the ECML2026 scenario drawn with the drawing tool,
+10 of its 71 gates fail, and the split gives 81.
 
 ## Limitations
 
