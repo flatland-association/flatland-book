@@ -1,0 +1,134 @@
+{
+  "version": "2.0.0",
+  "binding": "grid",
+  "extensions_used": { "drawing-tool": null, "flatland-ui-hub": null },
+  "stations": {
+    "A": {
+      "name": "A",
+      "display_name": "Ahorn",
+      "id": 0,
+      "area": [[3, 1], [3, 2], [3, 3], [3, 4], [5, 1], [5, 2], [5, 3], [5, 4]],
+      "gates": {
+        "W": {
+          "name": "A.W",
+          "pins": { "0": { "name": "A.W.0", "node": [3, 1] }, "1": { "name": "A.W.1", "node": [5, 1] } }
+        },
+        "E": {
+          "name": "A.E",
+          "pins": { "0": { "name": "A.E.0", "node": [3, 4] }, "1": { "name": "A.E.1", "node": [5, 4] } }
+        }
+      },
+      "stopping_points": [
+        { "name": "A.1.0", "node": [3, 3], "extensions": { "flatland-ui-hub": { "track": 1 } } },
+        { "name": "A.2.0", "node": [5, 3], "extensions": { "flatland-ui-hub": { "track": 2 } } }
+      ],
+      "placement": { "position": [4, 2], "orientation": 90.0, "outline": [[2, 1], [2, 4], [6, 4], [6, 1]] }
+    },
+    "B": {
+      "name": "B",
+      "display_name": "Buchen",
+      "id": 1,
+      "area": [[3, 8], [3, 9], [3, 10], [3, 11], [5, 8], [5, 9], [5, 10], [5, 11]],
+      "gates": {
+        "W": {
+          "name": "B.W",
+          "pins": { "0": { "name": "B.W.0", "node": [3, 8] }, "1": { "name": "B.W.1", "node": [5, 8] } }
+        },
+        "E1": { "name": "B.E1", "pins": { "0": { "name": "B.E1.0", "node": [3, 11] } } },
+        "E2": { "name": "B.E2", "pins": { "0": { "name": "B.E2.0", "node": [5, 11] } } }
+      },
+      "stopping_points": [
+        { "name": "B.1.0", "node": [3, 10], "extensions": { "flatland-ui-hub": { "track": 1 } } },
+        { "name": "B.2.0", "node": [5, 10], "extensions": { "flatland-ui-hub": { "track": 2 } } }
+      ],
+      "placement": { "position": [4, 9], "orientation": 90.0, "outline": [[2, 8], [2, 11], [6, 11], [6, 8]] }
+    },
+    "C": {
+      "name": "C",
+      "display_name": "Castel",
+      "kind": "stop",
+      "id": 2,
+      "area": [[5, 17], [5, 18]],
+      "gates": { "W": { "name": "C.W", "pins": { "0": { "name": "C.W.0", "node": [5, 17] } } } },
+      "stopping_points": [{"name": "C.1.0", "node": [5, 18], "extensions": {"flatland-ui-hub": {"track": 1}}}],
+      "placement": { "position": [5, 18], "orientation": 90.0, "outline": [[4, 17], [4, 19], [6, 19], [6, 17]] },
+      "extensions": { "drawing-tool": { "color": "#1c7ed6" } }
+    },
+    "D": {
+      "name": "D",
+      "display_name": "Dorfen",
+      "kind": "portal",
+      "id": 3,
+      "area": [[7, 14], [8, 14]],
+      "gates": { "N": { "name": "D.N", "pins": { "0": { "name": "D.N.0", "node": [7, 14] } } } },
+      "stopping_points": [{"name": "D.1.0", "node": [8, 14]}],
+      "placement": { "position": [7, 14], "orientation": 0.0, "outline": [[7, 13], [7, 15], [8, 15], [8, 13]] },
+      "extensions": { "flatland-ui-hub": { "via": "Dorfen tunnel" } }
+    },
+    "E": {
+      "name": "E",
+      "display_name": "Eschen",
+      "id": 4,
+      "gates": {  },
+      "stopping_points": [],
+      "placement": { "position": [4, 6], "orientation": 90.0 }
+    }
+  },
+  "links": [
+    {
+      "from_gate": "A.W",
+      "to_gate": "A.W",
+      "fibres": [{"from_pin": "A.W.0", "to_pin": "A.W.1", "edges": [[3, 0], [4, 0], [5, 0]]}]
+    },
+    {
+      "from_gate": "A.E",
+      "to_gate": "B.W",
+      "fibres": [
+        { "from_pin": "A.E.0", "to_pin": "B.W.0", "edges": [[3, 5], [3, 6], [3, 7]] },
+        { "from_pin": "A.E.1", "to_pin": "B.W.1", "edges": [[5, 5], [5, 6], [5, 7]] }
+      ]
+    },
+    {
+      "from_gate": "B.E1",
+      "to_gate": "D.N",
+      "fibres": [
+        {
+          "from_pin": "B.E1.0",
+          "to_pin": "D.N.0",
+          "edges": [[3, 12], [3, 13], [3, 14], [4, 14], [[5, 14], 0], [6, 14]]
+        }
+      ]
+    },
+    {
+      "from_gate": "B.E2",
+      "to_gate": "C.W",
+      "fibres": [
+        {
+          "from_pin": "B.E2.0",
+          "to_pin": "C.W.0",
+          "edges": [[5, 12], [5, 13], [[5, 14], 1], [5, 15], [5, 16]]
+        }
+      ]
+    }
+  ],
+  "gate_links": [
+    {
+      "from_gate": "A.W",
+      "to_gate": "A.E",
+      "fibres": [
+        { "from_pin": "A.W.0", "to_pin": "A.E.0", "edges": [[3, 2], [3, 3]] },
+        { "from_pin": "A.W.1", "to_pin": "A.E.1", "edges": [[5, 2], [5, 3]] }
+      ]
+    },
+    {
+      "from_gate": "B.W",
+      "to_gate": "B.E1",
+      "fibres": [{"from_pin": "B.W.0", "to_pin": "B.E1.0", "edges": [[3, 9], [3, 10]]}]
+    },
+    {
+      "from_gate": "B.W",
+      "to_gate": "B.E2",
+      "fibres": [{"from_pin": "B.W.1", "to_pin": "B.E2.0", "edges": [[5, 9], [5, 10]]}]
+    }
+  ]
+}
