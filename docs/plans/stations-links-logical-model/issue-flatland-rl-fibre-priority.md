@@ -25,6 +25,11 @@ priority yet, so all fibres are equal.
 - Scope: compared within one link or gate link, or across the network.
 - Who sets it: the drawing tool (a user lowers a pin pair's priority); `sparse_rail_generator` sets none.
 
+**Depends on**
+
+The JSON form issue, released (until then a priority is extension data). Create it only when a producer or
+consumer needs a priority.
+
 **Related**
 
 - flatland-book's plan: Q-7, Q-10, DP-10 (extensible without breaking readers). The gate links issue.

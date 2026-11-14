@@ -1,8 +1,8 @@
 # The stations and links logical model: gates, one model for grid and graph, schema and versions
 
-> **Status:** plan of 2026-11-12, revised 2026-11-13, draft. Based on `main` `bda4a79` and PR [#44](https://github.com/flatland-association/flatland-book/pull/44) (`docs/stations-links-model`, `c4b2865`),
-> which adds "Deriving information from the structure", Limitations and "Open points and possible extensions" to
-> `environment/environment/stations_links.md`. PR [#45](https://github.com/flatland-association/flatland-book/pull/45) (`docs/stations-links-logical-model`), no issue. Open questions: §9.1.
+> **Status:** plan of 2026-11-12, revised 2026-11-13 and 2026-11-14, draft. Based on `main` `ad09221`, which holds PR [#44](https://github.com/flatland-association/flatland-book/pull/44) (`docs/stations-links-model`, `c4b2865`, merged;
+> rebased 2026-11-14), which adds "Deriving information from the structure", Limitations and "Open points and possible extensions" to
+> `environment/environment/stations_links.md`. PR [#45](https://github.com/flatland-association/flatland-book/pull/45) (`docs/stations-links-logical-model`), no issue. All questions decided (§9.1).
 >
 > **Why:** the book names `Gate` but does not say what a gate is, and the two producers of `stations_links` form gates
 > differently: `sparse_rail_generator` one per city side, the Flatland Environment Drawing Tool (flatland-scenarios
@@ -79,7 +79,7 @@ Requirements:
 
 | Follow-up | Why not in this PR | From | Findings | Issue |
 |---|---|---|---|---|
-| Drawing tool: split gates by R-5 on export (Q-2 a)), or check it when an area is saved (next to `stationAreaError`) | Code in flatland-scenarios. Starts from one gate per side, flatland-scenarios PR #39 plan's S-19 (its Q-2 revisited, decided 2026-11-13) | Q-1, Q-4 | - | draft: [`flatland-scenarios-drawing-tool-gates`](stations-links-logical-model/issue-flatland-scenarios-drawing-tool-gates.md) |
+| Drawing tool: split gates by R-5 on export (Q-2 a)), or check it when an area is saved (next to `stationAreaError`) | Code in flatland-scenarios, after the JSON form's release and the tool's switch to the exchange format (the exchange-format plan's S-8, Q-18 c)). Starts from one gate per side, flatland-scenarios PR #39 plan's S-19 (its Q-2 revisited, decided 2026-11-13) | Q-1, Q-4 | - | draft: [`flatland-scenarios-drawing-tool-gates`](stations-links-logical-model/issue-flatland-scenarios-drawing-tool-gates.md) |
 | `sparse_rail_generator`: split gates where they break R-5 (Q-2 a)) | Code in flatland-rl | Q-1, §4.3 | - | draft: [`flatland-rl-sparse-gates-and-links`](stations-links-logical-model/issue-flatland-rl-sparse-gates-and-links.md) |
 | `Link`s from the grid: one fibre per connected pin pair, `edges` all routes, one link per gate pair | Code in flatland-rl (`sparse_rail_generator`) and flatland-scenarios (the tool exports no links yet) | Q-5 | - | draft: [`flatland-rl-sparse-gates-and-links`](stations-links-logical-model/issue-flatland-rl-sparse-gates-and-links.md) |
 | A priority on `Fibre` (links and gate links), a future extension: an optional field, absent meaning normal; until then in the fibre's extension data | No producer needs one yet; the form (ordinal, levels, cost) is decided when it is added (Q-10) | Q-7, Q-10 | - | draft: [`flatland-rl-fibre-priority`](stations-links-logical-model/issue-flatland-rl-fibre-priority.md) |
@@ -91,7 +91,6 @@ Requirements:
 | Drawing tool: the same check when an area is saved, next to `stationAreaError` | Code in flatland-scenarios | REQ-5 | - | draft: [`flatland-scenarios-drawing-tool-gates`](stations-links-logical-model/issue-flatland-scenarios-drawing-tool-gates.md) |
 | A check that a natively built graph has every move's reverse at the same resource (double-vertex assumption) | Code in flatland-rl (`GraphRailEnv.from_graph`); flatland-scenarios PR #36 verifies it already | §2.2, Q-17 | - | draft: [`flatland-rl-stations-links-checks`](stations-links-logical-model/issue-flatland-rl-stations-links-checks.md) |
 | Drawing tool: check station names on import and in the stations text area | flatland-scenarios PR #39 plan, F-19 (S-21) | §2.2 | - | - |
-| The extensions of §4.4 (tracks, producer data, exchange, graph, directions, visualization) | Each needs its own decision and code in flatland-rl | §4.4 | - | - |
 | `stations_links` typed by the env's resource type, generic for `RailEnv` and `GraphRailEnv`, old pickles staying readable (§8.2) | Code in flatland-rl (the exchange-format plan's S-4) | Q-14, Q-17 | - | draft: [`flatland-rl-generic-stations-links`](stations-links-logical-model/issue-flatland-rl-generic-stations-links.md) |
 | The JSON form of `StationsLinks` (`to_dict`/`from_dict`, `version`, `binding`, extensions) and one generated JSON schema per binding, with a root `binding` | Code in flatland-rl (the exchange-format plan's S-2) | Q-13, §8.3 | - | draft: [`flatland-rl-stations-links-json`](stations-links-logical-model/issue-flatland-rl-stations-links-json.md) |
 | flatland-ui-hub: its station geography from the JSON form and back, loss free, replacing `_stations_links_geography` (§8.4) | Code in flatland-ui-hub; the exchange-format plan's §4.7 designs it (its Q-7 b)) | Q-15, §8.4 | - | draft: [`flatland-ui-hub-geography-adapter`](stations-links-logical-model/issue-flatland-ui-hub-geography-adapter.md) |
@@ -124,6 +123,11 @@ documented definition leaves unchecked:
   `Link`s; §1.4).
 - `Link`s are the lines as built until producers derive them from the transition map (Q-5, §1.4); the page keeps
   this limitation.
+- Producers break R-5 today: sparse in 1,075 of 8,640 gates, the drawing tool in 10 of 71 on ECML2026 (§4.3, §1.4).
+- A stopping point is the same resource in both directions (trains are points, §2.2); real stop boards differ per
+  direction and train length.
+- Simplified graphs (`DecisionPointGraph`) are not covered: merged nodes can swallow a station's resources.
+- No fibre priority and no `Track` until a later version (Q-10, Q-16, §1.4).
 
 ### 2.2 Assumptions
 
@@ -134,6 +138,9 @@ Not checked in code; they hold by construction of the producers.
 - Gate and pin names are unique across all stations (the page's Logical Model assumption; both producers qualify
   names with a unique station name).
 - Stations are disjoint (`Station` "covers a certain (disjoint) set of the infrastructure").
+- Station names are unique and contain no `.`, since gate and pin names are qualified with them.
+- A document holds one binding: its resources and coordinates are of one env type (Q-13).
+- An outline's vertices are in clockwise order, and an orientation is a bearing in degrees (Q-12).
 - The double-vertex assumption (box below).
 - Trains are points: a train occupies one resource at a time. A stopping point is then one resource, the same for
   both directions (Q-17). In the real world it is not: a train stops with its head at a stop board, at a different
@@ -245,7 +252,7 @@ terms, with the grid form named where it differs.
 
 ### 3.2 Logical model: current
 
-*The page's class diagram as it is on PR #44, with the code's field names.*
+*The page's class diagram as it is on `main` (from PR #44), with the code's field names.*
 
 Source: the Logical Model diagram of `environment/environment/stations_links.md` (PR
 [#44](https://github.com/flatland-association/flatland-book/pull/44), unchanged since 4.3.0) and
@@ -394,14 +401,18 @@ is not new on purpose.*
 - **DP-4 Facts before rules.** Each candidate rule is checked on sparse envs and on ECML2026 before it is proposed (§4.3).
 - **DP-5 The page states what is decided; open points stay in "Open points and possible extensions".** (REQ-3)
 - **DP-6 Derived relations are stored, not derived on demand.** Links and gate links are derived from the transition
-  map by the producer and stored in `StationsLinks`, so readers need no topology code. (Q-5, Q-6)
+  map by the producer and stored in `StationsLinks`, so readers need no topology code. (Q-5, Q-6) What follows from
+  the stored fields alone (a bounding box from the outline, a layout, entry points from resources) is not stored
+  (Q-12, Q-15, Q-17). Rail data stays with the rail: edge lengths (flatland-rl PR
+  [#542](https://github.com/flatland-association/flatland-rl/pull/542), `TransitionMap.edge_length`) are not part of
+  the model, and a fibre's length follows from its resources and the transition map.
 - **DP-7 The topology is complete; bad routes are not left out.** A priority to mark them is a future extension,
   added as an optional field (Q-7, Q-10).
+- **DP-8 The station's boundary is data, not a convention.** (Q-4, Q-8)
+- **DP-9 The schema is the contract, one schema per binding.** Tools choose their own (de)serialization code. (Q-13)
 - **DP-10 Extensible without breaking readers (NFR-4).** New fields are optional with a default that means "as before";
   producer- or consumer-specific data goes into extension data until it proves general; the schema `version`
   marks what moves into the core. (Q-10, Q-13)
-- **DP-8 The station's boundary is data, not a convention.** (Q-4, Q-8)
-- **DP-9 The schema is the contract, one schema per binding.** Tools choose their own (de)serialization code. (Q-13)
 
 Reused concepts:
 
@@ -413,6 +424,12 @@ Reused concepts:
 | Gates and areas a user draws | The drawing tool's `stationGates` and `stationAreas` (flatland-scenarios PR #39) | A new editor model |
 | What a train occupies | `ResourceT` of `GridResourceMap` and `GraphResourceMap` | A station-specific cell or resource type |
 | Generic types in the exchange | pydantic v2 generic models and JSON Schema (Q-13) | A hand-written schema per binding |
+| Gates as the coarsest partition | Paige and Tarjan's partition refinement (§4.3) | an order-dependent grouping |
+| Reverse moves at the same place | Montigel's double-vertex graph (§2.2) | storing both directions |
+| Station kinds and names | railML and OSM kinds, GTFS/NeTEx naming (Q-15) | a vocabulary of our own |
+| Extension points and versions | STAC/Kubernetes-style owner-keyed extensions, semver (§8.3) | a format-specific scheme |
+| 1.x pickles | Python's `__setstate__` (§8.3) | a migration script |
+| Edge lengths | flatland-rl's `TransitionMap.edge_length` (PR #542) | lengths on links or fibres |
 
 Not new on purpose: the classes of `stations_links.py`; the names (`<station>.<gate>`, `<station>.<gate>.<index>`).
 
@@ -427,15 +444,15 @@ dots). Sparse: the example envs of §4.3 rendered with `RenderTool` (`PILSVG`, 3
 | ID | Requirement | Test or check | Result | Screenshots |
 |---|---|---|---|---|
 | REQ-1 | Gate definition | The candidate rules of §4.3 checked on sparse (30 seeds × 3/5/8 cities × 1-3 rail pairs × 1-3 rails between cities, 60×60, v4.3.0) and ECML2026 | §4.3 | [`ecml2026-gate-links.png`](stations-links-logical-model/ecml2026-gate-links.png), quarters [`q1`](stations-links-logical-model/ecml2026-gate-links-q1.png), [`q2`](stations-links-logical-model/ecml2026-gate-links-q2.png), [`q3`](stations-links-logical-model/ecml2026-gate-links-q3.png), [`q4`](stations-links-logical-model/ecml2026-gate-links-q4.png); sparse [`sparse-r5-gate-links.png`](stations-links-logical-model/sparse-r5-gate-links.png) (details [`a`](stations-links-logical-model/sparse-r5-gate-links-a.png), [`b`](stations-links-logical-model/sparse-r5-gate-links-b.png)), [`sparse-r3-in-station.png`](stations-links-logical-model/sparse-r3-in-station.png) |
-| REQ-2 | Area and links | The page's Gate and Pin rows and the diagram read against Q-4, Q-5 | ✅ b88eda6, 71cbe2a | - |
-| REQ-3 | Open points | The page's list compared with §4.4 | ✅ 71cbe2a | - |
-| REQ-4 | The page's open points addressed | Each open point of the page has a row in §4.5: decided, or a question with options and a proposal | §4.5 | - |
+| REQ-2 | Area and links | The page's Gate and Pin rows and the diagram read against Q-4, Q-5 | ✅ 2afbc10, 4ce581a | - |
+| REQ-3 | Open points | The page's list compared with §4.4 | ✅ 4ce581a | - |
+| REQ-4 | The page's open points addressed | Each open point of the page has a row in §4.5: decided, or a question with options and a proposal | ✅ 4ce581a, §4.5 | - |
 | REQ-5 | Complete pins | the checks of §4.3 (stopping at the first station resource and at the first pin give the same reach on sparse and ECML2026); a check in flatland-rl and the drawing tool (§1.4) | §4.3 | - |
 | REQ-6 | Schema | the example files validate against their binding's schema; one with an owner's extension too | open | - |
 | REQ-7 | Versioned | a document of the current, an older, a newer minor and an unknown `version`; §8.3's `Track` steps as cases (a 2.1.0 document with tracks read by a 2.0 reader, a 2.0.0 document with flatland-ui-hub's track extension promoted on read) | open | - |
 | NFR-1 | Checkable | The checks of §4.3 run on the data and the grid alone (sparse, ECML2026) | §4.3 | - |
 | NFR-2 | Producer-neutral | Both producers checked against each rule; where they break it, §4.3 and the Limitations say so | §4.3 | - |
-| NFR-3 | Grounded in the domain | The page's Gate row states the rule in Kopf terms (S-2) | ✅ b88eda6 | - |
+| NFR-3 | Grounded in the domain | The page's Gate row states the rule in Kopf terms (S-2) | ✅ 2afbc10 | - |
 | NFR-4 | Extensible by producers | The schema names the extension points (§8.3); a document with an owner's extension data validates, a reader that ignores it reads the same core, and a round trip keeps it; the example files carry one (`extensions` on `C`, §5.1) | open (needs the schema, flatland-rl) | - |
 | NFR-5 | Backwards compatible | an old `.pkl` and a document of an older `version` load (implemented in flatland-rl) | open | - |
 | NFR-6 | Human-readable, machine-diffable | the example files (§5.1) read without tools; writing the same model twice gives identical bytes; renaming one station changes only its lines and the references to it | open | - |
@@ -553,7 +570,7 @@ The split starts from whole sides. Started from the drawing tool's gates instead
 
 *Found while checking the model; each would go to the page's "Open points and possible extensions" or Limitations.*
 
-Already on the page (PR [#44](https://github.com/flatland-association/flatland-book/pull/44)): tracks, producer data, exchange, graph, gate links,
+Already on the page (from PR [#44](https://github.com/flatland-association/flatland-book/pull/44), merged): tracks, producer data, exchange, graph, gate links,
 visualization; Limitations: gates linked to several stations, R-3 failing, R-5 failing, `Link`s versus the grid, no
 directions, level-free crossings. New from this plan:
 
@@ -565,8 +582,8 @@ directions, level-free crossings. New from this plan:
 - **Unique names checked:** `StationsLinks` could reject duplicate gate and pin names instead of relying on the
   assumption.
   - **`agents_hints` from `stations_links`:** `train_stations`, the city count and the axis of `city_orientations` are
-    derivable; `city_positions` and the heading are not. A producer could derive the hints, or the hints could carry
-    only what is not derivable.
+    derivable, and with `Station.placement` (Q-12 d)) also `city_positions` and the heading. A producer could derive
+    the hints from `stations_links`.
 - **Platforms** (Q-11 d), Q-16): the model has a stopping point per track but no platform extent; the drawing tool marks platform
   cells (one stopping point per cell today, one per track planned in flatland-scenarios PR #39, its plan's S-18).
 - **`GateLink`** (decided Q-6: like a `Link` within one station, stored like links): `0..` per station, no direction,
@@ -809,7 +826,7 @@ row 7-8                                          D  (area rows 7-8, cols 13-15)
 
 *What is new compared with the base branch.*
 
-Compared with `main` `bda4a79`. What is reused, and what is not new on purpose, is in §4.1.
+Compared with `main` `ad09221`. What is reused, and what is not new on purpose, is in §4.1.
 
 | ID | New | Defined in |
 |---|---|---|
@@ -817,11 +834,15 @@ Compared with `main` `bda4a79`. What is reused, and what is not new on purpose, 
 | PAT-2 | Gates formed by splitting each side to a fixpoint (the coarsest partition), the same result in any order | §4.3, Q-2, Q-3 |
 | PAT-3 | The model generic in the env's types (`StationsLinks[ResourceT, CoordinateT]`) | §3.1, Q-8, Q-12, Q-14 |
 | PAT-4 | One generated schema per binding, with a root `binding` | Q-13 |
-| PAT-8 | A closed core with `extensions` objects keyed by owner, owners declared in `extensions_used` with their schema | §8.3, Q-13 |
-| PAT-9 | Semver for the format: optional additions minor, removals major, names never reused; promotion of extensions into the core | §8.3, REQ-7 |
 | PAT-5 | A complete topology instead of leaving bad connections out; a priority added later as an optional field | Q-7, Q-10 |
 | PAT-6 | Links and gate links derived from the transition map and stored | Q-5, Q-6 |
 | PAT-7 | Grid encodings (side) derived from the general structure, never in its place; the drawn shape a generic outline of `CoordinateT` | DP-2, Q-8, Q-12, Q-14 |
+| PAT-8 | A closed core with `extensions` objects keyed by owner, owners declared in `extensions_used` with their schema | §8.3, Q-13 |
+| PAT-9 | Semver for the format: optional additions minor, removals major, names never reused; promotion of extensions into the core | §8.3, REQ-7 |
+| PAT-10 | Owner-prefixed enum values (`<owner>:<value>`), read as the default by readers that don't know them | Q-15 |
+| PAT-11 | A place without tracks as a station with no gates and no stopping points | Q-15 |
+| PAT-12 | Old pickles converted on load (`__setstate__`, 1.x to 2.0.0) | §8.3 |
+| PAT-13 | Deterministic serialization, so documents diff line by line | NFR-6 |
 
 ### 8.2 Breaking changes
 
@@ -846,9 +867,17 @@ For the model, once flatland-rl implements the decisions (follow-ups, §1.4), ea
   crossings (`((r, c), d % 2)`);
   pickled envs hold cells. Migration: old files stay readable; on grid the cells are the resources, except at
   level-free crossings, where the axis follows from the transition map. How a reader does it is implementation
-  (planned in the exchange-format plan, its S-4).
+  (planned in the exchange-format plan: the area in its S-1, the resource types in its S-4).
 - Q-13: the exchange schema gets a root `binding`; files without it are not valid against the new schema.
 - Q-4 and Q-11 add optional fields, which break no reader.
+- Q-12 d): `AbstractRailEnv` gets the type parameter `CoordinateT`; subclasses and type annotations naming its
+  parameters change. Q-17 b): the alias `ConfigurationT` becomes `TransitionT`. Both in the typing issue (the
+  exchange-format plan's S-4).
+- Q-19: a `Link` may join a station to itself, or a gate to itself; readers assuming two stations per link must check.
+- Q-15: a station may have no gates and no stopping points; readers assuming at least one (flatland-hmi,
+  `train_stations`) must handle the empty case.
+- Q-13: the closed core rejects keys outside it; the drawing tool's extra keys (`color`, `city_position`) move into its
+  `drawing-tool` extension or into `placement` (the exchange-format plan's S-8).
 
 ### 8.3 Extension points and versioning
 
@@ -1430,8 +1459,8 @@ resources. The rail fields need `ResourceT` alone (the placement adds `Coordinat
 Not taken: a) keep `edges` beside `area`; c) keep it until `Track` (2.1.0) makes it derivable; a bounding box in place
 of the area (it cannot hold a polygon, and a shape alone does not tell which resources belong to a station on a
 graph without coordinates). Which tracks are the station's own, as against a through track, becomes `Track`'s job
-(Q-16). Implemented by flatland-rl's exchange-format plan, step S-4, and its typing issue draft; no flatland-rl
-issue exists yet.
+(Q-16). Implemented by flatland-rl's exchange-format plan: `area` replacing `edges` in S-1 (the station fields issue draft),
+the generic types in S-4 (the typing issue draft); no flatland-rl issue exists yet.
 
 ~~**Decided 2026-11-13, with an open remainder:** b): `FlatlandNode` becomes `EntryPointT`, `FlatlandEdge` becomes
 `TransitionT`.~~ Revisited the same day (above). The question as it was:
@@ -1588,16 +1617,16 @@ can mark it as bad.
 | 2026-11-12 | ~~✅ Q-8: the station area is a rectangle `[r0, c0, r1, c1]` containing all of `edges`, its border running through the pins; sparse fills in the city square; persisted and exchanged with `stations_links`.~~ Revisited 2026-11-12 (next row) | The drawing tool keeps a rectangle already; sparse's city square meets both conditions on all 4,320 checked stations; a rectangle is enough for grid producers. Not taken: a set of cells, no constraint, the bounding box of `edges` or nothing for sparse. | The area field of the §1.4 follow-up takes this form (with Q-12, `GridStation.bounding_box`); the book's "station area" terminology row changes once it exists. |
 | 2026-11-12 | ~~✅ Q-8 revisited: `Station.area` is a set of resources of the env's resource type, the same structure for grid and graph; it holds every resource of `edges`, its pins lie at its boundary (a transition leaves the area from them). A grid rectangle is the set of its cells.~~ Revisited 2026-11-13 (Q-14 row) | The model must hold for `RailEnv` and `GraphRailEnv` alike (§3.1, PR #42's general terms); a rectangle has no meaning on a graph. Not taken: the rectangle as the model's form (kept only as an optional grid encoding, Q-12). | The model is generic in its resource type (Q-14); sparse fills the cells of its city square, the drawing tool the cells of its rectangle; both checks of the earlier decision hold unchanged as statements about these cell sets. |
 | 2026-11-12 | ✅ Q-11 d): the model gets a `Track` element of its own (number, extent, platform), stopping points reference their track. | Real track numbering (PF-CH), several stopping points per track and the platform extent cannot be expressed by the index convention or a number field alone. Not taken: the convention (a), an optional or required number on `StoppingPoint` (b, c). | Its form is Q-16; a follow-up in flatland-rl (§1.4); the page's "no track of its own" bullet and the Haltekante row change; the diagram gets `Track`. |
-| 2026-11-12 | ✅ Q-13 (remainder decided 2026-11-13, below): only the schema is owned by flatland-rl; extensions are allowed without conflicting with it. Open: how extensions are marked. | One contract for all tools, while each tool can carry its own data without waiting for a flatland-rl release; (de)serialization code is the tools' choice. Not taken: flatland-rl owning the converters too (a), each tool its own converter without a shared schema (b). | The exchange-format plan follows (flatland-rl's `docs/plans/flatland-scenario-exchange-format.md`, §4.4 there: the schema, not the code, is the contract); extension marking: Q-13's remainder. |
+| 2026-11-12 | ✅ Q-13 (remainder decided 2026-11-13, below): only the schema is owned by flatland-rl; extensions are allowed without conflicting with it. How extensions are marked: decided 2026-11-13 (below). | One contract for all tools, while each tool can carry its own data without waiting for a flatland-rl release; (de)serialization code is the tools' choice. Not taken: flatland-rl owning the converters too (a), each tool its own converter without a shared schema (b). | The exchange-format plan follows (flatland-rl's `docs/plans/flatland-scenario-exchange-format.md`, §4.4 there: the schema, not the code, is the contract); extension marking: Q-13's remainder. |
 | 2026-11-12 | ✅ Q-9 d): neither the corridor rule nor an all-to-all assumption for the inside of a station; gate links record which pins connect through it. | Keeps Q-1 (the inside does not shape gates); b) and c) are assumptions sparse (3 rails) and ECML2026 (8 of 28 stations) break; the stored gate links carry what the station allows. Not taken: R-4 for gate links (a), all-to-all between pins (b) or gates (c). | ECML2026: 61 gate links, 17 partial, 20 gate pairs without; sparse: one complete gate link per city. A chain is followed pin by pin; the page says that a chain of gates means some train can pass (S-3). |
 | 2026-11-12 | ✅ Q-18 b): the walk along the line stops at the first pin it meets (§4.3). | Needs only pins and the transition map, so it reads the same on grid and graph; gives the same gates as stopping at the first station resource on both producers. Not taken: stopping at the first station resource (a), never stopping (c), crossing only the own station (the earlier b)). | The definition box and §4.3 say "up to the first pin"; ECML2026 numbers recomputed with the split from whole sides (81 gates, Q-3, Q-9). |
 | 2026-11-12 | ✅ Unique gate and pin names are an assumption of the model, stated in the Logical Model. | `Link`s and `Fibre`s refer to gates and pins by name; `StationsLinks` does not check it; both producers meet it. | Done in PR [#44](https://github.com/flatland-association/flatland-book/pull/44); a check in flatland-rl is a follow-up (§1.4). |
 | 2026-11-13 | ✅ Q-13, generic structure in the schema: one concrete schema per binding, generated from flatland-rl's generic classes, each with a root `binding` field fixed to its value. | Consistent types per document by construction, readable by every validator and code generator (flatland-ui-hub's TypeScript types). Not taken: one `$dynamicRef` schema (a; uneven tool support), a root `oneOf` over duplicated definitions alone (c), opaque values (d). | flatland-rl's classes become generic (Q-14) and emit the schemas; a 2020-12 generic schema may follow as a reference. The extension marking of Q-13 stays open. |
 | 2026-11-13 | 💡 Q-12, d) not taken in its form from the resources: deriving the placement from the resources' coordinates. | Resources need not have coordinates (virtual, or only in an extension). | d) stays as a `CoordinateT`; decided the same day, bound by the env (next row). |
-| 2026-11-13 | 💡 Q-17 revisited: pin and stopping point as entry points (b)), after Q-14 b). | Q-14 b) removes the premise of a) ("resources where the model has nodes"). | Open: which entry point a pin is, one or one per direction for a stopping point. |
+| 2026-11-13 | ~~💡 Q-17 revisited: pin and stopping point as entry points (b)), after Q-14 b).~~ Revisited the same day by Q-17 a) (row below). | Q-14 b) removes the premise of a) ("resources where the model has nodes"). | Open: which entry point a pin is, one or one per direction for a stopping point. |
 | 2026-11-13 | ✅ Q-19 b): a loop of the line back to the own station is a `Link` (two gates of the station, or one gate to itself). | Once a route leaves the station it is wayside; Q-7 c) keeps the topology complete, and R-5 already counts the loop, so gates rest on data the model holds. Not taken: count but not record (a), ignore in R-5 (c). | The page's fibre sentence gets "(potentially the same)" (S-3); a `Link` no longer always joins two stations; producers derive such links with Q-5 (§1.4). |
 | 2026-11-13 | ✅ REQ-5: a station's pins are complete (every transition from its area to outside starts at a listed pin), part of the definition, checked where a station has an area. | The walk along the line (Q-18) and the loops of Q-19 rely on it; an unlisted crossing makes the walk run through the station and hides a link. Not taken: pins on all boundary cells (a boundary cell without a track leaving is no pin), an unchecked assumption only. | Checks in flatland-rl and the drawing tool (§1.4); the §2.2 assumption becomes REQ-5. |
-| 2026-11-13 | 💡 Q-17 a) for pin, stopping point and fibre: all are resources; Q-14 revisited to a): every field of the model is a resource, `StationsLinks[ResourceT]`. | Under the double-vertex assumption (§2.2) the resource fixes the entry points, so no inward/outward choice and no gate key (opaque on a graph) is needed; with trains as points a stopping point is the same in both directions. Fibres consistently with pins: their routes follow from the resources and the transition map. Not taken: the pin as one entry point (b), the stopping point listing its entry points (b), fibres as transitions (Q-14 b)). | §3.1, the diagram and Q-16 change to `ResourceT`; the model holds no entry points or transitions; on grid the 4.3.0 cells stay, except at level-free crossings. The exchange-format plan's S-4 and the issue draft follow. Real stopping points differ per direction: a limit of trains as points. Transition b) as the term (next row). is the extent still needed next to the area (Q-14). |
+| 2026-11-13 | ✅ Q-17 a) for pin, stopping point and fibre: all are resources; Q-14 revisited to a): every field of the model is a resource, `StationsLinks[ResourceT]` (`CoordinateT` added the same day by Q-12 d), below). | Under the double-vertex assumption (§2.2) the resource fixes the entry points, so no inward/outward choice and no gate key (opaque on a graph) is needed; with trains as points a stopping point is the same in both directions. Fibres consistently with pins: their routes follow from the resources and the transition map. Not taken: the pin as one entry point (b), the stopping point listing its entry points (b), fibres as transitions (Q-14 b)). | §3.1, the diagram and Q-16 change to `ResourceT`; the model holds no entry points or transitions; on grid the 4.3.0 cells stay, except at level-free crossings. The exchange-format plan's S-4 and the issue draft follow. Real stopping points differ per direction: a limit of trains as points. Transition b) as the term (next row). |
 | 2026-11-13 | ✅ Q-17 b) for the term: "transition" for a pair of entry points; "configuration" is not used; the alias `ConfigurationT` becomes `TransitionT`. | Matches flatland-rl's `TransitionMap` and PR #42's data model (`transitions: Set[Tuple[EntryPoint, EntryPoint]]`); "configuration" named the entry point up to 4.3.0 and is used by PR #39 and PR #42's note for the agent's pair, while flatland-rl #549 rewords it away and keeps the agent's entry points flat, so it would read three ways. Not taken: configuration for the pair (a). | The plans say transition throughout; PR #42 is asked in review comments to drop configuration for transition (key concepts, `railway_features.md`). |
 | 2026-11-13 | ~~💡 Q-14 b): `FlatlandNode` becomes `EntryPointT`, `FlatlandEdge` becomes `TransitionT`; open: pins and the station's extent may be resources.~~ Revisited 2026-11-13 (Q-17 row). | The diagram's nodes and edges map one to one to flatland-rl's entry points and transitions, the same for grid and graph; pins and stopping points get a direction, fibres stay distinguishable where routes fork and join. Not taken: all resources (a, as the 4.3.0 code), the mixed proposal (c). | flatland-rl's classes change from cells to entry points and transitions (exchange-format plan, S-4); the schemas of Q-13 carry these types. |
 | 2026-11-13 | ✅ Q-10: the fibre priority is a future extension, no field now; the model stays extensible for it (optional field, absent meaning normal; extension data until then; schema `version`). | No producer sets one yet, and its form (ordinal, levels, cost) is better decided with a real use; adding it later must not break readers. Not taken: an ordinal field now (the earlier proposal). | The §5.1 diagram drops `priority`; DP-7 and the new DP-10; the issue draft becomes a future extension; Q-7 c) holds: all fibres, none marked yet. |
@@ -1611,8 +1640,8 @@ can mark it as bad.
 
 *Findings from code reviews, PR comments and TODOs, with their status and the commits that fix them.*
 
-PR [#45](https://github.com/flatland-association/flatland-book/pull/45), based on `main` `727ef57`; checked
-2026-11-14 at 22f74b8: no review threads, conversation comments, review bodies or TODOs added in the PR, so no
+PR [#45](https://github.com/flatland-association/flatland-book/pull/45), based on `main` `ad09221`; checked
+2026-11-14 at 936fca9: no review threads, conversation comments, review bodies or TODOs added in the PR, so no
 findings yet. Fixed: ✅ fixed, ⏭️ open and taken over by a follow-up (§1.4), `—` dropped, `⚠️` resolved on GitHub
 without a code change and without a reason; ❌ next to ✅ marks a fix whose PR comment is not resolved yet.
 "resolved" in Source marks threads resolved and checkboxes ticked on GitHub.
@@ -1659,6 +1688,9 @@ without a code change and without a reason; ❌ next to ✅ marks a fix whose PR
 - **Corridor**: the tracks of the open line between two gates `A` and `B`, as R-5 sees them: every pin of `A` reaches
   some pin of `B`, e.g. over parallel tracks. Not a guarantee that every pin of `A` reaches every pin of `B`.
 - **R-1–R-6**: the candidate gate rules of §4.3.
+- **Binding** (the document's root `binding`, Q-13): the resource and coordinate types of one env type. `grid`: cells
+  and grid positions; `graph`: nodes of a graph converted from a grid, with grid positions; `graph-geo`: nodes of a
+  graph built natively, with `(lat, lon)` (e.g. the OSM import of flatland-scenarios PR #36). Not a version.
 - **Side** (gate key `N`/`E`/`S`/`W`): grid only, the side of the station's outline (its rectangle) a pin lies on, named by the
   heading of a leaving train. A graph has no sides; its producer groups the pins. Not a gate: a side may hold several.
 - **Display name** (`Station.display_name`, Q-15): the name a viewer shows ("Ziegelbrücke"). Not the key `name`
@@ -1679,10 +1711,10 @@ without a code change and without a reason; ❌ next to ✅ marks a fix whose PR
 
 | ID | Findings | Step | Category | Severity | Commit message | Commit(s) | Needs | Blocked by |
 |---|---|---|---|---|---|---|---|---|
-| ✅ S-1 | - | Exclude `docs/plans/` from the book build and add this plan. | docs | - | docs(plans): plan the stations and links logical model. | 195c755 | - | - |
-| ✅ S-2 | - | Define `Gate` in the Logical Model and the Gate row of the terminology table (definition box in §4: route, pin, complete pins (REQ-5), links to, up to the first pin, Q-3, Q-18); describe how to check it, by the split to a fixpoint, in "Deriving information from the structure"; the assumptions (unique names, complete pins and the corridor rule). Resulting page: [`stations_links-after-S-2.md`](stations-links-logical-model/stations_links-after-S-2.md), the definition in cells. | docs | - | docs(stations-links): define a gate by what its pins reach along the line. | b88eda6 | S-1 | - |
-| ✅ S-3 | - | Align the page's and PR #42's definitions with the general terms (§3.1, Q-17): entry point, transition, resource; the diagram's `FlatlandNode`/`FlatlandEdge` become one `Resource` (grid: a cell, Q-14). Move `GateLink` in the diagram from `Stations` to `Links`, label `GateLink --> "2" Gate` with `from_gate, to_gate` as for `Link`, give it fibres and `0..` per station (Q-6); drop "Fibres can fork and join" (Q-5) and "May define subset of Cartesian product of from and to pins" (Q-7) from the note for `Fibre`, and the Limitations bullet's quote of the former; the `Chain` note: links and the gate links between them, passable pin by pin (Q-6, Q-9); the fibre sentence reads "between two connection pins of two stations (potentially the same)" (Q-19); `Track` «future» (Q-11, Q-16). Limitations: the producers' gates breaking the corridor rule, the drawing tool's through track (REQ-5, Q-14). "Open points and possible extensions" lists the decided, not yet implemented points (Q-2 a), Q-4 b), Q-5–Q-8, Q-10, Q-12–Q-17, Q-19), without the plan's IDs; the station area and link terminology rows (Q-8, Q-14, Q-19); the definition generalized from cells to resources and the assumption "every move can be reversed" (§2.2). Resulting page: [`stations_links-after-S-3.md`](stations-links-logical-model/stations_links-after-S-3.md). | docs | - | docs(stations-links): list station areas, links from the grid, gate links and fibre priority as open points. | 71cbe2a | S-2 | - |
-| ✅ S-4 | - | Draft the issues that implement the model in flatland-rl and flatland-ui-hub, next to the follow-ups' drafts: the station fields (`id`, `placement` with `outline`, `area` replacing `edges`, `display_name`, `kind`; the former station area draft, renamed), the JSON form and one generated schema per binding (Q-13, §8.3), the generic types (Q-14, Q-17), flatland-ui-hub's geography adapter (§8.4); §1.4 links them. The order to implement them in, with the scenario issues, is in flatland-rl's exchange-format plan (§11.2). | docs | - | docs(plans): draft the issues for the station fields, the JSON form, the generic types and flatland-ui-hub's geography adapter. | 22f74b8 | S-1 | - |
+| ✅ S-1 | - | Add this plan (`main` already excludes `docs/plans/` from the book build). | docs | - | docs(plans): plan the stations and links logical model. | c5cf646 | - | - |
+| ✅ S-2 | - | Define `Gate` in the Logical Model and the Gate row of the terminology table (definition box in §4: route, pin, complete pins (REQ-5), links to, up to the first pin, Q-3, Q-18); describe how to check it, by the split to a fixpoint, in "Deriving information from the structure"; the assumptions (unique names, complete pins and the corridor rule). Resulting page: [`stations_links-after-S-2.md`](stations-links-logical-model/stations_links-after-S-2.md), the definition in cells. | docs | - | docs(stations-links): define a gate by what its pins reach along the line. | 2afbc10 | S-1 | - |
+| ✅ S-3 | - | Align the page's and PR #42's definitions with the general terms (§3.1, Q-17): entry point, transition, resource; the diagram's `FlatlandNode`/`FlatlandEdge` become one `Resource` (grid: a cell, Q-14). Move `GateLink` in the diagram from `Stations` to `Links`, label `GateLink --> "2" Gate` with `from_gate, to_gate` as for `Link`, give it fibres and `0..` per station (Q-6); drop "Fibres can fork and join" (Q-5) and "May define subset of Cartesian product of from and to pins" (Q-7) from the note for `Fibre`, and the Limitations bullet's quote of the former; the `Chain` note: links and the gate links between them, passable pin by pin (Q-6, Q-9); the fibre sentence reads "between two connection pins of two stations (potentially the same)" (Q-19); `Track` «future» (Q-11, Q-16). Limitations: the producers' gates breaking the corridor rule, the drawing tool's through track (REQ-5, Q-14). "Open points and possible extensions" lists the decided, not yet implemented points (Q-2 a), Q-4 b), Q-5–Q-8, Q-10, Q-12–Q-17, Q-19), without the plan's IDs; the station area and link terminology rows (Q-8, Q-14, Q-19); the definition generalized from cells to resources and the assumption "every move can be reversed" (§2.2). Resulting page: [`stations_links-after-S-3.md`](stations-links-logical-model/stations_links-after-S-3.md). | docs | - | docs(stations-links): list station areas, links from the grid, gate links and fibre priority as open points. | 4ce581a | S-2 | - |
+| ✅ S-4 | - | Draft the issues that implement the model in flatland-rl and flatland-ui-hub, next to the follow-ups' drafts: the station fields (`id`, `placement` with `outline`, `area` replacing `edges`, `display_name`, `kind`; the former station area draft, renamed), the JSON form and one generated schema per binding (Q-13, §8.3), the generic types (Q-14, Q-17), flatland-ui-hub's geography adapter (§8.4); §1.4 links them. The order to create and implement them in is §11.2; the scenario issues' order is in flatland-rl's exchange-format plan (its §11.2). | docs | - | docs(plans): draft the issues for the station fields, the JSON form, the generic types and flatland-ui-hub's geography adapter. | 4762c3f | S-1 | - |
 | 💡 S-5 | - | Create the issues from the drafts, in the order of §11.2, once PR #45's review leaves the drafts final; write their links into §11.2 and §1.4. | docs | - | docs(plans): link the created issues. | | S-4 | PR #45's review |
 
 ### 11.2 Issues: creation and implementation order

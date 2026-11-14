@@ -18,9 +18,6 @@ causes three problems:
   `city_positions` and `city_orientations`), but `Station` has no field for them, so `agents_hints` cannot be
   derived from `stations_links`; and a graph built natively (e.g. from OpenStreetMap, flatland-scenarios PR #36) has
   geographic coordinates, not cells.
-- The book's Logical Model draws these fields as graph nodes and edges (`FlatlandNode`, `FlatlandEdge`, flatland-book
-  [stations and links](https://flatland-association.github.io/flatland-book/environment/environment/stations_links.html),
-  PR #44), which matches neither the code nor the env's types.
 
 **Proposal**
 
@@ -66,6 +63,8 @@ On grid this keeps today's cells, except at level-free crossings.
 
 - [ ] `AbstractRailEnv`: the type parameter `CoordinateT`; `RailEnv` binds `Tuple[int, int]`; `GraphRailEnv` stays
   generic in it, and `env.stations_links` is `Optional[StationsLinks[ResourceT, CoordinateT]]`.
+- [ ] `AbstractRailEnv.binding`: `grid` for `RailEnv`; `GraphRailEnv`'s builders set `graph` (`from_rail_env`) or
+  `graph-geo` (a native graph with `(lat, lon)`); the exchange format writes it.
 - [ ] `stations_links.py`: generic dataclasses, every rail field `ResourceT`, a placement's `position` and `outline`
   `CoordinateT`. The optional fields `Station.id`, `Station.placement`, `Station.display_name`, `Station.kind` and
   `Station.area` (replacing `Station.edges`, the station's rail resources) are added before, typed by cells; here they
@@ -94,10 +93,16 @@ On grid this keeps today's cells, except at level-free crossings.
 
 - Drawing geographic placements (`graph/graph_rendering.py:get_positions` uses grid cells only).
 
+**Depends on**
+
+The JSON form issue, released (its graph schemas follow from these types).
+
 **Related**
 
 - #441: introduced `stations_links`.
 - The JSON form issue: its schemas for the graph bindings follow from these types.
 - The station fields issue: adds the fields typed by cells; this issue makes them generic.
+- Which binding a `GraphRailEnv`'s document gets (`graph` or `graph-geo`): the exchange-format plan's Q-19, decided b):
+  the env carries it as `AbstractRailEnv.binding`, set by its builder.
 - #129: state/configuration representation.
 - flatland-book PR #44: the stations and links page.

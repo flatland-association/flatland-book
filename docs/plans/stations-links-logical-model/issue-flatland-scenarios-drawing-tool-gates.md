@@ -28,6 +28,11 @@ platform gets no pin (REQ-5 there). The tool exports no links yet.
 - [ ] README: gates, links, the area check.
 - [ ] Tests (the repo has no JS tests yet).
 
+**Depends on**
+
+The JSON form issue, released, and the drawing tool's switch to the exchange format (the exchange-format plan's
+S-8, Q-18 c)).
+
 **Related**
 
 - flatland-book's plan `docs/plans/stations-links-logical-model.md`: §4.3, Q-1–Q-3, Q-19, REQ-5.

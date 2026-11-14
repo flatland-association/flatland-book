@@ -23,6 +23,11 @@ The book's [stations and links](https://flatland-association.github.io/flatland-
 - [ ] Tests: a gate link's fibres stay inside the station; every in-station pin pair connected by the transition map
   has a fibre.
 
+**Depends on**
+
+The station fields issue (the area). The class and the field land before the JSON form issue's release (the
+exchange-format plan's Q-17 a)); the derivation on sparse may follow.
+
 **Related**
 
 - flatland-book's plan `docs/plans/stations-links-logical-model.md`: Q-6, Q-9 (ECML2026: 61 gate links, 17 partial; sparse: one complete gate link per city).

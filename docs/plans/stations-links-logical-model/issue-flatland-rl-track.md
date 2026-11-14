@@ -23,6 +23,10 @@ that it comes in a later version of the format: optional fields, a minor version
 
 - The plan's Q-16 records the options with examples: number type, name, extent, platform, where it lives.
 
+**Depends on**
+
+The JSON form issue, released; `Track` comes with `stations_links` 2.1.0.
+
 **Related**
 
 - flatland-book's plan `docs/plans/stations-links-logical-model.md`: Q-11, Q-16. The book page's Haltekante row.
