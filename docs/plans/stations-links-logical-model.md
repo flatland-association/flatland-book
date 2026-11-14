@@ -1612,7 +1612,7 @@ can mark it as bad.
 *Findings from code reviews, PR comments and TODOs, with their status and the commits that fix them.*
 
 PR [#45](https://github.com/flatland-association/flatland-book/pull/45), based on `main` `727ef57`; checked
-2026-11-13 at 71cbe2a: no review threads, conversation comments, review bodies or TODOs added in the PR, so no
+2026-11-14 at 22f74b8: no review threads, conversation comments, review bodies or TODOs added in the PR, so no
 findings yet. Fixed: ✅ fixed, ⏭️ open and taken over by a follow-up (§1.4), `—` dropped, `⚠️` resolved on GitHub
 without a code change and without a reason; ❌ next to ✅ marks a fix whose PR comment is not resolved yet.
 "resolved" in Source marks threads resolved and checkboxes ticked on GitHub.
@@ -1682,7 +1682,49 @@ without a code change and without a reason; ❌ next to ✅ marks a fix whose PR
 | ✅ S-1 | - | Exclude `docs/plans/` from the book build and add this plan. | docs | - | docs(plans): plan the stations and links logical model. | 195c755 | - | - |
 | ✅ S-2 | - | Define `Gate` in the Logical Model and the Gate row of the terminology table (definition box in §4: route, pin, complete pins (REQ-5), links to, up to the first pin, Q-3, Q-18); describe how to check it, by the split to a fixpoint, in "Deriving information from the structure"; the assumptions (unique names, complete pins and the corridor rule). Resulting page: [`stations_links-after-S-2.md`](stations-links-logical-model/stations_links-after-S-2.md), the definition in cells. | docs | - | docs(stations-links): define a gate by what its pins reach along the line. | b88eda6 | S-1 | - |
 | ✅ S-3 | - | Align the page's and PR #42's definitions with the general terms (§3.1, Q-17): entry point, transition, resource; the diagram's `FlatlandNode`/`FlatlandEdge` become one `Resource` (grid: a cell, Q-14). Move `GateLink` in the diagram from `Stations` to `Links`, label `GateLink --> "2" Gate` with `from_gate, to_gate` as for `Link`, give it fibres and `0..` per station (Q-6); drop "Fibres can fork and join" (Q-5) and "May define subset of Cartesian product of from and to pins" (Q-7) from the note for `Fibre`, and the Limitations bullet's quote of the former; the `Chain` note: links and the gate links between them, passable pin by pin (Q-6, Q-9); the fibre sentence reads "between two connection pins of two stations (potentially the same)" (Q-19); `Track` «future» (Q-11, Q-16). Limitations: the producers' gates breaking the corridor rule, the drawing tool's through track (REQ-5, Q-14). "Open points and possible extensions" lists the decided, not yet implemented points (Q-2 a), Q-4 b), Q-5–Q-8, Q-10, Q-12–Q-17, Q-19), without the plan's IDs; the station area and link terminology rows (Q-8, Q-14, Q-19); the definition generalized from cells to resources and the assumption "every move can be reversed" (§2.2). Resulting page: [`stations_links-after-S-3.md`](stations-links-logical-model/stations_links-after-S-3.md). | docs | - | docs(stations-links): list station areas, links from the grid, gate links and fibre priority as open points. | 71cbe2a | S-2 | - |
-| 💡 S-4 | - | Draft the issues that implement the model in flatland-rl and flatland-ui-hub, next to the follow-ups' drafts: the station fields (`id`, `placement` with `outline`, `area` replacing `edges`, `display_name`, `kind`; the former station area draft, renamed), the JSON form and one generated schema per binding (Q-13, §8.3), the generic types (Q-14, Q-17), flatland-ui-hub's geography adapter (§8.4); §1.4 links them. The order to implement them in, with the scenario issues, is in flatland-rl's exchange-format plan (§11.2). | docs | - | docs(plans): draft the issues for the station fields, the JSON form, the generic types and flatland-ui-hub's geography adapter. |  | S-1 | - |
+| ✅ S-4 | - | Draft the issues that implement the model in flatland-rl and flatland-ui-hub, next to the follow-ups' drafts: the station fields (`id`, `placement` with `outline`, `area` replacing `edges`, `display_name`, `kind`; the former station area draft, renamed), the JSON form and one generated schema per binding (Q-13, §8.3), the generic types (Q-14, Q-17), flatland-ui-hub's geography adapter (§8.4); §1.4 links them. The order to implement them in, with the scenario issues, is in flatland-rl's exchange-format plan (§11.2). | docs | - | docs(plans): draft the issues for the station fields, the JSON form, the generic types and flatland-ui-hub's geography adapter. | 22f74b8 | S-1 | - |
+| 💡 S-5 | - | Create the issues from the drafts, in the order of §11.2, once PR #45's review leaves the drafts final; write their links into §11.2 and §1.4. | docs | - | docs(plans): link the created issues. | | S-4 | PR #45's review |
+
+### 11.2 Issues: creation and implementation order
+
+*The drafted issues in the order of their dependencies: when each is created, and what it waits for.*
+
+- **Creation (S-5):** the issues are created by hand, in the order of the table, so that each one can link the issues
+  it needs. A flatland-rl issue body can't be edited later from the agent's side, so the drafts are final first.
+  Labels and milestones are set by hand. The fibre priority is the exception: its draft says to create it only when a
+  producer or consumer needs a priority.
+- **Implementation:** in the same order; rows with the same "Needs" can go in parallel. The exchange plan's steps
+  (flatland-rl `docs/plans/flatland-scenario-exchange-format.md`, §11) carry the issues it builds on.
+
+| Order | Issue draft | Repo | Exchange-plan step | Needs | Issue |
+|---|---|---|---|---|---|
+| 1 | [Station fields](stations-links-logical-model/issue-flatland-rl-station-fields.md) | flatland-rl | S-1 | - | - |
+| 2 | [Gate links and chains](stations-links-logical-model/issue-flatland-rl-gate-links-and-chains.md) | flatland-rl | - (before S-2's release, Q-17 a) of the exchange plan) | 1 | - |
+| 3 | [JSON form of `StationsLinks`](stations-links-logical-model/issue-flatland-rl-stations-links-json.md) | flatland-rl | S-2, then a flatland-rl release | 1, 2 | - |
+| 4 | [Stations and links checks](stations-links-logical-model/issue-flatland-rl-stations-links-checks.md) | flatland-rl | - | 1 (the area) | - |
+| 5 | [Generic `stations_links`](stations-links-logical-model/issue-flatland-rl-generic-stations-links.md) | flatland-rl | S-4 | 3 | - |  
+| 6 | [Sparse gates and links](stations-links-logical-model/issue-flatland-rl-sparse-gates-and-links.md) | flatland-rl | - | 1, 2 | - |
+| 7 | [Geography adapter](stations-links-logical-model/issue-flatland-ui-hub-geography-adapter.md) | flatland-ui-hub | S-9 | 3 released | - |
+| 8 | [Drawing tool gates](stations-links-logical-model/issue-flatland-scenarios-drawing-tool-gates.md) | flatland-scenarios | S-8 (the tool's whole export, Q-18 c) of the exchange plan) | 3 released | - |
+| 9 | [Track](stations-links-logical-model/issue-flatland-rl-track.md) | flatland-rl | - (`stations_links` 2.1.0) | 3 released | - |
+| 10 | [Fibre priority](stations-links-logical-model/issue-flatland-rl-fibre-priority.md) | flatland-rl | - | 3; created only when needed | - |
+
+Notation: an arrow points from an issue to an issue that needs it; the numbers are the order above.
+
+```mermaid
+flowchart LR
+    I1["1 station fields"] --> I2["2 gate links and chains"]
+    I1 --> I3["3 JSON form"]
+    I2 --> I3
+    I1 --> I4["4 checks"]
+    I3 --> I5["5 generic types"]
+    I1 --> I6["6 sparse gates and links"]
+    I2 --> I6
+    I3 --> I7["7 geography adapter (flatland-ui-hub)"]
+    I3 --> I8["8 drawing tool gates (flatland-scenarios)"]
+    I3 --> I9["9 track"]
+    I3 -.-> I10["10 fibre priority, when needed"]
+```
 
 ## 12. Change inventory
 
