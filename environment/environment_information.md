@@ -34,6 +34,7 @@ In particular, trains have a speed that can be lower than the current max speed.
 The simulation updates the train's speed counter accordingly. Reinterpret `DO_NOTHING` as keep running, `STOP_MOVING` as decelerate and `MOVE_FORWARD` as
 accelerate.
 Configuration sets the acceleration/braking delta or the old behaviour.
+Since `flatland 5.0.0`, speed changes act from the next step, see [Actions](./environment/actions).
 A penalty can be configured to reward function penalizing if a train enters a cell already occupied.
 
 #### Changes
@@ -43,7 +44,8 @@ A penalty can be configured to reward function penalizing if a train enters a ce
 * reinterpret actions (configuration whether to keep current behaviour):
     * `MOVE_FORWARD` increase speed (delta configurable)
     * `STOP_MOVING` decrease speed (delta configurable); set to `STOPPED` state if speed zero is reached.
-* configurable penalty if trains "crash" (if the env needs to force-stop-them), penalty proportional to train's speed.
+* configurable penalty if trains "crash" (if the env needs to force-stop-them), penalty proportional to train's speed. Since `flatland 5.0.0`, force-stops
+  due to an invalid action are tracked separately (`INVALID_ACTION`), see [Rewards](environment/rewards).
 * extract reward handling to separate (testable) class
 
 ### ⏰📉 Multi-stop Schedules (w/o alternatives/routing flexibility)
