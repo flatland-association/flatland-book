@@ -27,7 +27,8 @@ flatland-rl, with a schema as the contract, removes those converters (flatland-b
 
 **Depends on**
 
-The station fields issue.
+The station fields issue; the gate links issue's `GateLink` class and `StationsLinks.gate_links` field, since
+`gate_links` is part of 2.0.0 (the exchange-format plan's Q-17 a)).
 
 **Related**
 

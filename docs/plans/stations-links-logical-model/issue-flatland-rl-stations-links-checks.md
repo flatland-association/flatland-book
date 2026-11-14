@@ -26,6 +26,10 @@ The model relies on properties no code checks (flatland-book's plan `docs/plans/
 - [ ] The checks, called by the producers' tests and optionally on load.
 - [ ] Tests with a duplicate name, a bypass track without a pin, and a graph with a one-way edge.
 
+**Depends on**
+
+The station fields issue, for the check of complete pins (it needs the area).
+
 **Related**
 
 - flatland-book's plan `docs/plans/stations-links-logical-model.md`: §2.2, REQ-5, Q-17. The station fields issue (the area).

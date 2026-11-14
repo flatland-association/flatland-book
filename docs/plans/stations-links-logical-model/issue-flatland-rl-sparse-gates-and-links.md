@@ -32,6 +32,10 @@ that loops back to its own city.
 Gate names change where a side is split (`A.N` → `A.N1`, `A.N2`), and link counts change (one per gate pair instead
 of one per direction). Readers that address gates by name, or count links, see different data.
 
+**Depends on**
+
+The station fields issue (the area) and the gate links issue.
+
 **Related**
 
 - flatland-book's plan `docs/plans/stations-links-logical-model.md`: §4.3 (the rule and the checks), Q-1–Q-3, Q-5, Q-18, Q-19.

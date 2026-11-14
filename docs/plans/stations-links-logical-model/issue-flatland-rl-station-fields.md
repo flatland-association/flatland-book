@@ -18,12 +18,12 @@ Not created on GitHub yet. Title on the first heading line; the rest is the issu
 **Proposal**
 
 - `Station.id: Optional[int]`: the producer's own key, not the name (Q-12 d)).
-- `Station.placement: Optional[Placement]`: where the station is drawn (Q-12 d)): `position` (the reference
+- `Station.placement: Optional[Placement]` (grid coordinates for now; generic with the typing issue): where the station is drawn (Q-12 d)): `position` (the reference
   coordinate; grid: the reference cell, as `agents_hints`), `orientation` (a bearing in degrees clockwise from north;
-  `b` and `b + 180` are the same axis; grid `0`, `90`, `180`, `270`), and `outline: Optional[List[CoordinateT]]`: the
+  `b` and `b + 180` are the same axis; grid `0`, `90`, `180`, `270`), and `outline: Optional[List[IntVector2D]]` (`CoordinateT` with the typing issue): the
   drawn shape, a polygon, vertices clockwise, the first not repeated (grid: the rectangle's corners; a geographic
   graph: `(lat, lon)`). A bounding box is derived from the outline.
-- `Station.area: Optional[Set[ResourceT]]`: the station's rail resources, of the env's resource type (Q-8, Q-14 b));
+- `Station.area: Optional[Set[IntVector2D]]`: the station's rail cells, the env's resource type with the typing issue (Q-8, Q-14 b));
   its pins lie at its boundary. It replaces `Station.edges`, which is removed: on sparse `edges` equals the rail
   cells of the city square on all 4,320 stations checked, and no code reads it.
 - `Station.display_name: Optional[str]`: the name shown to people; `name` stays the key of the qualified names (Q-15).
