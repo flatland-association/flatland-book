@@ -1,0 +1,129 @@
+{
+  "version": "2.0.0",
+  "binding": "graph-geo",
+  "extensions_used": { "drawing-tool": null },
+  "stations": {
+    "A": {
+      "name": "A",
+      "id": 0,
+      "area": ["100301", "100302", "100303", "100304", "100501", "100502", "100503", "100504"],
+      "gates": {
+        "W": {
+          "name": "A.W",
+          "pins": { "0": { "name": "A.W.0", "node": "100301" }, "1": { "name": "A.W.1", "node": "100501" } }
+        },
+        "E": {
+          "name": "A.E",
+          "pins": { "0": { "name": "A.E.0", "node": "100304" }, "1": { "name": "A.E.1", "node": "100504" } }
+        }
+      },
+      "stopping_points": [{"name": "A.1.0", "node": "100303"}, {"name": "A.2.0", "node": "100503"}],
+      "placement": {
+        "position": [47.12, 9.294],
+        "orientation": 90.0,
+        "outline": [[47.122, 9.292], [47.122, 9.298], [47.118, 9.298], [47.118, 9.292]]
+      }
+    },
+    "B": {
+      "name": "B",
+      "id": 1,
+      "area": ["100308", "100309", "100310", "100311", "100508", "100509", "100510", "100511"],
+      "gates": {
+        "W": {
+          "name": "B.W",
+          "pins": { "0": { "name": "B.W.0", "node": "100308" }, "1": { "name": "B.W.1", "node": "100508" } }
+        },
+        "E1": { "name": "B.E1", "pins": { "0": { "name": "B.E1.0", "node": "100311" } } },
+        "E2": { "name": "B.E2", "pins": { "0": { "name": "B.E2.0", "node": "100511" } } }
+      },
+      "stopping_points": [{"name": "B.1.0", "node": "100310"}, {"name": "B.2.0", "node": "100510"}],
+      "placement": {
+        "position": [47.12, 9.308],
+        "orientation": 90.0,
+        "outline": [[47.122, 9.306], [47.122, 9.312], [47.118, 9.312], [47.118, 9.306]]
+      }
+    },
+    "C": {
+      "name": "C",
+      "id": 2,
+      "area": ["100517", "100518"],
+      "gates": { "W": { "name": "C.W", "pins": { "0": { "name": "C.W.0", "node": "100517" } } } },
+      "stopping_points": [{"name": "C.1.0", "node": "100518"}],
+      "placement": {
+        "position": [47.119, 9.326],
+        "orientation": 90.0,
+        "outline": [[47.12, 9.324], [47.12, 9.328], [47.118, 9.328], [47.118, 9.324]]
+      },
+      "extensions": { "drawing-tool": { "color": "#1c7ed6" } }
+    },
+    "D": {
+      "name": "D",
+      "id": 3,
+      "area": ["100714", "100814"],
+      "gates": { "N": { "name": "D.N", "pins": { "0": { "name": "D.N.0", "node": "100714" } } } },
+      "stopping_points": [{"name": "D.1.0", "node": "100814"}],
+      "placement": {
+        "position": [47.117, 9.318],
+        "orientation": 0.0,
+        "outline": [[47.117, 9.316], [47.117, 9.32], [47.116, 9.32], [47.116, 9.316]]
+      }
+    }
+  },
+  "links": [
+    {
+      "from_gate": "A.W",
+      "to_gate": "A.W",
+      "fibres": [{"from_pin": "A.W.0", "to_pin": "A.W.1", "edges": ["100300", "100400", "100500"]}]
+    },
+    {
+      "from_gate": "A.E",
+      "to_gate": "B.W",
+      "fibres": [
+        { "from_pin": "A.E.0", "to_pin": "B.W.0", "edges": ["100305", "100306", "100307"] },
+        { "from_pin": "A.E.1", "to_pin": "B.W.1", "edges": ["100505", "100506", "100507"] }
+      ]
+    },
+    {
+      "from_gate": "B.E1",
+      "to_gate": "D.N",
+      "fibres": [
+        {
+          "from_pin": "B.E1.0",
+          "to_pin": "D.N.0",
+          "edges": ["100312", "100313", "100314", "100414", "200514", "100614"]
+        }
+      ]
+    },
+    {
+      "from_gate": "B.E2",
+      "to_gate": "C.W",
+      "fibres": [
+        {
+          "from_pin": "B.E2.0",
+          "to_pin": "C.W.0",
+          "edges": ["100512", "100513", "100514", "100515", "100516"]
+        }
+      ]
+    }
+  ],
+  "gate_links": [
+    {
+      "from_gate": "A.W",
+      "to_gate": "A.E",
+      "fibres": [
+        { "from_pin": "A.W.0", "to_pin": "A.E.0", "edges": ["100302", "100303"] },
+        { "from_pin": "A.W.1", "to_pin": "A.E.1", "edges": ["100502", "100503"] }
+      ]
+    },
+    {
+      "from_gate": "B.W",
+      "to_gate": "B.E1",
+      "fibres": [{"from_pin": "B.W.0", "to_pin": "B.E1.0", "edges": ["100309", "100310"]}]
+    },
+    {
+      "from_gate": "B.W",
+      "to_gate": "B.E2",
+      "fibres": [{"from_pin": "B.W.1", "to_pin": "B.E2.0", "edges": ["100509", "100510"]}]
+    }
+  ]
+}
