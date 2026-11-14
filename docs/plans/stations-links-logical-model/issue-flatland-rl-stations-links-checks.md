@@ -28,4 +28,4 @@ The model relies on properties no code checks (flatland-book's plan `docs/plans/
 
 **Related**
 
-- flatland-book's plan `docs/plans/stations-links-logical-model.md`: §2.2, REQ-5, Q-17. The station area issue.
+- flatland-book's plan `docs/plans/stations-links-logical-model.md`: §2.2, REQ-5, Q-17. The station fields issue (the area).
