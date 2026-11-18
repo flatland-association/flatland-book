@@ -1,0 +1,39 @@
+name: Build Bibliography
+
+on:
+  push:
+    branches:
+      - main # Change to 'master' if needed
+    paths:
+      - 'resources/bibliography/**'
+      - '.github/workflows/build-bibliography.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-bib:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Pandoc
+        uses: pandoc/actions/setup@v1
+
+      - name: Generate bibliography.md from references.bib
+        run: |
+          pandoc -f markdown resources/bibliography/bibliography_gen.md \
+            --csl=resources/bibliography/aps-chrono.csl \
+            --lua-filter=resources/bibliography/group-by-year.lua \
+            -t gfm \
+            --wrap=none \
+            -o resources/bibliography.md
+
+      - name: Commit and push updated bibliography.md
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "docs: update bibliography.md from references.bib"
+          file_pattern: resources/bibliography.md
