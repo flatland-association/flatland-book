@@ -1,339 +1,704 @@
 ### Papers using Flatland
 
-Hopefully, this is the complete list of all publications that have used Flatland.
+This is hopefully a complete list of all publications that have used
+Flatland (as of Nov 2026).
 
-👏 Thanks to [aiAdrian](https://github.com/aiAdrian/flatland_railway_extension/blob/master/publications/flatland_research.MD) for compiling!
+👏 Thanks to
+[aiAdrian](https://github.com/aiAdrian/flatland_railway_extension/blob/master/publications/flatland_research.MD)
+for collecting these references!
 
-### 2026
+## References
 
-Castagna, A., Zahlner, S., Egli, A., Eichenberger, C., Boos, D., Meyer, M., & Fuxjäger, A. (2026, 11. Mai). [Towards Autonomous Railway Operations: A Semi-Hierarchical Deep Reinforcement Learning Approach to the Vehicle Rescheduling Problem.](https://arxiv.org/pdf/2605.10257v1) arXiv. doi.org
+## 2026
 
-Yang, J., Yang, H., Wang, W., & Xia, C. (2026). 
-[Large-Scale Metro Train Timetable Rescheduling via Multi-Agent Deep Reinforcement Learning: A High-Dimensional Optimization Approach in Flatland Environment.](https://www.mdpi.com/2076-3417/16/7/3338)
-Applied Sciences, 16(7), 3338.
+<div class="references csl-bib-body">
 
+<div id="ref-DLA" class="csl-entry">
 
-### 2025
+<span class="csl-left-margin">\[1\]
+</span><span class="csl-right-inline">F. Association, [Shortest path
+deadloack
+avoidance](https://github.com/flatland-association/flatland-baselines/tree/main/flatland_baselines/deadlock_avoidance_heuristic),
+(2026).</span>
 
-----
-[Mock, A., & Nguyen, M. K. (2025). Applying Reinforcement Learning to Train Scheduling.](https://www.zhaw.ch/storage/engineering/institute-zentren/cai/studentische_arbeiten/Spring_2025/BA_FS_25_RL_Train_Schedulin_train_scheduling_mockand1_nguyemi1.pdf)
+</div>
 
-Jaziri, A., Künzel, E., & Ramesh, V. (2025).
-[Mitigating the Stability-Plasticity Dilemma in Adaptive Train Scheduling with Curriculum-Driven Continual DQN Expansion.](https://arxiv.org/pdf/2408.09838)
-arXiv preprint arXiv:2408.09838.
+<div id="ref-flatland-book" class="csl-entry">
 
-### 2024
+<span class="csl-left-margin">\[2\]
+</span><span class="csl-right-inline">F. Association, [Flatland book:
+ECML 2026
+challenge](https://flatland-association.github.io/flatland-book/challenges/ecml2026.html),
+(2026).</span>
 
-----
+</div>
 
-Zhang, Y., Deekshith, U., Wang, J., & Boedecker, J. (2024, May).
-[Improving the Efficiency and Efficacy of Multi-Agent Reinforcement Learning on Complex Railway Networks with a Local-Critic Approach.](https://ojs.aaai.org/index.php/ICAPS/article/view/31533)
-In Proceedings of the International Conference on Automated Planning and Scheduling (Vol. 34, pp. 698-706).
+<div id="ref-castagna2026autonomousrailwayoperationssemihierarchical"
+class="csl-entry">
 
-Venugopal, A., Milani, S., Fang, F., & Ravindran, B. (2024, May).
-[MABL: Bi-Level Latent-Variable World Model for Sample-Efficient Multi-Agent Reinforcement Learning.](https://www.ifaamas.org/Proceedings/aamas2024/pdfs/p1865.pdf)
-In Proceedings of the 23rd International Conference on Autonomous Agents and Multiagent Systems (pp. 1865-1873).
+<span class="csl-left-margin">\[3\]
+</span><span class="csl-right-inline">A. Castagna, S. Zahlner, A. Egli,
+C. Eichenberger, D. Boos, M. Meyer, and A. Fuxjager, [Towards autonomous
+railway operations: A semi-hierarchical deep reinforcement learning
+approach to the vehicle rescheduling
+problem](https://doi.org/10.48550/arxiv.2605.10257), arXiv Preprint
+(2026).</span>
 
-Rousseau, T., Amokrane, K., Meddeb, M., Renoir, N. , Brunat, M. , Fort, M. , Schott, L. , Mahler, S. , Berthou, H.  (2024, April)
-[Cooperation between a human traffic manager and an AI assistant for an improved railway infrastructure resilience.](https://hal.science/hal-04547672/)
-In Transport Research Arena (TRA2024).
+</div>
 
-Zhang, Y., Deekshith, U., Wang, J., & Boedecker, J. (2024, March). [LCPPO: An Efficient Multi-agent Reinforcement
-Learning Algorithm on Complex Railway Network.](https://openreview.net/pdf?id=gylH3hNASm)
-In 34th International Conference on Automated Planning and Scheduling.
-
-Sankaranarayanasamy, M., & Vennelakanti, R. (2024, February).
-[Multi-agent reinforcement learning for shared resource scheduling conflict resolution.](https://ieeexplore.ieee.org/abstract/document/10467469)
-In 2024 International Conference on Artificial Intelligence, Computer, Data Sciences and Applications (ACDSA) (pp. 1-6). IEEE.
-
-
-Agarwal, S.
-[Exploring Complex Group Dynamics:
-Visual Analysis of Overlapping
-Groups and Interactions Over Time.](https://duepublico2.uni-due.de/receive/duepublico_mods_00081425)
-Doctoral dissertation, Dissertation, Duisburg, Essen, Universität Duisburg-Essen, 2024.
-
-### 2023
-
-----
-Chen, Z., Li, J., Harabor, D., & Stuckey, P. J. (2023).
-[Scalable Rail Planning and Replanning with Soft Deadlines.](https://arxiv.org/pdf/2306.06455.pdf)
-arXiv preprint arXiv:2306.06455.
-
-Krause, C., Agarwal, S., Burch, M., & Beck, F. (2023).
-[Visually Abstracting Event Sequences as Double Trees
-Enriched with Category‐Based Comparison.](https://onlinelibrary.wiley.com/doi/epdf/10.1111/cgf.14805)
-In Computer Graphics Forum.
-
-Formanek, C., Jeewa, A., Shock, J., & Pretorius, A. (2023).
-[Off-the-Grid MARL: Datasets and Baselines for Offline
-Multi-Agent Reinforcement Learning.](https://www.southampton.ac.uk/~eg/AAMAS2023/pdfs/p2442.pdf)
-In Proceedings of the 2023 International Conference on Autonomous Agents and Multiagent Systems (pp. 2442-2444).
-
-Nygren, E., Eichenberger, C., & Frejinger, E. (2023).
-[Scope Restriction for Scalable Real-Time Railway Rescheduling: An Exploratory Study.](https://arxiv.org/abs/2305.03574)
-arXiv preprint, arXiv:2305.03574.
-
-Venugopal, A., Milani, S., Fang, F., & Ravindran, B. (2023, Apr 12).
-[Bi-level Latent Variable Model for Sample-Efficient
-Multi-Agent Reinforcement Learning.](https://arxiv.org/abs/2304.06011)
-arXiv preprint, arXiv:2304.06011.
-
-Song S. ,Na K. -I. and Yu W. (2023.),
-["Anytime Lifelong Multi-Agent Pathfinding in Topological Maps,"](https://ieeexplore.ieee.org/document/10054055)
-in IEEE Access, vol. 11, pp. 20365-20380, 2023, doi: 10.
-1109/ACCESS.2023.3249471.
-
-Formanek, C., Jeewa, A., Shock, J., & Pretorius, A. (2023).
-[Off-the-Grid MARL: a Framework for Dataset Generation with Baselines for Cooperative
-Offline Multi-Agent Reinforcement Learning.](https://arxiv.org/abs/2302.00521)
-arXiv preprint arXiv:2302.00521.
-
-Yakovlev, K. S., Andreychuk, A. A., Skrynnik, A. A., & Panov, A. I.
-(2023, January).
-[Planning and Learning in Multi-Agent Path Finding.](
-https://link.springer.com/article/10.1134/S1064562422060229
-)
-In Doklady Mathematics (pp. 1-6). Moscow: Pleiades Publishing.
-
-Minashina, I. K., Gorbachev, R. A., & Zakharova, E. M. (2023, January).
-[Scheduling in Multiagent Systems Using Reinforcement Learning.](
-https://link.springer.com/article/10.1134/S1064562422060175
-)
-In Doklady Mathematics (pp. 1-9). Moscow: Pleiades Publishing.
-
-### 2022
-
-----
-Fernández López Areal, Mateo (2022)
-[Solving the vehicle rescheduling problem (VRSP) for railroad transport using the deep multi-agent reinforcement learning.](https://oa.upm.es/84607/)
-Thesis (Master thesis), Biblioteca ETSI Telecomunicación, Universitat Politecnica Madrid.
-
-Dalle, G. (Dec 2022). [Machine learning and combinatorial optimization algorithms,
-with applications to railway planning](https://pastel.archives-ouvertes.fr/tel-04053322).
-Doctoral dissertation, Marne-la-vallée, École des Ponts ParisTech.
-
-Vysušilová, P. (Oct 2022). [Awareness and Adaptability in Multi-Agent Reinforcement Learning](https://ktiml.mff.cuni.cz/~vysusilova/texts/survey.pdf).
-Charles University, Faculty of Mathematics and Physics.
-
-Mohapatra, D., Ojha, A., Khadilkar, H., & Ghosh, S. (2022, July).
-[Gatekeeper: A deep reinforcement learning-cum-heuristic based algorithm for
-scheduling and routing trains in complex environments.](
-https://ieeexplore.ieee.org/document/9892216
-)
-In 2022 International Joint Conference on Neural Networks (IJCNN) (pp. 1-7).
-IEEE.
-
-Svancara, J., & Barták, R. (2022).
-[Tackling Train Routing via Multi-agent Pathfinding and Constraint-based
-Scheduling.](
-http://svancara.net/files/ICAART_2022_vlaky.pdf
-) In ICAART (1) (pp. 306-313).
-
-Popescu, T. (2022).
-[Reinforcement learning for train dispatching](
-https://www.diva-portal.org/smash/record.jsf?pid=diva2%3A1702837&dswid=988
-): A study on the possibility to
-use reinforcement learning to optimize train ordering and minimize train delays
-in disrupted situations, inside the rail simulator OSRD.
-
-Jiang, Y., Zhang, K., Li, Q., Chen, J., & Zhu, X. (2022). [
-Multi-Agent Path Finding via Tree LSTM.](
-https://arxiv.org/abs/2210.12933
-) arXiv preprint arXiv:2210.12933.
-
-Gorsane, R., Mahjoub, O., de Kock, R., Dubb, R., Singh, S., & Pretorius, A. (
-2022).
-[Towards a standardised performance evaluation protocol for cooperative marl.](
-https://arxiv.org/abs/2209.10485
-)
-arXiv preprint arXiv:2209.10485.
-
-Leichthammer, L. (2022).
-[Evaluating Planning-based Machine Learning Algorithms for Scheduling Railway Operations.](
-https://ml-research.github.io/papers/leichthammer2022evaluating.pdf
-)
-
-Chen, Z., Li, J., Harabor, D., Stuckey, P. J., & Koenig, S. (2022, July).
-[Multi-Train Path Finding Revisited.](
-https://ojs.aaai.org/index.php/SOCS/article/view/21750
-)
-In Proceedings of the International
-Symposium on Combinatorial Search (Vol. 15, No. 1, pp. 38-46).
-
-Egorov, V., & Shpilman, A. (2022).
-[Scalable Multi-Agent Model-Based Reinforcement Learning.](
-https://arxiv.org/abs/2205.15023
-) arXiv preprint arXiv:2205.15023.
-
-Schmidt, L. M., Brosig, J., Plinge, A., Eskofier, B. M., & Mutschler, C.
-(2022, October).
-[An introduction to multi-agent reinforcement learning and review of its
-application to autonomous mobility.](
-https://ieeexplore.ieee.org/abstract/document/9922205
-) In 2022 IEEE 25th International
-Conference on Intelligent Transportation Systems (ITSC) (pp. 1342-1349). IEEE.
-
-Fronda, L., Berta, R., Cesario, P., De Gloria, A., & Bellotti, F. (2022).
-[Modeling the Line Interruption Issue in a Railway Network.](
-https://link.springer.com/chapter/10.1007/978-3-030-95498-7_35
-)
-In Applications in Electronics Pervading Industry, Environment and Society:
-APPLEPIES 2021 (pp. 249-255). Cham: Springer International Publishing.
-
-Lövétei, I., Kővári, B., Bécsi, T., & Aradi, S. (2022).
-[Environment
-Representations of Railway Infrastructure for Reinforcement Learning-Based
-Traffic Control.](
-https://www.mdpi.com/2076-3417/12/9/4465
-) Applied Sciences, 12(9), 4465.
-
-Kopacz, A., Mester, Á., Kolumbán, S., & Csató, L. (2022, March).
-[Standardized feature extraction from pairwise conflicts applied to the
-train rescheduling problem.](
-https://ieeexplore.ieee.org/abstract/document/9780701
-)
-In 2022 IEEE 20th Jubilee World Symposium on
-Applied Machine Intelligence and Informatics (SAMI) (pp. 000103-000108). IEEE.
-
-Dalle, G., & Parmentier, A. (2022, February).
-[Learning to Solve Stochastic Multi-Agent Path Finding.](
-https://hal.science/hal-03595315/document
-)
-In 23ème congrès annuel de la Société Française de Recherche Opérationnelle
-et d'Aide à la Décision.
-
-Agarwal, S., Wallner, G., Watson, J., & Beck, F. (2022, April).
-[Spatio-temporal Analysis of Multi-agent Scheduling Behaviors on Fixed-track
-Networks.](
-https://ieeexplore.ieee.org/abstract/document/9787908
-) In 2022 IEEE 15th Pacific Visualization Symposium (PacificVis)
-(pp. 21-30). IEEE.
-
-### 2021
-
-----
-
-Badyal, S. (2021). [A Comparative Study of Multi-Agent Reinforcement
-Learning on Real World Problems](
-https://keep.lib.asu.edu/items/161758
-)
-(Doctoral dissertation, Arizona State
-University).
-
-Leamer, A., Sharma, R., & Khan, M. S. (2021)
-[Multi-Agent Reinforcement Learning on
-Trains using Classical AI Search Technique.](
-http://ktiml.mff.cuni.cz/~bartak/ui_seminar/talks/2021LS/Final-TeamSearch.pdf
-)
-
-Chen, Z., Harabor, D. D., Li, J., & Stuckey, P. J. (2021, May).
-[Symmetry breaking for k-robust multi-agent path finding.](
-https://ojs.aaai.org/index.php/AAAI/article/view/17456
-) In Proceedings of the AAAI Conference on Artificial Intelligence (Vol. 35, No.
-14, pp. 12267-12274).
-
-Hájek, R., Malecek, L., Melecký, M., & Schovancová, J. (2021).
-[Flatland Challenge, Team Learn.](
-http://ktiml.mff.cuni.cz/~bartak/ui_seminar/talks/2021LS/Final-TeamLearn.pdf
-)
-
-Choi, B., & Kim, J. K. (2021).
-[The Analysis of Flatland Challenge Winners' Multi-agent Methodologies.](
-http://manuscriptlink-society-file.s3.amazonaws.com/kips/conference/kips2021spring/presentation/KIPS_C2021A0018.pdf
-)
-In Proceedings of the Korea Information Processing Society Conference (pp.
-369-372). Korea Information Processing Society.
-
-Li, J., Chen, Z., Zheng, Y., Chan, S. H., Harabor, D., Stuckey, P. J.,
-Hang M., Koenig, S. (2021, May).
-[Scalable rail planning and replanning: Winning the 2020 flatland challenge.](
-https://ojs.aaai.org/index.php/ICAPS/article/view/15994
-)
-In Proceedings of the International Conference on Automated Planning and
-Scheduling (Vol. 31, pp. 477-485).
-
-Laurent, F., Schneider, M., Scheller, C., Watson, J.,
-Li, J., Chen, Z., Zheng, Y., Chan, S., Makhnev, K.,  
-Svidchenko, O., Egorov, V., Ivanov, D., Shpilman, A.,
-Spirovska, E., Tanevski, O., Nikov, A., Grunder, R., Galevski, D.,
-Mitrovski, J., Sartoretti, G., Luo, Z., Damani, M., Bhattacharya, N.,
-Agarwal, S., Egli, A., Nygren, E., Mohanty, S. (2021, August).
-[Flatland competition 2020: MAPF and MARL for efficient train coordination on
-a grid world.](
-https://proceedings.mlr.press/v133/laurent21a.html
-)
-In NeurIPS 2020 Competition and Demonstration Track (pp. 275-301). PMLR.
-
-### 2020
-
-----
-
-Wälter, J., Mehta, F. D., & Rao, X. (2020).
-[Aiding vehicle scheduling and rescheduling using machine learning.](
-https://www.witpress.com/elibrary/tdi/4/4/2733
-)
-International Journal of Transport Development and Integration, 4(4), 308-320.
-
-Filip, R. (2020).
-[Multi-agent Path-finding for trains with breakdowns.](
-https://dspace.cvut.cz/bitstream/handle/10467/87776/F3-BP-2020-Ryzner-Filip-BP_FILIP_RYZNER_2020.pdf
-). Czech Technical University in Prague. Faculty of Electrical Engineering.
-
-Mohanty, S., Nygren, E., Laurent, F., Schneider, M.,
-Scheller, C., Bhattacharya, N., Watson, J., Egli, A.,
-Eichenberger, C., Baumberger, C., Vienken, C., Sturm, I.,
-Sartoretti, G., Spigler, G. (2020).
-[Flatland-rl: Multi-agent reinforcement learning on
-trains.](https://arxiv.org/abs/2012.05893)
-arXiv preprint arXiv:2012.05893.
-
-Roost, D., Meier, R., Huschauer, S., Nygren, E., Egli, A., Weiler, A., &
-Stadelmann, T. (2020, June).
-[Improving sample efficiency and multi-agent
-communication in RL-based train rescheduling.](
-https://ieeexplore.ieee.org/abstract/document/9145010
-)
-In 2020 7th Swiss Conference on Data Science (SDS) (pp. 63-64). IEEE.
-
-Wälter, J. (2020).
-[Existing and novel approaches to the vehicle
-rescheduling problem (VRSP)](
-https://eprints.ost.ch/id/eprint/855/
-) (Doctoral dissertation, HSR Hochschule für
-Technik Rapperswil).
-
-Andreica, M. I. (2020).
-[Winning Solution of the AIcrowd SBB Flatland Challenge 2019-2020.](
-https://arxiv.org/abs/2111.07876
-)
-arXiv preprint arXiv:2111.07876.
-
-### 2019
-
-----
-
-Meier, R., Roost D. (2019).
-[Reinforcement Learning in a Multi-Agent System for Train
-Scheduling](
-https://www.zhaw.ch/storage/shared/upload/PA19_RLinaMultiAgentSystemforTrainScheduling.pdf
-).
-Project thesis, Computer Science, Zurich University of Applied Sciences.
-
-Cantini, G. (2019).
-[FLATLAND: A study of Deep Reinforcement Learning methods applied to the
-vehicle rescheduling problem in a railway environment.](
-https://amslaurea.unibo.it/20412/1/thesis_giulia_cantini.pdf
-)
-Faculty of Science, Computer Science, University of Bologna
-
-Nygren, E., Egli, A., Spigler, G., Ljungström, M., Watson, J., Eichenberger,
-C., Mollard, G., Mohanty, S. (2019).
-[Flatland challenge: Multi agent reinforcement learning on trains.](
-https://www.aicrowd.com/challenges/flatland-challenge
-).
-
-Mohanty, S. Nygren, E., Egli, A., Salathé, M. (2019).
-[Flatland-RL : Multi Agent Reinforcement Learning on Trains.](
-https://www.zhaw.ch/storage/engineering/institute-zentren/cai/FS2019_FlatlandBaselines.pdf
-).
+<div id="ref-jaziri2026mitigatingstabilityplasticitydilemmaadaptive"
+class="csl-entry">
+
+<span class="csl-left-margin">\[4\]
+</span><span class="csl-right-inline">A. Jaziri, E. Künzel, and V.
+Ramesh, [Mitigating the stability-plasticity dilemma in adaptive train
+scheduling with curriculum-driven continual DQN
+expansion](https://doi.org/10.48550/arxiv.2408.09838), arXiv Preprint
+arXiv:2408.09838 (2026).</span>
+
+</div>
+
+<div id="ref-meyer2026realworld" class="csl-entry">
+
+<span class="csl-left-margin">\[5\]
+</span><span class="csl-right-inline">M. Meyer, C. Eichenberger, D.
+Makwana, V. A. Guntupalli, R. Liessner, M. Schneider, A. Fuxjäger, A.
+Egli, D. Boos, and R. J. Bessa, *Real-World Baselines Challenge: Dynamic
+Train Rescheduling under Stochastic Perturbations*,
+(unpublished).</span>
+
+</div>
+
+<div id="ref-app16073338" class="csl-entry">
+
+<span class="csl-left-margin">\[6\]
+</span><span class="csl-right-inline">J. Yang, H. Yang, W. Wang, and C.
+Xia, [Large-scale metro train timetable rescheduling via multi-agent
+deep reinforcement learning: A high-dimensional optimization approach in
+flatland environment](https://doi.org/10.3390/app16073338), Applied
+Sciences **16**, 3338 (2026).</span>
+
+</div>
+
+</div>
+
+## 2025
+
+<div class="references csl-bib-body">
+
+<div id="ref-mock2025applying" class="csl-entry">
+
+<span class="csl-left-margin">\[7\]
+</span><span class="csl-right-inline">A. Mock and M. K. Nguyen,
+[Applying reinforcement learning to train
+scheduling](https://www.zhaw.ch/storage/engineering/institute-zentren/cai/studentische_arbeiten/Spring_2025/BA_FS_25_RL_Train_Schedulin_train_scheduling_mockand1_nguyemi1.pdf),
+(2025).</span>
+
+</div>
+
+</div>
+
+## 2024
+
+<div class="references csl-bib-body">
+
+<div id="ref-rousseau:hal-04547672" class="csl-entry">
+
+<span class="csl-left-margin">\[8\]
+</span><span class="csl-right-inline">T. Rousseau, K. Amokrane, M.
+Meddeb, N. Renoir, M. Brunat, M. Fort, L. Schott, S. Mahler, and H.
+Berthou, *[Cooperation between a Human Traffic Manager and an AI
+Assistant for an Improved Railway Infrastructure
+Resilience](https://hal.science/hal-04547672)*, in
+*<span class="nocase">TRA procedings</span>* (Dublin, Ireland,
+2024).</span>
+
+</div>
+
+<div id="ref-sankaranarayanasamy2024marl" class="csl-entry">
+
+<span class="csl-left-margin">\[9\]
+</span><span class="csl-right-inline">M. Sankaranarayanasamy and R.
+Vennelakanti, *[Multi-Agent Reinforcement Learning for Shared Resource
+Scheduling Conflict
+Resolution](https://doi.org/10.1109/ACDSA59508.2024.10467469)*, in *2024
+International Conference on Artificial Intelligence, Computer, Data
+Sciences and Applications (ACDSA)* (IEEE, 2024), pp. 1–6.</span>
+
+</div>
+
+<div id="ref-venugopal2024mabl" class="csl-entry">
+
+<span class="csl-left-margin">\[10\]
+</span><span class="csl-right-inline">A. Venugopal, S. Milani, F. Fang,
+and B. Ravindran, *[MABL: Bi-Level Latent-Variable World Model for
+Sample-Efficient Multi-Agent Reinforcement
+Learning](https://doi.org/10.48550/arxiv.2304.06011)*, in *Proceedings
+of the 23rd International Conference on Autonomous Agents and Multiagent
+Systems (AAMAS 2024)* (IFAAMAS, 2024), pp. 1865–1873.</span>
+
+</div>
+
+<div id="ref-venugopal2024mablbilevellatentvariableworld"
+class="csl-entry">
+
+<span class="csl-left-margin">\[11\]
+</span><span class="csl-right-inline">A. Venugopal, S. Milani, F. Fang,
+and B. Ravindran, [MABL: Bi-level latent-variable world model for
+sample-efficient multi-agent reinforcement
+learning](https://doi.org/10.48550/arxiv.2304.06011), (2024).</span>
+
+</div>
+
+<div id="ref-zhang2024improving" class="csl-entry">
+
+<span class="csl-left-margin">\[12\]
+</span><span class="csl-right-inline">Y. Zhang, U. Deekshith, J. Wang,
+and J. Boedecker, *[Improving the Efficiency and Efficacy of Multi-Agent
+Reinforcement Learning on Complex Railway Networks with a Local-Critic
+Approach](https://doi.org/10.1609/icaps.v34i1.31533)*, in *Proceedings
+of the International Conference on Automated Planning and Scheduling*,
+Vol. 34 (AAAI, 2024), pp. 698–706.</span>
+
+</div>
+
+<div id="ref-zhang2024lcppo" class="csl-entry">
+
+<span class="csl-left-margin">\[13\]
+</span><span class="csl-right-inline">Y. Zhang, U. Deekshith, J. Wang,
+and J. Boedecker, *[LCPPO: An Efficient Multi-Agent Reinforcement
+Learning Algorithm on Complex Railway
+Network](https://openreview.net/forum?id=gylH3hNASm)*, in *34th
+International Conference on Automated Planning and Scheduling (ICAPS)*
+(2024).</span>
+
+</div>
+
+</div>
+
+## 2023
+
+<div class="references csl-bib-body">
+
+<div id="ref-duepublico_mods_00081425" class="csl-entry">
+
+<span class="csl-left-margin">\[14\]
+</span><span class="csl-right-inline">S. Agarwal, [Exploring Complex
+Group Dynamics: Visual Analysis of Overlapping Groups and Interactions
+over Time](https://doi.org/10.17185/duepublico/81425), PhD thesis,
+2023.</span>
+
+</div>
+
+<div id="ref-chen2023scalablerailplanningreplanning" class="csl-entry">
+
+<span class="csl-left-margin">\[15\]
+</span><span class="csl-right-inline">Z. Chen, J. Li, D. Harabor, and P.
+J. Stuckey, [Scalable rail planning and replanning with soft
+deadlines](https://doi.org/10.48550/arxiv.2306.06455), (2023).</span>
+
+</div>
+
+<div id="ref-formanek2023offthegridmarldatasetsbaselines"
+class="csl-entry">
+
+<span class="csl-left-margin">\[16\]
+</span><span class="csl-right-inline">C. Formanek, A. Jeewa, J. Shock,
+and A. Pretorius, [Off-the-grid MARL: Datasets with baselines for
+offline multi-agent reinforcement
+learning](https://doi.org/10.48550/arxiv.2302.00521), (2023).</span>
+
+</div>
+
+<div id="ref-formanek2023off" class="csl-entry">
+
+<span class="csl-left-margin">\[17\]
+</span><span class="csl-right-inline">C. Formanek, A. Jeewa, J. Shock,
+and A. Pretorius, *[Off-the-Grid MARL: Datasets and Baselines for
+Offline Multi-Agent Reinforcement
+Learning](https://doi.org/10.65109/vmil8420)*, in *Proceedings of the
+22nd International Conference on Autonomous Agents and Multiagent
+Systems (AAMAS 2023)* (IFAAMAS, 2023), pp. 2442–2444.</span>
+
+</div>
+
+<div id="ref-https://doi.org/10.1111/cgf.14805" class="csl-entry">
+
+<span class="csl-left-margin">\[18\]
+</span><span class="csl-right-inline">C. Krause, S. Agarwal, M. Burch,
+and F. Beck, [Visually abstracting event sequences as double trees
+enriched with category-based
+comparison](https://doi.org/10.1111/cgf.14805), Computer Graphics Forum
+**42**, e14805 (2023).</span>
+
+</div>
+
+<div id="ref-minashina2022scheduling" class="csl-entry">
+
+<span class="csl-left-margin">\[19\]
+</span><span class="csl-right-inline">I. K. Minashina, R. A. Gorbachev,
+and E. M. Zakharova, [Scheduling in multiagent systems using
+reinforcement learning](https://doi.org/10.1134/S1064562422060175),
+Doklady Mathematics **106**, 1 (2023).</span>
+
+</div>
+
+<div id="ref-nygren2023scoperestrictionscalablerealtime"
+class="csl-entry">
+
+<span class="csl-left-margin">\[20\]
+</span><span class="csl-right-inline">E. Nygren, C. Eichenberger, and E.
+Frejinger, [Scope restriction for scalable real-time railway
+rescheduling: An exploratory
+study](https://doi.org/10.48550/arxiv.2305.03574), arXiv Preprint
+arXiv:2305.03574 (2023).</span>
+
+</div>
+
+<div id="ref-10054055" class="csl-entry">
+
+<span class="csl-left-margin">\[21\]
+</span><span class="csl-right-inline">S. Song, K.-I. Na, and W. Yu,
+[Anytime lifelong multi-agent pathfinding in topological
+maps](https://doi.org/10.1109/ACCESS.2023.3249471), IEEE Access **11**,
+20365 (2023).</span>
+
+</div>
+
+<div id="ref-yakovlev2022planning" class="csl-entry">
+
+<span class="csl-left-margin">\[22\]
+</span><span class="csl-right-inline">K. S. Yakovlev, A. A. Andreychuk,
+A. A. Skrynnik, and A. I. Panov, [Planning and learning in multi-agent
+path finding](https://doi.org/10.1134/S1064562422060229), Doklady
+Mathematics **106**, 1 (2023).</span>
+
+</div>
+
+</div>
+
+## 2022
+
+<div class="references csl-bib-body">
+
+<div id="ref-vysusilova2022awareness" class="csl-entry">
+
+<span class="csl-left-margin">\[23\]
+</span><span class="csl-right-inline">P. Vysušilová, [Awareness and
+Adaptability in Multi-Agent Reinforcement
+Learning](https://ktiml.mff.cuni.cz/~vysusilova/texts/survey.pdf),
+Working Paper, Charles University, Faculty of Mathematics; Physics,
+2022.</span>
+
+</div>
+
+<div id="ref-leichthammer2022evaluating" class="csl-entry">
+
+<span class="csl-left-margin">\[24\]
+</span><span class="csl-right-inline">L. Leichthammer, [Evaluating
+Planning-Based Machine Learning Algorithms for Scheduling Railway
+Operations](https://ml-research.github.io/papers/leichthammer2022evaluating.pdf),
+Master's Thesis, Technische Universität Darmstadt, 2022.</span>
+
+</div>
+
+<div id="ref-dalle2022learning" class="csl-entry">
+
+<span class="csl-left-margin">\[25\]
+</span><span class="csl-right-inline">G. Dalle and A. Parmentier,
+*[Learning to Solve Stochastic Multi-Agent Path
+Finding](https://hal.science/hal-03595315)*, in
+*<span class="nocase">23<span class="nocase">è</span>me
+congr<span class="nocase">è</span>s annuel de la
+Soci<span class="nocase">é</span>t<span class="nocase">é</span>
+Fran<span class="nocase">ç</span>aise de Recherche
+Op<span class="nocase">é</span>rationnelle et d’Aide
+<span class="nocase">à</span> la
+D<span class="nocase">é</span>cision</span>* (INSA Lyon, Villeurbanne -
+Lyon, France, 2022).</span>
+
+</div>
+
+<div id="ref-agarwal2022spatiotemporal" class="csl-entry">
+
+<span class="csl-left-margin">\[26\]
+</span><span class="csl-right-inline">S. Agarwal, G. Wallner, J. Watson,
+and F. Beck, *[Spatio-Temporal Analysis of Multi-Agent Scheduling
+Behaviors on Fixed-Track
+Networks](https://doi.org/10.1109/PacificVis53943.2022.00011)*, in *2022
+IEEE 15th Pacific Visualization Symposium (PacificVis)* (IEEE, 2022),
+pp. 21–30.</span>
+
+</div>
+
+<div id="ref-chen2022multi" class="csl-entry">
+
+<span class="csl-left-margin">\[27\]
+</span><span class="csl-right-inline">Z. Chen, J. Li, D. Harabor, P. J.
+Stuckey, and S. Koenig, *[Multi-Train Path Finding
+Revisited](https://ojs.aaai.org/index.php/SOCS/article/view/21750)*, in
+*Proceedings of the International Symposium on Combinatorial Search
+(SoCS)*, Vol. 15 (2022), pp. 38–46.</span>
+
+</div>
+
+<div id="ref-dalle2022thesis" class="csl-entry">
+
+<span class="csl-left-margin">\[28\]
+</span><span class="csl-right-inline">G. Dalle, [Machine Learning and
+Combinatorial Optimization Algorithms, with Applications to Railway
+Planning](https://pastel.hal.science/tel-04053322), PhD thesis, École
+des Ponts ParisTech, Marne-la-Vallée, 2022.</span>
+
+</div>
+
+<div id="ref-egorov2022scalable" class="csl-entry">
+
+<span class="csl-left-margin">\[29\]
+</span><span class="csl-right-inline">V. Egorov and A. Shpilman,
+[Scalable multi-agent model-based reinforcement
+learning](https://doi.org/10.65109/zyeh4087), arXiv Preprint
+arXiv:2205.15023 (2022).</span>
+
+</div>
+
+<div id="ref-upm84607" class="csl-entry">
+
+<span class="csl-left-margin">\[30\]
+</span><span class="csl-right-inline">M. Fernández López Areal, [Solving
+the Vehicle Rescheduling Problem (VRSP) for Railroad Transport Using the
+Deep Multi-Agent Reinforcement Learning](https://oa.upm.es/84607/),
+Master’s thesis, Telecomunicacion, 2022.</span>
+
+</div>
+
+<div id="ref-10.1007/978-3-030-95498-7_35" class="csl-entry">
+
+<span class="csl-left-margin">\[31\]
+</span><span class="csl-right-inline">L. Fronda, R. Berta, P. Cesario,
+A. De Gloria, and F. Bellotti, *Modeling the Line Interruption Issue in
+a Railway Network*, in *Applications in Electronics Pervading Industry,
+Environment and Society*, edited by S. Saponara and A. De Gloria
+(Springer International Publishing, Cham, 2022), pp. 249–255.</span>
+
+</div>
+
+<div id="ref-gorsane2022standardised" class="csl-entry">
+
+<span class="csl-left-margin">\[32\]
+</span><span class="csl-right-inline">R. Gorsane, O. Mahjoub, R. de
+Kock, R. Dubb, S. Singh, and A. Pretorius, [Towards a standardised
+performance evaluation protocol for cooperative
+MARL](https://doi.org/10.48550/arxiv.2209.10485), arXiv Preprint
+arXiv:2209.10485 (2022).</span>
+
+</div>
+
+<div id="ref-jiang2022mapf" class="csl-entry">
+
+<span class="csl-left-margin">\[33\]
+</span><span class="csl-right-inline">Y. Jiang, K. Zhang, Q. Li, J.
+Chen, and X. Zhu, [Multi-agent path finding via tree
+LSTM](https://doi.org/10.48550/arxiv.2210.12933), arXiv Preprint
+arXiv:2210.12933 (2022).</span>
+
+</div>
+
+<div id="ref-kopacz2022standardized" class="csl-entry">
+
+<span class="csl-left-margin">\[34\]
+</span><span class="csl-right-inline">A. Kopacz, Á. Mester, S. Kolumbán,
+and L. Csató, *[Standardized Feature Extraction from Pairwise Conflicts
+Applied to the Train Rescheduling
+Problem](https://doi.org/10.1109/SAMI54271.2022.9780701)*, in *2022 IEEE
+20th Jubilee World Symposium on Applied Machine Intelligence and
+Informatics (SAMI)* (IEEE, 2022), pp. 000103–000108.</span>
+
+</div>
+
+<div id="ref-lovetei2022environment" class="csl-entry">
+
+<span class="csl-left-margin">\[35\]
+</span><span class="csl-right-inline">I. Lövétei, B. Kővári, T. Bécsi,
+and S. Aradi, [Environment representations of railway infrastructure for
+reinforcement learning-based traffic
+control](https://doi.org/10.3390/app12094465), Applied Sciences **12**,
+4465 (2022).</span>
+
+</div>
+
+<div id="ref-mohapatra2022gatekeeper" class="csl-entry">
+
+<span class="csl-left-margin">\[36\]
+</span><span class="csl-right-inline">D. Mohapatra, A. Ojha, H.
+Khadilkar, and S. Ghosh, *[Gatekeeper: A Deep Reinforcement
+Learning-Cum-Heuristic Based Algorithm for Scheduling and Routing Trains
+in Complex
+Environments](https://doi.org/10.1109/IJCNN55064.2022.9892216)*, in
+*2022 International Joint Conference on Neural Networks (IJCNN)* (IEEE,
+2022), pp. 1–7.</span>
+
+</div>
+
+<div id="ref-Popescu1702837" class="csl-entry">
+
+<span class="csl-left-margin">\[37\]
+</span><span class="csl-right-inline">T. Popescu, [Reinforcement
+Learning for Train Dispatching : A Study on the Possibility to Use
+Reinforcement Learning to Optimize Train Ordering and Minimize Train
+Delays in Disrupted Situations, inside the r Ail Simulator
+OSRD](https://www.diva-portal.org/smash/record.jsf?amp;dswid=988&pid=diva2:1702837&dswid=-616),
+Master’s thesis No. 2022:317, KTH, School of Electrical Engineering;
+Computer Science (EECS); KTH, School of Electrical Engineering; Computer
+Science (EECS), 2022.</span>
+
+</div>
+
+<div id="ref-schmidt2022introduction" class="csl-entry">
+
+<span class="csl-left-margin">\[38\]
+</span><span class="csl-right-inline">L. M. Schmidt, J. Brosig, A.
+Plinge, B. M. Eskofier, and C. Mutschler, *[An Introduction to
+Multi-Agent Reinforcement Learning and Review of Its Application to
+Autonomous Mobility](https://doi.org/10.1109/ITSC55140.2022.9922205)*,
+in *2022 IEEE 25th International Conference on Intelligent
+Transportation Systems (ITSC)* (IEEE, 2022), pp. 1342–1349.</span>
+
+</div>
+
+<div id="ref-svancara2022tackling" class="csl-entry">
+
+<span class="csl-left-margin">\[39\]
+</span><span class="csl-right-inline">J. Švančara and R. Barták,
+*[Tackling Train Routing via Multi-Agent Pathfinding and
+Constraint-Based Scheduling](https://doi.org/10.5220/0010869700003116)*,
+in *Proceedings of the 14th International Conference on Agents and
+Artificial Intelligence (ICAART)* (2022), pp. 306–313.</span>
+
+</div>
+
+</div>
+
+## 2021
+
+<div class="references csl-bib-body">
+
+<div id="ref-chen2021symmetry" class="csl-entry">
+
+<span class="csl-left-margin">\[40\]
+</span><span class="csl-right-inline">Z. Chen, D. D. Harabor, J. Li, and
+P. J. Stuckey, *[Symmetry Breaking for k-Robust Multi-Agent Path
+Finding](https://doi.org/10.1609/aaai.v35i14.17456)*, in *Proceedings of
+the AAAI Conference on Artificial Intelligence*, Vol. 35 (2021), pp.
+12267–12274.</span>
+
+</div>
+
+<div id="ref-li2021scalable" class="csl-entry">
+
+<span class="csl-left-margin">\[41\]
+</span><span class="csl-right-inline">J. Li, Z. Chen, Y. Zheng, S.-H.
+Chan, D. Harabor, P. J. Stuckey, H. Ma, and S. Koenig, *[Scalable Rail
+Planning and Replanning: Winning the 2020 Flatland
+Challenge](https://doi.org/10.1609/icaps.v31i1.15994)*, in *Proceedings
+of the International Conference on Automated Planning and Scheduling
+(ICAPS)*, Vol. 31 (2021), pp. 477–485.</span>
+
+</div>
+
+<div id="ref-andreica2020winning" class="csl-entry">
+
+<span class="csl-left-margin">\[42\]
+</span><span class="csl-right-inline">M. I. Andreica, [Winning solution
+of the AIcrowd SBB flatland challenge
+2019-2020](https://doi.org/10.48550/arxiv.2111.07876), arXiv Preprint
+arXiv:2111.07876 (2021).</span>
+
+</div>
+
+<div id="ref-badyal2021comparative" class="csl-entry">
+
+<span class="csl-left-margin">\[43\]
+</span><span class="csl-right-inline">S. Badyal, [A Comparative Study of
+Multi-Agent Reinforcement Learning on Real World
+Problems](https://keep.lib.asu.edu/items/161758), MS Thesis, Arizona
+State University, 2021.</span>
+
+</div>
+
+<div id="ref-choi2021analysis" class="csl-entry">
+
+<span class="csl-left-margin">\[44\]
+</span><span class="csl-right-inline">B. Choi and J.-K. Kim, *[The
+Analysis of Flatland Challenge Winners’ Multi-Agent
+Methodologies](https://koreascience.kr/article/CFKO202125036035267.pdf)*,
+in *Proceedings of the 2021 Korea Information Processing Society Spring
+Conference*, Vol. 28 (Korea Information Processing Society, 2021), pp.
+369–372.</span>
+
+</div>
+
+<div id="ref-hajek2021flatland" class="csl-entry">
+
+<span class="csl-left-margin">\[45\]
+</span><span class="csl-right-inline">R. Hájek, L. Maleček, M. Melecký,
+and J. Schovancová, [2021 Flatland Challenge, Team
+Learn](https://ktiml.mff.cuni.cz/~bartak/ui_seminar/talks/2021LS/Final-TeamLearn.pdf),
+2021.</span>
+
+</div>
+
+<div id="ref-laurent2021flatland" class="csl-entry">
+
+<span class="csl-left-margin">\[46\]
+</span><span class="csl-right-inline">F. Laurent et al., *[Flatland
+Competition 2020: MAPF and MARL for Efficient Train Coordination on a
+Grid World](https://proceedings.mlr.press/v133/laurent21a.html)*, in
+*Proceedings of the NeurIPS 2020 Competition and Demonstration Track*,
+edited by H. J. Escalante and K. Hofmann, Vol. 133 (PMLR; PMLR, 2021),
+pp. 275–301.</span>
+
+</div>
+
+<div id="ref-leamer2021multiagent" class="csl-entry">
+
+<span class="csl-left-margin">\[47\]
+</span><span class="csl-right-inline">A. Leamer, R. Sharma, and M. S.
+Khan, [Multi-Agent Reinforcement Learning on Trains Using Classical AI
+Search
+Technique](https://ktiml.mff.cuni.cz/~bartak/ui_seminar/talks/2021LS/Final-TeamSearch.pdf),
+2021.</span>
+
+</div>
+
+</div>
+
+## 2020
+
+<div class="references csl-bib-body">
+
+<div id="ref-jeldor2020flatland" class="csl-entry">
+
+<span class="csl-left-margin">\[48\]
+</span><span class="csl-right-inline">JelDor team, Flatland Challenge
+Team Report, 2020.</span>
+
+</div>
+
+<div id="ref-cantini2020flatland" class="csl-entry">
+
+<span class="csl-left-margin">\[49\]
+</span><span class="csl-right-inline">G. Cantini, [FLATLAND: A study of
+deep reinforcement learning methods applied to the vehicle rescheduling
+problem in a railway
+environment](https://amslaurea.unibo.it/id/eprint/20412/),
+(2020).</span>
+
+</div>
+
+<div id="ref-meier2020reinforcement" class="csl-entry">
+
+<span class="csl-left-margin">\[50\]
+</span><span class="csl-right-inline">R. Meier and D. Roost,
+Reinforcement Learning in a Multi-Agent System for Train Scheduling,
+Bachelor's thesis, Zurich University of Applied Sciences, 2020.</span>
+
+</div>
+
+<div id="ref-mohanty2020flatland" class="csl-entry">
+
+<span class="csl-left-margin">\[51\]
+</span><span class="csl-right-inline">S. Mohanty et al., [Flatland-RL :
+Multi-agent reinforcement learning on
+trains](https://doi.org/10.48550/arxiv.2012.05893), arXiv Preprint
+arXiv:2012.05893 (2020).</span>
+
+</div>
+
+<div id="ref-roost2020improving" class="csl-entry">
+
+<span class="csl-left-margin">\[52\]
+</span><span class="csl-right-inline">D. Roost, R. Meier, S. Huschauer,
+E. Nygren, A. Egli, A. Weiler, and T. Stadelmann, *[Improving Sample
+Efficiency and Multi-Agent Communication in RL-Based Train
+Rescheduling](https://doi.org/10.1109/SDS49233.2020.00024)*, in *2020
+7th Swiss Conference on Data Science (SDS)* (IEEE, 2020), pp.
+63–64.</span>
+
+</div>
+
+<div id="ref-ryzner2020multiagent" class="csl-entry">
+
+<span class="csl-left-margin">\[53\]
+</span><span class="csl-right-inline">F. Rýzner, [Multi-agent
+path-finding for trains with
+breakdowns](https://dspace.cvut.cz/server/api/core/bitstreams/8c8931c1-f6cc-4696-a63a-6f0533ad6d51/content),
+(2020).</span>
+
+</div>
+
+<div id="ref-wälter_2020" class="csl-entry">
+
+<span class="csl-left-margin">\[54\]
+</span><span class="csl-right-inline">J. Wälter, [Existing and Novel
+Approaches to the Vehicle Rescheduling Problem
+(VRSP)](https://orix.ost.ch/handle/20.500.14978/19841), Master’s thesis,
+2020.</span>
+
+</div>
+
+<div id="ref-waelter2020aiding" class="csl-entry">
+
+<span class="csl-left-margin">\[55\]
+</span><span class="csl-right-inline">J. Wälter, F. D. Mehta, and X.
+Rao, [Aiding vehicle scheduling and rescheduling using machine
+learning](https://doi.org/10.2495/tdi-v4-n4-308-320), International
+Journal of Transport Development and Integration **4**, 308
+(2020).</span>
+
+</div>
+
+</div>
+
+## 2019
+
+<div class="references csl-bib-body">
+
+<div id="ref-mohanty2019flatlandzhaw" class="csl-entry">
+
+<span class="csl-left-margin">\[56\]
+</span><span class="csl-right-inline">S. Mohanty, E. Nygren, A. Egli,
+and M. Salathé, Flatland-RL: Multi-Agent Reinforcement Learning on
+Trains, Project thesis, Zurich University of Applied Sciences,
+2019.</span>
+
+</div>
+
+<div id="ref-nygren2019flatland" class="csl-entry">
+
+<span class="csl-left-margin">\[57\]
+</span><span class="csl-right-inline">E. Nygren, A. Egli, G. Spigler, M.
+Ljungström, J. Watson, C. Eichenberger, G. Mollard, and S. Mohanty,
+[Flatland challenge: Multi-agent reinforcement learning on
+trains](https://www.aicrowd.com/challenges/flatland-challenge),
+(2019).</span>
+
+</div>
+
+</div>
+
+## 2002
+
+<div class="references csl-bib-body">
+
+<div id="ref-Albert_2002" class="csl-entry">
+
+<span class="csl-left-margin">\[58\]
+</span><span class="csl-right-inline">R. Albert and A.-L. Barabási,
+[Statistical mechanics of complex
+networks](https://doi.org/10.1103/revmodphys.74.47), Reviews of Modern
+Physics **74**, 47 (2002).</span>
+
+</div>
+
+</div>
