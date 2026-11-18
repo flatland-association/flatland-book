@@ -53,7 +53,7 @@ expansion](https://doi.org/10.48550/arxiv.2408.09838), (2026).</span>
 Makwana, V. A. Guntupalli, R. Liessner, M. Schneider, A. Fuxjäger, A.
 Egli, D. Boos, and R. J. Bessa, *Real-World Baselines Challenge: Dynamic
 Train Rescheduling under Stochastic Perturbations*,
-(unpublished).</span>
+<https://flatland-association.github.io/flatland-book/challenges/ecml2026/post-competition_analysis.html>.</span>
 
 </div>
 
