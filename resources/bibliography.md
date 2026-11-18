@@ -1,13 +1,13 @@
 ### Papers using Flatland
 
+## References
+
 This is hopefully a complete list of all publications that have used
 Flatland (as of Nov 2026).
 
 👏 Thanks to
 [aiAdrian](https://github.com/aiAdrian/flatland_railway_extension/blob/master/publications/flatland_research.MD)
 for collecting these references!
-
-## References
 
 ## 2026
 
