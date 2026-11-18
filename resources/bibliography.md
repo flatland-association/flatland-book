@@ -1,6 +1,10 @@
 ### Papers using Flatland
 
-## References
+We plan to discuss here how and where Flatland is used in the literature
+as well as providing a comprehensive list of References. The references
+may be downloaded in bibtex format [here](bibliography/flatland.bib).
+
+### References
 
 This is hopefully a complete list of all publications that have used
 Flatland (as of Nov 2026).
