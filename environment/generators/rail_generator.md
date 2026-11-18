@@ -14,7 +14,7 @@ Networks are generally generated using the following steps:
 </ol> 
 Find more details and illustrations for  to the different steps below.  
 
-From a graph theoretical perspective we have tightly connected node clusters (cities) which are then connected to its nearest neighbors in two 
+From a graph theoretical perspective we have tightly connected node clusters (cities) which are then connected to their nearest neighbors from opposing ends of the clusters. Due to the limited spacial resolution of the grid, the overlapping of paths then dynamically merges edges and generates additional nodes between the cities. 
 
 
 City Placement
