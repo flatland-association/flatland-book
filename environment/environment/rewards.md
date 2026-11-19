@@ -1,136 +1,26 @@
 Rewards
 ========
 
-Rewards Interface
------------------
+In **Flat**land 3, rewards are only provided at the end of an episode by default making it a sparse reward setting.
 
-The `Rewards` interface has the following methods:
+The episodes finish when all the trains have reached their target, or when the maximum number of time steps is reached.
 
-* `step_reward`: Handles end-of-step-reward for a particular agent.
-* `end_of_episode_reward`: Handles end-of-episode reward for a particular agent.
-* `cumulate`: Cumulate multiple rewards to one.
-* `empty`: Return empty initial value neutral for the cumulation.
-* `normalize`: Return normalized cumulated rewards (can be `None` for some rewards).
+The actual reward structure has the following cases:
 
-Default Rewards
----------------
+- **Train has arrived at its target**: The agent will be given a reward of 0 for arriving on time or before the expected time. For arriving at the target later
+  than the specified time, the agent is given a negative reward proportional to the delay.
+  `min(latest_arrival - actual_arrival, 0)`
 
-The Flatland `DefaultRewards` scoring function is designed to capture key operational metrics such as punctuality, efficiency in responding to disruptions, and
-safety.
-Punctuality and schedule adherence are rewarded based on the difference between actual and target arrival and departure times at each stop respectively,
-as well as penalties for intermediate stops not served or even journeys not started.
-Safety measures are implemented as penalties for collisions which are directly proportional to the train’s speed at impact, ensuring that high-speed operations
-are managed with extra caution.
+- **The train did not reach its target yet**: The reward is negative and equal to the estimated amount of time needed by the agent to reach its target from
+  its current position, if it travels on the shortest path to the target, while accounting for its latest arrival time.
+  `agent.get_current_delay()` *refer to it in detail [here](../environment/scenario_generation/timetables.md)*
+  The value returned will be positive if the expected arrival time is projected before latest arrival and negative if the expected arrival time is projected
+  after latest arrival. Since it is called at the end of the episode, the agent is already past its deadline and so the value will always be negative.
 
-More formally, the score
-
-$$
-\begin{aligned}
-S &= \sum_{i=1}^N g_i
-\end{aligned}
-$$
-
-is the sum of all rewards $g_i$ of agent $i$. The reward $g_i$ of an agent consists of a reward at the end of the episode as well as at each timestep $t.$
-Per-timestep rewards only consist of a penalty if the environment forces the train to stop, i.e. the train goes from MOVING to STOPPED without a stop action
-bringing it to zero speed: either it wants to enter a cell another train already occupies (potential collision), or its action is invalid. This collision penalty is
-proportional to the current speed $v(t)$ of the train. The reward $g_i$ of an agent $i$ is
-
-$$
-\begin{aligned}
-g_i = &
-% delay at target:
-\underbrace{\mathrm{A}_J \cdot  \min \{\alpha_J - a_J,0\}}_{\text{delay at target}}  
-% journey not started:
-+ \underbrace{(1 - \Delta_1) \cdot \phi \cdot (-(p + \pi))}_{\text{journey not started}}
-% target not reached:
-+ \underbrace{(1 - \mathrm{A}_J) \cdot \min\{-\nu, \alpha_J - T - r\}}_{\text{target not reached}}\\
-& + \sum_{j=2}^{J-1} \Big[
-% intermediate late arrival
-\underbrace{\mathrm{A}_j \cdot \alpha \cdot \min \{\alpha_j - a_j,0\}}_{\text{late arrival}}
-% intermediate stop not served
-+ \underbrace{(1 - \mathrm{A}_j) \cdot \mu \cdot (-1)}_{\text{stop not served}}
-% intermediate early departure
-+ \underbrace{\Delta_j \cdot \delta \cdot \min \{ d_j - \delta_j, 0 \}}_{\text{early departure}} \Big] \\
-% collision
-& + \sum_{t=1}^T  \underbrace{\mathrm{K}_t \cdot \kappa \cdot (- v(t))}_{\text{collision}} \ ,
-\end{aligned}
-$$
-
-where $J$ is the number of stops (including the departure at the start, as well as the target) and $T$ is the maximum number of timesteps of the episode (`max_episode_steps`).
-The symbols are described in the table below.
-
-|                              | penalty factor <br/>($\geq 0$) | event <br/> $\in \{0,1\}$ | scheduled  | actual | description                                                                                                                                                                                                                     |
-|:-----------------------------|--------------------------------|---------------------------|------------|-----|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| delay at target              | 1                              | $\mathrm{A}_J$            | $\alpha_J$ | $a_J$ | $\alpha_J$ latest arrival and $a_J$ actual arrival at target $J$                                                                                                                                                                |
-| journey not started          | $\phi$, $\pi$                  | $1-\Delta_1$              | $p$        |     | cancellation factor $\phi$ and buffer $\pi$,    <br/> $p$ is the shortest path from start to target                                                                                                                             |
-| target not reached           | 1                              | $1-\mathrm{A}_J$          | $\alpha_J$ | $r$ | projected delay $\alpha_J - T - r$ at the end of the episode, with time $r$ remaining on shortest path to target with maximum speed for corresponding train category; at least the minimum penalty $\nu$ for target not reached |
-| intermediate late arrival    | $\alpha$                       | $\mathrm{A}_j$            | $\alpha_j$ | $a_j$ | latest arrival $\alpha_j$, actual arrival time $a_j$    <br/> at intermediate stop $j=2,\ldots,J-1$                                                                                                                             |
-| intermediate stop not served | $\mu$                          | $1-\mathrm{A}_j$          |            |     | intermediate stop $j$ not served (not stopped at), $j=2,\ldots,J-1$                                                                                                                                                             |
-| intermediate early departure | $\delta$                       | $\Delta_j$                | $\delta_j$ | $d_j$ | earliest departure from stop $j$, actual departure time $d_j$ <br/> at intermediate stop $j=2,\ldots,J-1$                                                                                                                       |
-| collision                    | $\kappa$                       | $\mathrm{K}_t$            |            | $v(t)$ | collision or invalid action forcing a stop at time $t$ with speed $v(t)$                                                                                                                                                       |
-
-The events used in the table are:
-
-| event          | description                                                                                                     |
-|:---------------|:----------------------------------------------------------------------------------------------------------------|
-| $\mathrm{A}_J$ | arrived at target $J$                                                                                           |
-| $\Delta_1$     | departed from start                                                                                             |
-| $\mathrm{A}_j$ | stopped at intermediate stop $j$ (at one of its halting cells); running through without stopping does not count |
-| $\Delta_j$     | departed from intermediate stop $j$                                                                             |
-| $\mathrm{K}_t$ | forced stop at time $t$ (collision or invalid action)                                                           |
-
-The scheduled and actual values used in the table are:
-
-| scheduled  | actual | description                                                             |
-|:-----------|:-------|:------------------------------------------------------------------------|
-| $\alpha_J$ | $a_J$  | latest / actual arrival at target                                       |
-| $\alpha_j$ | $a_j$  | latest / actual arrival at intermediate stop $j$                        |
-| $\delta_j$ | $d_j$  | earliest / actual departure from intermediate stop $j$                  |
-| $p$        |        | time on the shortest path from the scheduled start to target            |
-|            | $r$    | time remaining on the shortest path to target at the end of the episode |
-|            | $v(t)$ | speed at time $t$                                                       |
-
-The constants used in the table are the penalty factors and parameters of `DefaultRewards` (with their defaults) and the episode length:
-
-| constant   | parameter                                     | default | description                                     |
-|:-----------|:----------------------------------------------|:--------|:------------------------------------------------|
-| $\phi$     | `cancellation_factor`                         | 1.0     | penalty factor for journey not started          |
-| $\pi$      | `cancellation_time_buffer`                    | 0.0     | time buffer for journey not started             |
-| $\nu$      | `target_not_reached_minimum_penalty`          | 0.0     | minimum penalty for target not reached          |
-| $\alpha$   | `intermediate_late_arrival_penalty_factor`    | 0.2     | penalty factor for intermediate late arrival    |
-| $\mu$      | `intermediate_not_served_penalty`             | 1.0     | penalty for intermediate stop not served        |
-| $\delta$   | `intermediate_early_departure_penalty_factor` | 0.5     | penalty factor for intermediate early departure |
-| $\kappa$   | `collision_factor`                            | 0.0     | penalty factor for collision                    |
-| $T$        | `max_episode_steps` of the env                |         | maximum number of time steps of the episode     |
-
-Note that the simulation enforces that agents cannot start earlier than $\delta_1$ at their start. On the other hand, early departure at intermediate stops is
-not enforced by the simulation, but will be penalized by the rewards function.
-Also note that order of intermediate stops is also not enforced by the simulation in case of overlapping time windows.
-
-To compare results between environments of different dimensions and different number of agents, the reward can be normalized, such that the normalized reward is in the range $[0.0, 1.0]$. For each agent there is a maximum penalty set at ```- max_episode_steps```. This guarantees normalization regardless of the parametrization of the rewards.
+- **The train never departed**: If the agent hasn't departed (i.e. status is `READY_TO_DEPART`) at the end of the episode, it is considered to be cancelled and
+  the following reward is provided.
+  `-1 * cancellation_factor * (travel_time_on_shortest_path + cancellation_time_buffer)`
 
 ```{admonition} Code reference
-The reward is calculated in [envs/rewards.py](https://github.com/flatland-association/flatland-rl/blob/main/flatland/envs/rewards.py)
+The reward is calculated in [envs/rail_env.py](https://github.com/flatland-association/flatland-rl/blob/main/flatland/envs/rail_env.py)
 ```
-
-Punctuality Rewards
--------------------
-
-`PunctualityRewards` is `n_stops_on_time / n_stops`.
-
-An agent is deemed not punctual at a stop if it arrives to late, departs to early or does not serve the stop at all.
-
-If an agent is punctual at a stop, n_stops_on_time is increased by 1.
-
-> This feature was introduced in [4.2.2](https://github.com/flatland-association/flatland-rl/pull/272)
-
-Basic Multi-Objective Rewards
------------------------------
-
-For illustration purposes, a basic MORL (Multi-Objective Reinforcement Learning) `BasicMultiObjectiveRewards` is implemented. It is composed of 3 components:
-
-- default score
-- energy efficiency: `- square (speed/max_speed).`
-- smoothness: `- square (speed differences)`
-
-> This feature was introduced in [4.2.1](https://github.com/flatland-association/flatland-rl/pull/269)

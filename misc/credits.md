@@ -38,6 +38,4 @@ Acknowledgements
 Contributors
 ------------
 
-Contributors to this book and to the Flatland environment are listed on GitHub:
-[flatland-book contributors](https://github.com/flatland-association/flatland-book/graphs/contributors) and
-[flatland-rl contributors](https://github.com/flatland-association/flatland-rl/graphs/contributors). Why not [join them](contributing)?
+None yet. Why not [be the first](contributing)?
