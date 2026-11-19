@@ -36,18 +36,18 @@ For the sake of this documentation we consider a generation with $n_\text{city}=
 City Placement
 -------------------------
 
-Cities are placed randomly on the grid of given height and width. Coordinates with $r_\text{city}+1$ distance to the borders or $2~(r_\text{city}+1)$ to other city centers are excluded, such that cities do not overlap and have sufficient distance between each other. 
+Cities are placed randomly (or evenly) on the grid of given height and width. Coordinates with $r_\text{city}+1$ distance to the borders or $2~(r_\text{city}+1)$ to other city centers are excluded, such that cities do not overlap and have sufficient distance between each other. Generation stops when no cities are able to be placed anymore or $n_\text{city}$ is reached. 
 
-<img src="figs/city_gen/city_gen_empty.svg" alt="empty city" width="20%"/>
-<img src="figs/city_gen/city_gen_A.svg" alt="empty city" width="20%"/>
-<img src="figs/city_gen/city_gen_B.svg" alt="empty city" width="20%"/>
-<img src="figs/city_gen/city_gen_C.svg" alt="empty city" width="20%"/>
-
-Generation stops when no cities are able to be placed anymore or $n_\text{city}$ is reached. 
+<img src="figs/city_gen/city_gen_empty.svg" alt="empty" width="20%"/>
+<img src="figs/city_gen/city_gen_A.svg" alt="gen A" width="20%"/>
+<img src="figs/city_gen/city_gen_B.svg" alt="gen B" width="20%"/>
+<img src="figs/city_gen/city_gen_C.svg" alt="gen C" width="20%"/>
 
 
 Inner and Outer Connection Points
 -------------------------
+
+Inner and outer connection points are added at the borders of the cities on two opposing cardinal directions according to the orientation of the city, which is defined by the direction of its nearest neighbor (by manhattan distance). The number of pairs of inner tracks is randomly chosen between 1 and $n_\text{inner}$ and defines the number of inner connection points per cardinal direction which is 2 times this number (for $n_\text{inner}=1$ it is always 2). The number of outer connections per cardinal direction is randomly chosen between 1 and $n_\text{inter}$ (or the number of inner connection points if thats lower). 
 
 
 Pathfinding between Cities 
