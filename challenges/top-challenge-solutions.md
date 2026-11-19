@@ -14,7 +14,7 @@ NeurIPS 2020 Edition
 
 [Winners of the Challenge and Community Prize](https://discourse.aicrowd.com/t/neurips-2020-flatland-winners/4010?u=masterscrat)
 
-A paper summarizing the top solutions from this challenge is currently being written. More info coming soon!
+The top solutions from this challenge are summarized in the paper [Flatland competition 2020: MAPF and MARL for efficient train coordination on a grid world](https://proceedings.mlr.press/v133/laurent21a.html) (Laurent et al., NeurIPS 2020 Competition and Demonstration Track, PMLR v133, 2021).
 
 2019 Edition
 ---

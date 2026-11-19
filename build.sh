@@ -1,19 +1,19 @@
 set -e
 set -x
-# avoid executing all notebooks
-# TODO https://github.com/flatland-association/flatland-rl/issues/132 make all notebooks executable unattended
-# TODO use notebooks from flatland-rl directly instead of duplicating in flatland-notebook repo?
 
 FLATLAND_MODULE_PATH=$(python -c 'import os; import importlib; print(os.path.dirname(importlib.import_module("flatland").__file__))')
 FLATLAND_MODULE_VERSION=$(python -c "import flatland; print(flatland.__version__)")
 
-# TODO copy from flatland-rl - which ones to run and which ones to cache?
-cp assets/images/graph_to_digraph.drawio.png environment/environment/images/graph_to_digraph.drawio.png
 cp ${FLATLAND_MODULE_PATH}/../notebooks/graph_demo.ipynb environment/environment
+if [ "$(uname)" == "Darwin" ]; then
+  # sed works differently under macOS...
+  sed -i '' 's|./images/|../../assets/images/|g'  environment/environment/graph_demo.ipynb
+else
+  sed -i 's|./images/|../../assets/images/|g'  environment/environment/graph_demo.ipynb
+fi
 
-#cp ${FLATLAND_MODULE_PATH}/../notebooks/Agent-Close-Following.ipynb environment/environment
-# TODO waiting for 4.0.7 pr and copy from there
-#cp -R ${FLATLAND_MODULE_PATH}/../notebooks/images/ environment/environment/images/
+cp ${FLATLAND_MODULE_PATH}/../notebooks/Agent-Close-Following.ipynb environment/environment
+
 
 sphinx-apidoc --force -a -e -o apidocs ${FLATLAND_MODULE_PATH}  -H "Flatland ${FLATLAND_MODULE_VERSION} API Reference" --tocfile 'index'
 
@@ -39,6 +39,17 @@ else
   find . -name "*.ipynb" -print0 | xargs -0  sed -i 's/```{mermaid}/```mermaid/g'
 fi
 
-find _build -name "*.ipynb" -print0 | xargs -0  --no-run-if-empty grep -E "ImportError|KeyboardInterrupt|AttributeError|ModuleNotFoundError|NameError" || true
-NUM=$(find _build -name "*.ipynb" -print0 | xargs -0  --no-run-if-empty grep -E "ImportError|KeyboardInterrupt|AttributeError|ModuleNotFoundError|NameError" | wc -l)
-exit ${NUM}
+# plain html imgs seem not copied
+cp assets/images/* _build/html/_images
+
+# fail on any notebook execution error: jupyter-book writes a report per failed notebook (any exception, incl. SyntaxError),
+# and notebooks executed with allow_errors keep the error as an output.
+FAILED=$( (find _build/html/reports -name "*.err.log" 2>/dev/null; grep -rl --include="*.ipynb" '"output_type": "error"' _build/jupyter_execute 2>/dev/null) | sort -u)
+if [ -n "${FAILED}" ]; then
+  echo "Notebook execution failed:"
+  echo "${FAILED}"
+  for f in $(echo "${FAILED}" | grep "\.err\.log$"); do
+    tail -n 20 "${f}"
+  done
+  exit 1
+fi

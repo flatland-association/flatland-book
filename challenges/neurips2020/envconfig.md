@@ -21,7 +21,7 @@ Each test consists of 10 environments. Each environment in a test has a differen
 - ...
 - **Level_9:** `malfunction_interval = 9*min_malfunction_interval = 2250`
 
-For each environment, you get a normalized reward between `0.0` and `1.0` (equal to the normalized reward as defined in Round 1 + 1.0). The final score is the sum of all the normalized rewards. See the [Evaluation Metrics](prize-and-metrics.md) page for more details. 
+For each environment, you get a normalized reward between `0.0` and `1.0` (equal to the normalized reward as defined in Round 1 + 1.0). The final score is the sum of all the normalized rewards. See the [Evaluation Metrics](eval.md) page for more details. 
 
 All the environment use the following parameters in Round 2:
 - `n_envs_run = 10`

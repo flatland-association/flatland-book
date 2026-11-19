@@ -25,7 +25,6 @@ sphinx:
 # https://jupyterbook.org/en/stable/advanced/html.html
 html:
   favicon: assets/images/favicon.ico
-  google_analytics_id: UA-132885496-4
   home_page_in_navbar: true
   use_repository_button: true
   use_edit_page_button: true
@@ -37,6 +36,15 @@ repository:
   provider: github
   branch: main
 
+exclude_patterns:
+  # repository docs, not book pages
+  - README.md
+  - CONTRIBUTING.md
+  # PR plans with their screenshots, not book pages
+  - docs/plans/**
+  # do not build the starterkit cloned by challenges/ecml2026/training_envs.ipynb as pages
+  - challenges/ecml2026/ecml2026-starterkit/**
+
 # https://jupyterbook.org/en/stable/content/execute.html
 execute:
   execute_notebooks: auto
@@ -44,7 +52,8 @@ execute:
     # take too long or too many dependencies - make sure to have good coverage in flatland-rl for these code parts
     - "rllib_demo.ipynb"
     - "pettingzoo_demo.ipynb"
-    - "Agent-Close-Following.ipynb"
+    # ECML 2026 starterkit supports flatland-rl 4.2.5/4.2.6 only - outputs are stored in the notebook (run with flatland-rl 4.2.6)
+    - "training_envs.ipynb"
 
 
 # https://jupyterbook.org/en/stable/interactive/launchbuttons.html
