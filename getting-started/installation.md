@@ -1,25 +1,45 @@
 Installing Flatland
 ===
 
-Install the latest stable release of Flatland from PyPI:
+Flatland can be installed using `pip`
+
+Stable release
+---
+
+Install Flatland from pip:
 
 ```console
-$ python -m pip install flatland-rl
+$ pip install flatland-rl
 ```
+From Source
+---
 
-Check that the installation works:
+The Flatland code source is available from [gitlab](https://gitlab.aicrowd.com/flatland/flatland).
+
+Clone the public repository:
 
 ```console
-$ flatland-demo --help
+$ git clone git@github.com:flatland-association/flatland-rl.git
 ```
 
-To watch a short episode with random actions (needs a display), run:
+Once you have a copy of the source, install it with:
+
+```console
+$ pip install -e flatland/
+```
+
+Test installation
+---
+
+Test that the installation works:
 
 ```console
 $ flatland-demo
 ```
 
-See the [flatland-rl README](https://github.com/flatland-association/flatland-rl#-setup) for the full setup
-instructions, including supported Python versions, virtual environments and the optional Cython-accelerated build.
-To install from source and run the tests, follow the
-[flatland-rl contribution guide](https://github.com/flatland-association/flatland-rl/blob/main/CONTRIBUTING.md).
+You can also run the full test suite:
+
+```console
+python setup.py test
+```
+
