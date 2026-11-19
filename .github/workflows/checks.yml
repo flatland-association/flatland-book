@@ -54,3 +54,21 @@ jobs:
           name: upload-build-main
           path: _build/html/
           if-no-files-found: error
+  build-bib:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Pandoc
+        uses: pandoc/actions/setup@v1
+
+      - name: Generate bibliography.md from references.bib
+        run: |
+          pandoc -f markdown resources/bibliography/bibliography_gen.md \
+            --csl=resources/bibliography/agu-chrono.csl \
+            --lua-filter=resources/bibliography/group-by-year.lua \
+            -t gfm \
+            --wrap=none \
+            -o resources/bibliography.md
