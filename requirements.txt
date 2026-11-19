@@ -1,4 +1,5 @@
 jupyter-book<2.0
 sphinxcontrib-mermaid
+pypandoc_binary
 flatland-rl
 pytest
