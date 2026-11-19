@@ -47,7 +47,11 @@ Cities are placed randomly (or evenly) on the grid of given height and width. Co
 Inner and Outer Connection Points
 -------------------------
 
-Inner and outer connection points are added at the borders of the cities on two opposing cardinal directions according to the orientation of the city, which is defined by the direction of its nearest neighbor (by manhattan distance). The number of pairs of inner tracks is randomly chosen between 1 and $n_\text{inner}$ and defines the number of inner connection points per cardinal direction which is 2 times this number (for $n_\text{inner}=1$ it is always 2). The number of outer connections per cardinal direction is randomly chosen between 1 and $n_\text{inter}$ (or the number of inner connection points if thats lower). 
+Inner and outer connection points are added at the borders of the cities on two opposing cardinal directions according to the orientation of the city, which is defined by the direction of its nearest neighbor (by manhattan distance). The number of pairs of inner tracks is randomly chosen between 1 and $n_\text{inner}$ and defines the number of inner connection points per cardinal direction which is 2 times this number (for $n_\text{inner}=1$ it is always 2). The number of outer connections per cardinal direction is randomly chosen between 1 and $n_\text{inter}$ (or the number of inner connection points if thats lower). The inner connection points are offset such that parallel tracks have 
+
+<img src="figs/connections/city_neigbors.svg" alt="neighbors" width="20%"/>
+<img src="figs/connections/connection_points_A.svg" alt="neighbors" width="20%"/>
+<img src="figs/connections/connection_points_all.svg" alt="neighbors" width="20%"/>
 
 
 Pathfinding between Cities 

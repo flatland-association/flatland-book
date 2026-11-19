@@ -36,6 +36,7 @@ parts:
           - file: environment/environment/graph_demo
       - file: environment/scenario_generation
         sections:
+          - file: environment/generators/rail_generator
           - file: environment/environment/stations_links
       - file: environment/observation_builder
         sections:
