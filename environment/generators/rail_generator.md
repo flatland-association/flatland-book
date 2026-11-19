@@ -23,7 +23,7 @@ Parameters
 
 The following parameters are relevant for the basic functionality of the generation of the random networks  
 
-- Number of cities to build $n_\text{city}$ (parameter: `max_num_cities`). 
+- Number of cities $n_\text{city}$ (parameter: `max_num_cities`). 
 
 - Number of connection points at city borders $n_\text{inter}$ (parameter: `max_rails_between_cities`).
 
