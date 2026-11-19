@@ -25,7 +25,7 @@ jobs:
 
       - name: Generate bibliography.md from references.bib
         run: |
-          pandoc -f markdown resources/bibliography/bibliography_gen.md~ \
+          pandoc -f markdown resources/bibliography/bibliography_gen.md \
             --csl=resources/bibliography/agu-chrono.csl \
             --lua-filter=resources/bibliography/group-by-year.lua \
             -t gfm \
