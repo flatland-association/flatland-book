@@ -14,6 +14,12 @@ fi
 
 cp ${FLATLAND_MODULE_PATH}/../notebooks/Agent-Close-Following.ipynb environment/environment
 
+pandoc -f markdown resources/bibliography/bibliography_gen.md \
+  --csl=resources/bibliography/agu-chrono.csl \
+  --lua-filter=resources/bibliography/group-by-year.lua \
+  -t gfm \
+  --wrap=none \
+  -o resources/bibliography.md
 
 sphinx-apidoc --force -a -e -o apidocs ${FLATLAND_MODULE_PATH}  -H "Flatland ${FLATLAND_MODULE_VERSION} API Reference" --tocfile 'index'
 
