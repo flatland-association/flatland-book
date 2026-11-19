@@ -40,6 +40,8 @@ exclude_patterns:
   # repository docs, not book pages
   - README.md
   - CONTRIBUTING.md
+  # Do not build files in the bibliography folder as they are only used to generate the bibliography.md file
+  - resources/bibliography/**
   # PR plans with their screenshots, not book pages
   - docs/plans/**
   # do not build the starterkit cloned by challenges/ecml2026/training_envs.ipynb as pages
