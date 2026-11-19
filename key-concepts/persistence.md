@@ -81,8 +81,8 @@ if __name__ == '__main__':
 ### Environment Configuration
 
 Defines the environment, so if we control the seed, exactly the same env with same state comes out.
-Here, *configuration* means the constructor and generator arguments that define an environment, not the configuration of an agent
-(its position and direction) as in the [simulation model](simulation_model.md):
+Here, *configuration* means the constructor and generator arguments that define an environment, not the entry point of an agent
+(its cell and entry direction, called configuration up to `flatland 4.3.0`) as in the [simulation model](simulation_model.md):
 
 ```python
 from ... import Persistable
@@ -152,3 +152,18 @@ if __name__ == '__main__':
   }
 }
 ```
+
+### Compatibility of Saved Environments
+
+Environments are saved and loaded with `RailEnvPersister` (`save`, `load`, `load_new`). Since `flatland 5.0.0`, the agents hold entry points, and
+environments saved with `flatland 4.x` are converted when they are loaded:
+
+| saved with     | loaded with    | `RailEnvPersister.load_new` / `load`                                                                                                              | plain `pickle.load`                                                           |
+|----------------|----------------|---------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------|
+| `flatland 4.x` | `flatland 5.x` | loads an env saved before the first step (e.g. the competition environments); an env saved during an episode, with agents on the map, is rejected | fails (`ModuleNotFoundError`: the pickle refers to a module removed in 5.0.0) |
+| `flatland 5.x` | `flatland 4.x` | fails                                                                                                                                             | fails                                                                         |
+
+When loading a `flatland 4.x` environment, `RailEnvPersister` converts each agent to entry points and brings its speed counter in line with
+`flatland 5.0.0`: an agent off the map gets speed and distance `None`, an agent in a malfunction gets speed 0 (see
+[Agent](../environment/environment/agent)). An env saved during an episode cannot be converted, because `flatland 4.x` does not store the agents'
+next entry points. Always load saved environments with `RailEnvPersister`, not with `pickle` directly.
