@@ -10,7 +10,8 @@ In the following instructions, you will be using the [starter kit](https://gitla
 
 # 💪 Getting started
 
-> We recommend using `python 3.8`. If you are using Miniconda/Anaconda, you can install it using `conda install python=3.8`.
+> ⚠️ These instructions are for the Flatland 3 challenge (2021). Its starter kit requires `flatland-rl` 3.x, which is tested with Python 3.6 and 3.7;
+> current `flatland-rl` releases are not compatible with it.
 
 Clone the starter kit repository and install the dependencies.
 
@@ -18,9 +19,9 @@ Clone the starter kit repository and install the dependencies.
 git clone https://gitlab.aicrowd.com/flatland/flatland-starter-kit.git
 cd flatland-starter-kit
 
-pip install git+http://gitlab.aicrowd.com/flatland/flatland.git
-
 conda env create -f environment.yml
+conda activate flatland-rl
+pip install "flatland-rl<4"
 ```
 
 # 🛠 Preparing your submission
@@ -37,20 +38,20 @@ Implement an agent that is capable of adding producing actions for every train i
 
 **File/Directory** | **Description**
 --- | ---
-[`baselines`](baselines) | Directory containing an example RL agent as well as training code for the same. Please refer to `baselines/README.md` [here](https://gitlab.aicrowd.com/flatland/flatland-starter-kit/-/blob/master/baselines/README.md) for further details.
-[`utils/submit.sh`](utils/submit.sh) | Helper script to submit your repository to [AIcrowd GitLab](https://gitlab.aicrowd.com).
-[`Dockerfile`](Dockerfile) | You can add a Dockerfile for specifying your exact environment. Refer to `docs/RUNTIME.md` [here](https://gitlab.aicrowd.com/flatland/flatland-starter-kit/-/blob/master/docs/RUNTIME.md) for further details.
-[`environment.yml`](environment.yml) | File containing the list of python packages you want to install for the submission to run. This will instantiate a conda environment.
-[`apt.txt`](apt.txt) | File containing the list of packages you want to install for submission to run. Refer [runtime configuration](#runtime-configuration) for more information.
-[`run.sh`](evaluator) | **Submission entrypoint** - Use this as the entrypoint to run your code you need to run for your submission.
-[`aicrowd.json`](aicrowd.json) | For specifying your submission track, RL or Overall.
+[`baselines`](https://gitlab.aicrowd.com/flatland/flatland-starter-kit/-/tree/master/baselines) | Directory containing an example RL agent as well as training code for the same. Please refer to `baselines/README.md` [here](https://gitlab.aicrowd.com/flatland/flatland-starter-kit/-/blob/master/baselines/README.md) for further details.
+[`utils/submit.sh`](https://gitlab.aicrowd.com/flatland/flatland-starter-kit/-/blob/master/utils/submit.sh) | Helper script to submit your repository to [AIcrowd GitLab](https://gitlab.aicrowd.com).
+[`Dockerfile`](https://gitlab.aicrowd.com/flatland/flatland-starter-kit/-/blob/master/Dockerfile) | You can add a Dockerfile for specifying your exact environment. Refer to `docs/RUNTIME.md` [here](https://gitlab.aicrowd.com/flatland/flatland-starter-kit/-/blob/master/docs/RUNTIME.md) for further details.
+[`environment.yml`](https://gitlab.aicrowd.com/flatland/flatland-starter-kit/-/blob/master/environment.yml) | File containing the list of python packages you want to install for the submission to run. This will instantiate a conda environment.
+[`apt.txt`](https://gitlab.aicrowd.com/flatland/flatland-starter-kit/-/blob/master/apt.txt) | File containing the list of packages you want to install for submission to run. Refer to the runtime configuration section below for more information.
+[`run.sh`](https://gitlab.aicrowd.com/flatland/flatland-starter-kit/-/blob/master/run.sh) | **Submission entrypoint** - Use this as the entrypoint to run your code you need to run for your submission.
+[`aicrowd.json`](https://gitlab.aicrowd.com/flatland/flatland-starter-kit/-/blob/master/aicrowd.json) | For specifying your submission track, RL or Overall.
 
 
 ## Runtime configuration
 
-You can specify the list of python packages needed for your code to run in your [`environment.yml`](requirements.txt) file. We will install the packages using `conda env create -f environment.yml` command.
+You can specify the list of python packages needed for your code to run in your [`environment.yml`](https://gitlab.aicrowd.com/flatland/flatland-starter-kit/-/blob/master/environment.yml) file. We will install the packages using `conda env create -f environment.yml` command.
 
-You can also specify the OS packages needed using [`apt.txt`](apt.txt) file. We install these packages using `apt-get install` command.
+You can also specify the OS packages needed using [`apt.txt`](https://gitlab.aicrowd.com/flatland/flatland-starter-kit/-/blob/master/apt.txt) file. We install these packages using `apt-get install` command.
 
 For more information on how you can configure the evaluation runtime, please refer to `docs/RUNTIME.md` [here](https://gitlab.aicrowd.com/flatland/flatland-starter-kit/-/blob/master/docs/RUNTIME.md).
 
@@ -94,7 +95,7 @@ git remote add aicrowd git@gitlab.aicrowd.com:<username>/flatland-starter-kit.gi
 ./utils/submit.sh "some description"
 ```
 
-If you want to submit without the helper script, please refer [`SUBMISSION.md`](docs/SUBMISSION.md).
+If you want to submit without the helper script, please refer [`SUBMISSION.md`](https://gitlab.aicrowd.com/flatland/flatland-starter-kit/-/blob/master/docs/SUBMISSION.md).
 
 
 # 📝 Submission checklist

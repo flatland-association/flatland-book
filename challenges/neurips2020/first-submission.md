@@ -8,7 +8,7 @@ This document will show you how to submit a test submission in 10 minutes.
 🚂 All aboard!
 ---
 
-In the next ten minutes, you will submit your first agent to the [AMLD 2021 Flatland Challenge](https://www.aicrowd.com/challenges/flatland) and will see your name on the leaderboard.
+In the next ten minutes, you will submit your first agent to the [NeurIPS 2020 Flatland Challenge](https://www.aicrowd.com/challenges/flatland) and will see your name on the leaderboard.
 
 ![leaderboard](../../assets/images/you.png)
 
@@ -22,11 +22,11 @@ Sign up on AIcrowd and Click on `Participate` on the challenge page at : [https:
 
 ### Starter Kit
 
-Start by cloning the [starter kit](https://gitlab.aicrowd.com/flatland/flatland-starter-kit): 
+Start by cloning the [starter kit](https://gitlab.aicrowd.com/flatland/neurips2020-flatland-starter-kit): 
 
 ```console
-$ git clone https://gitlab.aicrowd.com/flatland/flatland-starter-kit.git/
-$ cd flatland-starter-kit
+$ git clone https://gitlab.aicrowd.com/flatland/neurips2020-flatland-starter-kit.git/
+$ cd neurips2020-flatland-starter-kit
 ```
 
 The starter kit is a full baseline you can directly submit to the competition! We will talk more about it in the last section: how it works, how to train it, and how you could extend it. 
@@ -46,7 +46,7 @@ $ pip install flatland-rl==2.2.2
 ```
 
 ```{note}
-Flatland is tested with Python 3.6 and 3.7 on modern versions of macOS and Linux. We are unable to support Windows at this time. WSL is known to work but you may encounter problems with graphical rendering. Your [contribution is welcome](../misc/contributing) if you can help with this!
+Flatland is tested with Python 3.6 and 3.7 on modern versions of macOS and Linux. We are unable to support Windows at this time. WSL is known to work but you may encounter problems with graphical rendering. Your [contribution is welcome](../../misc/contributing.md) if you can help with this!
 ```
 
 ✅ Test your local setup
@@ -146,7 +146,7 @@ Each repository must have an `aicrowd.json` file with the following content:
 }
 ```
 
-This is used to map your submission to the proper challenge. The starter kit repository includes a sample [`aicrowd.json`](https://gitlab.aicrowd.com/flatland/flatland-starter-kit/blob/master/aicrowd.json) file with the correct values.
+This is used to map your submission to the proper challenge. The starter kit repository includes a sample [`aicrowd.json`](https://gitlab.aicrowd.com/flatland/neurips2020-flatland-starter-kit/blob/master/aicrowd.json) file with the correct values.
 
 You need to ensure that you set the proper **`tags`** with each submission. The tags indicate the methods you use in that submission, and need to be at least one of: 
 
@@ -157,7 +157,7 @@ You need to ensure that you set the proper **`tags`** with each submission. The 
 Careful, these tags are case sensitive! You can combine multiple tags, for example if you combine an OR method for long-term planning with an RL method to handle short-term rescheduling, you should indicate: `"tags": ["RL", "OR"]`. 
 
 ```{warning}
-[Different prizes](neurips-challenge) are available depending on the method you use! Therefore it is important to fill this tag correctly. Winning solutions will be verified by the organizers to ensure the method was properly declared.
+[Different prizes](prizes.md) are available depending on the method you use! Therefore it is important to fill this tag correctly. Winning solutions will be verified by the organizers to ensure the method was properly declared.
 ```
 
 If you set `debug` to `true`, then the evaluation will run for a shorter time, and the logs from your submitted code will be made available to you to help you debug. These test submissions will appear at the bottom of the leaderboard (score of `-1.0`).
@@ -234,7 +234,7 @@ The single-agent example is meant as a minimal example of how to use DQN. The mu
 
 You can fully train the multi-agent policy in Colab for free! [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1GbPwZNQU7KJIJtilcGBTtpOAD3EabAzJ?usp=sharing)
 
-To go further, explore the [research baselines](../research/baselines) which use RLlib to train using advanced algorithms such as Ape-X, PPO or imitation learning methods such as DQfD.
+To go further, explore the [RLlib baselines](https://gitlab.aicrowd.com/flatland/neurips2020-flatland-baselines) which use RLlib to train using advanced algorithms such as Ape-X, PPO or imitation learning methods such as DQfD.
 
 🐛 Troubleshooting
 ---

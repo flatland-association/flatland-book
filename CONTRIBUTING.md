@@ -5,16 +5,16 @@ Flatland is a complex research project that evolved quickly. As such, its docume
 
 To improve the documentation, follow this simple process:
 
-1. Fork the `flatland-book` repository, which contains the documentation you're currently reading
+1. Fork the [`flatland-book` repository](https://github.com/flatland-association/flatland-book), which contains the documentation you're currently
+   reading, and clone your fork:
 
     ```console
-    $ git clone git@github.com:flatland-association/flatland-book.git
+    $ git clone git@github.com:<your-github-user>/flatland-book.git
     ```
-    
-2. Write or fix the documentation as intented
 
-3. Add your name under "Contributors" in the [Credits page](credits)
+2. Write or fix the documentation as intended
 
-4. Open a pull request to allow mainteners to review and merge your changes.
+3. Open a pull request to allow maintainers to review and merge your changes.
 
-That's it! you will soon join the list of official Flatland contributors 🌟 
+That's it! You will soon join the list of [flatland-book contributors](https://github.com/flatland-association/flatland-book/graphs/contributors), which
+the [Credits page](misc/credits.md) refers to 🌟

@@ -8,12 +8,12 @@ Overview
 --------
 
 One of the main objectives of the [Flatland challenge](https://gitlab.aicrowd.com/flatland/neurips2020-flatland-baselines) is to find a suitable observation to
-solve the problems. Three observations are [provided with Flatland out of the box](observations), however it is unlikely that they will be sufficient for this
+solve the problems. Three observations are [provided with Flatland out of the box](provided_observations.md), however it is unlikely that they will be sufficient for this
 challenge.
 
 Flatland was built with as much flexibility as possible when it comes to building your custom observations. Whenever an environment needs to compute new
 observations for each agent, it queries an object derived from the [
-`ObservationBuilder` base class](https://github.com/flatland-association/flatland-rl/blob/main/flatland/core/env_observation_builder.py#L18), which takes the
+`ObservationBuilder` base class](https://github.com/flatland-association/flatland-rl/blob/v4.3.0/flatland/core/env_observation_builder.py#L25), which takes the
 current state of the environment and returns the desired observation.
 
 We will go through 3 examples to explain how to build custom observations:
@@ -29,8 +29,9 @@ In this first example we implement all the methods necessary for an observation 
 return a vector of size 5 filled with the ID of the agent. This is a toy example and wouldn't help an actual agent to learn anything.
 
 Custom observation builders need to derive from the [
-`flatland.core.env_observation_builder.ObservationBuilder`](https://github.com/flatland-association/flatland-rl/blob/main/flatland/core/env_observation_builder.py#L18)
-base class and must implement at least two methods, `reset(self)` and `get(self, handle)`.
+`flatland.core.env_observation_builder.ObservationBuilder`](https://github.com/flatland-association/flatland-rl/blob/v4.3.0/flatland/core/env_observation_builder.py#L25)
+base class and must implement at least the method `get(self, handle)`. The environment calls `reset(self, env)` after each environment reset; the base
+class stores the environment as `self.env`. Override `reset(self, env)` and call `super().reset(env)` first if your builder needs to pre-compute data.
 
 Below is a simple example that returns observation vectors of size 5 featuring only the ID (handle) of the agent whose observation vector is
 being computed:
@@ -42,8 +43,9 @@ class SimpleObs(ObservationBuilder):
     all equal to the ID of the respective agent.
     """
 
-    def reset(self):
-        return
+    def reset(self, env):
+        # Nothing to pre-compute; the base class stores the env as self.env.
+        super().reset(env)
 
     def get(self, handle):
         observation = handle * np.ones(5)
@@ -76,10 +78,11 @@ Single-agent navigation
 -----------------------
 
 Observation builders can inherit from existing concrete subclasses of [
-`ObservationBuilder`](https://github.com/flatland-association/flatland-rl/blob/main/flatland/core/env_observation_builder.py#L18). For example, it may be
-useful to extend the [`TreeObsForRailEnv`](https://github.com/flatland-association/flatland-rl/blob/main/flatland/envs/observations.py#L18) observation
-builder. A feature of this class is that on `reset()`, it pre-computes the lengths of the shortest paths from all cells and orientations to the target of each
-agent, i.e. a distance map for each agent.
+`ObservationBuilder`](https://github.com/flatland-association/flatland-rl/blob/v4.3.0/flatland/core/env_observation_builder.py#L25). For example, it may be
+useful to extend the [`TreeObsForRailEnv`](https://github.com/flatland-association/flatland-rl/blob/v4.3.0/flatland/envs/observations.py#L34) observation
+builder. A feature of this class is that it has access to the distance map of the environment: `RailEnv.reset()` resets `env.distance_map`, which computes the
+lengths of the shortest paths from all cells and orientations to the target of each agent on first access by `env.distance_map.get()`, i.e. a distance map for
+each agent.
 
 In this example we exploit these distance maps by implementing an observation builder that shows the current shortest path for each agent
 as a one-hot observation vector of length 3, whose components represent the possible directions an agent can take (`LEFT`, `FORWARD`, `RIGHT`). All values of
@@ -91,6 +94,7 @@ as each agent would only attempt its greedy solution, which is not usually [Pare
 this context.
 
 ```python
+from flatland.core.grid.grid4_utils import get_new_position
 from flatland.envs.observations import TreeObsForRailEnv
 
 
@@ -110,16 +114,19 @@ class SingleAgentNavigationObs(TreeObsForRailEnv):
         # We set max_depth=0 in because we only need to look at the current
         # position of the agent to decide what direction is shortest.
 
-    def reset(self):
-        # Recompute the distance map, if the environment has changed.
-        super().reset()
+    def reset(self, env):
+        # Nothing to pre-compute; the base class stores the env as self.env.
+        super().reset(env)
 
     def get(self, handle):
         # Here we access agent information from the environment.
         # Information from the environment can be accessed but not changed!
         agent = self.env.agents[handle]
+        # The configuration is ((row, column), direction); off the map, use the one at which the agent enters the map.
+        configuration = agent.current_configuration if agent.current_configuration is not None else agent.initial_configuration
+        position, direction = configuration
 
-        possible_transitions = self.env.rail.get_transitions(*agent.position, agent.direction)
+        possible_transitions = self.env.rail.get_transitions(configuration)
         num_transitions = np.count_nonzero(possible_transitions)
 
         # Start from the current orientation, and see which transitions are available;
@@ -129,10 +136,10 @@ class SingleAgentNavigationObs(TreeObsForRailEnv):
             observation = [0, 1, 0]
         else:
             min_distances = []
-            for direction in [(agent.direction + i) % 4 for i in range(-1, 2)]:
-                if possible_transitions[direction]:
-                    new_position = self._new_position(agent.position, direction)
-                    min_distances.append(self.env.distance_map.get()[handle, new_position[0], new_position[1], direction])
+            for new_direction in [(direction + i) % 4 for i in range(-1, 2)]:
+                if possible_transitions[new_direction]:
+                    new_position = get_new_position(position, new_direction)
+                    min_distances.append(self.env.distance_map.get()[handle, new_position[0], new_position[1], new_direction])
                 else:
                     min_distances.append(np.inf)
 
@@ -226,9 +233,9 @@ class ObservePredictions(TreeObsForRailEnv):
         super().__init__(max_depth=0)
         self.predictor = predictor
 
-    def reset(self):
-        # Recompute the distance map, if the environment has changed.
-        super().reset()
+    def reset(self, env):
+        # Also resets the predictor.
+        super().reset(env)
 
     def get_many(self, handles=None):
         '''
@@ -283,7 +290,7 @@ class ObservePredictions(TreeObsForRailEnv):
             visited.add((x_coord, y_coord))
             if self.predicted_pos[_idx][handle] in np.delete(self.predicted_pos[_idx], handle, 0):
                 # We detect if another agent is predicting to pass through the same cell at the same predicted time
-                observation[handle] = 1
+                observation[_idx] = 1
 
         # This variable will be access by the renderer to visualize the observation
         self.env.dev_obs_dict[handle] = visited
@@ -334,4 +341,4 @@ Going further
 ---
 
 When building your custom observation builder, you might want to aggregate and define your own features that are different from the raw environment data.
-The [next section](environment_information) explains how to access such information.
+The [next section](../environment_information.md) explains how to access such information.
