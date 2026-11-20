@@ -14,6 +14,7 @@ fi
 
 cp ${FLATLAND_MODULE_PATH}/../notebooks/Agent-Close-Following.ipynb environment/environment
 
+python -c 'import pypandoc; pypandoc.convert_file("resources/bibliography/bibliography_gen.md", "gfm", outputfile="resources/bibliography.md", extra_args=["--csl=resources/bibliography/agu-chrono.csl", "--lua-filter=resources/bibliography/group-by-year.lua", "--wrap=none"])'
 
 sphinx-apidoc --force -a -e -o apidocs ${FLATLAND_MODULE_PATH}  -H "Flatland ${FLATLAND_MODULE_VERSION} API Reference" --tocfile 'index'
 

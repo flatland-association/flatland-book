@@ -40,6 +40,8 @@ exclude_patterns:
   # repository docs, not book pages
   - README.md
   - CONTRIBUTING.md
+  # Do not build files in the bibliography folder as they are only used to generate the bibliography.md file
+  - resources/bibliography/**
   # PR plans with their screenshots, not book pages
   - docs/plans/**
   # do not build the starterkit cloned by challenges/ecml2026/training_envs.ipynb as pages
@@ -52,6 +54,8 @@ execute:
     # take too long or too many dependencies - make sure to have good coverage in flatland-rl for these code parts
     - "rllib_demo.ipynb"
     - "pettingzoo_demo.ipynb"
+    # ECML 2026 starterkit supports flatland-rl 4.2.5/4.2.6 only - outputs are stored in the notebook (run with flatland-rl 4.2.6)
+    - "training_envs.ipynb"
 
 
 # https://jupyterbook.org/en/stable/interactive/launchbuttons.html
