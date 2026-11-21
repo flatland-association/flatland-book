@@ -1,0 +1,273 @@
+{
+  "version": "2.0.0",
+  "binding": "grid",
+  "extensions_used": { "flatland-ui-hub": null },
+  "stations": {
+    "OL": {
+      "name": "OL",
+      "display_name": "Olten",
+      "gates": {},
+      "stopping_points": [
+        {
+          "name": "OL.0",
+          "node": [37, 7],
+          "extensions": { "flatland-ui-hub": { "track": 1, "basis": "notebook variable olten1" } }
+        },
+        {
+          "name": "OL.1",
+          "node": [37, 8],
+          "extensions": { "flatland-ui-hub": { "track": 2, "basis": "notebook variable olten2" } }
+        },
+        {
+          "name": "OL.2",
+          "node": [37, 9],
+          "extensions": { "flatland-ui-hub": { "track": 3, "basis": "notebook variable olten3" } }
+        },
+        {
+          "name": "OL.3",
+          "node": [37, 10],
+          "extensions": { "flatland-ui-hub": { "track": 4, "basis": "notebook variable olten4" } }
+        },
+        {
+          "name": "OL.4",
+          "node": [37, 11],
+          "extensions": { "flatland-ui-hub": { "track": 7, "basis": "notebook variable olten7" } }
+        },
+        {
+          "name": "OL.5",
+          "node": [37, 12],
+          "extensions": { "flatland-ui-hub": { "track": 8, "basis": "notebook variable olten8" } }
+        },
+        {
+          "name": "OL.6",
+          "node": [37, 13],
+          "extensions": { "flatland-ui-hub": { "track": 9, "basis": "notebook variable olten9" } }
+        },
+        {
+          "name": "OL.7",
+          "node": [37, 14],
+          "extensions": { "flatland-ui-hub": { "track": 10, "basis": "notebook variable olten10" } }
+        },
+        {
+          "name": "OL.8",
+          "node": [37, 15],
+          "extensions": { "flatland-ui-hub": { "track": 11, "basis": "notebook variable olten11" } }
+        },
+        {
+          "name": "OL.9",
+          "node": [37, 16],
+          "extensions": { "flatland-ui-hub": { "track": 12, "basis": "notebook variable olten12" } }
+        }
+      ]
+    },
+    "OL-HAMMER": {
+      "name": "OL-HAMMER",
+      "display_name": "Olten Hammer",
+      "kind": "stop",
+      "gates": {},
+      "stopping_points": [
+        {
+          "name": "OL-HAMMER.0",
+          "node": [49, 2],
+          "extensions": { "flatland-ui-hub": { "track": 2, "basis": "notebook variable hammer2" } }
+        },
+        {
+          "name": "OL-HAMMER.1",
+          "node": [50, 2],
+          "extensions": { "flatland-ui-hub": { "track": 4, "basis": "notebook variable hammer4" } }
+        }
+      ]
+    },
+    "TRIMBACH": {
+      "name": "TRIMBACH",
+      "display_name": "Trimbach",
+      "kind": "stop",
+      "gates": {},
+      "stopping_points": [
+        {
+          "name": "TRIMBACH.0",
+          "node": [9, 5],
+          "extensions": { "flatland-ui-hub": { "track": 2, "basis": "notebook variable trimbach2" } }
+        }
+      ]
+    },
+    "P-BASEL": {
+      "name": "P-BASEL",
+      "display_name": "Basel",
+      "kind": "portal",
+      "gates": {},
+      "stopping_points": [
+        {
+          "name": "P-BASEL.0",
+          "node": [0, 23],
+          "extensions": {
+            "flatland-ui-hub": {
+              "basis": "notebook variable end10north; destination from the timetable comments (Basel, von Basel, Basel > Zürich; lat/lon 2.2 km N) — derived, please verify"
+            }
+          }
+        },
+        {
+          "name": "P-BASEL.1",
+          "node": [0, 24],
+          "extensions": {
+            "flatland-ui-hub": {
+              "basis": "notebook variable end14north; destination from the timetable comments (Basel, von Basel, Basel > Zürich; lat/lon 2.2 km N) — derived, please verify"
+            }
+          }
+        }
+      ],
+      "extensions": { "flatland-ui-hub": { "via": "Hauenstein-Basistunnel" } }
+    },
+    "P-SISSACH": {
+      "name": "P-SISSACH",
+      "display_name": "Sissach",
+      "kind": "portal",
+      "gates": {},
+      "stopping_points": [
+        {
+          "name": "P-SISSACH.0",
+          "node": [9, 0],
+          "extensions": {
+            "flatland-ui-hub": {
+              "basis": "notebook variable end2north; destination from the timetable comments (Sissach via Trimbach; lat/lon 1.6 km NNW) — derived, please verify"
+            }
+          }
+        }
+      ],
+      "extensions": { "flatland-ui-hub": { "via": "Trimbach (Hauenstein-Scheiteltunnel)" } }
+    },
+    "P-AARAU": {
+      "name": "P-AARAU",
+      "display_name": "Aarau",
+      "kind": "portal",
+      "gates": {},
+      "stopping_points": [
+        {
+          "name": "P-AARAU.0",
+          "node": [18, 34],
+          "extensions": {
+            "flatland-ui-hub": {
+              "basis": "notebook variable end14east; destination from the timetable comments (Zürich, Baden, Turgi, Romanshorn, Arth-Goldau, von Wettingen/Rotkreuz; lat/lon 1.8 km ENE) — derived, please verify"
+            }
+          }
+        },
+        {
+          "name": "P-AARAU.1",
+          "node": [19, 34],
+          "extensions": {
+            "flatland-ui-hub": {
+              "basis": "notebook variable end12east; destination from the timetable comments (Zürich, Baden, Turgi, Romanshorn, Arth-Goldau, von Wettingen/Rotkreuz; lat/lon 1.8 km ENE) — derived, please verify"
+            }
+          }
+        },
+        {
+          "name": "P-AARAU.2",
+          "node": [20, 34],
+          "extensions": {
+            "flatland-ui-hub": {
+              "basis": "notebook variable end4east; destination from the timetable comments (Zürich, Baden, Turgi, Romanshorn, Arth-Goldau, von Wettingen/Rotkreuz; lat/lon 1.8 km ENE) — derived, please verify"
+            }
+          }
+        },
+        {
+          "name": "P-AARAU.3",
+          "node": [21, 34],
+          "extensions": {
+            "flatland-ui-hub": {
+              "basis": "notebook variable end7east; destination from the timetable comments (Zürich, Baden, Turgi, Romanshorn, Arth-Goldau, von Wettingen/Rotkreuz; lat/lon 1.8 km ENE) — derived, please verify"
+            }
+          }
+        }
+      ],
+      "extensions": { "flatland-ui-hub": { "via": "Aarau / Zürich" } }
+    },
+    "P-SOLOTHURN": {
+      "name": "P-SOLOTHURN",
+      "display_name": "Solothurn",
+      "kind": "portal",
+      "gates": {},
+      "stopping_points": [
+        {
+          "name": "P-SOLOTHURN.0",
+          "node": [49, 0],
+          "extensions": {
+            "flatland-ui-hub": {
+              "basis": "notebook variable end2south; destination from the timetable comments (Biel via Hammer, Langendorf via Hammer; lat/lon 1.1 km WSW) — derived, please verify"
+            }
+          }
+        },
+        {
+          "name": "P-SOLOTHURN.1",
+          "node": [50, 0],
+          "extensions": {
+            "flatland-ui-hub": {
+              "basis": "notebook variable end4south; destination from the timetable comments (Biel via Hammer, Langendorf via Hammer; lat/lon 1.1 km WSW) — derived, please verify"
+            }
+          }
+        }
+      ],
+      "extensions": { "flatland-ui-hub": { "via": "Olten Hammer (Jurasüdfuss, Biel)" } }
+    },
+    "P-BERN": {
+      "name": "P-BERN",
+      "display_name": "Bern",
+      "kind": "portal",
+      "gates": {},
+      "stopping_points": [
+        {
+          "name": "P-BERN.0",
+          "node": [59, 4],
+          "extensions": {
+            "flatland-ui-hub": {
+              "basis": "notebook variable end5south; destination from the timetable comments (Bern, Genf, Lausanne, Brig, Domodossola; lat/lon 1.8 km S) — derived, please verify"
+            }
+          }
+        },
+        {
+          "name": "P-BERN.1",
+          "node": [59, 5],
+          "extensions": {
+            "flatland-ui-hub": {
+              "basis": "notebook variable end6south; destination from the timetable comments (Bern, Genf, Lausanne, Brig, Domodossola; lat/lon 1.8 km S) — derived, please verify"
+            }
+          }
+        }
+      ],
+      "extensions": { "flatland-ui-hub": { "via": "Rothrist" } }
+    },
+    "P-LUZERN": {
+      "name": "P-LUZERN",
+      "display_name": "Luzern",
+      "kind": "portal",
+      "gates": {},
+      "stopping_points": [
+        {
+          "name": "P-LUZERN.0",
+          "node": [59, 13],
+          "extensions": {
+            "flatland-ui-hub": {
+              "basis": "notebook variable end7south; destination from the timetable comments (Luzern, Zofingen, Sursee, Langenthal, Locarno; lat/lon 1.3 km S) — derived, please verify"
+            }
+          }
+        },
+        {
+          "name": "P-LUZERN.1",
+          "node": [59, 14],
+          "extensions": {
+            "flatland-ui-hub": {
+              "basis": "notebook variable end9south; destination from the timetable comments (Luzern, Zofingen, Sursee, Langenthal, Locarno; lat/lon 1.3 km S) — derived, please verify"
+            }
+          }
+        }
+      ],
+      "extensions": { "flatland-ui-hub": { "via": "Aarburg / Zofingen" } }
+    }
+  },
+  "links": [],
+  "gate_links": [],
+  "extensions": {
+    "flatland-ui-hub": {
+      "comment": "Names for the Olten network (flatland-association/flatland-scenarios, MIT). Platforms, Hammer and Trimbach are named in the upstream notebook scenario_olten/scenario_olten.ipynb; portal destinations are derived from its timetable comments and checked against position_to_latlon.pkl. See SOURCE.md. Codes are this repo's ids, not SBB abbreviations."
+    }
+  }
+}
