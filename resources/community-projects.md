@@ -27,7 +27,7 @@ Do you have an idea for a project? Write it down and share it with the community
     - **description**,
     - **collaboration procedure** (meetings, communication channels, ...),
     - **collaborators**, and
-    - the summary box with **status**, **contact** and **tag**.
+    - the summary at the top with **status**, **contact** and **tag**.
 3. Add your page to `_toc.yml` in the sections below `resources/community-projects`.
 4. Add a row for your project to the table above.
 5. Open a pull request.
