@@ -3,7 +3,7 @@ Challenge Solutions
 
 Multiple challenges have been organized around the Flatland environment:
 
-- [ECML 2026 Challenge](https://competition.flatland.cloud/suites/6240c685-0fb4-481e-9404-47a570632227)
+- [ECML 2026 Flatland Challenge](https://competition.flatland.cloud/suites/6240c685-0fb4-481e-9404-47a570632227)
 - [Flatland 3 Challenge](https://www.aicrowd.com/challenges/flatland-3)
 - [AMLD 2021 Flatland Challenge](https://www.aicrowd.com/challenges/flatland-amld-2021)
 - [NeurIPS 2020 Flatland Challenge](https://www.aicrowd.com/challenges/flatland)
@@ -11,19 +11,31 @@ Multiple challenges have been organized around the Flatland environment:
 
 There also exists a perpetual benchmark:
 
-- [benchmarks.flatland.cloud](https://benchmarks.flatland.cloud)
+- [Flatland Benchmarks](https://benchmarks.flatland.cloud)
 
 Find below the top solutions submitted during these events. For more details see the individual pages of the challenges.
 
 
-ECML 2026 Challenge
+ECML 2026 Flatland Challenge
 ---
 
 ### First place 🥇
 
+- Participant:
+ 
+- Repository: 
+
 ### Second place 🥈
 
+- Participant:
+ 
+- Repository: 
+
 ### Third place 🥉
+
+- Participant:
+ 
+- Repository: 
 
 
 Flatland 3 Challenge
@@ -31,9 +43,22 @@ Flatland 3 Challenge
 
 ### First place 🥇
 
+- Participant:
+ 
+- Repository: 
+
 ### Second place 🥈
 
+- Participant:
+ 
+- Repository: 
+
+
 ### Third place 🥉
+
+- Participant:
+ 
+- Repository: 
 
 
 AMLD 2021 Flatland Challenge
@@ -41,10 +66,21 @@ AMLD 2021 Flatland Challenge
 
 ### First place 🥇
 
+- Participant:
+ 
+- Repository: 
+
 ### Second place 🥈
+
+- Participant:
+ 
+- Repository: 
 
 ### Third place 🥉
 
+- Participant:
+ 
+- Repository: 
 
 NeurIPS 2020 Edition
 ---
@@ -56,11 +92,22 @@ The top solutions from this challenge are summarized in the paper [Flatland comp
 
 ### First place 🥇
 
+- Participant:
+ 
+- Repository: 
+
+
 ### Second place 🥈
+
+- Participant:
+ 
+- Repository: 
 
 ### Third place 🥉
 
+- Participant:
 
+- Repository: 
 
 2019 Edition
 ---
@@ -73,7 +120,7 @@ You can read the full [challenge retrospective](https://www.aicrowd.com/blogs/fl
 
 - Repository: [gitlab.aicrowd.com/mugurelionut/flatland-challenge-starter-kit](https://gitlab.aicrowd.com/mugurelionut/flatland-challenge-starter-kit)
 
-- [Winner's Perspective: Interview with Mugurel](https://www.aicrowd.com/blogs/flatland-mugurel)
+- See also: [Winner's Perspective: Interview with Mugurel](https://www.aicrowd.com/blogs/flatland-mugurel)
 
 ### Second place 🥈
 
@@ -91,4 +138,6 @@ You can read the full [challenge retrospective](https://www.aicrowd.com/blogs/fl
 
 - Participant: [wwwjon](https://www.aicrowd.com/participants/wwwjon)
 
-- [Solution details](https://eprints.hsr.ch/855/) (a must-read!)
+- See also his [master thesis](https://orix.ost.ch/handle/20.500.14978/19841) 
+
+ [//]: # ( old link: https://eprints.hsr.ch/855/ )
