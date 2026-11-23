@@ -58,6 +58,7 @@ parts:
   ## CHALLENGES
   - caption: Challenges
     chapters:
+      - file: challenges/top-challenge-solutions
       - file: challenges/ecml2026
         sections:
           - file: challenges/ecml2026/eval
@@ -85,7 +86,6 @@ parts:
           - file: challenges/neurips2020/envconfig
           - file: challenges/neurips2020/faq
           - file: challenges/neurips2020/prizes
-      - file: challenges/top-challenge-solutions
 
   ## RESOURCES
   - caption: Resources
