@@ -8,9 +8,8 @@ Using this function, networks are generally generated using the following steps:
   <li>Cities (square areas of fixed "radius") are placed randomly on the map</li>
   <li>Cities are vested with inner and outer connection points towards and away from its closest neighbor</li>
   <li>Rails are placed on (shortest) paths connecting outer connection points of closest cities </li>
-  <li>Rails are placed connecting inner connection points with parallel rails </li>
-  <li>Train stations (resp. tracks) are placed on inner city rails </li>
-  <li>Rail transitions are fixed (as the placement does not preserves transition validity)  </li>
+  <li>Rails are placed connecting inner connection points with parallel rails and train stations (resp. tracks) in the middle </li>
+  <li>Rail transitions are fixed (as their placement does not preserves transition validity)  </li>
 </ol> 
 
 Find more details and illustrations for  to the different steps below.  
@@ -57,14 +56,16 @@ Inner and outer connection points are added at the borders of the cities on two 
 Pathfinding between Cities 
 -------------------------
 
+For each city for each cardinal direction, the nearest city in that direction is found. If no city exists the nearest one 90 degrees counterclockwise, then 90 degrees clockwise is chosen. In each city for each each outer connection point the outer connection point with the closest (manhattan) distance of the in this way found other city is identified. These two outer connection points of different cities are then connected via a rail path. This path is found using an A* path-finding algorithm with a manhattan distance heuristic only allowing cells which are not part of cities and with a penalty on choosing cells which already contain rails (giving them $+1$ distance cost in the heuristic). This process is repeated for each city and each outer connection point. As the rails placed in this way may overwrite existing rail paths, resulting in invalid transitions, some rail cells will need to be fixed later adding switches to allow for all necessary transitions. 
 
-Inner Cities 
+Inner Cities & Train Stations 
 -------------------------
 
-
-Train Stations 
--------------------------
+In each cities the inner connection points are connected by straight rail paths. Train stations are places in the middle of these paths and parallel stations/tracks per city labeled starting from 0. Parallel tracks are connected with each other and inner connections points are connected to outer connection points in straight lines (where they both exist). 
 
 
 Fixing Transitions 
 -------------------------
+All cells which are in cities and part of the connections between cities are checked, if their transitions are valid. Invalid transitions are fixed in the process creating switches. 
+
+
