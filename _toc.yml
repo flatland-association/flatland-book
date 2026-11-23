@@ -93,6 +93,8 @@ parts:
       - file: resources/bibliography
       - file: resources/youtube
       - file: resources/community-projects
+        sections:
+          - file: resources/community-projects/template
       - file: resources/travelwise
         sections:
           - file: resources/travelwise/data_model
