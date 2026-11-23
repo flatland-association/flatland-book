@@ -66,6 +66,6 @@ In each cities the inner connection points are connected by straight rail paths.
 
 Fixing Transitions 
 -------------------------
-All cells which are in cities and part of the connections between cities are checked, if their transitions are valid. Invalid transitions are fixed in the process creating switches. 
+All cells which are in cities and part of the connections between cities are checked, if their transitions are valid. Invalid transitions are fixed in the process creating switches. Resulting crossings might be level-free. 
 
 
