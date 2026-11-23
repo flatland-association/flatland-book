@@ -137,7 +137,7 @@ classDiagram
 | distance map               | `DistanceMap`                                                                      | `GraphDistanceMap`                                                                       |
 
 The resource map is keyed by the edge, i.e. the current and the next entry point (`get_resource(from_entry_point, to_entry_point)`); the resource held
-is the one at the from entry point. The distance maps derive from `EntryPointDistanceMap`, which stores the distance from every entry point to the
+is the one from the current entry point. The distance maps derive from `EntryPointDistanceMap`, which stores the distance from every entry point to the
 target entry points, and `AgentSourceTargetDistanceMap`, which answers per agent (`geometric_distance`, `eta`).
 
 ### Flatland Transition Maps
