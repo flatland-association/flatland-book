@@ -1,6 +1,7 @@
 jupyter-book<2.0
 sphinxcontrib-mermaid
 pypandoc_binary
-# TODO require flatland-rl>=5 once 5.0.0 is released on PyPI, so that a too old Python fails at install instead of building the docs for 4.x
-flatland-rl
+# flatland-rl main until 5.0.0 is released, as the book describes 5.0.0 and PyPI only has 4.x
+# TODO require flatland-rl>=5 from PyPI once 5.0.0 is released, so that a too old Python fails at install instead of building the docs for 4.x
+flatland-rl @ git+https://github.com/flatland-association/flatland-rl.git@main
 pytest
