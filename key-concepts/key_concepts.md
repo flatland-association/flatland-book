@@ -32,7 +32,7 @@ service runner(ip:refresh-one)[Runner] in flatland
 service railEnv(ip:train)[RailEnv] in flatland
 service scenarios(ip:database-config)[Scenarios] in flatland
 service policy(ip:six-circular-connection)[AI or OR Agent] in ai
-service interactiveAI(ip:map-two)[InteractiveAI] in ui
+service hmi(ip:map-two)[HMI] in ui
 service operator(ip:user)[Operator] in ui
 
 algorithmicResearcher:B -- T:runner
@@ -41,9 +41,13 @@ runner:R -- L:railEnv
 runner:L -- R:evaluator
 scenarios:T -- B:runner
 railEnv:T -- B:policy
-railEnv:R -- L:interactiveAI
-interactiveAI:R -- L:operator
+railEnv:R -- L:hmi
+hmi:R -- L:operator
 ```
+
+The HMI (human-machine interface) is any user interface through which an operator follows the simulation and acts on it, e.g.
+[InteractiveAI](https://github.com/AI4REALNET/InteractiveAI) (see [Integrations](../environment/integrations)) or
+[flatland-hmi](https://github.com/flatland-association/flatland-hmi).
 
 Agent-Environment Interaction
 -----------------------------
@@ -142,7 +146,7 @@ sequenceDiagram
     participant RailEnv
     actor Algorithmic Researcher
     participant AI or OR Agent
-    participant InteractiveAI
+    participant HMI
     actor Operator
 
     box Flatland
@@ -158,7 +162,7 @@ sequenceDiagram
     end
 
     box User Interaction
-        participant InteractiveAI
+        participant HMI
         participant Operator
     end
 
@@ -170,10 +174,10 @@ sequenceDiagram
         AI or OR Agent -->> Runner: actions
         Runner ->> RailEnv: actions
         RailEnv -->> Runner: observations, rewards, info
-        Runner -) InteractiveAI: events, context
+        Runner -) HMI: events, context
         loop interaction
-            Operator -) InteractiveAI: requests
-            InteractiveAI -) Operator: information, action options
+            Operator -) HMI: requests
+            HMI -) Operator: information, action options
         end
     end
 
