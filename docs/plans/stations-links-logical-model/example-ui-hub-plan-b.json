@@ -1,0 +1,65 @@
+{
+  "version": "2.0.0",
+  "binding": "grid",
+  "extensions_used": {},
+  "stations": {
+    "A": {
+      "name": "A",
+      "id": 1,
+      "area": [[2, 2], [2, 3], [2, 4]],
+      "gates": {
+        "E": { "name": "A.E", "pins": { "0": { "name": "A.E.0", "node": [2, 4] } } },
+        "W": { "name": "A.W", "pins": { "0": { "name": "A.W.0", "node": [2, 2] } } }
+      },
+      "stopping_points": [
+        { "name": "A.0", "node": [2, 3] }
+      ],
+      "placement": { "position": [2, 3], "orientation": 90.0, "outline": [[1, 2], [1, 4], [3, 4], [3, 2]] }
+    },
+    "B": {
+      "name": "B",
+      "id": 2,
+      "area": [[2, 20], [2, 21], [2, 22]],
+      "gates": {
+        "E": { "name": "B.E", "pins": { "0": { "name": "B.E.0", "node": [2, 22] } } },
+        "W": { "name": "B.W", "pins": { "0": { "name": "B.W.0", "node": [2, 20] } } }
+      },
+      "stopping_points": [
+        { "name": "B.0", "node": [2, 21] }
+      ],
+      "placement": { "position": [2, 21], "orientation": 90.0, "outline": [[1, 20], [1, 22], [3, 22], [3, 20]] }
+    }
+  },
+  "links": [
+    {
+      "from_gate": "A.E",
+      "to_gate": "B.W",
+      "fibres": [
+        {
+          "from_pin": "A.E.0",
+          "to_pin": "B.W.0",
+          "edges": [
+            [1, 10], [1, 11], [1, 12], [1, 13], [1, 14], [2, 5], [2, 6], [2, 7], [2, 8], [2, 9], [2, 10],
+            [2, 11], [2, 12], [2, 13], [2, 14], [2, 15], [2, 16], [2, 17], [2, 18], [2, 19]
+          ]
+        }
+      ]
+    }
+  ],
+  "gate_links": [
+    {
+      "from_gate": "A.W",
+      "to_gate": "A.E",
+      "fibres": [
+        { "from_pin": "A.W.0", "to_pin": "A.E.0", "edges": [[2, 3]] }
+      ]
+    },
+    {
+      "from_gate": "B.W",
+      "to_gate": "B.E",
+      "fibres": [
+        { "from_pin": "B.W.0", "to_pin": "B.E.0", "edges": [[2, 21]] }
+      ]
+    }
+  ]
+}
