@@ -74,7 +74,7 @@ You can find the Flatland competition paper on arXiv: [https://arxiv.org/abs/201
 
 Flatland addresses the vehicle re-scheduling problem (VRSP): rescheduling vehicle trips after a disruption, such as a breakdown, has
 invalidated the plan. The problems are formulated as a 2D grid environment with restricted transitions between neighboring cells to represent railway
-networks, on which multiple agents with different objectives must collaborate to maximize global reward. See [Why Flatland?](getting-started/why-flatland)
+networks (or as a graph, with `GraphRailEnv`), on which multiple agents with different objectives must collaborate to maximize global reward. See [Why Flatland?](getting-started/why-flatland)
 for the definition of the VRSP and the railway context.
 
 🔖 Design principles

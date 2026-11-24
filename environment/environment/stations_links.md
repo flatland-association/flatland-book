@@ -161,7 +161,7 @@ odd indexes) and the number of cities (`len(city_positions)`, for picking cities
 `city_orientations` only for its axis, both headings along it are tried. All three are derivable from the
 stopping points, the stations and the gate keys above.
 
-The third column is what `sparse_rail_generator` guarantees (4.3.0), so a reader may check it against the derivation.
+The third column is what `sparse_rail_generator` guarantees (since 4.3.0), so a reader may check it against the derivation.
 The fourth column is what the [drawing tool](https://github.com/flatland-association/flatland-scenarios) in flatland-scenarios exports, converted by its
 `stations_to_stations_links` (as of its pull request
 [#39](https://github.com/flatland-association/flatland-scenarios/pull/39), not merged yet); where it differs from
