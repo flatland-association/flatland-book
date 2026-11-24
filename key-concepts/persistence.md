@@ -161,9 +161,19 @@ environments saved with `flatland 4.x` are converted when they are loaded:
 | saved with     | loaded with    | `RailEnvPersister.load_new` / `load`                                                                                                              | plain `pickle.load`                                                           |
 |----------------|----------------|---------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------|
 | `flatland 4.x` | `flatland 5.x` | loads an env saved before the first step (e.g. the competition environments); an env saved during an episode, with agents on the map, is rejected | fails (`ModuleNotFoundError`: the pickle refers to a module removed in 5.0.0) |
-| `flatland 5.x` | `flatland 4.x` | fails                                                                                                                                             | fails                                                                         |
+| `flatland 5.x` | `flatland 4.x` | fails (`TypeError`: the agents have more fields than `flatland 4.x` knows)                                                                        | fails                                                                         |
 
 When loading a `flatland 4.x` environment, `RailEnvPersister` converts each agent to entry points and brings its speed counter in line with
 `flatland 5.0.0`: an agent off the map gets speed and distance `None`, an agent in a malfunction gets speed 0 (see
 [Agent](../environment/environment/agent)). An env saved during an episode cannot be converted, because `flatland 4.x` does not store the agents'
 next entry points. Always load saved environments with `RailEnvPersister`, not with `pickle` directly.
+
+Since `flatland 5.0.0`, the saved env also holds:
+
+* **Transition lengths:** saved with the rail, as `(u, v, numerator, denominator)` per transition with a length set; environments saved without them
+  (all environments saved before `flatland 5.0.0`) load with all transition lengths 1.
+* **The state machine setting:** whether the env updates `agent.state` (`skip_state_machine_update`, see [Agent](../environment/environment/agent)).
+  `RailEnvPersister.load_new` restores the saved setting unless `skip_state_machine_update` is passed; files saved before load without the update.
+* **The episode state of a `ConditionalMalfunctionEffectsGenerator`:** the number of malfunctions so far, its block of random numbers and the
+  position in it, and which agents were in malfunction. A generator saved mid-episode continues as recorded after loading; one saved before
+  `flatland 5.0.0` continues with a new count and block, so its malfunctions differ from the recorded ones.
