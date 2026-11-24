@@ -247,6 +247,7 @@ both, overriding the already-computed `agent_transition_data.candidate_speed`, t
 removed/off-map agent's speed must be `None`. Distance needs no such forcing, since `_candidate_distance` already
 returns `None` for both directly (Table 1).
 
+(design-by-contract-is-cell-entry)=
 #### `SpeedCounter.is_cell_entry` — derived after Table 3 resolves speed/distance
 
 `SpeedCounter.set(speed, distance, edge_length, *, crossed)` (`step_utils/speed_counter.py`) is what (13) actually calls
@@ -422,6 +423,16 @@ with $d_i^t = \bot$ off map. `handle_done_state()` (14) sets $\theta_i^{t+1}$ to
 one of $targets_i$, and $\theta_i^{t+1} = \theta_i^t$ otherwise, so that $i \in dones^{t+1} \iff \theta_i^{t+1} \neq \bot$; with $\mathit{removeAtTarget}$, it
 then removes the agent ($c_i^{t+1} = \bot$ above). The malfunction counter is decremented at the start of the next step (1),
 $m_i^{t+1} = \bot$ if $m_i^t = \bot$ or $m_i^t = 1$, else $m_i^t - 1$, before the effects generator may start a new malfunction (2).
+
+`speed_counter.set` (13) also sets `is_cell_entry` after the agent's speed and distance are resolved: the agent has
+entered the map, or it has crossed into its next transition (`crossed=True`):
+
+$$
+\mathit{cellEntry}_i^{t+1} :\Leftrightarrow (d_i^t = \bot \wedge d_i^{t+1} \neq \bot) \vee (c_i^t \neq \bot \wedge c_i^{t+1} \neq \bot \wedge c_i^{t+1} \neq c_i^t)
+$$
+
+Unlike $\mathit{cellExit}_i^t$, which the collect phase computes from the pre-step speed and distance, it depends on the
+outcome of the step. It can't be derived from the distances alone (see [`SpeedCounter.is_cell_entry`](design-by-contract-is-cell-entry)).
 
 #### Table 4e - Step Distribute Phase: accept/reject
 
