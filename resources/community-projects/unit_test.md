@@ -28,6 +28,14 @@ RL policies can have overall great scores but fail in specific situations. Such 
 
 A relevant policy should not only solve the VRSP but also this list of specific scenarios that are relevant for the domain.
 
+Original idea:
+
+Cf. notes from Flatland Community Workshop 2025:
+
+<img width="576" height="794" alt="image" src="https://github.com/user-attachments/assets/44f664fe-7791-4b7d-8bb3-b4cf2afcbd31" />
+
+Credits to @manuschn 🎉🎉🎉🎉
+
 ### Approach
 
 Knowledge gathering phase:
