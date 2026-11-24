@@ -97,6 +97,7 @@ parts:
       - file: resources/community-projects
         sections:
           - file: resources/community-projects/template
+          - file: resources/community-projects/random-graphs
       - file: resources/travelwise
         sections:
           - file: resources/travelwise/data_model

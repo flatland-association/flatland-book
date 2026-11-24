@@ -9,6 +9,7 @@ together and who is involved.
 | Project                                            | Goal                                            | Status     | Tag                       |
 | -------------------------------------------------- | ----------------------------------------------- | ---------- | ------------------------- |
 | [Project Template](community-projects/template.md) | _Template to copy when proposing a new project_ | _template_ | _`project:<short-name>`_ |
+| [Random Graphs](community-projects/random-graphs.md) | _Generate random railway network graphs based on metrics/statistics of real networks_ | _conceptionalization and trial phase, open for collaboration_ | _`project:random-graphs`_ |
 
 Each project has a **tag**. Issues and pull requests belonging to a project carry its tag (as a GitHub label, or in the title),
 so that work on a project can be found across all Flatland repositories.
