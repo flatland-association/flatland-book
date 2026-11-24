@@ -8,6 +8,7 @@ together and who is involved.
 
 | Project                                            | Goal                                            | Status     | Tag                       |
 | -------------------------------------------------- | ----------------------------------------------- | ---------- | ------------------------- |
+| [Real-world relevant unit test benchmark](community-projects/unit_test.md) | Create a benchmark of small, domain-relevant scenarios, each describing one specific problem | idea | — |
 | [Project Template](community-projects/template.md) | _Template to copy when proposing a new project_ | _template_ | _`project:<short-name>`_ |
 
 Each project has a **tag**. Issues and pull requests belonging to a project carry its tag (as a GitHub label, or in the title),
