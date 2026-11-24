@@ -11,10 +11,7 @@ How to use this template:
 - **Goal:** Create a benchmark consisting of a list of domain-relevant scenarios describing one specific problem each.
 - **Status:** _idea / looking for collaborators_
 - **Contact:** @CleverManu
-- **Tag:** `project:unit-test-benchmark`
-
-> Use the tag as a GitHub label (or in the title, e.g. `[unit-test-benchmark`]`) on all issues and pull requests that belong to this project, in any Flatland
-> repository.
+- **Tag:** `unit-test-benchmark`
 
 ## Goal
 
