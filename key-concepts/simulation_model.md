@@ -54,11 +54,11 @@ Adapted from [RLlib](https://docs.ray.io/en/latest/rllib/rllib-env.html#rllib-en
 | Observation Builder | Called by env to build the observation from the env's state.                                                                                                                                                                                                               |
 | Entry Point         | Each agent is at an entry point, i.e. a cell and the direction in which it entered it in the grid or a node in the graph, and has already chosen its next entry point. Updated by env during a `step`.                                                                     |
 | Transition Map      | Defines the topology the agents live in, i.e. the entry points and transitions between them as well as actions required for the transition.                                                                                                                                |
-| Resource Map        | Defines which resource an agent holds on its way from one entry point to the next, e.g. rails can be allocated only mutually exclusively. Keyed by the edge (from and to entry point); the resource is the one at the from entry point.                                    |
+| Resource Map        | Defines which resource an agent holds on its way from one entry point to the next, e.g. rails can be allocated only mutually exclusively. Keyed by the transition (from and to entry point); the resource is the one at the from entry point.                                    |
 
 Grid and graph environments share one `step()` implementation: `AbstractRailEnv` is generic in the transition map, the resource map and the entry
 point type (`AbstractRailEnv[TransitionMapT, ResourceMapT, EntryPointT]`). `step()` only works with entry points: it asks the transition map for
-the successor of an entry point under an action and the resource map for the resource held on an edge, and it never looks at grid cells or graph
+the successor of an entry point under an action and the resource map for the resource held on a transition, and it never looks at grid cells or graph
 nodes directly. Rewards and observations get the distances to the targets from the distance map. `RailEnv` (grid) and `GraphRailEnv` (graph) bind
 the type parameters and implement only the parts that depend on the representation, i.e. generating the rail, the resource map and the agents.
 
@@ -74,6 +74,8 @@ classDiagram
         class TransitionMap~EntryPointT~ {
             apply_action_independent(action, entry_point)
             get_successor_entry_points(entry_point)
+            edge_length(u, v)
+            has_edge_lengths()
         }
         class ResourceMap~EntryPointT, ResourceT~ {
             get_resource(from_entry_point, to_entry_point)
@@ -131,7 +133,7 @@ classDiagram
 
 | Type parameter / component | `RailEnv` (grid)                                                                   | `GraphRailEnv` (graph)                                                                   |
 |----------------------------|------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------|
-| `EntryPointT`              | `((row, column), direction)`                                                       | `str`, a node of the graph                                                               |
+| `EntryPointT`              | `((row, column), direction)` (`GridNode`)                                          | `str`, a node of the graph (`GraphNode`)                                                 |
 | `TransitionMapT`           | `RailGridTransitionMap` (a `GridTransitionMap`)                                    | `GraphTransitionMap`                                                                     |
 | `ResourceMapT`             | `GridResourceMap`: the cell, or the cell and the axis at level-free crossings      | `GraphResourceMap`: a given mapping from node to resource                                |
 | distance map               | `DistanceMap`                                                                      | `GraphDistanceMap`                                                                       |
@@ -140,13 +142,18 @@ The resource map is keyed by the transition, i.e. the current and the next entry
 is the one from the current entry point. The distance maps derive from `EntryPointDistanceMap`, which stores the distance from every entry point to the
 target entry points, and `AgentSourceTargetDistanceMap`, which answers per agent (`geometric_distance`, `eta`).
 
+Every transition has a length (`edge_length(u, v)`, at least 1, an `int` or a `Fraction`, 1 by default). A distance is the sum of the transition lengths along the
+shortest path, an `int` or a `Fraction`; the grid's distance map is a float array for whole-number lengths and an object array of exact `Fraction`s
+otherwise. The decision point graph, `shortest_path_length()`, the tree observation and the shortest path predictor sum transition lengths the same way.
+Timetable entries stay whole steps: the timetable generator rounds the lengths up.
+
 ### Flatland Transition Maps
 
 | Concept        | Grid                                                                                                                                                                                                                                                             | Graph                                                                                                                                                      |
 |----------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Coordinate     | Row, column, direction how cells can be entered: `((r,c),d)`.                                                                                                                                                                                                    | A **node** (`str`), i.e. a cell entry pin.                                                                                                                 |
-| Transition Map | For each entry point, which are possible successor entry points (`get_successor_entry_points`).                                                                                                                                                                  | The directed graph: a pair of **node**s defines a directed **edge**, a **transition**; successors of a node via `get_successor_entry_points`.              |
-| Entry Point    | Row, column and the direction in which the cell was entered: `((r,c),d)`. The agent is on its way from its current to its next entry point, `speed_counter.distance` is the offset; speed and malfunction counter are kept separately in the agent.              | A node.                                                                                                                                                    |
+| Transition Map | For each entry point, which are possible successor entry points (`get_successor_entry_points`), and the length of each transition (`edge_length`, `GridTransitionMap.edge_lengths`).                                                                                 | The directed graph: a pair of **node**s defines a directed **edge**, a **transition**; successors of a node via `get_successor_entry_points`; the optional edge attribute `length` gives its length. |
+| Entry Point    | Row, column and the direction in which the cell was entered: `((r,c),d)`. The agent is on its way from its current to its next entry point, `speed_counter.distance` is the offset (`0 ≤ distance < speed_counter.edge_length`); speed and malfunction counter are kept separately in the agent.              | A node.                                                                                                                                                    |
 | Agent State    | `current_entry_point` and `next_entry_point`, the offset `speed_counter.distance`, the speed, the malfunction counter (`malfunction_handler`), and `target_entry_point` (set once arrived, i.e. done). The two entry points span the transition the agent is on. | The **transition** (an edge) from `current_entry_point` to `next_entry_point`, the offset on it, speed, malfunction counter and done.                      |
 | Resource Map   | Each `row,col=cell` is a mutually exclusively allocatable resource; at level-free crossings, the cell and the axis `(position, direction % 2)`.                                                                                                                  | Each node is mapped to a mutually exclusively allocatable resource (`GraphResourceMap`); nodes reflecting common physical infrastructure share a resource. |
 
@@ -159,7 +166,7 @@ additionally holds its `next_entry_point`.
 | Concept               | Description                                                                                                                                                                                                                                                                     |
 |-----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Malfunction Generator | An instance of effects generator, changing agent's state.                                                                                                                                                                                                                       |
-| Rail (Generator)      | Outputs a transition map and stopping points, and, optionally, stations and links.                                                                                                                                                                                              |
+| Rail (Generator)      | Outputs a transition map and stopping points, and, optionally, stations and links and transition lengths (`optionals["edge_lengths"]`).                                                                                                                                               |
 | Line (Generator)      | Outputs a sequence of stops, which are sets of entry points. The first is a singleton called initial entry point; the last is called target; the others are called intermediate stops.                                                                                          |
 | Timetable (Generator) | Adds a time window (earliest, latest) for each stop. Earliest of the initial entry point is enforced by the simulation (`step()` lets an agent depart from step `earliest_departure` on); the remaining are used in the rewards for penalizing late arrival or early departure. |
 | Station               | Collection of stopping points and gates.                                                                                                                                                                                                                                        |
