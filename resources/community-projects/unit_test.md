@@ -1,4 +1,4 @@
-# Real-world relevant unit test benchmark
+# Domain-relevant unit test benchmark
 
 <!--
 How to use this template:
@@ -8,30 +8,25 @@ How to use this template:
 4. Add a row for your project to the overview table in resources/community-projects.md.
 -->
 
-- **Goal:** _One sentence: what will exist or be known once the project is done?_
-- **Status:** _idea / looking for collaborators / ongoing / completed_
-- **Contact:** _Name, GitHub handle or e-mail_
-- **Tag:** _`project:<short-name>`, e.g. `project:delay-prediction`_
+- **Goal:** Create a benchmark consisting of a list of domain-relevant scenarios describing one specific problem each.
+- **Status:** _idea / looking for collaborators_
+- **Contact:** @CleverManu
+- **Tag:** `project:unit-test-benchmark`
 
-> Use the tag as a GitHub label (or in the title, e.g. `[delay-prediction]`) on all issues and pull requests that belong to this project, in any Flatland
+> Use the tag as a GitHub label (or in the title, e.g. `[unit-test-benchmark`]`) on all issues and pull requests that belong to this project, in any Flatland
 > repository.
 
 ## Goal
 
-Create a benchmark consisting of a list of small but domain relevant scenarios describing one specific problem each.
-
-> What do you want to achieve, and why does it matter for Flatland or for railway operations? State the goal so that one can tell at the end whether it
-> has been reached, e.g. "Provide a baseline policy that solves all ECML 2026 level 1 scenarios without collisions".
+Gather domain-relevant scenarios desribing specific problems or situations that are of special importance. Then, take these scenarios and create a benchmark.
 
 ## Description
 
 ### Background and Motivation
 
-RL policies sometimes have overall great scores but fail in specific situations. Such situations might be generally underrepresented in random environments or in benchmarks with different goal, or they might have overproportionately large ramifications within the (local) network.
+RL policies can have overall great scores but fail in specific situations. Such situations might be generally underrepresented in random environments or in benchmarks with different goals, or they might have overproportionately large ramifications within the (local) network.
 
 A relevant policy should not only solve the VRSP but also this list of specific scenarios that are relevant for the domain.
-
-> What problem or question are you addressing? Who benefits?
 
 ### Approach
 
@@ -40,21 +35,27 @@ Knowledge gathering phase:
 - Talk to people who know the domain-specific problems (educators? trainers?)
   - What are problems/scenarios you encounter often (day-to-day)?
   - What are situations with (unexpectedly) large consequences?
-- Iterate about how these problems can be integrated as Flatland scenarios
-- Exchange with OR/RL researchers to confirm these problems are interesting from their standpoint
-  - Some might be provably trivial
+
+  _Examples:_
+  - _single track segment (ordering / prioritizing)_
+  - _crossing multiple tracks in front of a station_
+  - _few options to overtake for trains with different speeds_
+  - _ensure train connections_
+
+- Exchange with OR/RL researchers to confirm these problems are interesting from their standpoint (some might be provably trivial)
 
 Implementation phase:
 
+- Group scenarios into 'flavors', e.g. scenarios that address the same underlying problem/issue but have varying scales of difficulty or impact
+- Define how these problems can be integrated as Flatland scenarios
 - Build the scenarios (maybe with varying initial conditions)
 - Combine them into a benchmark (motivation, desription, ...)
 - Deploy it on Flatland benchmarks
 
-> How do you plan to tackle it? Which methods, tools, data and Flatland components are involved?
+### Milestones & Deliverables
 
-### Deliverables
-
-> What will be produced, e.g. code, dataset, scenarios, paper, documentation?
+1. Gather domain knowledge to create a list of scenarios with problem descriptions, sketches and reasons why it is on this list [Deliveravle: list of scenarios]
+2. Create the benchmark consisting of these scenarios implemented as Flatland scenarios [Deliverable: Flatland scenarios and benchmark]
 
 ### Scope and First Steps
 
@@ -62,25 +63,31 @@ First step:
 
 - Knowledge phase: learn about such scenarios from domain experts
 
-> What is in and out of scope? What are the first concrete steps?
+Out of scope:
+
+- The unit test benchmark is supposed to consist of _unit type_ scenarios, not larger networks addressing multiple issues at once.
 
 ### Skills Needed
 
-> What kind of help are you looking for?
+Access to people with domain knowledge is needed.
 
 ## Collaboration Procedure
 
+tbd...
+
 > How will the collaborators work together? Fill in the table below.
 
-| Topic         | Arrangement                                                                              |
-| ------------- | ---------------------------------------------------------------------------------------- |
-| Meetings      | <!--_e.g. bi-weekly video call, Thursdays 16:00 CET, 45 min_ -->                         |
-| Communication | <!--_e.g. channel on the Flatland Discord / Slack, mailing list_-->                      |
-| Code and docs | <!--_e.g. repository `flatland-association/<repo>`, issues for tasks, PRs for review_--> |
-| Decisions     | <!--_e.g. discussed in meetings, recorded in meeting notes or GitHub issues_-->          |
-| How to join   | <!--_e.g. contact the project lead or comment on issue #..._-->                          |
+| Topic         | Arrangement                                                                       |
+| ------------- | --------------------------------------------------------------------------------- |
+| Meetings      | _e.g. bi-weekly video call, Thursdays 16:00 CET, 45 min_                          |
+| Communication | _e.g. channel on the Flatland Discord / Slack, mailing list_                      |
+| Code and docs | _e.g. repository `flatland-association/<repo>`, issues for tasks, PRs for review_ |
+| Decisions     | _e.g. discussed in meetings, recorded in meeting notes or GitHub issues_          |
+| How to join   | _e.g. contact the project lead or comment on issue #..._                          |
 
 ## Collaborators
+
+tbd...
 
 > Who is involved? Add one row per person.
 
