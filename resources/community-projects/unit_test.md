@@ -1,4 +1,4 @@
-# Real-world relevant uit test benchmark
+# Real-world relevant unit test benchmark
 
 <!--
 How to use this template:
