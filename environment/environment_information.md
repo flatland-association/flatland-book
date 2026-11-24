@@ -35,7 +35,7 @@ The simulation updates the train's speed counter accordingly. Reinterpret `DO_NO
 accelerate.
 Configuration sets the acceleration/braking delta or the old behaviour.
 Since `flatland 5.0.0`, speed changes act from the next step, see [Actions](./environment/actions).
-A penalty can be configured to reward function penalizing if a train enters a cell already occupied.
+A penalty can be configured to reward function penalizing if the env forces a moving train to stop: a denied move into an occupied cell, or an invalid action.
 
 #### Changes
 
