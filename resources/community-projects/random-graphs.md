@@ -24,7 +24,7 @@ Generate random railway network graphs based on metrics/statistics of real netwo
 
 ### Background and Motivation
 
-Current generation of random graphs only works on the grid and works based on heuristics. In particular the current generation is not based on quantifiable graph theoretical features. 
+Currently, Flatland only has random generators working on the grid and works based on heuristics. The output of these generators can then be converted to a graph. In particular, the current generation is not based on quantifiable graph theoretical features. 
 With the new graph frameworks in flatland a random generator based on graphs would be very useful on the one hand to allow for random generation to train agents in RL and on the other hand to quantify the realism of the generated train networks, based on to be defined metrics/statistics of real networks.   
 
 ### Approach
