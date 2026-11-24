@@ -33,7 +33,7 @@ Potential employment of the Exponential Random Graph Model (ERGM) to generate gr
 
 ### Deliverables
 
-Code to generate these random graphs based on given found metrics/statistics. Documentation of generator. 
+Code to generate these random graphs based on given found metrics/statistics. Documentation of generator. Sets of (example) generated environments with specific useful metrics/statistics.
 
 ### Scope and First Steps
 
@@ -43,15 +43,16 @@ Ultimately, find relevant relevant metrics/statistics & successful generation me
 
 ### Skills Needed
 
-Experience with Exponential Random Graph Models. 
-Expert input on relevant metrics/statistics. 
+Development of some experience with Exponential Random Graph Models. Expert input could be useful. 
+
+Domaine Expert input could be useful to more quickly identify relevant metrics/statistics. 
 
 ## Collaboration Procedure
 
 | Topic         | Arrangement                                                                       |
 | ------------- | --------------------------------------------------------------------------------- |
 | Meetings      | _TBD (to be adjusted by demand)_                          |
-| Communication | _e-mail (to be adjusted by demand)_                      |
+| Communication | _e-mail/GitHub (to be adjusted by demand)_                      |
 | Code and docs | _TBD after conceptionalization and trials <!---e.g. repository `flatland-association/<repo>`, issues for tasks, PRs for review-->_ |
 | Decisions     | _shared overleaf notes (to be adjusted by demand)_          |
 | How to join   | _contact the project lead_                          |
