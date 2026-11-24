@@ -1,10 +1,10 @@
 # Bring the book in line with flatland-rl `main`: edge lengths, denied crossings, reproducible malfunctions ([flatland-rl#577](https://github.com/flatland-association/flatland-rl/issues/577))
 
-> **Status:** plan of 2026-11-23, draft. Based on flatland-book `main` 3676d14 (after PR
+> **Status:** plan of 2026-11-23, carried out (S-1-S-12). Based on flatland-book `main` 3676d14 (after PR
 > [#42](https://github.com/flatland-association/flatland-book/pull/42)), checked against flatland-rl `main` ac932d16.
 > Issue [flatland-rl#577](https://github.com/flatland-association/flatland-rl/issues/577) ("docs(book): document edge
 > lengths in the flatland-book.", chenkins), widened on 2026-11-23 to the whole book. Branch
-> `577-flatland-rl-main-consistency`, no PR yet. Open questions: §9.1.
+> `577-flatland-rl-main-consistency`, PR [#62](https://github.com/flatland-association/flatland-book/pull/62). No open questions (§9.1).
 >
 > **Why:** PR #42 brought the book to flatland-rl `main` as it stood before #545 and #542. Since then `main` gives
 > every edge a length, keeps a train's distance when its move is denied, and repeats the malfunctions on a reset
@@ -203,13 +203,13 @@ by a Chromium DevTools script, in `docs/plans/flatland-rl-main-consistency/` (`N
 
 | ID | Requirement | Test or check | Result | Screenshots |
 |---|---|---|---|---|
-| REQ-1 | Denied crossing keeps the distance | `grep -rn "banked\|distance 1\b\|distance_without_crossing"` finds nothing outside this plan; the actions table matches a run on ac932d16 (§3). "End of its cell" stays for `is_cell_exit`: in the grid an edge is the passage through one cell. | ✅ 2026-11-23 | `01-contract-collect-*`, `02-contract-distribute-*`, `03-actions-blocked-train-*`, `15-key-concepts-restart-*` |
+| REQ-1 | Denied crossing keeps the distance | `grep -rn "banked\|distance 1\b\|distance_without_crossing"` finds nothing outside this plan; the actions table matches a run on ac932d16 (§3). The pages say "end of its transition" for `is_cell_exit` (Q-8). | ✅ 2026-11-23 | `01-contract-collect-*`, `02-contract-distribute-*`, `03-actions-blocked-train-*`, `15-key-concepts-restart-*` |
 | REQ-2 | Edge lengths | `grep -rn "SEGMENT_LENGTH\|cell length\|equally long"` finds nothing outside this plan; the graph example's output is from a run on ac932d16. | ✅ 2026-11-23 | `04-speed-and-distance-*`, `05-edge-lengths-after`, `06-update-formulas-*`, `08-railway-features-*`, `09-graph-example-after` |
 | REQ-3 | Long-edge illustration | The new cells assert the recorded trajectories against their tables (lengths 2 and 3/2); they run in the build. | ✅ 2026-11-23 | `07-long-edges-after` |
 | REQ-4 | Reproducible malfunctions | Text checked against `malfunction_effects_generators.py:25-30,88-152`; a run on ac932d16: a second seeded reset gives the same malfunctions as the first and as a new env. | ✅ 2026-11-23 | `10-stochasticity-effects-*`, `11-stochasticity-not-guaranteed-*`, `12-stochasticity-conditional-*`, `13-persistence-*`, `14-evaluation-*` |
 | REQ-5 | Tense | `grep -rn "coming with\|planned for 5\|to be fixed in"` finds nothing outside this plan ("planned for 5.0.1" for flatland-rl#528 stays: that is its milestone). | ✅ 2026-11-23 | - |
 | REQ-6 | Whole book | The five-part audit of 2026-11-23 (§4.3-§4.8) worked off; deviations recorded in §4.4-§4.8. | ✅ 2026-11-23 | - |
-| NFR-2 | The book builds | Build above: `build.sh` exits 0 on branch and base, no failed notebook; the same 173 warnings on both (none new). | ✅ 2026-11-23 | - |
+| NFR-2 | The book builds | Build above: `build.sh` exits 0 on branch and base, no failed notebook; the same warnings on both (Sphinx: 315 on each, none new). | ✅ 2026-11-24 | - |
 
 ### 4.3 Design by contract (REQ-1, REQ-2; DP-3)
 
@@ -556,18 +556,18 @@ over in §4.3-§4.7; PR #42 has no unresolved thread left (checked 2026-11-23).
 
 | ID | Findings | Step | Category | Severity | Commit message | Commit(s) | Needs | Blocked by |
 |---|---|---|---|---|---|---|---|---|
-| 💡 S-1 | - | Add this plan. | docs | low | `docs(plans): plan the book update to flatland-rl main for edge lengths, denied crossings and malfunctions.` |  | - | - |
-| 💡 S-2 | - | Design by contract (§4.3). | needs update for >4.3.0 | high | `docs(design-by-contract): take over edge lengths and denied crossings from flatland-rl main.` |  | S-1 | - |
-| 💡 S-3 | - | Speed profiles text and tables (§4.4). | needs update for >4.3.0 | high | `docs(speed-profiles): measure distance against the transition length and keep it on a denied crossing.` |  | S-2 | - |
-| 💡 S-4 | - | Speed profiles long-edge timeline (§4.4, REQ-3). | needs coverage for >4.3.0 | medium | `docs(speed-profiles): plot a train on long transitions, recorded from a RailEnv run.` |  | S-3 | - |
-| 💡 S-5 | - | Actions and agent pages (§4.4). | needs update for >4.3.0 | high | `docs(actions): keep the distance on a denied crossing and measure it against the transition length.` |  | S-3 | - |
-| 💡 S-6 | - | Key concepts step text (§4.4) and reset flowchart, infos example (§4.7). | needs update for >4.3.0 | medium | `docs(key-concepts): keep the distance on a denied crossing and restart malfunctions on reset.` |  | S-2 | - |
-| 💡 S-7 | - | Railway features, simulation model, transitions, scenario generation (§4.5). | needs update for >4.3.0 | high | `docs(transition-lengths): describe transition lengths in the grid and graph model, with a graph example.` |  | S-3 | - |
-| 💡 S-8 | - | Observations, rewards, environment information (§4.6). | needs update for >4.3.0 | medium | `docs(observations): sum transition lengths in distances and link the code on main.` |  | S-7 | - |
-| 💡 S-9 | - | Stochasticity and observation builder (§4.7). | needs update for >4.3.0 | medium | `docs(stochasticity): reproduce malfunctions on a reset with the same seed.` |  | S-1 | - |
-| 💡 S-10 | - | Persistence and evaluation (§4.7). | needs update for >4.3.0 | medium | `docs(persistence): save transition lengths, malfunction generator state and the state machine setting.` |  | S-7, S-9 | - |
-| 💡 S-11 | - | Other pages (§4.8). | docs | low | `docs: label historical and planned content and the 5.0.0 version.` |  | S-1 | - |
-| 💡 S-12 | - | Build in a copy against `main`, screenshots, greps of §4.2. | test-coverage | medium | `docs(plans): add the screenshots of the book update to flatland-rl main.` |  | S-2-S-11 | - |
+| ✅ S-1 | - | Add this plan. | docs | low | `docs(plans): plan the book update to flatland-rl main for edge lengths, denied crossings and malfunctions.` | 592ecf8 | - | - |
+| ✅ S-2 | - | Design by contract (§4.3). | needs update for >4.3.0 | high | `docs(design-by-contract): take over edge lengths and denied crossings from flatland-rl main.` | f6bcafa | S-1 | - |
+| ✅ S-3 | - | Speed profiles text and tables (§4.4). | needs update for >4.3.0 | high | `docs(speed-profiles): measure distance against the transition length and keep it on a denied crossing.` | 1a65a07 | S-2 | - |
+| ✅ S-4 | - | Speed profiles long-edge timeline (§4.4, REQ-3). | needs coverage for >4.3.0 | medium | `docs(speed-profiles): plot a train on long transitions, recorded from a RailEnv run.` | 1a65a07 (with S-3) | S-3 | - |
+| ✅ S-5 | - | Actions and agent pages (§4.4). | needs update for >4.3.0 | high | `docs(actions): keep the distance on a denied crossing and measure it against the transition length.` | de583f9 | S-3 | - |
+| ✅ S-6 | - | Key concepts step text (§4.4) and reset flowchart, infos example (§4.7). | needs update for >4.3.0 | medium | `docs(key-concepts): keep the distance on a denied crossing and restart malfunctions on reset.` | bb89d2d | S-2 | - |
+| ✅ S-7 | - | Railway features, simulation model, transitions, scenario generation (§4.5). | needs update for >4.3.0 | high | `docs(transition-lengths): describe transition lengths in the grid and graph model, with a graph example.` | 9eeaf8a | S-3 | - |
+| ✅ S-8 | - | Observations, rewards, environment information (§4.6). | needs update for >4.3.0 | medium | `docs(observations): sum transition lengths in distances and link the code on main.` | 650effd | S-7 | - |
+| ✅ S-9 | - | Stochasticity and observation builder (§4.7). | needs update for >4.3.0 | medium | `docs(stochasticity): reproduce malfunctions on a reset with the same seed.` | 8341685 | S-1 | - |
+| ✅ S-10 | - | Persistence and evaluation (§4.7). | needs update for >4.3.0 | medium | `docs(persistence): save transition lengths, malfunction generator state and the state machine setting.` | 02cda9b | S-7, S-9 | - |
+| ✅ S-11 | - | Other pages (§4.8). | docs | low | `docs: label historical and planned content and the 5.0.0 version.` | 4034914 | S-1 | - |
+| ✅ S-12 | - | Build in a copy against `main`, screenshots, greps of §4.2. | test-coverage | medium | `docs(plans): add the screenshots of the book update to flatland-rl main.` | 63680b6 | S-2-S-11 | - |
 
 ### 11.2 Rebase and merge
 
