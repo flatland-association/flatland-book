@@ -28,7 +28,7 @@ The episodes finish when all the trains have reached their target, or when the m
 
 For the score, we add `+1.0` to the normalized return of each episode to make it positive (it is then in the range `[0.0, 1.0]`). We then sum up these normalized returns, which results in the **total normalized return**.
 
-You can read more about the [reward structure](../../environment/environment/rewards.md) in the environment documentation.
+You can read more about the [reward structure](../../environment/environment/rewards.ipynb) in the environment documentation.
 
 ⏱ Time limits
 ---
