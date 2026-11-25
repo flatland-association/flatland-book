@@ -37,10 +37,10 @@ City Placement
 
 Cities are placed randomly (or evenly) on the grid of given height and width. Coordinates with $r_\text{city}+1$ distance to the borders or $2~(r_\text{city}+1)$ to other city centers are excluded, such that cities do not overlap and have sufficient distance between each other. Generation stops when no cities are able to be placed anymore or $n_\text{city}$ is reached. 
 
-<img src="figs/city_gen/city_gen_empty.svg" alt="empty" width="20%"/>
-<img src="figs/city_gen/city_gen_A.svg" alt="gen A" width="20%"/>
-<img src="figs/city_gen/city_gen_B.svg" alt="gen B" width="20%"/>
-<img src="figs/city_gen/city_gen_C.svg" alt="gen C" width="20%"/>
+<img src="figs/city_gen/city_gen_empty.png" alt="empty" width="20%"/>
+<img src="figs/city_gen/city_gen_A.png" alt="gen A" width="20%"/>
+<img src="figs/city_gen/city_gen_B.png" alt="gen B" width="20%"/>
+<img src="figs/city_gen/city_gen_C.png" alt="gen C" width="20%"/>
 
 
 Inner and Outer Connection Points
@@ -48,9 +48,9 @@ Inner and Outer Connection Points
 
 Inner and outer connection points are added at the borders of the cities on two opposing cardinal directions according to the orientation of the city, which is defined by the direction of its nearest neighbor (by manhattan distance). The number of pairs of inner tracks is randomly chosen between 1 and $n_\text{inner}$ and defines the number of inner connection points per cardinal direction which is 2 times this number (for $n_\text{inner}=1$ it is always 2). The number of outer connections per cardinal direction is randomly chosen between 1 and $n_\text{inter}$ (or the number of inner connection points if thats lower). The inner connection points are offset such that parallel tracks have their inner connection points not in parallel.  
 
-<img src="figs/connections/city_neigbors.svg" alt="neighbors" width="20%"/>
-<img src="figs/connections/connection_points_A.svg" alt="neighbors" width="20%"/>
-<img src="figs/connections/connection_points_all.svg" alt="neighbors" width="20%"/>
+<img src="figs/connections/city_neigbors.png" alt="neighbors" width="20%"/>
+<img src="figs/connections/connection_points_A.png" alt="neighbors" width="20%"/>
+<img src="figs/connections/connection_points_all.png" alt="neighbors" width="20%"/>
 
 
 Pathfinding between Cities 
@@ -58,14 +58,23 @@ Pathfinding between Cities
 
 For each city for each cardinal direction, the nearest city in that direction is found. If no city exists the nearest one 90 degrees counterclockwise, then 90 degrees clockwise is chosen. In each city for each each outer connection point the outer connection point with the closest (manhattan) distance of the in this way found other city is identified. These two outer connection points of different cities are then connected via a rail path. This path is found using an A* path-finding algorithm with a manhattan distance heuristic only allowing cells which are not part of cities and with a penalty on choosing cells which already contain rails (giving them $+1$ distance cost in the heuristic). This process is repeated for each city and each outer connection point. As the rails placed in this way may overwrite existing rail paths, resulting in invalid transitions, some rail cells will need to be fixed later adding switches to allow for all necessary transitions. 
 
+<img src="figs/paths/path_A_B.png" alt="" width="20%"/>
+<img src="figs/paths/path_A_B_2.png" alt="" width="20%"/>
+<img src="figs/paths/path_B_A.png" alt="" width="20%"/>
+<img src="figs/paths/path_all.png" alt="" width="20%"/>
+
 Inner Cities & Train Stations 
 -------------------------
 
 In each cities the inner connection points are connected by straight rail paths. Train stations are places in the middle of these paths and parallel stations/tracks per city labeled starting from 0. Parallel tracks are connected with each other and inner connections points are connected to outer connection points in straight lines (where they both exist). 
 
+<img src="figs/inner/path_inner_A.png" alt="" width="20%"/>
+<img src="figs/inner/path_inner_all.png" alt="" width="20%"/>
+<img src="figs/inner/stations.png" alt="" width="20%"/>
 
 Fixing Transitions 
 -------------------------
 All cells which are in cities and part of the connections between cities are checked, if their transitions are valid. Invalid transitions are fixed in the process creating switches. Resulting crossings might be level-free. 
 
-
+<img src="figs/fixed_paths.png" alt="" width="20%"/>
+<img src="figs/env.png" alt="" width="15%"/>
