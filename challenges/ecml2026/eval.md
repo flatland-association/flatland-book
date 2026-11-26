@@ -21,7 +21,7 @@ The primary metrics uses the **normalized return** from your agents - the higher
 What is the **normalized return**?
 
 - The **returns** are the sum of Flatland's default rewards your agents accumulate during each episode as described
-  in [rewards.md](../../environment/environment/rewards.md)
+  in [Rewards](../../environment/environment/rewards.ipynb)
 - To **normalize** these return, we scale them so that they stays in the range $[0.0, 1.0]$. To guarantee this, the maximum penalty per agent can be at most
   `max_episode_steps`. This normalized rewards allows to compare results between environments of different dimensions and different number of agents.
 
@@ -76,7 +76,7 @@ Evaluation is stopped when a submission does not reach the threshold of 25% comp
 
 ### Factors in reward function
 
-The factors for the [reward function](../../environment/environment/rewards.md) in this competition are (as implemented by
+The factors for the [reward function](../../environment/environment/rewards.ipynb) in this competition are (as implemented by
 [`ECML2026Rewards` in flatland-rl 4.2.6](https://github.com/flatland-association/flatland-rl/blob/v4.2.6/flatland/envs/rewards.py#L371); the reward
 function page describes the current flatland-rl version):
 
