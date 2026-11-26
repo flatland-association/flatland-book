@@ -3,6 +3,12 @@ set -x
 
 FLATLAND_MODULE_PATH=$(python -c 'import os; import importlib; print(os.path.dirname(importlib.import_module("flatland").__file__))')
 FLATLAND_MODULE_VERSION=$(python -c "import flatland; print(flatland.__version__)")
+# FLATLAND_DOCS_VERSION (optional) names the release the docs describe when building against an unreleased flatland-rl, whose
+# version is guessed from its last tag (e.g. 4.3.1.dev383+gac932d167 on the way to 5.0.0); the installed version follows it.
+FLATLAND_DOCS_TITLE_VERSION=${FLATLAND_MODULE_VERSION}
+if [ -n "${FLATLAND_DOCS_VERSION:-}" ]; then
+  FLATLAND_DOCS_TITLE_VERSION="${FLATLAND_DOCS_VERSION}, ${FLATLAND_MODULE_VERSION}"
+fi
 
 cp ${FLATLAND_MODULE_PATH}/../notebooks/graph_demo.ipynb environment/environment
 if [ "$(uname)" == "Darwin" ]; then
@@ -16,7 +22,9 @@ cp ${FLATLAND_MODULE_PATH}/../notebooks/Agent-Close-Following.ipynb environment/
 
 python -c 'import pypandoc; pypandoc.convert_file("resources/bibliography/bibliography_gen.md", "gfm", outputfile="resources/bibliography.md", extra_args=["--csl=resources/bibliography/agu-chrono.csl", "--lua-filter=resources/bibliography/group-by-year.lua", "--wrap=none"])'
 
-sphinx-apidoc --force -a -e -o apidocs ${FLATLAND_MODULE_PATH}  -H "Flatland ${FLATLAND_MODULE_VERSION} API Reference" --tocfile 'index'
+# remove stubs of modules no longer in the installed flatland-rl (apidocs/ is generated, see .gitignore)
+rm -rf apidocs
+sphinx-apidoc --force -a -e -o apidocs ${FLATLAND_MODULE_PATH}  -H "Flatland ${FLATLAND_DOCS_TITLE_VERSION} API Reference" --tocfile 'index'
 
 # tweak mermaid directives for sphinx, see https://sphinxcontrib-mermaid-demo.readthedocs.io/en/latest/index.html
 if [ "$(uname)" == "Darwin" ]; then

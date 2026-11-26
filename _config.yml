@@ -1,6 +1,7 @@
 # Book settings, see https://jupyterbook.org/en/stable/customize/config.html
 title: ""
 author: The Flatland Community
+copyright: "2026"
 logo: assets/images/flatland-logo.svg
 
 

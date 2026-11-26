@@ -19,6 +19,9 @@ jobs:
         with:
           python-version: "3.12"
       - name: Build
+        env:
+          # flatland-rl main is unreleased 5.0.0 work; drop this once 5.0.0 is released and main moves on
+          FLATLAND_DOCS_VERSION: "pre-5.0.0 (main)"
         run: |
           set -euxo pipefail
           pip install -U -r requirements.txt

@@ -98,6 +98,11 @@ has 4 branches coming from it in the directions *Left, Forward, Right and Backwa
 is build form the example rail above. Nodes where there are no possibilities are filled with `-inf` and are not all shown here for simplicity. The tree however,
 always has the same number of nodes for a given tree depth.
 
+Since `flatland 5.0.0`, actions are applied at cell entry (see [Actions](../environment/actions)): how the agent leaves its current cell is already fixed
+by its next entry point, so the branching at the root is no longer actionable, the agent takes the branch through its next entry point. An action given now
+decides how the agent leaves its next cell: if the next cell is a switch, it chooses among the children of the node reached along that branch.
+`TreeObsForRailEnv` itself still spans the tree from the current position of the agent.
+
 ![Tree_Observation](../../assets/images/tree_observation_tree.png)
 
 Each node is filled with information gathered along the path to the node. Currently each node contains 12 features:
@@ -128,7 +133,8 @@ Missing values are handled as follow:
 
 Special cases:
 
-- In case of the root node, the values are `[0, 0, 0, 0, distance from agent to target, own malfunction, own speed]`
+- In case of the root node, the values are `[0, 0, 0, 0, distance from agent to target, own malfunction, own speed]`; the own speed is 0 while the agent is
+  off the map
 - In case the target node is reached, the values are `[0, 0, 0, 0, 0]`.
 
 ```{admonition} Code reference

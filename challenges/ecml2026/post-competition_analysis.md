@@ -35,7 +35,8 @@ See [eval.md](./eval.md) for rewards and normalized rewards definitions.
 
 ### Submission Comparison per Scenario
 
-See [eval.md](./eval.md) for the definition of the reward categories normalized score.
+See [eval.md](./eval.md) for the definition of the reward categories normalized score. The scores were computed with flatland-rl 4.2.6; the reward
+behaviour changed from flatland-rl 4.3.0 on due to fixes (see the [flatland-rl changelog](https://github.com/flatland-association/flatland-rl/blob/main/CHANGELOG.md#430-2026-08-10)).
 
 ![submission comparison per scenario](./plots/submission_comparison_per_scenario_normalized.png)
 
