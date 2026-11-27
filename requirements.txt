@@ -3,5 +3,6 @@ sphinxcontrib-mermaid
 pypandoc_binary
 # flatland-rl main until 5.0.0 is released, as the book describes 5.0.0 and PyPI only has 4.x
 # TODO require flatland-rl>=5 from PyPI once 5.0.0 is released, so that a too old Python fails at install instead of building the docs for 4.x
-flatland-rl @ git+https://github.com/flatland-association/flatland-rl.git@main
+# TODO back to @main once flatland-rl#569 is merged: the timetables page checks the timetables of that branch
+flatland-rl @ git+https://github.com/flatland-association/flatland-rl.git@569-intermediate-times-speed
 pytest
