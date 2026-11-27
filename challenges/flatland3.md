@@ -1,7 +1,7 @@
 Flatland 3
 ===
 
-The **[Flatland 3 Challenge](https://www.aicrowd.com/challenges/flatland-3)** is the newest competition around the **Flat**land environment.
+The **[Flatland 3 Challenge](https://www.aicrowd.com/challenges/flatland-3)** was the 2021 competition around the **Flat**land environment.
 
 <!-- ![Flatland](../assets/images/flatland_wide.png) -->
 

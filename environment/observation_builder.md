@@ -47,4 +47,7 @@ Perturbing observations can be implemented as wrapper around existing observatio
 * Wrapper to add Gaussian noise to numpy array based observations.
 * Tree obs wrapper to make trains blind for N timesteps according to Poisson.
 
+The tree obs wrapper starts its perturbations over at the start of each episode, drawing them from the `np_random` it is given, not from the env's.
+`env.reset(random_seed=...)` does not reseed it: to reproduce the perturbations, reseed that `np_random` before `env.reset()`.
+
 > This feature was introduced in [4.2.0](https://github.com/flatland-association/flatland-rl/pull/255)

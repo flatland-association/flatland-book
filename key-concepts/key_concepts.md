@@ -125,7 +125,7 @@ Commonalities and differences with RLlib:
 | `step()`                         | Returns observations, rewards, dones and infos. Rewards are keyed by handle: `{0: -1.0, 1: 0.0}`.                                                                                                                                                                                                                                                                                                                                | Returns observations, rewards, terminateds, truncateds and infos, keyed by agent id.                                                                                                                                                             |
 | `dones`                          | `{0: True, 1: False, "__all__": False}`: an agent is done once it has arrived. `"__all__"` is set when all agents have arrived or at `max_episode_steps`, which sets all agents done.                                                                                                                                                                                                                                            | Two dicts, terminateds and truncateds, each `{"agent_1": False, "__all__": False}`: terminated once an agent reaches a terminal state, truncated when the episode is cut off, e.g. by a time limit. `"__all__"` ends the episode for all agents. |
 | Simultaneous or sequential moves | Simultaneous moves, as in a Markov game, also called stochastic game ([Littman 1994](https://mlanthology.org/icml/1994/littman1994icml-markov)): all agents get observations and may act in every step. `action_required` in the infos says which train has to decide. [PettingZoo](https://pettingzoo.farama.org/) calls this the [Parallel API](https://pettingzoo.farama.org/api/parallel/) (`PettingZooParallelEnvWrapper`). | Simultaneous or sequential (turn-based) moves: only agents with an observation in the dict act in the next step. PettingZoo calls the sequential form the [Agent Environment Cycle (AEC) API](https://pettingzoo.farama.org/api/aec/).           |
-| `infos`                          | Keyed by info, then by handle: `{"action_required": {0: True, 1: False}, "malfunction": {0: 0, 1: 3}, "speed": {0: 1.0, 1: 0.0}, "state": {0: TrainState.MOVING, 1: TrainState.MALFUNCTION}}`. `RayMultiAgentWrapper` converts it to RLlib's layout.                                                                                                                                                                             | Keyed by agent id, then by info: `{"agent_1": {...}, "agent_2": {...}, "__common__": {...}}`, with `"__common__"` for data shared by all agents.                                                                                                 |
+| `infos`                          | Keyed by info, then by handle: `{"action_required": {0: True, 1: False}, "malfunction": {0: 0, 1: 3}, "speed": {0: Fraction(1, 1), 1: Fraction(0, 1)}, "state": {0: TrainState.MOVING, 1: TrainState.MALFUNCTION}}`. `RayMultiAgentWrapper` converts it to RLlib's layout.                                                                                                                                                                             | Keyed by agent id, then by info: `{"agent_1": {...}, "agent_2": {...}, "__common__": {...}}`, with `"__common__"` for data shared by all agents.                                                                                                 |
 | Policies                         | One policy for all agents (`act_many()`); a policy that needs different behaviour per agent does the mapping itself.                                                                                                                                                                                                                                                                                                             | Several policies; a mapping function maps each agent to one of them.                                                                                                                                                                             |
 | Training                         | Flatland does not train: `Policy` is used for evaluation. Training goes through the RLlib and PettingZoo wrappers.                                                                                                                                                                                                                                                                                                               | RLlib trains the policies.                                                                                                                                                                                                                       |
 | Callbacks                        | `EffectsGenerator.on_episode_start()`, `on_episode_step_start()` and `on_episode_step_end()` modify the environment, e.g. for malfunctions.                                                                                                                                                                                                                                                                                      | [`RLlibCallback`](https://docs.ray.io/en/latest/rllib/rllib-callback.html)`.on_episode_start()`, `on_episode_step()` observe the episode; Flatland's names follow them.                                                                          |
@@ -399,13 +399,13 @@ wrapper (`RailEnvStateMachineWrapper`) that updates `agent.state` after `step()`
 | (1) malfunction_handler.update_counter             | Count down the current malfunctions of all agents, at the start of the step.                                                                                                                                                                                                                                                                                                                           |
 | (2) effects_generator.on_episode_step_start        | Hook for external events modifying the env (state) before the agents are updated. The `MalfunctionEffectsGenerator` draws new malfunctions here (`malfunction_handler.generate_malfunction`).                                                                                                                                                                                                          |
 | rail.apply_action_independent                      | Apply the action (`RailEnvActions.from_value`, missing actions become DO_NOTHING) to the next entry point (or the initial entry point if the agent is not on the map yet), independent of the other agents. MOVE_LEFT/MOVE_RIGHT are corrected to MOVE_FORWARD where no turn is possible. Returns no entry point if the action is invalid (e.g. MOVE_FORWARD or DO_NOTHING facing a symmetric switch). |
-| (3)-(7) candidate entry points, speed and distance | From the pre-step values only, compute the candidate current and next entry point (unchanged mid-cell, the next entry point and the one after it at a cell exit, the initial entry point at map entry), the candidate speed and the candidate distance. `action_valid` is `False` for an invalid action at a cell exit.                                                                                |
+| (3)-(7) candidate entry points, speed and distance | From the pre-step values only, compute the candidate current and next entry point (unchanged before the end of the transition, the next entry point and the one after it at a cell exit (distance + speed ≥ the transition length), the initial entry point at map entry), the candidate speed and the candidate distance. `action_valid` is `False` for an invalid action at a cell exit.                                                                                |
 | (8) resource_map.get_resource                      | Map the current and the candidate (current, next) entry points to resources (the cell, or the cell and axis at level-free crossings).                                                                                                                                                                                                                                                                  |
 | resource_check.add_agent                           | Register the current and the candidate resource with the `MotionCheck` conflict resolution.                                                                                                                                                                                                                                                                                                            |
 | (10) resource_check.find_conflicts                 | Find and resolve conflicts between all agents' candidates.                                                                                                                                                                                                                                                                                                                                             |
 | (11) resource_check.check_resource                 | Whether the agent's candidate is granted given the other agents' candidates.                                                                                                                                                                                                                                                                                                                           |
 | (12) position update                               | If granted, the agent takes its candidate current and next entry point; otherwise they stay unchanged.                                                                                                                                                                                                                                                                                                 |
-| (13) speed_counter.set                             | If granted, the agent takes its candidate speed and distance (`None` off map); if a crossing is denied, the speed is set to 0 and the distance stays at the cell boundary.                                                                                                                                                                                                                             |
+| (13) speed_counter.set                             | If granted, the agent takes its candidate speed and distance (`None` off map); if a crossing is denied, the speed is set to 0 and the distance and transition length keep their pre-step values.                                                                                                                                                                                                                             |
 | (14) handle_done_state                             | Based on the new entry point, check whether the target is reached and remove the agent if `remove_agents_at_target` is set in the env.                                                                                                                                                                                                                                                                 |
 | (15) step_reward                                   | Compute step rewards.                                                                                                                                                                                                                                                                                                                                                                                  |
 | end_of_episode_update                              | Have all agents terminated? Set dones.                                                                                                                                                                                                                                                                                                                                                                 |
@@ -438,7 +438,7 @@ flowchart TD
                 direction TB
                 m_cand_ep["_candidate_entry_points()"] --> m_cand_speed["_candidate_speed()"]
                 m_cand_speed --> m_cand_dist["_candidate_distance()"]
-                m_cand_dist --> m_get_resource["resource_map.get_resource()<br/>(current and candidate edge)"]
+                m_cand_dist --> m_get_resource["resource_map.get_resource()<br/>(current and candidate transition)"]
             end
             collect_loop -->|yes| m_cand_ep
             m_get_resource --> m_add_agent["resource_check.add_agent()"]
@@ -472,7 +472,7 @@ flowchart TD
 
 `_candidate_entry_points`, `_candidate_speed` and `_candidate_distance` are static methods: they compute the candidate from the pre-step values of the
 agent (entry points, speed, distance, malfunction, earliest departure) and the action only, without looking at other agents. `collect` returns the
-resource the agent holds on its current edge and the one it would hold on its candidate edge. `distribute` takes the candidate entry points if
+resource the agent holds on its current transition and the one it would hold on its candidate transition. `distribute` takes the candidate entry points if
 `check_resource` grants them and sets the speed and distance with `speed_counter.set`. See [Design by Contract](design_by_contract) for the
 pre- and postconditions of these methods.
 
@@ -480,8 +480,8 @@ Resource Check
 --------------
 
 The resource check (`env.resource_check`, a `MotionCheck`) resolves the conflicts between the agents' candidates in one go, independent of the order in
-which the agents are processed. In the collect phase, each agent registers two resources with `add_agent`: the resource it holds on its current edge
-(current and next entry point) and the resource it would hold on its candidate edge. The resource map maps an edge to the resource at its from entry
+which the agents are processed. In the collect phase, each agent registers two resources with `add_agent`: the resource it holds on its current transition
+(current and next entry point) and the resource it would hold on its candidate transition. The resource map maps a transition to the resource at its from entry
 point, i.e. the cell (or cell and axis at level-free crossings) in the grid, or the node's resource in the graph. `find_conflicts` then decides which
 candidates are granted, and `check_resource` returns the decision per agent in the distribute phase:
 
@@ -498,8 +498,8 @@ is denied.
 A train that is stopped or in a malfunction and is given a moving action restarts optimistically: as distance advances by the speed before the step, it
 does not cross into the next cell in this step and only registers its current resource again, which is always granted. The train gets its new speed
 (and is `MOVING` for the state machine). The resource check for the crossing happens in the next step: if the next cell is still occupied then, the
-train is stopped again (speed 0, at the end of its cell). Given a moving action in every step, a blocked train thus alternates between restarting
-and being stopped, without progress, until the next cell is free.
+train is stopped again (speed 0, distance as before the step). Given a moving action in every step, a blocked train thus alternates between restarting
+and being stopped until the next cell is free; it loses no distance.
 
 The notebook [Agent Close Following](../environment/environment/Agent-Close-Following) shows the conflict resolution of `MotionCheck` in detail. There,
 a self-loop marks an agent that keeps its resource; this includes a train that restarts optimistically.
@@ -513,7 +513,7 @@ Notation: [Mermaid Flowchart](https://mermaid.js.org/syntax/flowchart.html)
 flowchart TD
     subgraph rail_env.reset
         start(("&nbsp;")) -->|data_dir| regenerate_rail{regenerate rail?}
-        regenerate_rail -->|no| regenerate_line{regenerate line?}
+        regenerate_rail -->|no| regenerate_line{regenerate schedule?}
         regenerate_rail -->|yes| generate_rail
         regenerate_line -->|yes| generate_line
         regenerate_line -->|no| reset_agents
@@ -521,9 +521,13 @@ flowchart TD
         generate_line --> generate_timetable
         generate_timetable --> reset_agents
         reset_agents --> effects_generator.on_episode_start[effects_generator<br/>.on_episode_start]
-        effects_generator.on_episode_start --> get_info_dict
+        effects_generator.on_episode_start --> obs_builder.reset[obs_builder<br/>.reset]
+        obs_builder.reset --> get_info_dict
         get_info_dict --> get_observations
         get_observations -->|observations,infos| end_((("&nbsp;")))
     end
 
 ```
+
+`effects_generator.on_episode_start` starts the random numbers of the malfunction generators over, so `env.reset(random_seed=s)` gives the same
+malfunctions as a new env reset with seed `s` (see [Stochasticity](../environment/environment/stochasticity)).

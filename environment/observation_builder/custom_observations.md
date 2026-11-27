@@ -13,7 +13,7 @@ challenge.
 
 Flatland was built with as much flexibility as possible when it comes to building your custom observations. Whenever an environment needs to compute new
 observations for each agent, it queries an object derived from the [
-`ObservationBuilder` base class](https://github.com/flatland-association/flatland-rl/blob/v4.3.0/flatland/core/env_observation_builder.py#L25), which takes the
+`ObservationBuilder` base class](https://github.com/flatland-association/flatland-rl/blob/main/flatland/core/env_observation_builder.py#L25), which takes the
 current state of the environment and returns the desired observation.
 
 We will go through 3 examples to explain how to build custom observations:
@@ -29,7 +29,7 @@ In this first example we implement all the methods necessary for an observation 
 return a vector of size 5 filled with the ID of the agent. This is a toy example and wouldn't help an actual agent to learn anything.
 
 Custom observation builders need to derive from the [
-`flatland.core.env_observation_builder.ObservationBuilder`](https://github.com/flatland-association/flatland-rl/blob/v4.3.0/flatland/core/env_observation_builder.py#L25)
+`flatland.core.env_observation_builder.ObservationBuilder`](https://github.com/flatland-association/flatland-rl/blob/main/flatland/core/env_observation_builder.py#L25)
 base class and must implement at least the method `get(self, handle)`. The environment calls `reset(self, env)` after each environment reset; the base
 class stores the environment as `self.env`. Override `reset(self, env)` and call `super().reset(env)` first if your builder needs to pre-compute data.
 
@@ -78,16 +78,18 @@ Single-agent navigation
 -----------------------
 
 Observation builders can inherit from existing concrete subclasses of [
-`ObservationBuilder`](https://github.com/flatland-association/flatland-rl/blob/v4.3.0/flatland/core/env_observation_builder.py#L25). For example, it may be
-useful to extend the [`TreeObsForRailEnv`](https://github.com/flatland-association/flatland-rl/blob/v4.3.0/flatland/envs/observations.py#L34) observation
+`ObservationBuilder`](https://github.com/flatland-association/flatland-rl/blob/main/flatland/core/env_observation_builder.py#L25). For example, it may be
+useful to extend the [`TreeObsForRailEnv`](https://github.com/flatland-association/flatland-rl/blob/main/flatland/envs/observations.py#L34) observation
 builder. A feature of this class is that it has access to the distance map of the environment: `RailEnv.reset()` resets `env.distance_map`, which computes the
 lengths of the shortest paths from all cells and orientations to the target of each agent on first access by `env.distance_map.get()`, i.e. a distance map for
 each agent.
 
 Besides the array returned by `get()`, the distance map offers two functions on entry points:
 
-- `env.distance_map.geometric_distance(entry_point, handle)`: the minimum number of cells to cross from `entry_point` to any of the targets of agent
-  `handle`, following the rail; on the grid, this is `env.distance_map.get()[handle, row, column, direction]`. Since `flatland 5.0.0`, it replaces
+- `env.distance_map.geometric_distance(entry_point, handle)`: the minimum total transition length from `entry_point` to any of the targets of agent
+  `handle`, following the rail, i.e. the number of cells to cross when all transitions have the default length 1; on the grid, this is
+  `env.distance_map.get()[handle, row, column, direction]`. It is an `int` or a `Fraction`: with fractional transition lengths, `get()` returns an object
+  array of `Fraction`s instead of a float array, so convert it before numeric array operations. Since `flatland 5.0.0`, it replaces
   `get_agent_distance`.
 - `env.distance_map.eta(entry_point, handle, elapsed_steps, earliest_departure, speed, max_speed, acceleration_delta, distance=0)`: the earliest
   time of arrival, i.e. the step at which agent `handle` reaches a target if it follows the shortest path from `entry_point` unhindered, given in
@@ -198,14 +200,15 @@ for step in range(100):
     action = np.argmax(obs[0]) + 1
     obs, all_rewards, done, _ = env.step({0: action})
     print("Rewards: ", all_rewards, "  [done=", done, "]")
+    if done["__all__"]:
+        break
 
     env_renderer.render_env(show=True, frames=True, show_observations=False)
     time.sleep(0.1)
 ```
 
 The code sample above is based on [
-`custom_observation_example_02_SingleAgentNavigationObs.py`](https://github.com/flatland-association/flatland-rl/blob/main/examples/custom_observation_example_02_SingleAgentNavigationObs.py),
-which still computes the directions from the current cell and thus applies them one cell late since `flatland 5.0.0`.
+`custom_observation_example_02_SingleAgentNavigationObs.py`](https://github.com/flatland-association/flatland-rl/blob/main/examples/custom_observation_example_02_SingleAgentNavigationObs.py).
 
 Using predictors and rendering observations
 -------------------------------------------

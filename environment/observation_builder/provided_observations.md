@@ -41,7 +41,7 @@ This observation space is well suited for single-agent navigation but does not p
 participants must improve on this observation space to solve the challenge.
 
 ```{admonition} Code reference
-This observation is defined in [flatland.envs.observations.GlobalObsForRailEnv](https://github.com/flatland-association/flatland-rl/blob/v4.3.0/flatland/envs/observations.py#L528)
+This observation is defined in [flatland.envs.observations.GlobalObsForRailEnv](https://github.com/flatland-association/flatland-rl/blob/main/flatland/envs/observations.py#L546)
 ```
 
 Local grid observation
@@ -75,7 +75,7 @@ departed yet, `get()` fails.
 is turned as the agent’s direction changes.*
 
 ```{admonition} Code reference
-This observation is defined in [flatland.envs.observations.LocalObsForRailEnv](https://github.com/flatland-association/flatland-rl/blob/v4.3.0/flatland/envs/observations.py#L605)
+This observation is defined in [flatland.envs.observations.LocalObsForRailEnv](https://github.com/flatland-association/flatland-rl/blob/main/flatland/envs/observations.py#L623)
 ```
 
 Tree observation
@@ -105,18 +105,20 @@ decides how the agent leaves its next cell: if the next cell is a switch, it cho
 
 ![Tree_Observation](../../assets/images/tree_observation_tree.png)
 
-Each node is filled with information gathered along the path to the node. Currently each node contains 12 features:
+Each node is filled with information gathered along the path to the node. Currently each node contains 12 features. Distances are sums of transition
+lengths (see [Transitions](../environment/transitions)), i.e. the number of cells when all transitions have the default length 1; they are floats and can be
+fractional.
 
-- **Channel 0:** if own target lies on the explored branch the current distance from the agent in number of cells is stored.
-- **Channel 1:** if another agents target is detected the distance in number of cells from current agent position is stored.
-- **Channel 2:** if another agent is detected the distance in number of cells from current agent position is stored.
+- **Channel 0:** if own target lies on the explored branch the current distance from the agent is stored.
+- **Channel 1:** if another agents target is detected the distance from current agent position is stored.
+- **Channel 2:** if another agent is detected the distance from current agent position is stored.
 - **Channel 3:** possible conflict detected - this relies on a **predictor** that we will introduce afterward
-    - tot_dist = Other agent predicts to pass along this cell at the same time as the agent, we store the distance in number of cells from current agent
+    - tot_dist = Other agent predicts to pass along this cell at the same time as the agent, we store the distance from current agent
       position
     - 0 = No other agent reserve the same cell at similar time
 - **Channel 4:** if an not usable switch (for agent) is detected we store the distance. An unusable switch is a switch where the agent does not have any choice
   of path (ie the agent is blocked), but other agents coming from different directions might.
-- **Channel 5:** This feature stores the distance (in number of cells) to the next node (e.g. switch or target or dead-end)
+- **Channel 5:** This feature stores the distance to the next node (e.g. switch or target or dead-end)
 - **Channel 6:** minimum remaining travel distance from node to the agent's target given the direction of the agent if this path is chosen
 - **Channel 7:** number of agents going in the same direction found on path to node
 - **Channel 8:** number of agents going in the opposite direction found on path to node
@@ -138,9 +140,10 @@ Special cases:
 - In case the target node is reached, the values are `[0, 0, 0, 0, 0]`.
 
 ```{admonition} Code reference
-This observation is defined in [flatland.envs.observations.TreeObsForRailEnv](https://github.com/flatland-association/flatland-rl/blob/v4.3.0/flatland/envs/observations.py#L34)
+This observation is defined in [flatland.envs.observations.TreeObsForRailEnv](https://github.com/flatland-association/flatland-rl/blob/main/flatland/envs/observations.py#L34)
 ```
 
 Notice how **channel 3** indicates if a possible conflict is detected. In order to predict conflicts, the tree observation relies on a predictor, which
-anticipates where agents will be in the future. We provide a stock predictor that assumes each agent just travels along its shortest path. We
+anticipates where agents will be in the future. We provide a stock predictor that assumes each agent just travels along its shortest path; it assumes the agent has just entered its current transition and ignores its progress along it
+([flatland-rl issue #570](https://github.com/flatland-association/flatland-rl/issues/570)). We
 will [talk in more details about predictors](custom_observations.md) when introducing custom observations. 

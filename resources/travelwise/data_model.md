@@ -57,11 +57,11 @@ classDiagram
     namespace Flatland {
         class RailEnv {
             effects_generator
-            events_generator
+            events_generator "planned"
             step() "env step, called by controller"
             reset() "re-generate a new rail, line and timetable"
-            register() "register for event topics"
-            deregister() "de-register from event topics"
+            register() "planned: register for event topics"
+            deregister() "planned: de-register from event topics"
         }
 
         class TransitionMap {
@@ -72,6 +72,7 @@ classDiagram
             get_predecessor_entry_points()
             is_successor()
             is_valid_entry_point()
+            edge_length() "length of a transition, default 1"
         }
 
         class Station {
@@ -110,9 +111,9 @@ classDiagram
         class EnvAgent {
             current_entry_point: Optional[EntryPoint]
             next_entry_point: Optional[EntryPoint]
-            distance: Fraction
-            timetable: AgentTimeTable
-            next_stop(): LineFlexibleStop
+            speed_counter: SpeedCounter "speed, distance: Fraction, edge_length"
+            timetable: AgentTimeTable "planned"
+            next_stop(): LineFlexibleStop "planned"
         }
         class EntryPoint
     }
@@ -126,3 +127,5 @@ classDiagram
     }
 
 ```
+
+Members marked "planned" and the `TravelWise` namespace are not in flatland-rl yet.

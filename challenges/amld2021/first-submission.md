@@ -46,7 +46,7 @@ $ pip install flatland-rl==2.2.2
 ```
 
 ```{note}
-Flatland is tested with Python 3.6 and 3.7 on modern versions of macOS and Linux. We are unable to support Windows at this time. WSL is known to work but you may encounter problems with graphical rendering. Your [contribution is welcome](../../misc/contributing.md) if you can help with this!
+Flatland 2.2.2 is tested with Python 3.6 and 3.7 on modern versions of macOS and Linux. We are unable to support Windows at this time. WSL is known to work but you may encounter problems with graphical rendering. Your [contribution is welcome](../../misc/contributing.md) if you can help with this!
 ```
 
 ✅ Test your local setup

@@ -34,7 +34,7 @@ A passenger, therefore, _hops down on_ a vehicle running on the infrastructure l
 
 The environments described in this section are planned; they are not implemented in flatland-rl yet.
 
-The infrastructure layer corresponds to a generalized version of the `RailEnv` named `InfrastructureEnv`. It is a graph representation of the infrastructure with different transportation modes as properties of the edges. An edge that can only be travelled by foot, i.e. a walkway, is also included in the infrastructure graph.
+The infrastructure layer corresponds to a generalized version of the `RailEnv` named `InfrastructureEnv`, building on `AbstractRailEnv`, which `RailEnv` and the graph-based `GraphRailEnv` already share. It is a graph representation of the infrastructure with different transportation modes as properties of the edges. An edge that can only be travelled by foot, i.e. a walkway, is also included in the infrastructure graph.
 
 The passenger layer is represented as a `PassengerEnv` where all properties correspond to those of the `InfrastructureEnv` (inheritance in OO terms), but the `PassengerEnv` depends on an existing `InfrastructureEnv` to be generated. The following table provides an overview of the properties. Both `InfrastructureEnv` and `PassengerEnv` together constitute a `TravelWiseEnv`.
 
