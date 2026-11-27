@@ -50,6 +50,8 @@ fi
 
 # plain html imgs seem not copied
 cp assets/images/* _build/html/_images
+mkdir -p _build/html/environment/generators
+cp -R environment/generators/figs _build/html/environment/generators/
 
 # fail on any notebook execution error: jupyter-book writes a report per failed notebook (any exception, incl. SyntaxError),
 # and notebooks executed with allow_errors keep the error as an output.
