@@ -50,9 +50,11 @@ See below the steps of generating three cities:
 </figcaption>
 </figure>
 <figure>
+<div style="display: flex; gap: 1rem;">
 <img src="figs/city_gen/city_gen_A.png" alt="gen A" width="32%"/>
 <img src="figs/city_gen/city_gen_B.png" alt="gen B" width="32%"/>
 <img src="figs/city_gen/city_gen_C.png" alt="gen C" width="32%"/>
+</div>
 <figcaption>
     Steps of the generation of three Cities A, B and C. Only green cells remain valid city center choices. 
 </figcaption>
@@ -77,8 +79,10 @@ The number of pairs of inner tracks is randomly chosen between 1 and $n_\text{in
 See below how this plays out for our example:
 
 <figure>
+<div style="display: flex; gap: 1rem;">
 <img src="figs/connections/connection_points_A.png" alt="neighbors" width="45%"/>
 <img src="figs/connections/connection_points_all.png" alt="neighbors" width="45%"/>
+</div>
 <figcaption>
     City A orients itself towards its nearest neighbor City C and generates inner and outher connection points along the axis of that direction. The other cities do the same. The number of outer (and for larger cities also inner) connection points can vary between cities. 
 </figcaption>
